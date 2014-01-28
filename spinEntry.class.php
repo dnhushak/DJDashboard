@@ -6,9 +6,6 @@ final class spinEntry {
 	private $track;
 
 	public function __construct(){
-		$this->artist = new submissionString();
-		$this->album = new submissionString();
-		$this->track = new submissionString();
 	}
 
 	public function __destruct(){
@@ -32,11 +29,12 @@ final class spinEntry {
 
 	public function settrack($track){
 		if (!empty($track))
-			$this->track = $track;
+			$this->track = $album;
 	}
 
-	public function submit(){
+	public function normalize(){
+		$this->artist = normalizeAll($this->artist);
+		$this->album = normalizeAll($this->album);
 	}
 }
-
 ?>

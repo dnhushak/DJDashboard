@@ -6,8 +6,9 @@
  * -Removing extra spaces
  * -Removing leading articles (The, La, etc.)
  * -Conforming to English case rules for proper nouns
- * @param string $string 
- *		The string to normalize
+ *
+ * @param string $string
+ *        	The string to normalize
  * @return string
  */
 function normalizeAll($string){
@@ -17,10 +18,10 @@ function normalizeAll($string){
 	}
 	else {
 		// Run all separate normalization functions
-		$string = normalizeChars();
-		$string = removeSpaces();
-		$string = removeLeadingArticles();
-		$string = normalizeCase();
+		$string = normalizeChars($string);
+		$string = removeLeadingArticles($string);
+		$string = normalizeCase($string);
+		$string = removeSpaces($string);
 		return $string;
 	}
 }
@@ -39,17 +40,11 @@ function normalizeAll($string){
 function removeSpaces($string){
 	$string = preg_replace("/\s+/", " ", $string);
 	// Split the string into an array of values
-	$strarray = explode(" ", $string);
+	$string = explode(" ", $string);
 	// Remove leading spaces
-	while ($strarray [0] == '' || $strarray [0] == ' ') {
-		array_shift($strarray);
-	}
-	// Remove trailing spaces
-	while ($strarray [(count($strarray) - 1)] == '' || $strarray [(count($strarray) - 1)] == ' ') {
-		array_pop($strarray);
-	}
+	$string = array_filter($string);
 	// Reassemble String
-	$string = implode(" ", $strarray);
+	$string = implode(" ", $string);
 	return $string;
 }
 
@@ -58,19 +53,27 @@ function removeSpaces($string){
  *
  * Example:
  *
- * Bjšrk -> Bjork
+ * BjÃ¶rk -> Bjork
  *
  * @param string $string
  *        	The string to normalize
  * @return The normalized string
  */
 function normalizeChars($string){
+	
+	//Change ampersands to and
+	$string = str_replace("&","and", $string);
+	//return trim($string);
 	// The array of offending characters
-	$replacees = array ("'","&",",","\'",".","À","à","È","è","Ì","ì","Ò","ò","Ù","ù","Á","É","Í","Ó","Ú","Ý","á","é","í","ó","ú","ý","á","é","í","ó","ú","ý","Â","Ê","Î","Ô","Û","â","ê","î","ô","û","Ã","Ñ","Õ","ã","ñ","õ","Ä","Ë","Ï","Ö","Ü","Ÿ","ä","ë","ï","ö","ü","ÿ" );
+	$replacees = array ("'","&",",","\'",".","Â¿","â€¡","Â»","Ã‹","Ãƒ","Ã","â€œ","Ãš","Å¸","Ë˜","Â¡","â€¦","Ã•","â€","â„","â€º","Â·","Ãˆ","ÃŒ","Ã›","Ë™","Ë","Â·","Ãˆ","ÃŒ","Ã›","Ë™","Ë","Â¬","Â ","Å’","â€˜","â‚¬","â€š","Ã","Ã“","Ã™","Ëš","âˆš","â€”","â€™","â€ž","Ã’","Ä±","Æ’","Ã€","Å“","Ã·","â€¹","Ã¼","â€°","ÃŽ","Ã”","Ë†","Â¸","Ë‡" );
 	// The array of characters to replace the offenders
 	$replacers = array ("","and","","","","a","a","e","e","i","i","o","o","u","u","a","e","i","o","u","y","a","e","i","o","u","y","a","e","i","o","u","y","a","e","i","o","u","a","e","i","o","u","a","n","o","a","n","o","a","e","i","o","u","y","a","e","i","o","u","y" );
 	// Replace
 	$string = str_replace($replacees, $replacers, $string);
+	
+	//$string = preg_replace('~&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', $string);
+	//$string = preg_replace(array('~[^0-9a-z]~i', '~-+~'), ' ', $string);
+	
 	// Remove escape characters
 	$string = stripslashes($string);
 	return $string;
@@ -82,23 +85,24 @@ function normalizeChars($string){
  * Example:
  *
  * bJoRk -> Bjork
- * 
+ *
  * @param string $string
  *        	The string to normalize
  * @return The normalized string
  */
 function normalizeCase($string){
 	// Split the string into an array of values
-	$strarray = explode(" ", $string);
+	$string = explode(" ", $string);
+	$stringarray [0] = "";
 	// Iterate over every element of the new array
-	foreach ($strarray as $value) {
+	foreach ($string as $value) {
 		// Convert all characters to lowercase
 		$value = strtolower($value);
 		// Convert first character to uppercase
-		$value = ucfirst($value);
+		array_Push($stringarray, ucfirst($value));
 	}
 	// Reassemble String
-	$string = implode(" ", $strarray);
+	$string = implode(" ", $stringarray);
 	return $string;
 }
 
@@ -115,15 +119,15 @@ function normalizeCase($string){
  */
 function removeLeadingArticles($string){
 	// Split the string into an array of values
-	$strarray = explode(" ", $string);
+	$string = explode(" ", $string);
 	// List of articles to remove
 	$articles = array ("the","la","los","las","le","les" );
 	// Check if the first word is an article
-	if (in_array($strarray [0], $articles)) {
-		$array_shift($strarray);
+	while (in_array(strtolower($string [0]), $articles)) {
+		array_shift($string);
 	}
 	// Reassemble string
-	$string = implode(" ", $strarray);
+	$string = implode(" ", $string);
 	return $string;
 }
 ?>

@@ -35,6 +35,7 @@ final class spinEntry {
 	public function normalize(){
 		$this->artist = normalizeAll($this->artist);
 		$this->album = normalizeAll($this->album);
+		$this->track = normalizeAll($this->track);
 	}
 }
 ?>

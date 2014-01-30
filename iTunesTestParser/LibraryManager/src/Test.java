@@ -7,7 +7,7 @@ public class Test {
 		
 		
 		Library lib = new Library();
-		lib.createFromITunesDB("C:\\Users\\rclabough\\Dropbox\\iTunes Music Library.xml");
+		lib.createFromITunesDB("C:\\Users\\rclabough\\Dropbox\\iTunes Library.xml");
 	
     	lib.addAllToDB();
 

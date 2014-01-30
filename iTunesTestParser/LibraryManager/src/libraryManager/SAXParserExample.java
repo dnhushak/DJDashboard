@@ -166,7 +166,10 @@ public class SAXParserExample extends DefaultHandler {
             	Integer value = Integer.parseInt(tempVal);
             	tempTrack.setTotalTime(value);
             }
-
+            else if (previousTagVal.equalsIgnoreCase("Location")&& qName.equals("string"))
+            {
+            	tempTrack.setPath(tempVal);
+            }
             // Mark when we come to the end of the "Tracks" dict.
             if ("key".equals(qName) && "Playlists".equalsIgnoreCase(tempVal)) {
                 foundTracks = false;

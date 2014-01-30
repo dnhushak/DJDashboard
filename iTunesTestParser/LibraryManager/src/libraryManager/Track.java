@@ -15,15 +15,40 @@ public class Track
         private int iTunesID;
         private long totalTime;
         private long sampleRate;
-
+        private boolean FCC;
         private int playCount;
+        private boolean recommended;
 
         public String getName() {
             return name;
         }
 
+        public Track()
+        {
+        	FCC = false;
+        	recommended = false;
+        }
+        
         public void setName(String name) {
             this.name = name;
+            if(name.contains("EXPLICIT"))
+            {
+            	setFCC(true);
+            }
+            if(name.toUpperCase().contains("RECO"))
+            {
+            	setRecommended(true);
+            }
+        }
+        
+        public void setRecommended(boolean value)
+        {
+        	recommended = value;
+        }
+        
+        public void setFCC(boolean value)
+        {
+        	FCC = value;
         }
 
         public String getArtist() {
@@ -65,8 +90,9 @@ public class Track
         	
         	//Query goes : Name, Artist, Album, PlayCount, FCCFlag, Recommended, ItunesID, ReleaseDate, EndDate
         	String query = "Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "('" + this.name + "','" +
-        			this.artist + "','" + this.album + "'," + this.playCount + ",null,null," + 
-        			iTunesID + ",null, null);"; 
+        			this.artist + "','" + this.album + "'," + this.playCount + "," + this.FCC + "," + 
+        			this.recommended + "," + 
+        			iTunesID + ",null, null, '" + this.path + "');"; 
         	return query;
         	
         }
@@ -84,6 +110,11 @@ public class Track
 		public void setITL(Integer value) {
 			iTunesID = value;
 			
+		}
+		
+		public void setPath(String value)
+		{
+			path = value;
 		}
 
 		public void setTotalTime(Integer value) {

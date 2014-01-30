@@ -35,8 +35,7 @@ public class DatabaseConnection
 	  {
 		  Class.forName("com.mysql.jdbc.Driver");
 		  connect = DriverManager
-		          .getConnection("jdbc:mysql://skynet.from-ia.com:4002/kure?"
-		              + "user=rclabough&password=Spart416");
+		          .getConnection(DBINFO.ConnectionString());
 	  }
 	  
 	  
@@ -83,7 +82,7 @@ public class DatabaseConnection
 	  
 	  public int callQuery(String query) throws SQLException
 	  {
-		  CallableStatement stat;
+		  PreparedStatement stat;
 		  stat = connect.prepareCall(query);
 		  ResultSet r = stat.executeQuery();
 		  if(r.next())

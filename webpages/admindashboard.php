@@ -23,7 +23,7 @@
 		</ul>
 		<div id="content"> 
 		</div>
-		<div id="footer">Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.   KURE is Funded by the Government of the Student Body.</a></div>
+		<div id="footer">Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.   KURE is Funded by the Government of the Student Body.</div>
 	</div>
 </body>
 </html>

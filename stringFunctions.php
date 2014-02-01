@@ -61,16 +61,7 @@ function removeSpaces($string){
  */
 function normalizeChars($string){
 	// The array of offending characters
-<<<<<<< HEAD
 	include('characterReplace.php');
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-	$replace = array ('&' => 'And','À' => 'A','Á' => 'A','Â' => 'A','Ã' => 'A','Ä' => 'A','Å' => 'A','Æ' => 'AE','Ă' => 'A','à' => 'a','á' => 'a','â' => 'a','ã' => 'a','ä' => 'a','å' => 'a','ă' => 'a','æ' => 'ae','þ' => 'b','Þ' => 'B','Ç' => 'C','ç' => 'c','È' => 'E','É' => 'E','Ê' => 'E','Ë' => 'E','è' => 'e','é' => 'e','ê' => 'e','ë' => 'e','Ğ' => 'G','ğ' => 'g','Ì' => 'I','Í' => 'I','Î' => 'I','Ï' => 'I','İ' => 'I','ı' => 'i','ì' => 'i','í' => 'i','î' => 'i','ï' => 'i','Ñ' => 'N','Ò' => 'O','Ó' => 'O','Ô' => 'O','Õ' => 'O','Ö' => 'O','Ø' => 'O','ö' => 'o','ø' => 'o','ð' => 'o','ñ' => 'n','ò' => 'o','ó' => 'o','ô' => 'o','õ' => 'o','Š' => 'S','š' => 's','Ş' => 'S','ș' => 's','Ș' => 'S','ş' => 's','ß' => 'B','ț' => 't','Ț' => 'T','Ù' => 'U','Ú' => 'U','Û' => 'U','Ü' => 'U','ù' => 'u','ú' => 'u','û' => 'u','ü' => 'u','Ý' => 'Y','¥' => 'y','ý' => 'y','ý' => 'y','ÿ' => 'y','Ž' => 'Z','ž' => 'z' );
-=======
-	include('characterReplace.php');
->>>>>>> Moved the specific replacement array to a new file, for easier editing and reading
->>>>>>> Wat
 	//Replace all accented characters with regular characters
 	$string = strtr($string, $replace);
 	// Remove punctuation

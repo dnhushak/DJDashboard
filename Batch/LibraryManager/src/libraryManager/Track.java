@@ -1,5 +1,6 @@
 package libraryManager;
 
+
 import sqlConnect.DBINFO;
 
 
@@ -87,6 +88,17 @@ public class Track
         
         public String dbQuery()
         {
+        	//Escape apostrophes
+        	this.name = this.name.replaceAll("'","");
+        	this.name = this.name.length() > 100 ? this.name.substring(0, 99) : this.name;
+        	this.artist = this.artist.replaceAll("'","");
+        	this.artist = this.artist.length() > 100 ? this.artist.substring(0, 99) : this.artist;
+        	this.album = this.album.replaceAll("'","");
+        	this.album = this.album.length() > 100 ? this.album.substring(0, 99) : this.album;
+        	this.path = this.path.replaceAll("'", "");
+        	
+        	//escape %20
+        	this.path = this.path.replaceAll("%20", " ");
         	
         	//Query goes : Name, Artist, Album, PlayCount, FCCFlag, Recommended, ItunesID, ReleaseDate, EndDate
         	String query = "Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "('" + this.name + "','" +

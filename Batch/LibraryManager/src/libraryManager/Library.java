@@ -44,18 +44,11 @@ public class Library
 				try
 				{
 					Track t = libIter.next();
-					String n = t.getName();
-					if(n.length() > 255)
-					{
-						n = n.substring(0, 255);
-					}
-					n = n.replace("'", "");
-					t.setName(n);
 					conn.callQuery(t.dbQuery());
 				}
 				catch(Exception e)
 				{
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 				}
 				
 			}

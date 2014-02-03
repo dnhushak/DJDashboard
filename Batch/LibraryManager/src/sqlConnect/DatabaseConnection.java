@@ -73,6 +73,7 @@ public class DatabaseConnection
 			  }
 		  }
 		  query.append("');");
+		  
 		  CallableStatement stat;
 		  stat = connect.prepareCall(query.toString());
 		  ResultSet r = stat.executeQuery();

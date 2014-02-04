@@ -1,6 +1,5 @@
 <?php
-//This is the master list of characters and their replacements when normalizing text inputs
-
+// This is the master list of characters and their replacements when normalizing text inputs
 $replace = array (
 		'&' => 'And',
 		'À' => 'A',
@@ -27,7 +26,7 @@ $replace = array (
 		'É' => 'E',
 		'Ê' => 'E',
 		'Ë' => 'E',
-		'∑'=>'E',
+		'∑' => 'E',
 		'è' => 'e',
 		'é' => 'e',
 		'ê' => 'e',

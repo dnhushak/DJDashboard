@@ -33,3 +33,37 @@ body {
 #login {
 	float: right;
 }
+.title {
+	text-align: center;
+	background-color: #D8D8D8;
+	border: 1px ridge #F2F2F2;
+	margin: 0;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.library-column {
+	padding: 0;
+}
+#playlists, #suggested {
+	padding-left: 5px;
+}
+#albums, #release-date {
+	padding-right: 5px;
+}
+.list-view {
+	background-color: #FAFAFA;
+	border: 1px solid #F2F2F2;
+}
+.elements {
+	padding-left: 0px;
+	list-style-type: none;
+}
+.item {
+	padding-left: 8px;
+}
+.active-item {
+	background-color: #E6E6E6;
+}
+.active-column .active-item {
+	background-color: #B4CFEC;
+}

@@ -31,5 +31,10 @@
 		{
 			$this->name = $name;
 		}
+		
+		public function jEncode()
+		{
+			return json_encode((array)$this);
+		}
 	}
 ?>

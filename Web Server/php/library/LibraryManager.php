@@ -29,9 +29,11 @@
 			$this->GetTracksByAlbumID = "GetTracksByAlbumID";
 		}
 		
+		/**
+		*	Gets an array of Tracks from the AlbumID
+		**/
 		public function GetTracksByAlbum($AlbumID)
 		{
-			echo "Album ID : " . $AlbumID . "<br>";
 			$conn = new SqlConnect();
 			$results = $conn->callStoredProc($this->GetTracksByAlbumID, array($AlbumID));
 			$trackList = array();
@@ -47,6 +49,9 @@
 			return $trackList;
 		}
 		
+		/**
+		*	Gets a list of albums by an Artist ID
+		**/
 		public function GetAlbumsByID($ArtistID)
 		{
 			$conn = new SqlConnect();
@@ -62,6 +67,9 @@
 			return $albumList;
 		}
 		
+		/**
+		*	Gets an array of all Artists
+		**/
 		public function GetAllArtists($Alphabetical)
 		{
 			$conn = new SqlConnect();

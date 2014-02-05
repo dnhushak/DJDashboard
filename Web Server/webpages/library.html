@@ -1,64 +1,66 @@
 <script src="../js/library-view.js"></script>
 <div>
 	<div class="row">
-		<div class="col-md-4 library-column active-column" id="playlists">
+		<div class="col-md-4 library-column active-column select-column" id="playlists">
 			<h5 class="title" style="text-align: center;">Playlists</h5>
 			<div class="list-view">
-				<ul class="elements">
+				<ul class="elements selection">
 					<li class="active-item item">All</li>
-					<li class="item">Punkish</li>
-					<li class="item">Altohalic</li>
-					<li class="item">AHHHHH</li>
 				</ul>	
 			</div>
 		</div>
-		<div class="col-md-4 library-column" id="artists">
+		<div class="col-md-4 library-column select-column" id="artists">
 			<h5 class="title" style="text-align: center;">Artists</h5>
 			<div class="list-view">
-				<ul class="elements">
+				<ul class="elements selection">
 					<li class="active-item item">All</li>
-					<li class="item">This</li>
-					<li class="item">That</li>
-					<li class="item">Those</li>
 				</ul>	
 			</div>
 		</div>
-		<div class="col-md-4 library-column" id="albums">
+		<div class="col-md-4 library-column select-column" id="albums">
 			<h5 class="title" style="text-align: center;">Albums</h5>
 			<div class="list-view">
-				<ul class="elements">
+				<ul class="elements selection">
 					<li class="active-item item">All</li>
-					<li class="item">Look</li>
-					<li class="item">Like</li>
-					<li class="item">Loot</li>
 				</ul>	
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-1 library-column" id="suggested">
+	<div class="row select-column">
+		<div class="col-md-1 library-column track-column" id="suggested">
 			<h5 class="title">Suggested</h5>
+			<ul class="elements tracks">
+			</ul>
 		</div>
-		<div class="col-md-3 library-column" id="track">
+		<div class="col-md-3 library-column track-column" id="track">
 			<h5 class="title">Name</h5>
+			<ul class="elements tracks">
+			</ul>
 		</div>
-		<div class="col-md-2 library-column" id="artist">
+		<div class="col-md-2 library-column track-column" id="artist">
 			<h5 class="title">Artist</h5>
+			<ul class="elements tracks">
+			</ul>
 		</div>
-		<div class="col-md-2 library-column" id="album">
+		<div class="col-md-3 library-column track-column" id="album">
 			<h5 class="title">Album</h5>
+			<ul class="elements tracks">
+			</ul>
 		</div>
-		<div class="col-md-1 library-column" id="genre">
+		<div class="col-md-1 library-column track-column" id="genre">
 			<h5 class="title">Genre</h5>
+			<ul class="elements tracks">
+			</ul>
 		</div>
-		<div class="col-md-1 library-column" id="play-count">
+		<div class="col-md-1 library-column track-column" id="play-count">
 			<h5 class="title">Plays</h5>
+			<ul class="elements tracks">
+			</ul>
 		</div>
-		<div class="col-md-1 library-column" id="FCC">
+		<div class="col-md-1 library-column track-column" id="FCC">
 			<h5 class="title">Explicit</h5>
-		</div>
-		<div class="col-md-1 library-column" id="release-date">
-			<h5 class="title">Release Date</h5>
+			<ul class="elements tracks">
+			</ul>
 		</div>
 	</div>
 </div>

@@ -3,6 +3,14 @@
 	{
 		private $name;
 		private $ID;
+		private $TrackList;
+		
+		public function getTracks()
+		{
+			$lib = new LibraryManager();
+			$this->TrackList = $lib->GetTracksByAlbum($this->ID);
+			return $this->TrackList;
+		}
 		
 		public function getName()
 		{

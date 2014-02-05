@@ -2,11 +2,14 @@
 	include 'sqlconnect.php';
 	include 'Artist.php';
 	include 'Album.php';
+	include 'Track.php';
 	class LibraryManager
 	{
 		private $GetArtistsAlphabetical;
 		private $GetArtists;
 		private $GetAlbumsByArtistID;
+		private $PlayTrackByID;
+		private $GetTracksByAlbumID;
 		
 		
 		public function __construct()
@@ -22,6 +25,26 @@
 			$this->GetArtistsAlphabetical = "GetArtistListAlphabetical";
 			$this->GetArtists = "GetArtistList";
 			$this->GetAlbumsByArtistID = "GetAlbumsFromArtistID";
+			$this->PlayTrackByID = "PlayTrackByID";
+			$this->GetTracksByAlbumID = "GetTracksByAlbumID";
+		}
+		
+		public function GetTracksByAlbum($AlbumID)
+		{
+			echo "Album ID : " . $AlbumID . "<br>";
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->GetTracksByAlbumID, array($AlbumID));
+			$trackList = array();
+			while($rowInfo = mysqli_fetch_assoc($results))
+			{
+				$tempTrack = new Track();
+				$tempTrack->setName($rowInfo['Track']);
+				$tempTrack->setID($rowInfo['ID']);
+				$tempTrack->setFCC($rowInfo['FCC']);
+				$tempTrack->setRecommended($rowInfo['Recommended']);
+				$trackList[] = $tempTrack;
+			}
+			return $trackList;
 		}
 		
 		public function GetAlbumsByID($ArtistID)
@@ -64,5 +87,15 @@
 			
 		}
 		
+		public function PlayTrack($ID)
+		{
+			$conn = new SqlConnect();
+			$UserID = 1;
+			$OnAirSessionID = null;
+			$results = $conn->calledStoredProc($this->PlayTrackByID, array($ID, $UserID, $OnAirSessionID));
+			
+			//USER INFORMATION
+			//LOGIN INFORMATION
+		}
 	}
 ?>

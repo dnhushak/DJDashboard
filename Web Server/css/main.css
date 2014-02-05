@@ -70,3 +70,7 @@ body {
 .active-column .active-item {
 	background-color: #B4CFEC;
 }
+.selection {
+	max-height: 125px;
+	overflow-y: scroll;
+}

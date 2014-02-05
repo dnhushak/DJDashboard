@@ -1,6 +1,5 @@
 <?php
-include 'library\LibraryManager.php';
-	echo "Start";
+include '../library/LibraryManager.php';
 	$conn = new LibraryManager();
 	$array = $conn->GetAllArtists(false);
 	

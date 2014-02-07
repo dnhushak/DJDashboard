@@ -9,13 +9,14 @@ $sql = "SELECT track.*, album.Name as 'Album Name', artist.Name as 'Artist Name'
 		ORDER BY Name;";
 
 $connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
-
+$connection->query("SET NAMES UTF8;");
 $tracks = $connection->query($sql);
 $songs = array();
  foreach( $tracks as $song) {
- 	// echo $song["Recommended"] . " " . $song["Name"] . " " . $song["Artist Name"] . " " . $song["Album Name"] . " " . "GENERE" . " " . $song["PlayCount"] . " " . $song["FCC"] . " " . $song["ReleaseDate"];;
- 	// echo  "<br>";
+//echo $song["Recommended"] . " " . $song["Name"] . " " . $song["Artist Name"] . " " . $song["Album Name"] . " " . "GENERE" . " " . $song["PlayCount"] . " " . $song["FCC"] . " " . $song["ReleaseDate"];;
+ //	 echo  "<br>";
  	array_push($songs, $song);
  }
+ //var_dump($songs);
 echo json_encode($songs);
 ?>

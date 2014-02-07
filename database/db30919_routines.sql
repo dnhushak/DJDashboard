@@ -40,10 +40,34 @@ CREATE DEFINER=`u30919`@`%` PROCEDURE `addTrack`(
 	ITunesID int,
 	CalledReleaseDate date,
 	CalledEndDate datetime,
+	aPrimaryGenre varchar(45),
+	aSecondaryGenre varchar(45),
 	FilePath varchar(1023)
 )
 BEGIN
-	#Fetch ArtistID, Add artist if not found
+
+	#GENRE
+	#Find GenreID, if it doesn't exist, then add it.
+
+	#PRIMARY GENRE
+	IF(aPrimaryGenre IS NOT NULL) THEN
+		SET @PrimaryGenreID = (SELECT idGenre FROM db30919.genre WHERE Name = aPrimaryGenre);
+		IF(@PrimaryGenreID IS NULL) THEN
+			INSERT INTO genre(Name) Values(aPrimaryGenre);
+			SET @PrimaryGenreID = @@IDENTITY;
+		END IF;
+	END IF;
+
+	#SECONDARY GENRE
+	IF(aSecondaryGenre IS NOT NULL) THEN
+		SET @SecondaryGenreID = (SELECT idGenre FROM db30919.genre WHERE Name = aSecondaryGenre);
+		IF(@SecondaryGerneID IS NULL) THEN
+			INSERT INTO genre(Name) Values(aSecondaryGenre);
+			SET @SecondaryGenreID = @@IDENTITY;
+		END IF;
+	END IF;
+
+		#Fetch ArtistID, Add artist if not found
 	SET @ArtistID = (SELECT art.idArtist FROM artist art WHERE art.Name = CalledArtist);
 	IF(@ArtistID IS NULL) then
 		INSERT INTO artist(Name) VALUES(CalledArtist);
@@ -52,9 +76,10 @@ BEGIN
 
 	SET @AlbumID = (SELECT alb.idalbum FROM album alb WHERE alb.Name = CalledAlbum AND alb.idArtist = @ArtistID);
 	IF(@AlbumID IS NULL) THEN
-		INSERT INTO album(Name, idArtist) Values(CalledAlbum, @ArtistID);
+		INSERT INTO album(Name, idArtist, idGenre) Values(CalledAlbum, @ArtistID, @PrimaryGenreID);
 		SET @AlbumID = @@IDENTITY;
 	END IF;
+
 
 	#Add the track based on ArtistID and AlbumID
 	#Variables: CalledName, CalledArtist, CalledAlbum, CalledPlayCount, FCCFlag, Recommended, ITunesID, ReleaseDate, EndDate (Some can be null)
@@ -127,6 +152,26 @@ BEGIN
 	END IF;
 	
 	
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetAlbumList` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumList`()
+BEGIN
+	SELECT idalbum as 'ID', Name as 'Album Name'
+	FROM album;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -221,6 +266,60 @@ BEGIN
 SELECT idArtist as 'ID', Name as 'Artist'
 	FROM db30919.artist
 	ORDER BY Name;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetPlaysByUserID` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`u30919`@`%` PROCEDURE `GetPlaysByUserID`(
+	aUserID bigint
+)
+BEGIN
+	SELECT trk.Name, trk.idtrack, play.PlayDate, play.idonairsession
+	FROM db30919.playtrack play
+	INNER JOIN db30919.track trk ON play.idtrack = trk.idtrack
+	WHERE play.iduser = aUserID;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetTrackChunks` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTrackChunks`(
+	aStartIndex bigint,
+	aNumberToReturn bigint
+)
+BEGIN
+	SELECT trk.idtrack as 'TrackID', trk.Name as 'TrackName', alb.idalbum as 'AlbumID', alb.Name as 'AlbumName', 
+		art.idartist as 'ArtistID', art.Name as 'ArtistName', trk.ReleaseDate as 'ReleaseDate', trk.FCC as 'FCC',
+		trk.Recommended as 'Recommended', trk.PlayCount as 'PlayCount'
+	FROM db30919.track trk
+	INNER JOIN db30919.album alb ON trk.idalbum = alb.idalbum
+	INNER JOIN db30919.artist art ON alb.idartist = art.idartist
+	WHERE trk.idtrack >= aStartIndex
+		AND trk.idtrack < (aStartIndex + aNumberToReturn)
+		AND trk.EndDate IS NULL;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -348,8 +447,13 @@ CREATE DEFINER=`u30919`@`%` PROCEDURE `PlayTrackByID`(
 	aOnAirSessionID bigint
 )
 BEGIN
-	INSERT INTO db30919.playtrack(idtrack, iduser, idonairsessionid, playdate)
-		VALUES(aTrackID, aUserID, aOnAirSession, current_timestamp);
+	#Insert the play into the track plays table
+	INSERT INTO db30919.playtrack(idtrack, iduser, idonairsession, playdate)
+		VALUES(aTrackID, aUserID, aOnAirSessionID, current_timestamp);
+	#Update the playcount in the track table
+	UPDATE db30919.track
+		SET PlayCount = PlayCount + 1
+		WHERE idtrack = aTrackID;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -366,4 +470,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-04 22:41:56
+-- Dump completed on 2014-02-07 15:45:07

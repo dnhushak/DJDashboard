@@ -29,9 +29,10 @@ CREATE TABLE `album` (
   `idartist` bigint(20) DEFAULT NULL,
   `Name` varchar(255) DEFAULT NULL,
   `Priority` int(11) DEFAULT NULL,
+  `idgenre` int(11) DEFAULT NULL,
   PRIMARY KEY (`idalbum`),
   KEY `IDALBUMARTIST_idx` (`idartist`)
-) ENGINE=MyISAM AUTO_INCREMENT=2982 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2982 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -43,4 +44,4 @@ CREATE TABLE `album` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-04 22:41:50
+-- Dump completed on 2014-02-07 15:45:03

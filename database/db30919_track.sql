@@ -37,10 +37,14 @@ CREATE TABLE `track` (
   `ITLID` bigint(20) DEFAULT NULL,
   `Path` varchar(1023) DEFAULT NULL,
   `PlayCount` int(11) DEFAULT NULL,
+  `idPrimaryGenre` int(11) DEFAULT NULL,
+  `idSecondaryGenre` int(11) DEFAULT NULL,
   PRIMARY KEY (`idtrack`),
   KEY `IDTRACKALBUM_idx` (`idalbum`),
-  KEY `IDTRACKARTIST_idx` (`idartist`)
-) ENGINE=MyISAM AUTO_INCREMENT=18661 DEFAULT CHARSET=latin1;
+  KEY `IDTRACKARTIST_idx` (`idartist`),
+  KEY `IDTRACKGENREPRIM_idx` (`idPrimaryGenre`),
+  KEY `IDTRACKGENRESEC_idx` (`idSecondaryGenre`)
+) ENGINE=InnoDB AUTO_INCREMENT=18661 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +56,4 @@ CREATE TABLE `track` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-04 22:41:52
+-- Dump completed on 2014-02-07 15:45:04

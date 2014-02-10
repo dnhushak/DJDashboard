@@ -1,0 +1,46 @@
+Library track count: 20624
+Number of Playlists: 41
+
+Playlist: Library; Number of tracks: 20623; Number of duplicate tacks: 20623
+Playlist: Music; Number of tracks: 20623; Number of duplicate tacks: 20623
+Playlist: Books; Number of tracks: 0; Number of duplicate tacks: 0
+Playlist: Autobot Playlists; Number of tracks: 2055; Number of duplicate tacks: 2055
+Playlist: **THESE GO TO THE AUTOBOT AUTOMATICALLY**; Number of tracks: 1163; Number of duplicate tacks: 1163
+Playlist: Autobot High; Number of tracks: 95; Number of duplicate tacks: 95
+Playlist: Autobot Light; Number of tracks: 493; Number of duplicate tacks: 493
+Playlist: Autobot Low; Number of tracks: 160; Number of duplicate tacks: 160
+Playlist: Autobot Medium; Number of tracks: 91; Number of duplicate tacks: 91
+Playlist: Groovebot; Number of tracks: 150; Number of duplicate tacks: 150
+Playlist: Partybot; Number of tracks: 202; Number of duplicate tacks: 202
+Playlist: adds; Number of tracks: 85; Number of duplicate tacks: 85
+Playlist: auto adds 5/12/13; Number of tracks: 8; Number of duplicate tacks: 8
+Playlist: auto adds 7/9/13; Number of tracks: 23; Number of duplicate tacks: 23
+Playlist: autoadds 7/21/13; Number of tracks: 8; Number of duplicate tacks: 8
+Playlist: autoadds 8/27/13; Number of tracks: 6; Number of duplicate tacks: 6
+Playlist: Lou's Grooves; Number of tracks: 15; Number of duplicate tacks: 15
+Playlist: Lou's Party Addz; Number of tracks: 26; Number of duplicate tacks: 26
+Playlist: Smart Playlists; Number of tracks: 1022; Number of duplicate tacks: 1022
+Playlist: 3. Low Priority - 3 stars; Number of tracks: 474; Number of duplicate tacks: 474
+Playlist: 3. Low Reco Tracks; Number of tracks: 126; Number of duplicate tacks: 126
+Playlist: 4. Medium Priority - 4 stars; Number of tracks: 415; Number of duplicate tacks: 415
+Playlist: 4. Medium Reco Tracks; Number of tracks: 80; Number of duplicate tacks: 80
+Playlist: 5. High Priority - 5 stars; Number of tracks: 133; Number of duplicate tacks: 133
+Playlist: 5. High Reco Tracks; Number of tracks: 80; Number of duplicate tacks: 80
+Playlist: Playlist; Number of tracks: 0; Number of duplicate tacks: 0
+Playlist: Out For Review; Number of tracks: 25; Number of duplicate tacks: 25
+Playlist: Reco 4. Medium; Number of tracks: 80; Number of duplicate tacks: 80
+Playlist: Crocodiles - Endless Flowers; Number of tracks: 10; Number of duplicate tacks: 10
+Playlist: High Adds; Number of tracks: 1; Number of duplicate tacks: 1
+Playlist: Internet Songs; Number of tracks: 2; Number of duplicate tacks: 2
+Playlist: KURE MUSIC; Number of tracks: 0; Number of duplicate tacks: 0
+Playlist: light 12/26; Number of tracks: 456; Number of duplicate tacks: 456
+Playlist: low 12/18; Number of tracks: 136; Number of duplicate tacks: 136
+Playlist: medium 12/17; Number of tracks: 76; Number of duplicate tacks: 76
+Playlist: Music; Number of tracks: 18494; Number of duplicate tacks: 18494
+Playlist: new playist; Number of tracks: 12; Number of duplicate tacks: 12
+Playlist: partybot adds; Number of tracks: 11; Number of duplicate tacks: 11
+Playlist: play; Number of tracks: 0; Number of duplicate tacks: 0
+Playlist: Playlist 2; Number of tracks: 0; Number of duplicate tacks: 0
+Playlist: Transcode New Light; Number of tracks: 56; Number of duplicate tacks: 56
+
+Track count with all tracks in playlists: 88139

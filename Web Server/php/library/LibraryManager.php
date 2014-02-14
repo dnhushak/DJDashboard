@@ -1,8 +1,8 @@
 <?php
-	include '../sqlconnect.php';
-	include 'Artist.php';
-	include 'Album.php';
-	include 'Track.php';
+	include_once '../sqlconnect.php';
+	include_once 'Artist.php';
+	include_once 'Album.php';
+	include_once 'Track.php';
 	class LibraryManager
 	{
 		private $GetArtistsAlphabetical;
@@ -62,6 +62,7 @@
 				$tempAlbum = new Album();
 				$tempAlbum->setName($rowInfo['Album']);
 				$tempAlbum->setID($rowInfo['ID']);
+				//This adds the item to the array. Wat?
 				$albumList[] = $tempAlbum;
 			}
 			return $albumList;

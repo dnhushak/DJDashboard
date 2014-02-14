@@ -1,5 +1,5 @@
 <?php
-include('../classes/libraryBrowser.class.php');
+include('../classes/libraryBrowser.php');
 $browser = new libraryBrowser();
 
 $ArtistID = $_GET['ArtistID'];

@@ -49,6 +49,22 @@
 			return $trackList;
 		}
 		
+		public function GetTracksByArtist($ArtistID){
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->GetTracksByArtistID, array($ArtistID));
+			$trackList = array();
+			while($rowInfo = mysqli_fetch_assoc($results))
+			{
+				$tempTrack = new Track();
+				$tempTrack->setName($rowInfo['Track']);
+				$tempTrack->setID($rowInfo['ID']);
+				$tempTrack->setFCC($rowInfo['FCC']);
+				$tempTrack->setRecommended($rowInfo['Recommended']);
+				$trackList[] = $tempTrack;
+			}
+			return $trackList;
+		}
+		
 		/**
 		*	Gets a list of albums by an Artist ID
 		**/

@@ -14,6 +14,15 @@ final class libraryBrowser {
 	}
 
 	public function getTracksByArtist($ArtistID){
+		$trackArray = $this->manager->GetTracksByArtist($ArtistID);
+		$ret = array ();
+		foreach ($trackArray as $track) {
+			$trackRow = array (
+					"ID" => $track->getID(),
+					"Name" => $track->getName() );
+			$ret [] = $trackRow;
+		}
+		return $ret;
 	}
 
 	public function getTracksByAlbum($AlbumID){

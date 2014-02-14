@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * 
@@ -158,7 +159,7 @@ public class SAXParserExample extends DefaultHandler {
         {
             if (previousTagVal.equalsIgnoreCase("Name") && qName.equals("string"))
             {
-                    tempTrack.setName(tempVal);
+                    tempTrack.setName(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Artist") && qName.equals("string"))
             {
@@ -176,7 +177,7 @@ public class SAXParserExample extends DefaultHandler {
             // Add other tags here for use
             else if (previousTagVal.equalsIgnoreCase("Location") && qName.equals("string"))
             {
-            	tempTrack.setLocation(tempVal);
+            	tempTrack.setPath(tempVal);
             }
             else if (previousTagVal.equalsIgnoreCase("Track Number") && qName.equals("integer"))
             {
@@ -202,6 +203,14 @@ public class SAXParserExample extends DefaultHandler {
             {
             	tempTrack.setPath(tempVal);
             }
+            else if (previousTagVal.equalsIgnoreCase("Grouping") && qName.equals("string"))
+            {
+            	Scanner scan = new Scanner(tempVal);
+            	scan.useDelimiter(",");
+            	tempTrack.setPrimaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
+            	tempTrack.setSecondaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
+            	scan.close();
+            }
             // Mark when we come to the end of the "Tracks" dict.
             if ("key".equals(qName) && "Playlists".equalsIgnoreCase(tempVal)) {
                 foundTracks = false;
@@ -212,7 +221,7 @@ public class SAXParserExample extends DefaultHandler {
         {
         	 if (previousTagVal.equalsIgnoreCase("Name") && qName.equals("string"))
              {
-                     tempPlaylist.setName(tempVal);
+                     tempPlaylist.setName(tempVal.trim());
              }
              else if (previousTagVal.equalsIgnoreCase("Playlist ID") && qName.equals("integer"))
              {
@@ -238,7 +247,4 @@ public class SAXParserExample extends DefaultHandler {
     /**
      * A simple representation of a song in the iTunes library.
      */
-    
-
-
 }

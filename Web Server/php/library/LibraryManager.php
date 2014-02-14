@@ -27,6 +27,7 @@
 			$this->GetAlbumsByArtistID = "GetAlbumsFromArtistID";
 			$this->PlayTrackByID = "PlayTrackByID";
 			$this->GetTracksByAlbumID = "GetTracksByAlbumID";
+			$this->GetTracksByArtistID = "GetTracksByArtistID";
 		}
 		
 		/**

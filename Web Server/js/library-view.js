@@ -30,6 +30,13 @@ $(document).ready(function() {
         }
         return false;
     }
+    clearTrackList = function(){
+        $('.track .tracks').html('');   
+        $('.artist .tracks').html('');
+        $('.album .tracks').html(''); 
+        $('.primary-genre .tracks').html('');
+        $('.secondary-genre .tracks').html(''); 
+    }
     getAlbumsByArtist = function(id){
         $.ajax({
             url: '../php/scripts/getAlbumsByArtist.php',
@@ -37,7 +44,14 @@ $(document).ready(function() {
             data: {'ArtistID': id},
             success: function() {}
         }).done(function(data){
-            var albums = JSON.parse(data);
+            var albums;
+            try{
+                albums = JSON.parse(data);
+            }catch(e){
+                console.log('Error getting albums by artist');
+                console.log(data);
+                return;
+            }
             if(albums['error'] == true){
 
             }else{
@@ -58,16 +72,20 @@ $(document).ready(function() {
             data: {'ArtistID': id},
             success: function() {}
         }).done(function(data){
-            var songs = JSON.parse(data);
+
+            var songs;
+            try{
+                songs = JSON.parse(data);
+            }catch(e){
+                console.log('Error getting tacks by artist');
+                console.log(data);
+                return;
+            }
+                
             if(songs['error'] == true){
 
             }else{
-                $('.track .tracks').html('');   
-                $('.artist .tracks').html('');
-                $('.album .tracks').html(''); 
-                $('.primary-genre .tracks').html('');
-                $('.secondary-genre .tracks').html(''); 
-
+                clearTrackList();
                 for (var i = 0; i < songs.length; i++){
                     $('.track .tracks').append('<li class="item '+songs[i]['ID']+'">'+songs[i]['Name']+'</li>');   
                     $('.artist .tracks').append('<li class="item '+songs[i]['ID']+'">'+ $('#artists .active-item').text() +'</li>');
@@ -85,16 +103,18 @@ $(document).ready(function() {
             data: {'AlbumID': id},
             success: function() {}
         }).done(function(data){
-            console.log(data);
-            var songs = JSON.parse(data);
+            var songs;
+            try{
+                songs = JSON.parse(data);
+            }catch(e){
+                console.log("Error getting tacks by album");
+                console.log(data);
+                return;
+            }
             if(songs['error'] == true){
 
             }else{
-                $('.track .tracks').html('');   
-                $('.artist .tracks').html('');
-                $('.album .tracks').html(''); 
-                $('.primary-genre .tracks').html('');
-                $('.secondary-genre .tracks').html('');  
+                clearTrackList();
 
                 for (var i = 0; i < songs.length; i++){
                     $('.track .tracks').append('<li class="item '+songs[i]['ID']+'">'+songs[i]['Name']+'</li>');   
@@ -112,7 +132,17 @@ $(document).ready(function() {
                 type: 'GET',
                 success: function() {}
         }).done(function(data) {
-                var songs = JSON.parse(data); 
+                var songs;
+                try{
+                    songs = JSON.parse(data); 
+                }catch(e){
+                    console.log("error initializing");
+                    console.log(data);
+                    return;
+                }
+                clearTrackList();
+                $('#artists .selection').html('');
+                $('#albums .selection').html('');
                 for (var i = 0; i < songs.length; i++) {
                     //Add artist name and album to seletion at the tom
                     $('#artists .selection').append('<li class="item" id="'+songs[i]['idartist']+'">'+songs[i]['Artist Name']+'</li>'); 
@@ -151,12 +181,24 @@ $(document).ready(function() {
 		$(formatClass($(this).attr('class'))).addClass('active-item');
 	});
     $(document).on('click', '#artists .item', function(){
-        getAlbumsByArtist($(this).attr('id'));
-        getTracksByArtist($(this).attr('id'));
+        if($(this).attr('id') == 'all'){
+            if($('#albums .active-item').attr('id') == 'all'){
+                initialize();
+            }else{
+                getTracksByAlbum($('#albums .active-item').attr('id'));
+            }
+        }else{
+            getAlbumsByArtist($(this).attr('id'));
+            getTracksByArtist($(this).attr('id'));
+        }
     })
     $(document).on('click', '#albums .item', function(){
         if($(this).attr('id') == 'all'){
-            getTracksByArtist($('#artists .active-item').attr('id'));
+            if($('#artists .active-item').attr('id') == 'all'){
+                initialize();
+            }else{
+                getTracksByArtist($('#artists .active-item').attr('id'));
+            }
         }else{
             getTracksByAlbum($(this).attr('id'));
         }

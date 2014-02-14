@@ -16,16 +16,27 @@ final class libraryBrowser {
 	public function getTracksByArtist($ArtistID){
 	}
 
-	public function getTracksByAlbum(){
+	public function getTracksByAlbum($AlbumID){
+		$trackArray = $this->manager->GetTracksByAlbum($AlbumID);
+		$ret = array ();
+		foreach ($trackArray as $track) {
+			$trackRow = array (
+					"ID" => $track->getID(),
+					"Name" => $track->getName() );
+			$ret [] = $trackRow;
+		}
+		return $ret;
 	}
-	// Returns a two layered array of albums. It's an array of arrays, with the sub-arrays being a two-item associative array including "ID" and "Name"
+	
+	// Returns a two layered array of albums.
+	// It's an array of arrays, with the sub-arrays being a two-item associative array including "ID" and "Name"
 	public function getAlbumsByArtist($ArtistID){
 		$albumArray = $this->manager->GetAlbumsByID($ArtistID);
 		$ret = array ();
 		foreach ($albumArray as $album) {
 			$albumRow = array (
-					ID => $album->getID(),
-					Name => $album->getName() );
+					"ID" => $album->getID(),
+					"Name" => $album->getName() );
 			$ret [] = $albumRow;
 		}
 		return $ret;

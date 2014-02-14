@@ -45,6 +45,7 @@
 				$tempTrack->setID($rowInfo['ID']);
 				$tempTrack->setFCC($rowInfo['FCC']);
 				$tempTrack->setRecommended($rowInfo['Recommended']);
+				$tempTrack->setArtist($rowInfo['Artist']);
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;

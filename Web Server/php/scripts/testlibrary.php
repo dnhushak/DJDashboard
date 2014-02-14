@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT track.*, album.Name as 'Album Name', artist.Name as 'Artist Name', artist.idartist
+$sql = "SELECT track.*, album.Name as 'Album Name', artist.Name as 'Artist Name', artist.idartist, album.idalbum
 		FROM track 
 		INNER JOIN album 
 		ON track.idalbum= album.idalbum 

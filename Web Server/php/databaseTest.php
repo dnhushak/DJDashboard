@@ -6,6 +6,7 @@ $password='pkMDpK6Rh';
 $hostname='mysql.cs.iastate.edu';
 $db = new mysqli($hostname, $username, $password, $database);
 echo $db->client_version . " " . $db->client_info . "<br/>";
+echo json_encode($db->error_list) . "<br/>";
 if($db->connect_errno > 0){
 	die('Unable to connect to database [' . $db->connect_error . ']');
 }

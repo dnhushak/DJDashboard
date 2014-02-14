@@ -92,6 +92,13 @@ $(document).ready(function() {
                     $('.album .tracks').append('<li class="item '+songs[i]['ID']+'">'+ songs[i]['Album'] +'</li>'); 
                     $('.primary-genre .tracks').append('<li class="item '+songs[i]['ID']+'">'+'GENRE'+'</li>');
                     $('.secondary-genre .tracks').append('<li class="item '+songs[i]['ID']+'">'+'GENRE'+'</li>');
+                    if(songs[i]['Recommended'] == 1){
+                        console.log(songs[i]['Recommended'] == 1);
+                        $('.' + songs[i]['ID']).addClass('reco');
+                    }
+                    if(songs[i]['FCC'] == 1){
+                        $('.track .' + songs[i]['ID']).addClass('FCC');
+                    }
                 }
             }
         })
@@ -122,6 +129,12 @@ $(document).ready(function() {
                     $('.album .tracks').append('<li class="item '+songs[i]['ID']+'">'+ $('#albums .active-item').text() +'</li>'); 
                     $('.primary-genre .tracks').append('<li class="item '+songs[i]['ID']+'">'+'GENRE'+'</li>');
                     $('.secondary-genre .tracks').append('<li class="item '+songs[i]['ID']+'">'+'GENRE'+'</li>');  
+                    if(songs[i]['Recommended'] == 1){
+                        $('.' + songs[i]['ID']).addClass('reco');
+                    }
+                    if(songs[i]['FCC'] == 1){
+                        $('.track .' + songs[i]['ID']).addClass('FCC');
+                    }
                 }
             }
         })
@@ -141,8 +154,8 @@ $(document).ready(function() {
                     return;
                 }
                 clearTrackList();
-                $('#artists .selection').html('');
-                $('#albums .selection').html('');
+                $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
+                $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
                 for (var i = 0; i < songs.length; i++) {
                     //Add artist name and album to seletion at the tom
                     $('#artists .selection').append('<li class="item" id="'+songs[i]['idartist']+'">'+songs[i]['Artist Name']+'</li>'); 

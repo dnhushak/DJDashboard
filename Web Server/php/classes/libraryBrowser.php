@@ -20,7 +20,9 @@ final class libraryBrowser {
 			$trackRow = array (
 					"ID" => $track->getID(),
 					"Name" => $track->getName(),
-					"Album" => $track->getAlbum() );
+					"Album" => $track->getAlbum(),
+					"Recommended" => $track->getRecommended(),
+					"FCC" => $track->getFCC());
 			$ret [] = $trackRow;
 		}
 		return $ret;
@@ -33,7 +35,9 @@ final class libraryBrowser {
 			$trackRow = array (
 					"ID" => $track->getID(),
 					"Name" => $track->getName(),
-					"Artist" => $track->getArtist());
+					"Artist" => $track->getArtist(),
+					"Recommended" => $track->getRecommended(),
+					"FCC" => $track->getFCC());
 			$ret [] = $trackRow;
 		}
 		return $ret;

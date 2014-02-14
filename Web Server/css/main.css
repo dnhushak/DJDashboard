@@ -1,7 +1,9 @@
 body {
 	background-color: #411414;
+	font-family: "Helvetica", sans-serif;
 }
-
+html {
+}
 .nav {
 	margin-top: 10px;
 	background-color: #f4f4f4;
@@ -23,6 +25,7 @@ body {
 	border-bottom-right-radius: 4px;
 	margin-bottom: 10px;
 	padding: 10px;
+	overflow: hidden;
 }
 #footer {
 	background-color: #f4f4f4;
@@ -43,11 +46,13 @@ body {
 }
 .library-column {
 	padding: 0;
+	margin: 0px;
+
 }
-#playlists, #suggested {
+#artists, .suggested {
 	padding-left: 5px;
 }
-#albums, #FCC {
+#albums, .FCC {
 	padding-right: 5px;
 }
 .list-view {
@@ -71,6 +76,48 @@ body {
 	background-color: #B4CFEC;
 }
 .selection {
-	max-height: 125px;
+	max-height: 15%;
 	overflow-y: scroll;
+}
+.track-view {
+	max-height: 75%;
+	overflow-y: scroll;
+	float: left;
+	width: 100%; 
+}
+.main-view {
+	width: 98%;
+	margin: auto;
+	float: left;
+	height: 100%;
+}
+.expandable {
+	height: 100%;
+	width: 1%;
+	background-color: #D8D8D8;
+	float: left;
+}
+.row {
+	margin: 0;
+}
+#filters {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+#current-playlist {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.filter-view {
+	width: 0px;
+	float: left;
+	background-color: #E6E6E6;
+}
+.playlist-view {
+	width: 0px;
+	float: left;
+	background-color: #E6E6E6;
+}
+#filter-form {
+	margin: 10px;
 }

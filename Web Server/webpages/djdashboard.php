@@ -19,7 +19,6 @@
 			<li><a id="spinlist" style="cursor: pointer">Spinlist</a></li>
 			<li><a id="library" style="cursor: pointer">Library</a></li>
 			<li><a id="profile" style="cursor: pointer">Profile</a></li>
-			
 		</ul>
 		<div id="content"> 
 		</div>

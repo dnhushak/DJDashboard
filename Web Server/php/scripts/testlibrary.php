@@ -6,7 +6,8 @@ $sql = "SELECT track.*, album.Name as 'Album Name', artist.Name as 'Artist Name'
 		ON track.idalbum= album.idalbum 
 		INNER JOIN artist 
 		ON track.idartist = artist.idartist
-		ORDER BY Name;";
+		ORDER BY Name
+		LIMIT 50;";
 
 $connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
 $connection->query("SET NAMES UTF8;");

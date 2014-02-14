@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    $("#content").css('padding-right', '0px');
+    $("#content").css('padding-left', '0px');
+
     changeActive = function(id){
     	$('.active').attr('class', '');
     	$('#' + id).parent().attr('class', 'active');

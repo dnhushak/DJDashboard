@@ -8,6 +8,8 @@ class Track {
 	private $PlayCount;
 	private $CreateDate;
 	private $Genre;
+	private $Artist;
+	private $Album;
 	// Data Fetching
 	public function getPlays(){
 	}
@@ -33,6 +35,22 @@ class Track {
 		$this->Name = $Name;
 	}
 
+	public function getAlbum(){
+		return $this->Album;
+	}
+	
+	public function setAlbum($Album){
+		$this->Album = $Album;
+	}
+	
+	public function getArtist(){
+		return $this->Artist;
+	}
+	
+	public function setArtist($Artist){
+		$this->Artist = $Artist;
+	}
+	
 	public function getFCC(){
 		return $this->FCC;
 	}

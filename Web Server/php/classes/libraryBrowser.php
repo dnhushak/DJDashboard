@@ -19,7 +19,8 @@ final class libraryBrowser {
 		foreach ($trackArray as $track) {
 			$trackRow = array (
 					"ID" => $track->getID(),
-					"Name" => $track->getName() );
+					"Name" => $track->getName(),
+					"Album" => $track->getAlbum() );
 			$ret [] = $trackRow;
 		}
 		return $ret;

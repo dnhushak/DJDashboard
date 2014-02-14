@@ -72,6 +72,9 @@ html {
 .active-item {
 	background-color: #E6E6E6;
 }
+.reco {
+	background-color: #A9F5A9;
+}
 .active-column .active-item {
 	background-color: #B4CFEC;
 }
@@ -120,4 +123,7 @@ html {
 }
 #filter-form {
 	margin: 10px;
+}
+.FCC {
+	color: red;
 }

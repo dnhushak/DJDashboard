@@ -1,5 +1,5 @@
 <?php
-echo "PHP is active </br>";
+echo "PHP v" . phpversion() . " is active<br/>";
 $database='db30919';
 $username='u30919';
 $password='pkMDpK6Rh';

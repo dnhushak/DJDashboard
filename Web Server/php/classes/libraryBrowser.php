@@ -47,7 +47,7 @@ final class libraryBrowser {
 	// It's an array of arrays, with the sub-arrays being a two-item associative array including "ID" and "Name"
 	public function getAlbumsByArtist($ArtistID){
 		$albumArray = $this->manager->GetAlbumsByID($ArtistID);
-		$ret = array ();
+		$ret = array();
 		foreach ($albumArray as $album) {
 			$albumRow = array (
 					"ID" => $album->getID(),
@@ -57,7 +57,31 @@ final class libraryBrowser {
 		return $ret;
 	}
 
-	public function getArtists($ArtistID){
+	public function getArtists(){
+		$artistArray = $this->manager->GetAllArtists(true);
+		$allArtist = array();
+		foreach ($artistArray as $artist) {
+			$artistRow = array (
+					"ID" => $artist->getID(),
+					"Name" => $artist->getName() );
+			$allArtist[] = $artistRow;
+		}
+		return $allArtist;
+	}
+	public function getAlbums(){
+		$albumArray = $this->manager->GetAllAlbums(false);
+		$allAlbum = array();
+		foreach ($albumArray as $album) {
+			$albumRow = array (
+					"ID" => $album->getID(),
+					"Name" => $album->getName() );
+			$allAlbum[] = $albumRow;
+		}
+		return $allAlbum;
+	}
+	public function getInitialInfo(){
+		return array("Artists" => $this->getArtists(),
+					 "Albums" => $this->getAlbums());
 	}
 }
 ?>

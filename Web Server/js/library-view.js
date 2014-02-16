@@ -139,41 +139,71 @@ $(document).ready(function() {
             }
         })
     }
+    getAllArtists = function() {
+        $.ajax({
+            url: '../php/scripts/getAllArtists.php',
+            type: 'GET',
+            success: function(){}
+        }).done(function(data){
+            var artists;
+            try{
+                artists = JSON.parse(data);
+            }catch(e){
+                console.log('Error loading all artists');
+                console.log(data);
+                return;
+            }
+            $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
+            for(var i = 0; i < artists.length; i++){
+                $('#artists .selection').append('<li class="item" id="'+artists[i]['ID']+'">'+artists[i]['Name']+'</li>'); 
+            }
+        });
+    }
+    getAllAlbums = function() {
+        $.ajax({
+            url: '../php/scripts/getAllAlbums.php',
+            type: 'GET',
+            success: function(){}
+        }).done(function(data){
+            var albums;
+            try{
+                albums = JSON.parse(data);
+            }catch(e){
+                console.log('Error loading all albums');
+                console.log(data);
+                return;
+            }
+            $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
+            for(var i = 0; i < albums.length; i++){
+                $('#albums .selection').append('<li class="item" id="'+albums[i]['ID']+'">'+albums[i]['Name']+'</li>'); 
+            }
+
+        });
+    }
     initialize = function(){
         $.ajax({
-                url: '../php/scripts/testlibrary.php',
-                type: 'GET',
-                success: function() {}
-        }).done(function(data) {
-                var songs;
-                try{
-                    songs = JSON.parse(data); 
-                }catch(e){
-                    console.log("error initializing");
-                    console.log(data);
-                    return;
-                }
-                clearTrackList();
-                $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
-                $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
-                for (var i = 0; i < songs.length; i++) {
-                    //Add artist name and album to seletion at the tom
-                    $('#artists .selection').append('<li class="item" id="'+songs[i]['idartist']+'">'+songs[i]['Artist Name']+'</li>'); 
-                    $('#albums .selection').append('<li class="item" id="'+songs[i]['idalbum']+'">'+songs[i]['Album Name']+'</li>');
-
-                    //Add all track information into the track view
-                    $('.track .tracks').append('<li class="item '+songs[i]['idtrack']+'">'+songs[i]['Name']+'</li>');   
-                    $('.artist .tracks').append('<li class="item '+songs[i]['idtrack']+'">'+songs[i]['Artist Name']+'</li>');
-                    $('.album .tracks').append('<li class="item '+songs[i]['idtrack']+'">'+songs[i]['Album Name']+'</li>'); 
-                    $('.primary-genre .tracks').append('<li class="item '+songs[i]['idtrack']+'">'+'GENRE'+'</li>');
-                    $('.secondary-genre .tracks').append('<li class="item '+songs[i]['idtrack']+'">'+'GENRE'+'</li>');  
-                    if(songs[i]['Recommended'] == 1){
-                        $('.' + songs[i]['idtrack']).addClass('reco');
-                    }
-                    if(songs[i]['FCC'] == 1){
-                        $('.track .' + songs[i]['idtrack']).addClass('FCC');
-                    }
-                };
+            url: '../php/scripts/getInitialInfo.php',
+            type: 'GET',
+            success: function(){}
+        }).done(function(data){
+            var initial;
+            try{
+                initial = JSON.parse(data);
+            }catch(e){
+                console.log('Error loading initial info');
+                console.log(data);
+                return;
+            }
+            var artists = initial['Artists'];
+            var albums = initial['Albums'];
+            $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
+            for(var i = 0; i < albums.length; i++){
+                $('#albums .selection').append('<li class="item" id="'+albums[i]['ID']+'">'+albums[i]['Name']+'</li>'); 
+            }
+            $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
+            for(var i = 0; i < artists.length; i++){
+                $('#artists .selection').append('<li class="item" id="'+artists[i]['ID']+'">'+artists[i]['Name']+'</li>'); 
+            }
         });
     }
     
@@ -208,7 +238,7 @@ $(document).ready(function() {
     $(document).on('click', '#albums .item', function(){
         if($(this).attr('id') == 'all'){
             if($('#artists .active-item').attr('id') == 'all'){
-                initialize();
+                getAllAlbums();
             }else{
                 getTracksByArtist($('#artists .active-item').attr('id'));
             }

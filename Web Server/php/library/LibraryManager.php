@@ -10,6 +10,7 @@
 		private $GetAlbumsByArtistID;
 		private $PlayTrackByID;
 		private $GetTracksByAlbumID;
+		private $GetAlbums;
 		
 		
 		public function __construct()
@@ -28,6 +29,7 @@
 			$this->PlayTrackByID = "PlayTrackByID";
 			$this->GetTracksByAlbumID = "GetTracksByAlbumID";
 			$this->GetTracksByArtistID = "GetTracksByArtistID";
+			$this->GetAlbums = "GetAlbumList";
 		}
 		
 		/**
@@ -94,6 +96,7 @@
 		public function GetAllArtists($Alphabetical)
 		{
 			$conn = new SqlConnect();
+			$results;
 			if($Alphabetical)
 			{
 				$results = $conn->callStoredProc($this->GetArtistsAlphabetical, null);
@@ -114,6 +117,24 @@
 			
 			return $artistList;
 			
+		}
+
+		public function GetAllAlbums($Alphbetical){
+			$conn = new SqlConnect();
+			$results;
+			if($Alphbetical){
+				//Need stored procedure for this
+			}else{
+				$results = $conn->callStoredProc($this->GetAlbums, null);
+			}
+			$albumList = array();
+			while($rowInfo = mysqli_fetch_assoc($results)){
+				$tempAlbum = new Album();
+				$tempAlbum->setName($rowInfo['Album Name']);
+				$tempAlbum->setID($rowInfo['ID']);
+				$albumList[] = $tempAlbum;
+			}
+			return $albumList;
 		}
 		
 		public function PlayTrack($ID)

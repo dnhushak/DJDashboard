@@ -49,10 +49,10 @@ html {
 	margin: 0px;
 
 }
-#artists, .suggested {
+#artists, .track {
 	padding-left: 5px;
 }
-#albums, .FCC {
+#albums, .secondary-genre {
 	padding-right: 5px;
 }
 .list-view {
@@ -79,23 +79,26 @@ html {
 	background-color: #B4CFEC;
 }
 .selection {
-	max-height: 15%;
+	max-height: 25%;
 	overflow-y: scroll;
 }
 .track-view {
-	max-height: 75%;
+	max-height: 70%;
 	overflow-y: scroll;
 	float: left;
 	width: 100%; 
+	margin-bottom: 10px;
 }
 .main-view {
 	width: 98%;
 	margin: auto;
 	float: left;
-	height: 100%;
+	height: 90%;
+	margin-bottom: 5px;
+	padding-bottom: 20px;
 }
 .expandable {
-	height: 100%;
+	height: 90%;
 	width: 1%;
 	background-color: #D8D8D8;
 	float: left;
@@ -124,6 +127,6 @@ html {
 #filter-form {
 	margin: 10px;
 }
-.FCC {
+.track .FCC {
 	color: red;
 }

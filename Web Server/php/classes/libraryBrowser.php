@@ -21,6 +21,7 @@ final class libraryBrowser {
 					"ID" => $track->getID(),
 					"Name" => $track->getName(),
 					"Album" => $track->getAlbum(),
+					"AlbumID" => $track->getAlbumID(),
 					"Recommended" => $track->getRecommended(),
 					"FCC" => $track->getFCC());
 			$ret [] = $trackRow;

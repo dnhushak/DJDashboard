@@ -6,8 +6,8 @@
  * @param {bool} FCC - is explicit
  */
 function Track (name, id, reco, FCC) {
-	this.name = name;
-	this.id = id;
+	this.Name = name;
+	this.ID = id;
 	this.reco = reco;
 	this.FCC = FCC;
 }

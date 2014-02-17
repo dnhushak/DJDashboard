@@ -8,6 +8,10 @@
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/PageLoad.js"></script>
+<script src="../js/initialLoad.js"></script>
+<script src="../js/classes/Artist.js"></script>
+<script src="../js/classes/Album.js"></script>
+<script src="../js/classes/Track.js"></script>
 </head>
 <body>
 	<div class="container">

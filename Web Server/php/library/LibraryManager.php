@@ -62,6 +62,7 @@
 				$tempTrack = new Track();
 				$tempTrack->setName($rowInfo['Track']);
 				$tempTrack->setAlbum($rowInfo['Album']);
+				$tempTrack->setAlbumID($rowInfo['AlbumID']);
 				$tempTrack->setArtist($rowInfo['Artist']);
 				$tempTrack->setID($rowInfo['ID']);
 				$tempTrack->setFCC($rowInfo['FCC']);

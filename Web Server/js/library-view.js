@@ -1,6 +1,8 @@
 /**
  *  @requires Artist.js
  *  @requires Album.js
+ *  @requires Track.js
+ *  @requires initialLoad.js
  */
 
 $(document).ready(function() {
@@ -11,7 +13,12 @@ $(document).ready(function() {
     var expansionOffset = 14;
     var filtersExpanded = false;
     var playlistExpanded = false;
-    var artists = new Array();
+    // var artists = new Array();
+    // var albums = new Array();
+    // 
+    // //On Initial Load
+    $('#albums .selection').html(albumsHTML)
+    $('#artists .selection').html(artistsHTML);
 
     $('.filter-view').hide();
     $('.playlist-view').hide();
@@ -22,14 +29,6 @@ $(document).ready(function() {
 		str = str.replace(/ /g, '.');
 		return '.' + str;
 	}
-    containsArtist= function(id){
-        for(var i = 0; i < artists.length; i++){
-            if(artists[i].id == id){
-                return true;
-            }
-        }
-        return false;
-    }
     clearTrackList = function(){
         $('.track .tracks').html('');   
         $('.artist .tracks').html('');
@@ -55,9 +54,6 @@ $(document).ready(function() {
             if(albums['error'] == true){
 
             }else{
-                var a = new Artist($('#artists .active-item').text(), $('#artists .active-item').attr('id'));
-                if(!containsArtist(a.id))
-                    artists.push(a);
                 $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
                 for (var i = 0; i < albums.length; i++){
                     $('#albums .selection').append('<li class="item" id="'+albums[i]['ID']+'">'+albums[i]['Name']+'</li>')
@@ -66,13 +62,45 @@ $(document).ready(function() {
         })
     }
     getTracksByArtist = function(id){
+        if(artists[id] != undefined){
+            if(artists[id]['albums'].length != 0){
+                //Item was cached so do not hit database
+                console.log('loading from cache');
+                artistAlbums = artists[id]['albums'];
+                clearTrackList();
+                var artist = artists[id]['Name'];
+                for(var i = 0; i < artistAlbums.length; i++){
+                    var album = artistAlbums[i]['Name'];
+                    var genre1 = artistAlbums[i]['Genre1'];
+                    var genre2 = artistAlbums[i]['Genre2'];
+                    for(var j = 0; j < artistAlbums[i]['tracks'].length; j++){
+                        var songName = artistAlbums[i]['tracks'][j]['Name'];
+                        var songID = artistAlbums[i]['tracks'][j]['ID'];
+                        var reco = artistAlbums[i]['tracks'][j]['reco'];
+                        var FCC = artistAlbums[i]['tracks'][j]['FCC'];
+                        $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                        $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
+                        $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
+                        $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
+                        $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
+                        if(reco){
+                            $('.' + songID).addClass('reco');
+                        }
+                        if(FCC){
+                            $('.' + songID).addClass('FCC');
+                        }
+                    }
+                }
+                console.log(artists[id]);
+                return;
+            }
+        }
         $.ajax({
             url: '../php/scripts/getTracksByArtist.php',
             type: 'GET',
             data: {'ArtistID': id},
             success: function() {}
         }).done(function(data){
-
             var songs;
             try{
                 songs = JSON.parse(data);
@@ -81,26 +109,36 @@ $(document).ready(function() {
                 console.log(data);
                 return;
             }
-                
             if(songs['error'] == true){
 
             }else{
                 clearTrackList();
                 for (var i = 0; i < songs.length; i++){
-                    $('.track .tracks').append('<li class="item '+songs[i]['ID']+'">'+songs[i]['Name']+'</li>');   
-                    $('.artist .tracks').append('<li class="item '+songs[i]['ID']+'">'+ $('#artists .active-item').text() +'</li>');
-                    $('.album .tracks').append('<li class="item '+songs[i]['ID']+'">'+ songs[i]['Album'] +'</li>'); 
-                    $('.primary-genre .tracks').append('<li class="item '+songs[i]['ID']+'">'+'GENRE'+'</li>');
-                    $('.secondary-genre .tracks').append('<li class="item '+songs[i]['ID']+'">'+'GENRE'+'</li>');
+                    var albumID = parseInt(songs[i]['AlbumID']);
+                    artists[id].addAlbum(albums[albumID]);
+                    var songID = songs[i]['ID'];
+                    var songName = songs[i]['Name'];
+                    var reco = false;
+                    var FCC = false;
+
+                    $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                    $('.artist .tracks').append('<li class="item ' + songID + '">'+ $('#artists .active-item').text() +'</li>');
+                    $('.album .tracks').append('<li class="item ' + songID + '">'+ songs[i]['Album'] +'</li>'); 
+                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+'GENRE'+'</li>');
+                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+'GENRE'+'</li>');
                     if(songs[i]['Recommended'] == 1){
-                        console.log(songs[i]['Recommended'] == 1);
-                        $('.' + songs[i]['ID']).addClass('reco');
+                        reco = true;
+
+                        $('.' + songID).addClass('reco');
                     }
                     if(songs[i]['FCC'] == 1){
-                        $('.track .' + songs[i]['ID']).addClass('FCC');
+                        FCC = true;
+                        $( '.' + songID).addClass('FCC');
                     }
+                    albums[albumID].addTrack(new Track(songName, songID, reco, FCC));
                 }
             }
+            console.log(artists[id]);
         })
     }
     getTracksByAlbum = function(id) {
@@ -133,7 +171,7 @@ $(document).ready(function() {
                         $('.' + songs[i]['ID']).addClass('reco');
                     }
                     if(songs[i]['FCC'] == 1){
-                        $('.track .' + songs[i]['ID']).addClass('FCC');
+                        $('.' + songs[i]['ID']).addClass('FCC');
                     }
                 }
             }
@@ -160,6 +198,13 @@ $(document).ready(function() {
         });
     }
     getAllAlbums = function() {
+        // Uses array of albums to fill html
+        // $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
+        // for (var i = 0; i < albums.length; i++) {
+        //     $('#albums .selection').append('<li class="item" id="'+albums[i]['ID']+'">'+albums[i]['Name']+'</li>'); 
+        // };
+
+        // Uses DB call to fill html
         $.ajax({
             url: '../php/scripts/getAllAlbums.php',
             type: 'GET',
@@ -180,38 +225,12 @@ $(document).ready(function() {
 
         });
     }
-    initialize = function(){
-        $.ajax({
-            url: '../php/scripts/getInitialInfo.php',
-            type: 'GET',
-            success: function(){}
-        }).done(function(data){
-            var initial;
-            try{
-                initial = JSON.parse(data);
-            }catch(e){
-                console.log('Error loading initial info');
-                console.log(data);
-                return;
-            }
-            var artists = initial['Artists'];
-            var albums = initial['Albums'];
-            $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
-            for(var i = 0; i < albums.length; i++){
-                $('#albums .selection').append('<li class="item" id="'+albums[i]['ID']+'">'+albums[i]['Name']+'</li>'); 
-            }
-            $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
-            for(var i = 0; i < artists.length; i++){
-                $('#artists .selection').append('<li class="item" id="'+artists[i]['ID']+'">'+artists[i]['Name']+'</li>'); 
-            }
-        });
+    resetAlbums = function(){
+        $('#albums .selection').html(albumsHTML);
     }
     
-    //On Load
-    initialize();
-    
     //Event Handlers
-	$('.select-column').on('click', function(){
+	$(document).on('click', '.select-column', function(){
 		$('.active-column').removeClass('active-column');
 		$(this).addClass('active-column');
 	});
@@ -221,14 +240,19 @@ $(document).ready(function() {
 	});
 	$(document).on('click', '.tracks .item', function(){
 		$('.tracks .active-item').removeClass('active-item');
+        console.log(formatClass($(this).attr('class')));
 		$(formatClass($(this).attr('class'))).addClass('active-item');
 	});
     $(document).on('click', '#artists .item', function(){
         if($(this).attr('id') == 'all'){
             if($('#albums .active-item').attr('id') == 'all'){
-                initialize();
+                resetAlbums();
             }else{
-                getTracksByAlbum($('#albums .active-item').attr('id'));
+                var activeAlbum = $('#albums .active-item').attr('id');
+                resetAlbums();
+                getTracksByAlbum(activeAlbum);
+                $('#tracks #' + activeAlbum).siblings('.active-item').removeClass('active-item');
+                $('#tracks #' + activeAlbum).addClass('active-item');
             }
         }else{
             getAlbumsByArtist($(this).attr('id'));

@@ -9,6 +9,7 @@ class Track {
 	private $CreateDate;
 	private $Genre;
 	private $Artist;
+	private $AlbumID;
 	private $Album;
 	// Data Fetching
 	public function getPlays(){
@@ -38,9 +39,18 @@ class Track {
 	public function getAlbum(){
 		return $this->Album;
 	}
+
 	
 	public function setAlbum($Album){
 		$this->Album = $Album;
+	}
+	
+	public function getAlbumID(){
+		return $this->AlbumID;
+	}
+
+	public function setAlbumID($AlbumID){
+		$this->AlbumID = $AlbumID;
 	}
 	
 	public function getArtist(){

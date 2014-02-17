@@ -5,9 +5,11 @@
  * @param {bool} reco - is reccomended
  * @param {bool} FCC - is explicit
  */
-function Track (name, id, reco, FCC) {
+function Track (name, id, reco, FCC, artistName, albumName) {
 	this.Name = name;
 	this.ID = id;
 	this.reco = reco;
 	this.FCC = FCC;
+	this.Artist = artistName;
+	this.Album = albumName;
 }

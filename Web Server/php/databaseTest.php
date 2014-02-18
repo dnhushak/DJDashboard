@@ -13,4 +13,11 @@ if($db->connect_errno > 0){
 else{
 	die('Connection is active');
 }
+
+$mysql_database="phandph";
+$mysql_username="root";
+$mysql_password="quizzle.10";
+
+$link = mysql_connect($hostname,$username,$password) or die ("Unable to connect to SQL server");
+
 ?>

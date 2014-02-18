@@ -292,13 +292,6 @@ $(document).ready(function() {
     resetAlbums = function(){
         $('#albums .selection').html(albumsHTML);
     }
-    trackScrollHandler = function(){
-        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight && keepScrolling){
-            console.log('loading data');
-            keepScrolling = false;
-            loadTrackChunk(lastTrack);
-        }
-    }
     
     //Event Handlers
 	$(document).on('click', '.select-column', function(){
@@ -377,7 +370,12 @@ $(document).ready(function() {
             playlistExpanded = false;
         }
     });
-    $(".track-view").scroll(trackScrollHandler);
+    $(".track-view").scroll(function(){
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight - 5 && keepScrolling){
+            keepScrolling = false;
+            loadTrackChunk(lastTrack);
+        }
+    });
     //ON PAGE LOAD
     initialize();
 })

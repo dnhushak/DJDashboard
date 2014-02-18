@@ -13,13 +13,15 @@ $(document).ready(function() {
     var expansionOffset = 14;
     var filtersExpanded = false;
     var playlistExpanded = false;
-    var initialTrackHTML = "";
-    var lastTrack = "";
+    var initialTrackHTML = '';
+    var lastTrack = '';
+    var firstLastTrack = '';
     var keepScrolling = true;
 
     //USEFULL FUNCTION
     loadTrackChunk = function(lastTrack){
         if((lastTrack == "" || lastTrack == undefined || lastTrack == null) && initialTrackHTML != ""){
+            setLastTrack(firstLastTrack);
             clearTrackList();
             $('.track-view').html(initialTrackHTML);
             return;
@@ -69,6 +71,9 @@ $(document).ready(function() {
         })
     }
     setLastTrack = function(str){
+        if(lastTrack == ''){
+            firstLastTrack = str;
+        }
         lastTrack = str;
     }
     initialize = function(){
@@ -118,7 +123,6 @@ $(document).ready(function() {
         if(artists[id] != undefined){
             if(artists[id]['albums'].length != 0){
                 //Item was cached so do not hit database
-                console.log('hit cache');
                 artistAlbums = artists[id]['albums'];
                 clearTrackList();
                 var artist = artists[id]['Name'];
@@ -198,11 +202,10 @@ $(document).ready(function() {
     getTracksByAlbum = function(id) {
         if(albums[id] != undefined){
             if(albums[id]['tracks'].length != 0){
-                console.log('hit cache');
                 var trackList = albums[id]['tracks'];
                 clearTrackList();
                 for(var i = 0; i < trackList.length; i++){
-                    var album = trackL[i]['Album'];
+                    var album = trackList[i]['Album'];
                     var artist = trackList[i]['Artist'];
                     var genre1 = albums[id]['Genre1'];
                     var genre2 = albums[id]['Genre2'];
@@ -304,35 +307,33 @@ $(document).ready(function() {
 	});
 	$(document).on('click', '.tracks .item', function(){
 		$('.tracks .active-item').removeClass('active-item');
-        console.log(formatClass($(this).attr('class')));
 		$(formatClass($(this).attr('class'))).addClass('active-item');
 	});
     $(document).on('click', '#artists .item', function(){
         if($(this).attr('id') == 'all'){
-            if($('#albums .active-item').attr('id') == 'all'){
-                resetAlbums();
-                loadTrackChunk('');
-            }else{
-                var activeAlbum = $('#albums .active-item').attr('id');
-                resetAlbums();
-                getTracksByAlbum(activeAlbum);
-                $('#tracks #' + activeAlbum).siblings('.active-item').removeClass('active-item');
-                $('#tracks #' + activeAlbum).addClass('active-item');
-            }
+            resetAlbums();
+            lastTrack = '';
+            loadTrackChunk(lastTrack);
+            keepScrolling = true;
         }else{
             getAlbumsByArtist($(this).attr('id'));
             getTracksByArtist($(this).attr('id'));
+            keepScrolling = false;
         }
     })
     $(document).on('click', '#albums .item', function(){
         if($(this).attr('id') == 'all'){
             if($('#artists .active-item').attr('id') == 'all'){
                 resetAlbums();
-                loadTrackChunk('');
+                lastTrack = '';
+                loadTrackChunk(lastTrack);
+                keepScrolling = true;
             }else{
                 getTracksByArtist($('#artists .active-item').attr('id'));
+                keepScrolling = false;
             }
         }else{
+            keepScrolling = false;
             getTracksByAlbum($(this).attr('id'));
         }
     })
@@ -342,7 +343,7 @@ $(document).ready(function() {
             mainViewWidth -= expansionOffset;
             $(".main-view").css('width', mainViewWidth.toString() + '%');
             $('.filter-view').css('width', '14%');
-            $('.filter-view').css('height', '100%');
+            $('.filter-view').css('height', '90%');
             filtersExpanded = true;
         }else{
             $('.filter-view').hide();
@@ -359,7 +360,7 @@ $(document).ready(function() {
             mainViewWidth -= expansionOffset;
             $(".main-view").css('width', mainViewWidth.toString() + '%');
             $('.playlist-view').css('width', '14%');
-            $('.playlist-view').css('height', '100%');
+            $('.playlist-view').css('height', '90%');
             playlistExpanded = true;
         }else{
             $('.playlist-view').hide();
@@ -371,7 +372,7 @@ $(document).ready(function() {
         }
     });
     $(".track-view").scroll(function(){
-        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight - 5 && keepScrolling){
+        if(keepScrolling && $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight - 5){
             keepScrolling = false;
             loadTrackChunk(lastTrack);
         }

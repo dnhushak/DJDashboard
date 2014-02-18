@@ -11,6 +11,7 @@
 		private $PlayTrackByID;
 		private $GetTracksByAlbumID;
 		private $GetAlbums;
+		private $GetTrackChunksAlphabetical;
 		
 		
 		public function __construct()
@@ -30,6 +31,7 @@
 			$this->GetTracksByAlbumID = "GetTracksByAlbumID";
 			$this->GetTracksByArtistID = "GetTracksByArtistID";
 			$this->GetAlbums = "GetAlbumList";
+			$this->GetTrackChunksAlphabetical = "GetTrackChunksAlphabetical";
 		}
 		
 		/**
@@ -136,6 +138,24 @@
 				$albumList[] = $tempAlbum;
 			}
 			return $albumList;
+		}
+
+		public function GetTrackChunksAlphabetical($lastTrack = ""){
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->GetTrackChunksAlphabetical, $lastTrack);
+			$trackList = array();
+			while($rowInfo = mysqli_fetch_assoc($results)){
+				$tempTrack = new Track();
+				$tempTrack->setAlbum($rowInfo['AlbumName']);
+				$tempTrack->setArtist($rowInfo['ArtistName']);
+				$tempTrack->setName($rowInfo['TrackName']);
+				$tempTrack->setFCC(($rowInfo['FCC']));
+				$tempTrack->setID($rowInfo['TrackID']);
+				$tempTrack->setRecommended($rowInfo['Recommended']);
+				$tempTrack->setAlbumID($rowInfo['AlbumID']);
+				$trackList[] = $tempTrack;
+			}
+			return $trackList;
 		}
 		
 		public function PlayTrack($ID)

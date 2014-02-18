@@ -48,18 +48,23 @@ class SqlConnect
 			$length = count($args);
 			for($i = 0; $i < $length - 1; $i++)
 			{
-				$cmd = $cmd.$args[$i].",";
+				if(is_string($args[$i])){
+					$cmd = $cmd."'".$args[$i]."'".",";
+				}else{
+					$cmd = $cmd.$args[$i].",";
+				}
 			}
-			$cmd = $cmd.$args[$length-1].");";
+			if(is_string($args[$length-1])){
+				$cmd = $cmd."'".$args[$i]."');";
+			}else{
+				$cmd = $cmd.$args[$length-1].");";
+			}
 			$results = $connection->query($cmd);
 		}
 		else
 		{
 			$results = $connection->query("Call ".$procedureName."();");
 		}
-		
-		
-		
 		return $results;
 	}
 }

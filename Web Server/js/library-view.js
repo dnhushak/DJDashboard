@@ -13,16 +13,71 @@ $(document).ready(function() {
     var expansionOffset = 14;
     var filtersExpanded = false;
     var playlistExpanded = false;
-
-    //On Initial Load
-    $('#albums .selection').html(albumsHTML)
-    $('#artists .selection').html(artistsHTML);
-
-    $('.filter-view').hide();
-    $('.playlist-view').hide();
-
+    var initialTrackHTML = "";
+    var lastTrack = "";
+    var keepScrolling = true;
 
     //USEFULL FUNCTION
+    loadTrackChunk = function(lastTrack){
+        if((lastTrack == "" || lastTrack == undefined || lastTrack == null) && initialTrackHTML != ""){
+            clearTrackList();
+            $('.track-view').html(initialTrackHTML);
+            return;
+        }
+        $.ajax({
+            url: '../php/scripts/getTracksByChunk.php',
+            type: 'GET',
+            data: {'LastTrack' : lastTrack},
+            success: function() {}
+        }).done(function(data){
+            var tracks;
+            var currentTrack = "";
+            try{
+                tracks = JSON.parse(data);
+            }catch(e){
+                console.log('Error getting track chunk lastTrack=' + lastTrack);
+                console.log(data);
+                return;
+            }
+            for(var i = 0; i < tracks.length; i++){
+                var album = tracks[i]['Album'];
+                var artist = tracks[i]['Artist'];
+                var genre1 = 'GENRE1'; //TODO
+                var genre2 = 'GENRE2'; //TODO
+                var songName = tracks[i]['Name'];
+                var songID = tracks[i]['ID'];
+                var reco = tracks[i]['reco'];
+                var FCC = tracks[i]['FCC'];
+                $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
+                $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
+                $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
+                $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
+                if(reco == 1){
+                    $('.' + songID).addClass('reco');
+                }
+                if(FCC == 1){
+                    $('.' + songID).addClass('FCC');
+                }
+                if(lastTrack == "" || lastTrack == undefined || lastTrack == null){
+                    initialTrackHTML = $('.track-view').html();
+                }
+                currentTrack = songName;
+            }
+            setLastTrack(currentTrack);
+            keepScrolling = true;
+        })
+    }
+    setLastTrack = function(str){
+        lastTrack = str;
+    }
+    initialize = function(){
+        $('#albums .selection').html(albumsHTML)
+        $('#artists .selection').html(artistsHTML);
+        $('.filter-view').hide();
+        $('.playlist-view').hide();
+        loadTrackChunk();
+    }
 	formatClass = function(str){
 		str = str.replace(/ /g, '.');
 		return '.' + str;
@@ -89,7 +144,6 @@ $(document).ready(function() {
                         }
                     }
                 }
-                console.log(artists[id]);
                 return;
             }
         }
@@ -139,7 +193,6 @@ $(document).ready(function() {
                     albums[albumID].addTrack(new Track(songName, songID, reco, FCC, artist, album));
                 }
             }
-            console.log(artists[id]);
         })
     }
     getTracksByAlbum = function(id) {
@@ -149,7 +202,7 @@ $(document).ready(function() {
                 var trackList = albums[id]['tracks'];
                 clearTrackList();
                 for(var i = 0; i < trackList.length; i++){
-                    var album = trackList[i]['Album'];
+                    var album = trackL[i]['Album'];
                     var artist = trackList[i]['Artist'];
                     var genre1 = albums[id]['Genre1'];
                     var genre2 = albums[id]['Genre2'];
@@ -214,7 +267,6 @@ $(document).ready(function() {
                     albums[id].addTrack(new Track(songName, songID, reco, FCC, artist, album));
                 }
             }
-            console.log(albums[id]);
         })
     }
     getAllArtists = function() {
@@ -237,36 +289,15 @@ $(document).ready(function() {
             }
         });
     }
-    getAllAlbums = function() {
-        // Uses array of albums to fill html
-        // $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
-        // for (var i = 0; i < albums.length; i++) {
-        //     $('#albums .selection').append('<li class="item" id="'+albums[i]['ID']+'">'+albums[i]['Name']+'</li>'); 
-        // };
-
-        // Uses DB call to fill html
-        $.ajax({
-            url: '../php/scripts/getAllAlbums.php',
-            type: 'GET',
-            success: function(){}
-        }).done(function(data){
-            var albums;
-            try{
-                albums = JSON.parse(data);
-            }catch(e){
-                console.log('Error loading all albums');
-                console.log(data);
-                return;
-            }
-            $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
-            for(var i = 0; i < albums.length; i++){
-                $('#albums .selection').append('<li class="item" id="'+albums[i]['ID']+'">'+albums[i]['Name']+'</li>'); 
-            }
-
-        });
-    }
     resetAlbums = function(){
         $('#albums .selection').html(albumsHTML);
+    }
+    trackScrollHandler = function(){
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight && keepScrolling){
+            console.log('loading data');
+            keepScrolling = false;
+            loadTrackChunk(lastTrack);
+        }
     }
     
     //Event Handlers
@@ -287,6 +318,7 @@ $(document).ready(function() {
         if($(this).attr('id') == 'all'){
             if($('#albums .active-item').attr('id') == 'all'){
                 resetAlbums();
+                loadTrackChunk('');
             }else{
                 var activeAlbum = $('#albums .active-item').attr('id');
                 resetAlbums();
@@ -302,7 +334,8 @@ $(document).ready(function() {
     $(document).on('click', '#albums .item', function(){
         if($(this).attr('id') == 'all'){
             if($('#artists .active-item').attr('id') == 'all'){
-                getAllAlbums();
+                resetAlbums();
+                loadTrackChunk('');
             }else{
                 getTracksByArtist($('#artists .active-item').attr('id'));
             }
@@ -344,4 +377,7 @@ $(document).ready(function() {
             playlistExpanded = false;
         }
     });
+    $(".track-view").scroll(trackScrollHandler);
+    //ON PAGE LOAD
+    initialize();
 })

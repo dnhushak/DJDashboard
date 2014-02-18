@@ -84,5 +84,21 @@ final class libraryBrowser {
 		return array("Artists" => $this->getArtists(),
 					 "Albums" => $this->getAlbums());
 	}
+	public function getTrackChunk($lastTrack = ""){
+		$trackArray = $this->manager->GetTrackChunksAlphabetical($lastTrack);
+		$allTracks = array();
+		foreach ($trackArray as $track) {
+			$trackRow = array(
+				"ID" => $track->getID(),
+				"Name" => $track->getName(),
+				"Artist" => $track->getArtist(),
+				"Album" => $track->getAlbum(),
+				"AlbumID" => $track->getAlbumID(),
+				"Recommended" => $track->getRecommended(),
+				"FCC" => $track->getFCC() );
+			$allTracks[] = $trackRow;
+		}
+		return $allTracks;
+	}
 }
 ?>

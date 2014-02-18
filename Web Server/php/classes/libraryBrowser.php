@@ -18,12 +18,12 @@ final class libraryBrowser {
 		$ret = array ();
 		foreach ($trackArray as $track) {
 			$trackRow = array (
-					"ID" => $track->getID(),
-					"Name" => $track->getName(),
-					"Album" => $track->getAlbum(),
-					"AlbumID" => $track->getAlbumID(),
-					"Recommended" => $track->getRecommended(),
-					"FCC" => $track->getFCC());
+					"ID" => utf8_encode($track->getID()),
+					"Name" => utf8_encode($track->getName()),
+					"Album" => utf8_encode($track->getAlbum()),
+					"AlbumID" => utf8_encode($track->getAlbumID()),
+					"Recommended" => utf8_encode($track->getRecommended()),
+					"FCC" => utf8_encode($track->getFCC()));
 			$ret [] = $trackRow;
 		}
 		return $ret;
@@ -34,11 +34,11 @@ final class libraryBrowser {
 		$ret = array ();
 		foreach ($trackArray as $track) {
 			$trackRow = array (
-					"ID" => $track->getID(),
-					"Name" => $track->getName(),
-					"Artist" => $track->getArtist(),
-					"Recommended" => $track->getRecommended(),
-					"FCC" => $track->getFCC());
+					"ID" => utf8_encode($track->getID()),
+					"Name" => utf8_encode($track->getName()),
+					"Artist" => utf8_encode($track->getArtist()),
+					"Recommended" => utf8_encode($track->getRecommended()),
+					"FCC" => utf8_encode($track->getFCC()));
 			$ret [] = $trackRow;
 		}
 		return $ret;
@@ -51,8 +51,8 @@ final class libraryBrowser {
 		$ret = array();
 		foreach ($albumArray as $album) {
 			$albumRow = array (
-					"ID" => $album->getID(),
-					"Name" => $album->getName() );
+					"ID" => utf8_encode($album->getID()),
+					"Name" => utf8_encode($album->getName()) );
 			$ret [] = $albumRow;
 		}
 		return $ret;
@@ -63,8 +63,8 @@ final class libraryBrowser {
 		$allArtist = array();
 		foreach ($artistArray as $artist) {
 			$artistRow = array (
-					"ID" => $artist->getID(),
-					"Name" => $artist->getName() );
+					"ID" => utf8_encode($artist->getID()),
+					"Name" => utf8_encode($artist->getName()) );
 			$allArtist[] = $artistRow;
 		}
 		return $allArtist;
@@ -74,8 +74,8 @@ final class libraryBrowser {
 		$allAlbum = array();
 		foreach ($albumArray as $album) {
 			$albumRow = array (
-					"ID" => $album->getID(),
-					"Name" => $album->getName() );
+					"ID" => utf8_encode($album->getID()),
+					"Name" => utf8_encode($album->getName()) );
 			$allAlbum[] = $albumRow;
 		}
 		return $allAlbum;
@@ -89,13 +89,13 @@ final class libraryBrowser {
 		$allTracks = array();
 		foreach ($trackArray as $track) {
 			$trackRow = array(
-				"ID" => $track->getID(),
-				"Name" => $track->getName(),
-				"Artist" => $track->getArtist(),
-				"Album" => $track->getAlbum(),
-				"AlbumID" => $track->getAlbumID(),
-				"Recommended" => $track->getRecommended(),
-				"FCC" => $track->getFCC() );
+				"ID" => utf8_encode($track->getID()),
+				"Name" => utf8_encode($track->getName()),
+				"Artist" => utf8_encode($track->getArtist()),
+				"Album" => utf8_encode($track->getAlbum()),
+				"AlbumID" => utf8_encode($track->getAlbumID()),
+				"Recommended" => utf8_encode($track->getRecommended()),
+				"FCC" => utf8_encode($track->getFCC()) );
 			$allTracks[] = $trackRow;
 		}
 		return $allTracks;

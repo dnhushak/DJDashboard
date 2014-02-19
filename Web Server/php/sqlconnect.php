@@ -12,6 +12,7 @@ class SqlConnect
 	private $username;
 	private $password;
 	private $database;
+	private $connUrl;
 	
 	/**
 	 * Grab default values
@@ -26,7 +27,11 @@ class SqlConnect
 	 */
 	private function initialize()
 	{
-		$connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
+		$this->username = "u30919";
+		$this->password = "pkMDpK6Rh";
+		$this->database = "db30919";
+		$this->connUrl = "mysql.cs.iastate.edu";
+		$this->connection = new mysqli($this->connUrl, $this->username, $this->password, $this->database);
 		
 		if(mysqli_connect_errno())
 		{
@@ -41,7 +46,8 @@ class SqlConnect
 	 */
 	public function callStoredProc($procedureName, $args)
 	{
-		$connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
+		//Removing values here and replacing with what is in the initialize method.
+		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
 		if($args != null)//Each arg in order
 		{
 			$cmd = "Call ".$procedureName."(";
@@ -59,11 +65,11 @@ class SqlConnect
 			}else{
 				$cmd = $cmd.$args[$length-1].");";
 			}
-			$results = $connection->query($cmd);
+			$results = $this->connection->query($cmd);
 		}
 		else
 		{
-			$results = $connection->query("Call ".$procedureName."();");
+			$results = $this->connection->query("Call ".$procedureName."();");
 		}
 		return $results;
 	}

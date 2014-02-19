@@ -38,7 +38,7 @@ $(document).ready(function() {
                 tracks = JSON.parse(data);
             }catch(e){
                 console.log('Error getting track chunk lastTrack=' + lastTrack);
-                console.log(data);
+				PublishError(e);
                 return;
             }
             for(var i = 0; i < tracks.length; i++){
@@ -107,6 +107,7 @@ $(document).ready(function() {
             }catch(e){
                 console.log('Error getting albums by artist');
                 console.log(data);
+				PublishError(e);
                 return;
             }
             if(albums['error'] == true){
@@ -163,6 +164,7 @@ $(document).ready(function() {
             }catch(e){
                 console.log('Error getting tacks by artist');
                 console.log(data);
+				PublishError(e);
                 return;
             }
             if(songs['error'] == true){
@@ -240,6 +242,7 @@ $(document).ready(function() {
             }catch(e){
                 console.log("Error getting tacks by album");
                 console.log(data);
+				PublishError(e);
                 return;
             }
             if(songs['error'] == true){
@@ -281,9 +284,11 @@ $(document).ready(function() {
             var artists;
             try{
                 artists = JSON.parse(data);
+
             }catch(e){
                 console.log('Error loading all artists');
                 console.log(data);
+				PublishError(e);
                 return;
             }
             $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
@@ -296,6 +301,26 @@ $(document).ready(function() {
         $('#albums .selection').html(albumsHTML);
     }
     
+	//Error Publisher
+	PublishError = function(e)
+	{
+		console.log("Logging exception to database");
+		var stack = e.stack;
+		if((e.stack == "" || e.stack == undefined))
+		{
+			stack = "No stack available";
+		}
+		
+		var ajaxCall = $.ajax({
+			type: "GET",
+			async:true,
+			url: "../php/scripts/logException.php",
+			data: {'Message' : e.message, 'StackTrace' : stack, 'userID' : '0'},
+});
+	
+	}
+	
+	
     //Event Handlers
 	$(document).on('click', '.select-column', function(){
 		$('.active-column').removeClass('active-column');

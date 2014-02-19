@@ -22,6 +22,9 @@ class SqlConnect
 		$this->initialize();
 	}	
 	
+
+	
+	
 	/**
 	 * Private function so it can't be called whenever
 	 */

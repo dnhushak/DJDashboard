@@ -124,6 +124,9 @@
 			
 		}
 
+		/**
+		*	Gets the full list of albums.
+		**/
 		public function GetAllAlbums($Alphbetical){
 			$conn = new SqlConnect();
 			$results;
@@ -141,7 +144,12 @@
 			}
 			return $albumList;
 		}
-
+		
+		/**
+		*	GetTrackChunksAlphabetical
+		*	Used to get a chunked version of the tracks.  Starts with a specified last track.
+		*	Does use significant bandwidth.
+		**/
 		public function GetTrackChunksAlphabetical($lastTrack = ""){
 			$conn = new SqlConnect();
 			$results = $conn->callStoredProc($this->GetTrackChunksAlphabetical, $lastTrack);
@@ -185,6 +193,11 @@
 			return $track;
 		}
 		
+		/**
+		*	PlayTrack
+		*	Will probably be called when a playlist is submitted.
+		*	Logs a play of a track, then saves it in the DB.
+		*/
 		public function PlayTrack($ID)
 		{
 			$conn = new SqlConnect();

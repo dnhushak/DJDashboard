@@ -12,6 +12,7 @@
 		private $GetTracksByAlbumID;
 		private $GetAlbums;
 		private $GetTrackChunksAlphabetical;
+		private $spGetTrackData;
 		
 		
 		public function __construct()
@@ -32,6 +33,7 @@
 			$this->GetTracksByArtistID = "GetTracksByArtistID";
 			$this->GetAlbums = "GetAlbumList";
 			$this->GetTrackChunksAlphabetical = "GetTrackChunksAlphabetical";
+			$this->spGetTrackData = "GetAllTrackData";
 		}
 		
 		/**
@@ -156,6 +158,31 @@
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;
+		}
+		//Returns an array of rows from the db of all the track data
+		public function GetAllTrackData($TrackID)
+		{
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->spGetTrackData, array($TrackID));
+			//Keys are 1-1, so there should only be one row
+			$r = mysqli_fetch_assoc($results);
+			$track = new Track();
+			$track->Artist = new Artist();
+			$track->Album = new Album();
+			$track->Artist->setID($r['idartist']);
+			$track->Artist->setName($r['ArtistName']);
+			$track->Album->setID($r['idalbum']);
+			$track->Album->setName($r['AlbumName']);
+			$track->setID($r['idtrack']);
+			$track->setName($r['TrackName']);
+			$track->setFCC($r['FCC']);
+			$track->setRecommended($r['Recommended']);
+			$track->setGenre($r['PrimaryGenre']);
+			$track->setPlayCount($r['PlayCount']);
+			$track->setCreateDate($r['CreateDate']);
+			$track->setReleaseDate($r['ReleaseDate']);
+			$track->setEndDate($r['EndDate']);
+			return $track;
 		}
 		
 		public function PlayTrack($ID)

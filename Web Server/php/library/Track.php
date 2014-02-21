@@ -5,12 +5,46 @@ class Track {
 	private $Name;
 	private $FCC;
 	private $Recommended;
-	private $PlayCount;
-	private $CreateDate;
-	private $Genre;
-	private $Artist;
+	private $PlayCount;	
+	private $PrimaryGenre;
+	public $Artist;
 	private $AlbumID;
-	private $Album;
+	public $Album;
+	private $CreateDate;
+	private $EndDate;
+	private $ReleaseDate;
+	
+	public function setCreateDate($date)
+	{
+		$this->CreateDate = $date;
+	}
+	
+	public function setEndDate($date)
+	{
+		$this->EndDate = $date;
+	}
+	
+	public function setReleaseDate($date)
+	{
+		$this->ReleaseDate = $date;
+	}
+	
+	public function getCreateDate()
+	{
+		return $this->CreateDate;
+	}
+	
+	public function getEndDate()
+	{
+		return $this->EndDate;
+	}
+	
+	public function getReleaseDate()
+	{
+		return $this->ReleaseDate;
+	}
+	
+	
 	// Data Fetching
 	public function getPlays(){
 	}
@@ -78,13 +112,18 @@ class Track {
 	}
 
 	public function getGenre(){
-		return $this->Genre;
+		return $this->PrimaryGenre;
 	}
 
 	public function setGenre($Genre){
-		$this->Genre = $Genre;
+		$this->PrimaryGenre = $Genre;
 	}
 
+	public function setPlayCount()
+	{
+		return $this->PlayCount;
+	}
+	
 	public function getPlayCount(){
 		return $this->PlayCount;
 	}

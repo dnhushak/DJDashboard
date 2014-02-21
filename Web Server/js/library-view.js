@@ -316,7 +316,7 @@ $(document).ready(function() {
 			async:true,
 			url: "../php/scripts/logException.php",
 			data: {'Message' : e.message, 'StackTrace' : stack, 'userID' : '0'},
-});
+        });
 	
 	}
 	
@@ -368,7 +368,7 @@ $(document).ready(function() {
             mainViewWidth -= expansionOffset;
             $(".main-view").css('width', mainViewWidth.toString() + '%');
             $('.filter-view').css('width', '14%');
-            $('.filter-view').css('height', '90%');
+            $('.filter-view').css('height', '100%');
             filtersExpanded = true;
         }else{
             $('.filter-view').hide();
@@ -385,7 +385,7 @@ $(document).ready(function() {
             mainViewWidth -= expansionOffset;
             $(".main-view").css('width', mainViewWidth.toString() + '%');
             $('.playlist-view').css('width', '14%');
-            $('.playlist-view').css('height', '90%');
+            $('.playlist-view').css('height', '100%');
             playlistExpanded = true;
         }else{
             $('.playlist-view').hide();

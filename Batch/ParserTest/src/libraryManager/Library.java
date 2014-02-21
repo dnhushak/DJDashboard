@@ -1,9 +1,12 @@
 package libraryManager;
 
+import sqlConnect.DatabaseConnection;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-//import sqlConnect.DatabaseConnection;
+import java.sql.*;
+
 
 
 public class Library 
@@ -37,18 +40,18 @@ public class Library
 	{
 		try
 		{
-			//DatabaseConnection conn = new DatabaseConnection();
+			DatabaseConnection conn = new DatabaseConnection();
 			Iterator<Track> libIter = library.iterator();
 			while(libIter.hasNext())
 			{
 				try
 				{
 					Track t = libIter.next();
-					//conn.callQuery(t.dbQuery());
+					conn.callQuery(t.dbQuery());
 				}
 				catch(Exception e)
 				{
-					//System.out.println(e.getMessage());
+					System.out.println(e.getMessage());
 				}
 				
 			}

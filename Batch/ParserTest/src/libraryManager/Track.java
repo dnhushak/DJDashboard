@@ -1,7 +1,7 @@
 package libraryManager;
 
 
-//import sqlConnect.DBINFO;
+import sqlConnect.DBINFO;
 
 
 public class Track
@@ -99,7 +99,7 @@ public class Track
         	return ID;
         }
         
-        /*public String dbQuery()
+        public String dbQuery()
         {
         	//Escape apostrophes
         	this.name = this.name.replaceAll("'","");
@@ -120,7 +120,7 @@ public class Track
         			iTunesID + ",null, null, '" + this.path + "');"; 
         	return query;
         	
-        }*/
+        }
 
 		/*public void setLocation(String tempVal) 
 		{

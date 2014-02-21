@@ -80,6 +80,27 @@ final class libraryBrowser {
 		}
 		return $allAlbum;
 	}
+	//Method to retrieve all possible data from the db on this exact track
+	public function getTrackData($TrackID)
+	{	
+		$track = $this->manager->GetAllTrackData($TrackID);
+		$arr = array(
+			"TrackID"=> utf8_encode($track->getID()),
+			"TrackName"=> utf8_encode($track->getName()),
+			"AlbumID"=> utf8_encode($track->Album->getID()),
+			"AlbumName" => utf8_encode($track->Album->getName()),
+			"ArtistID" => utf8_encode($track->Artist->getID()),
+			"ArtistName" => utf8_encode($track->Artist->getName()),
+			"PlayCount" => utf8_encode($track->getPlayCount()),
+			"Genre" => utf8_encode($track->getGenre()),
+			"CreateDate" => utf8_encode($track->getCreateDate()),
+			"EndDate" => utf8_encode($track->getEndDate()),
+			"ReleaseDate" => utf8_encode($track->getReleaseDate()),
+		
+		);
+		return $arr;
+	}
+	
 	public function getInitialInfo(){
 		return array("Artists" => $this->getArtists(),
 					 "Albums" => $this->getAlbums());

@@ -1,5 +1,6 @@
 var albums = new Array();
 var artists = new Array();
+var genres = new Array();
 var artistsHTML = '';
 var albumsHTML = '';
 $(document).ready(function() {
@@ -19,6 +20,7 @@ $(document).ready(function() {
         }
         var allArtists = initial['Artists'];
         var allAlbums = initial['Albums'];
+        var allGenres = initial['Genres']
         albumsHTML += '<li class="active-item item" id="all">All</li>';
         for(var i = 0; i < allAlbums.length; i++){
             albums[parseInt(allAlbums[i]['ID'])] = new Album(allAlbums[i]['Name'], parseInt(allAlbums[i]['ID']), 'Genre1', 'Genre2');
@@ -29,5 +31,10 @@ $(document).ready(function() {
             artists[parseInt(allArtists[i]['ID'])] = new Artist(allArtists[i]['Name'], parseInt(allArtists[i]['ID']));
         	artistsHTML += '<li class="item" id="'+allArtists[i]['ID']+'">'+allArtists[i]['Name']+'</li>'
         }
+        genres[0] = "";
+        for(var i = 0; i < allGenres.length; i++){
+            genres[parseInt(allGenres[i]['ID'])] = allGenres[i]['Name'];
+        }
+        console.log(genres);
     });
 });

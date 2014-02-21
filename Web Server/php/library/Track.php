@@ -6,7 +6,8 @@ class Track {
 	private $FCC;
 	private $Recommended;
 	private $PlayCount;	
-	private $PrimaryGenre;
+	private $PrimaryGenreID;
+	private $SecondaryGenreID;
 	public $Artist;
 	private $AlbumID;
 	public $Album;
@@ -111,12 +112,20 @@ class Track {
 		$this->Recommended = $Reco;
 	}
 
-	public function getGenre(){
-		return $this->PrimaryGenre;
+	public function getPrimaryGenreID(){
+		return $this->PrimaryGenreID;
 	}
 
-	public function setGenre($Genre){
-		$this->PrimaryGenre = $Genre;
+	public function setPrimaryGenreID($Genre){
+		$this->PrimaryGenreID = $Genre;
+	}
+
+	public function getSecondaryGenreID(){
+		return $this->SecondaryGenreID;
+	}
+
+	public function setSecondaryGenreID($Genre){
+		$this->SecondaryGenreID = $Genre;
 	}
 
 	public function setPlayCount()

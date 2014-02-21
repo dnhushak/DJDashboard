@@ -44,8 +44,8 @@ $(document).ready(function() {
             for(var i = 0; i < tracks.length; i++){
                 var album = tracks[i]['Album'];
                 var artist = tracks[i]['Artist'];
-                var genre1 = 'GENRE1'; //TODO
-                var genre2 = 'GENRE2'; //TODO
+                var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))]; //TODO
+                var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))]; //TODO
                 var songName = tracks[i]['Name'];
                 var songID = tracks[i]['ID'];
                 var reco = tracks[i]['reco'];

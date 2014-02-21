@@ -3,6 +3,7 @@
 	include_once 'Artist.php';
 	include_once 'Album.php';
 	include_once 'Track.php';
+	include_once 'Genre.php';
 	class LibraryManager
 	{
 		private $GetArtistsAlphabetical;
@@ -13,6 +14,7 @@
 		private $GetAlbums;
 		private $GetTrackChunksAlphabetical;
 		private $spGetTrackData;
+		private $GetAllGenres;
 		
 		
 		public function __construct()
@@ -34,6 +36,7 @@
 			$this->GetAlbums = "GetAlbumList";
 			$this->GetTrackChunksAlphabetical = "GetTrackChunksAlphabetical";
 			$this->spGetTrackData = "GetAllTrackData";
+			$this->GetAllGenres = "GetAllGenre";
 		}
 		
 		/**
@@ -52,6 +55,8 @@
 				$tempTrack->setFCC($rowInfo['FCC']);
 				$tempTrack->setRecommended($rowInfo['Recommended']);
 				$tempTrack->setArtist($rowInfo['Artist']);
+				$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
+				$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;
@@ -71,6 +76,8 @@
 				$tempTrack->setID($rowInfo['ID']);
 				$tempTrack->setFCC($rowInfo['FCC']);
 				$tempTrack->setRecommended($rowInfo['Recommended']);
+				$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
+				$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;
@@ -163,6 +170,8 @@
 				$tempTrack->setID($rowInfo['TrackID']);
 				$tempTrack->setRecommended($rowInfo['Recommended']);
 				$tempTrack->setAlbumID($rowInfo['AlbumID']);
+				$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
+				$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;
@@ -190,6 +199,8 @@
 			$track->setCreateDate($r['CreateDate']);
 			$track->setReleaseDate($r['ReleaseDate']);
 			$track->setEndDate($r['EndDate']);
+			$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
+			$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
 			return $track;
 		}
 		
@@ -207,6 +218,18 @@
 			
 			//USER INFORMATION
 			//LOGIN INFORMATION
+		}
+		public function GetAllGenres(){
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->GetAllGenres, null);
+			$genreList = array();
+			while($rowInfo = mysqli_fetch_assoc($results)){
+				$tempGenre = new Genre();
+				$tempGenre->setName($rowInfo['Name']);
+				$tempGenre->setID($rowInfo['idGenre']);
+				$genreList[] = $tempGenre;
+			}
+			return $genreList;
 		}
 	}
 ?>

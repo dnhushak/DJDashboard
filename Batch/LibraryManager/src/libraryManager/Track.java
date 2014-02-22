@@ -121,7 +121,7 @@ public class Track
         	String query = "Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "('" + this.name + "','" +
         			this.artist + "','" + this.album + "'," + this.playCount + "," + this.FCC + "," + 
         			this.recommended + "," + 
-        			iTunesID + ",null, null, '" + this.primaryGenre + "," + this.secondaryGenre + "," + this.path + "');"; 
+        			iTunesID + ",null, null, '" + this.primaryGenre + "','" + this.secondaryGenre + "','" + this.path + "');"; 
         	return query;
         	
         }

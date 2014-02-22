@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import sqlConnect.DatabaseConnection;
 
-
 public class Library 
 {
 	private List<Track> library;
@@ -27,9 +26,9 @@ public class Library
 		//Parse XML to TrackList
 		SAXParserExample parser = new SAXParserExample();
 		SAXParserExample.setFilePath(iTunesLibPath);
-		parser.run();  //Will take a long time
+		parser.run();
 		
-		library = parser.getList();
+		library = parser.getTracks();
 	}
 	
 	

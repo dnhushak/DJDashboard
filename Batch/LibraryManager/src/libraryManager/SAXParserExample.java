@@ -23,7 +23,7 @@ public class SAXParserExample extends DefaultHandler {
 
     private static String LIBRARY_FILE_PATH = "/tmp/iTunes Music Library.xml"; //"C:\\iTunes Music Library.xml";
 
-    List<Track> myTracks;
+    private List<Track> myTracks;
 
     private String tempVal;
 
@@ -46,14 +46,14 @@ public class SAXParserExample extends DefaultHandler {
 
     public void run() {
         parseDocument();
-        printData();
+        //printData();
     }
     
     /**
      * Retrieves the list of tracks
      * @return TrackList
      */
-    public List<Track> getList()
+    public List<Track> getTracks()
     {
     	return myTracks;
     }
@@ -102,31 +102,38 @@ public class SAXParserExample extends DefaultHandler {
     //Event Handlers
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        //reset
+		//reset
         tempVal = "";
 
-        if (foundTracks) {
-            if ("key".equals(previousTag) && "dict".equalsIgnoreCase(qName)) {
-                //create a new instance of employee
+        if (foundTracks) 
+        {
+            if ("key".equals(previousTag) && "dict".equalsIgnoreCase(qName)) 
+            {
                 tempTrack = new Track();
                 myTracks.add(tempTrack);
             }
-        } else {
-            if ("key".equals(previousTag) && "Tracks".equalsIgnoreCase(previousTagVal) && "dict".equalsIgnoreCase(qName)) {
+        } 
+        else 
+        {
+            if ("key".equals(previousTag) && "Tracks".equalsIgnoreCase(previousTagVal) && "dict".equalsIgnoreCase(qName)) 
+            {
                 foundTracks = true; // We are now inside the Tracks dict.
             }
         }
     }
 
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) throws SAXException 
+	{
         tempVal = new String(ch,start,length);
     }
 
-    public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (foundTracks) {
+    public void endElement(String uri, String localName, String qName) throws SAXException 
+	{
+         if (foundTracks) 
+        {
             if (previousTagVal.equalsIgnoreCase("Name") && qName.equals("string"))
             {
-                    tempTrack.setName(tempVal);
+                    tempTrack.setName(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Artist") && qName.equals("string"))
             {
@@ -144,7 +151,7 @@ public class SAXParserExample extends DefaultHandler {
             // Add other tags here for use
             else if (previousTagVal.equalsIgnoreCase("Location") && qName.equals("string"))
             {
-            	tempTrack.setLocation(tempVal);
+            	tempTrack.setPath(tempVal);
             }
             else if (previousTagVal.equalsIgnoreCase("Track Number") && qName.equals("integer"))
             {
@@ -170,8 +177,17 @@ public class SAXParserExample extends DefaultHandler {
             {
             	tempTrack.setPath(tempVal);
             }
+            else if (previousTagVal.equalsIgnoreCase("Grouping") && qName.equals("string"))
+            {
+            	Scanner scan = new Scanner(tempVal);
+            	scan.useDelimiter(",");
+            	tempTrack.setPrimaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
+            	tempTrack.setSecondaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
+            	scan.close();
+            }
             // Mark when we come to the end of the "Tracks" dict.
-            if ("key".equals(qName) && "Playlists".equalsIgnoreCase(tempVal)) {
+            if ("key".equals(qName) && "Playlists".equalsIgnoreCase(tempVal)) 
+			{
                 foundTracks = false;
             }
         }
@@ -180,11 +196,4 @@ public class SAXParserExample extends DefaultHandler {
         previousTagVal = tempVal;
         previousTag = qName;
     }
-
-    /**
-     * A simple representation of a song in the iTunes library.
-     */
-    
-
-
 }

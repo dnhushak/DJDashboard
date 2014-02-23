@@ -17,6 +17,7 @@ $(document).ready(function() {
     var lastTrack = '';
     var firstLastTrack = '';
     var keepScrolling = true;
+    var filters = new Array();
 
     //USEFULL FUNCTION
     loadTrackChunk = function(lastTrack){
@@ -44,8 +45,8 @@ $(document).ready(function() {
             for(var i = 0; i < tracks.length; i++){
                 var album = tracks[i]['Album'];
                 var artist = tracks[i]['Artist'];
-                var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))]; //TODO
-                var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))]; //TODO
+                var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))];
+                var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))];
                 var songName = tracks[i]['Name'];
                 var songID = tracks[i]['ID'];
                 var reco = tracks[i]['reco'];
@@ -129,9 +130,9 @@ $(document).ready(function() {
                 var artist = artists[id]['Name'];
                 for(var i = 0; i < artistAlbums.length; i++){
                     var album = artistAlbums[i]['Name'];
-                    var genre1 = artistAlbums[i]['Genre1'];
-                    var genre2 = artistAlbums[i]['Genre2'];
                     for(var j = 0; j < artistAlbums[i]['tracks'].length; j++){
+                        var genre1 = artistAlbums[i]['tracks'][j]['PrimaryGenre'];
+                        var genre2 = artistAlbums[i]['tracks'][j]['SecondaryGenre'];
                         var songName = artistAlbums[i]['tracks'][j]['Name'];
                         var songID = artistAlbums[i]['tracks'][j]['ID'];
                         var reco = artistAlbums[i]['tracks'][j]['reco'];
@@ -181,12 +182,14 @@ $(document).ready(function() {
                     var FCC = false;
                     var artist = $('#artists .active-item').text();
                     var album = songs[i]['Album'];
+                    var pGenre = genres[parseInt(songs[i]['PrimaryGenre'])];
+                    var sGenre = genres[parseInt(songs[i]['SecondaryGenre'])];
 
                     $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
                     $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
                     $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
-                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+'GENRE'+'</li>');
-                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+'GENRE'+'</li>');
+                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ pGenre +'</li>');
+                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ sGenre +'</li>');
                     if(songs[i]['Recommended'] == 1){
                         reco = true;
 
@@ -196,7 +199,7 @@ $(document).ready(function() {
                         FCC = true;
                         $( '.' + songID).addClass('FCC');
                     }
-                    albums[albumID].addTrack(new Track(songName, songID, reco, FCC, artist, album));
+                    albums[albumID].addTrack(new Track(songName, songID, reco, FCC, artist, album, pGenre, sGenre));
                 }
             }
         })
@@ -209,8 +212,8 @@ $(document).ready(function() {
                 for(var i = 0; i < trackList.length; i++){
                     var album = trackList[i]['Album'];
                     var artist = trackList[i]['Artist'];
-                    var genre1 = albums[id]['Genre1'];
-                    var genre2 = albums[id]['Genre2'];
+                    var genre1 = trackList[i]['PrimaryGenre'];
+                    var genre2 = trackList[i]['SecondaryGenre'];
                     var songName = trackList[i]['Name'];
                     var songID = trackList[i]['ID'];
                     var reco = trackList[i]['reco'];
@@ -257,11 +260,13 @@ $(document).ready(function() {
                     var album = $('#albums .active-item').text();
                     var reco = false;
                     var FCC = false;
+                    var pGenre = genres[parseInt(songs[i]['PrimaryGenre'])];
+                    var sGenre = genres[parseInt(songs[i]['SecondaryGenre'])];
                     $('.track .tracks').append('<li class="item '+ songID +'">'+ songName +'</li>');   
                     $('.artist .tracks').append('<li class="item '+ songID +'">'+ artist +'</li>');
                     $('.album .tracks').append('<li class="item '+ songID +'">'+ album +'</li>'); 
-                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+'GENRE'+'</li>');
-                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+'GENRE'+'</li>');  
+                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ pGenre +'</li>');
+                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ sGenre +'</li>');  
                     if(songs[i]['Recommended'] == 1){
                         reco = true;
                         $('.' + songs[i]['ID']).addClass('reco');
@@ -270,7 +275,7 @@ $(document).ready(function() {
                         FCC = true;
                         $('.' + songs[i]['ID']).addClass('FCC');
                     }
-                    albums[id].addTrack(new Track(songName, songID, reco, FCC, artist, album));
+                    albums[id].addTrack(new Track(songName, songID, reco, FCC, artist, album, pGenre, sGenre));
                 }
             }
         })
@@ -300,10 +305,14 @@ $(document).ready(function() {
     resetAlbums = function(){
         $('#albums .selection').html(albumsHTML);
     }
+    fillGenres = function(){
+        for(var i = 1; i < genres.length; i++){
+            $("#filter-form").append('<div class="checkbox"><label><input type="checkbox" name="' + genres[i] + '">' + genres[i] + '</label></div>')
+        }
+    }
     
 	//Error Publisher
-	PublishError = function(e)
-	{
+	PublishError = function(e){
 		console.log("Logging exception to database");
 		var stack = e.stack;
 		if((e.stack == "" || e.stack == undefined))
@@ -402,6 +411,12 @@ $(document).ready(function() {
             loadTrackChunk(lastTrack);
         }
     });
+    $("#filter-form").on('click', function(){
+        $('input:checked').each(function() {
+            //selected.push($(this).attr('name'));
+        });
+    });
     //ON PAGE LOAD
+    fillGenres();
     initialize();
 })

@@ -139,6 +139,7 @@ html {
 	width: 0px;
 	float: left;
 	background-color: #E6E6E6;
+	overflow: scroll;
 }
 .playlist-view {
 	width: 0px;

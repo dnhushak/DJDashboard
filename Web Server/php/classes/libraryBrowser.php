@@ -23,7 +23,9 @@ final class libraryBrowser {
 					"Album" => utf8_encode($track->getAlbum()),
 					"AlbumID" => utf8_encode($track->getAlbumID()),
 					"Recommended" => utf8_encode($track->getRecommended()),
-					"FCC" => utf8_encode($track->getFCC()));
+					"FCC" => utf8_encode($track->getFCC()),
+					"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
+					"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
 			$ret [] = $trackRow;
 		}
 		return $ret;
@@ -38,7 +40,9 @@ final class libraryBrowser {
 					"Name" => utf8_encode($track->getName()),
 					"Artist" => utf8_encode($track->getArtist()),
 					"Recommended" => utf8_encode($track->getRecommended()),
-					"FCC" => utf8_encode($track->getFCC()));
+					"FCC" => utf8_encode($track->getFCC()),
+					"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
+					"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
 			$ret [] = $trackRow;
 		}
 		return $ret;
@@ -75,7 +79,9 @@ final class libraryBrowser {
 		foreach ($albumArray as $album) {
 			$albumRow = array (
 					"ID" => utf8_encode($album->getID()),
-					"Name" => utf8_encode($album->getName()) );
+					"Name" => utf8_encode($album->getName()),
+					"PrimaryGenre" => utf8_encode($album->getPrimaryGenre()),
+					"SecondaryGenre" => utf8_encode($album->getSecondaryGenre()) );
 			$allAlbum[] = $albumRow;
 		}
 		return $allAlbum;

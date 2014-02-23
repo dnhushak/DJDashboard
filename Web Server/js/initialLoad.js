@@ -23,7 +23,7 @@ $(document).ready(function() {
         var allGenres = initial['Genres']
         albumsHTML += '<li class="active-item item" id="all">All</li>';
         for(var i = 0; i < allAlbums.length; i++){
-            albums[parseInt(allAlbums[i]['ID'])] = new Album(allAlbums[i]['Name'], parseInt(allAlbums[i]['ID']), 'Genre1', 'Genre2');
+            albums[parseInt(allAlbums[i]['ID'])] = new Album(allAlbums[i]['Name'], parseInt(allAlbums[i]['ID']), allAlbums[i]['PrimaryGenre'], allAlbums[i]['SecondaryGenre']);
         	albumsHTML += '<li class="item" id="'+allAlbums[i]['ID']+'">'+allAlbums[i]['Name']+'</li>';
         }
         artistsHTML += '<li class="active-item item" id="all">All</li>';

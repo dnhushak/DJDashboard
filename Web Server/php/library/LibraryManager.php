@@ -147,6 +147,8 @@
 				$tempAlbum = new Album();
 				$tempAlbum->setName($rowInfo['Album Name']);
 				$tempAlbum->setID($rowInfo['ID']);
+				$tempAlbum->setSecondaryGenre($rowInfo['SecondaryGenre']);
+				$tempAlbum->setPrimaryGenre($rowInfo['PrimaryGenre']);
 				$albumList[] = $tempAlbum;
 			}
 			return $albumList;

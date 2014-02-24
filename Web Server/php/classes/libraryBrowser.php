@@ -80,7 +80,7 @@ final class libraryBrowser {
 			$albumRow = array (
 					"ID" => utf8_encode($album->getID()),
 					"Name" => utf8_encode($album->getName()),
-					"PrimaryGenre" => utf8_encode($album->getPrimaryGenre()),
+					"PrimaryGenre" => utf8_encode($album->getPrimaryGenreID()),
 					"SecondaryGenre" => utf8_encode($album->getSecondaryGenre()) );
 			$allAlbum[] = $albumRow;
 		}
@@ -98,7 +98,7 @@ final class libraryBrowser {
 			"ArtistID" => utf8_encode($track->Artist->getID()),
 			"ArtistName" => utf8_encode($track->Artist->getName()),
 			"PlayCount" => utf8_encode($track->getPlayCount()),
-			"Genre" => utf8_encode($track->getGenre()),
+			"Genre" => utf8_encode($track->getPrimaryGenreID()),
 			"CreateDate" => utf8_encode($track->getCreateDate()),
 			"EndDate" => utf8_encode($track->getEndDate()),
 			"ReleaseDate" => utf8_encode($track->getReleaseDate()),

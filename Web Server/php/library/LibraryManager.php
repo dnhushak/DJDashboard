@@ -183,6 +183,8 @@
 		//Returns an array of rows from the db of all the track data
 		public function GetAllTrackData($TrackID)
 		{
+			try
+			{
 			$conn = new SqlConnect();
 			$results = $conn->callStoredProc($this->spGetTrackData, array($TrackID));
 			//Keys are 1-1, so there should only be one row
@@ -198,14 +200,19 @@
 			$track->setName($r['TrackName']);
 			$track->setFCC($r['FCC']);
 			$track->setRecommended($r['Recommended']);
-			$track->setGenre($r['PrimaryGenre']);
 			$track->setPlayCount($r['PlayCount']);
 			$track->setCreateDate($r['CreateDate']);
 			$track->setReleaseDate($r['ReleaseDate']);
 			$track->setEndDate($r['EndDate']);
-			$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
-			$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
+			$track->setPrimaryGenreID($r['idPrimaryGenre']);
+			$track->setSecondaryGenreID($r['idSecondaryGenre']);
 			return $track;
+			}
+			catch (Exception $e)
+			{
+				Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+				return false;
+			}
 		}
 		
 		/**

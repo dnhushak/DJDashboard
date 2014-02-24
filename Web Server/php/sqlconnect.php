@@ -6,6 +6,8 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
  
+ include_once('publisher.php');
+ 
 class SqlConnect
 {
 	private $connection;
@@ -51,6 +53,8 @@ class SqlConnect
 	{
 		//Removing values here and replacing with what is in the initialize method.
 		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
+		try
+		{
 		if($args != null)//Each arg in order
 		{
 			$cmd = "Call ".$procedureName."(";
@@ -75,6 +79,12 @@ class SqlConnect
 			$results = $this->connection->query("Call ".$procedureName."();");
 		}
 		return $results;
+		}
+		catch (Exception $e)
+		{
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
 	}
 }
 ?>

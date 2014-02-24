@@ -119,7 +119,18 @@ class Track {
 	public function setPrimaryGenreID($Genre){
 		$this->PrimaryGenreID = $Genre;
 	}
-
+	
+	
+	public function getGenre()
+	{
+		return getPrimaryGenreID();
+	}
+	
+	public function setGenre($Genre)
+	{
+		setPrimaryGenreID($Genre);
+	}
+	
 	public function getSecondaryGenreID(){
 		return $this->SecondaryGenreID;
 	}

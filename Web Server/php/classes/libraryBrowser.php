@@ -141,5 +141,22 @@ final class libraryBrowser {
 		}
 		return $allGenres;
 	}
+	public function getTracksByGenre($genreID){
+		$trackArray = $this->manager->getTracksByGenre($genreID);
+		$allTracks = array();
+		foreach ($trackArray as $track) {
+			$trackRow = array(
+				"ID" => utf8_encode($track->getID()),
+				"Name" => utf8_encode($track->getName()),
+				"ArtistID" => utf8_encode($track->getArtist()),
+				"AlbumID" => utf8_encode($track->getAlbumID()),
+				"Recommended" => utf8_encode($track->getRecommended()),
+				"FCC" => utf8_encode($track->getFCC()),
+				"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
+				"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
+			$allTracks[] = $trackRow;
+		}
+		return $allTracks;
+	}
 }
 ?>

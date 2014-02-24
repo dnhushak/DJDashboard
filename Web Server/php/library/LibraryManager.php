@@ -15,6 +15,7 @@
 		private $GetTrackChunksAlphabetical;
 		private $spGetTrackData;
 		private $GetAllGenres;
+		private $GetAllTracksByGenre;
 		
 		
 		public function __construct()
@@ -37,6 +38,7 @@
 			$this->GetTrackChunksAlphabetical = "GetTrackChunksAlphabetical";
 			$this->spGetTrackData = "GetAllTrackData";
 			$this->GetAllGenres = "GetAllGenre";
+			$this->GetAllTracksByGenre = "GetAllTracksByGenre";
 		}
 		
 		/**
@@ -232,6 +234,24 @@
 				$genreList[] = $tempGenre;
 			}
 			return $genreList;
+		}
+		public function GetTracksByGenre($genreID){
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->GetAllTracksByGenre, $genreID);
+			$trackList = array();
+			while($rowInfo = mysqli_fetch_assoc($results)){
+				$tempTrack = new Track();
+				$tempTrack->setArtist($rowInfo['idArtist']);
+				$tempTrack->setName($rowInfo['Name']);
+				$tempTrack->setFCC(($rowInfo['FCC']));
+				$tempTrack->setID($rowInfo['idTrack']);
+				$tempTrack->setRecommended($rowInfo['Recommended']);
+				$tempTrack->setAlbumID($rowInfo['idAlbum']);
+				$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
+				$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
+				$trackList[] = $tempTrack;
+			}
+			return $trackList;
 		}
 	}
 ?>

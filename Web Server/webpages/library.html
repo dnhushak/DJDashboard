@@ -8,6 +8,11 @@
 	     		<input type="checkbox" name="recommended">Recommended
 	    	</label>
 	    </div>
+	    <div class="radio">
+	    	<label>
+	    		<input type="radio" name="genreFilters" value="All" checked>All Genres
+	    	</label>
+    	</div>
 	</form>
 </div>
 <div class="expandable" id="filters"></div>
@@ -46,7 +51,7 @@
 		<div class="col-md-1 library-column track-column secondary-genre">
 			<h5 class="title">S. Genre</h5>
 		</div>
-		<div class="track-view">
+		<div class="track-view" id="track-top">
 			<div class="col-md-4 library-column track-column track">
 				<ul class="elements tracks">
 				</ul>

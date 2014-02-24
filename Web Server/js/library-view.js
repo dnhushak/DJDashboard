@@ -17,9 +17,127 @@ $(document).ready(function() {
     var lastTrack = '';
     var firstLastTrack = '';
     var keepScrolling = true;
-    var filters = new Array();
+    var filters = { recommended: 0, genre: 'All' };
+    var isFiltered = false;
+    var filteredData;
+    var lastFiltered = 100;
 
     //USEFULL FUNCTION
+    updateWithFilter = function() {
+        $.ajax({
+            url: '../php/scripts/getTracksByGenre.php',
+            type: 'GET',
+            data: {'GenreID' : filters['genre']},
+            success: function() {}
+        }).done(function(data){
+            var tracks;
+            var currentTrack = "";
+            try{
+                tracks = JSON.parse(data);
+            }catch(e){
+                console.log('Error getting tracks by genre. GenreID=' + filters['genre']);
+                PublishError(e);
+                return;
+            }
+            $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
+            $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
+            clearTrackList();
+            filteredData = tracks;
+            lastFilterd = 100;
+            var genreArtists = {};
+            var genreAlbums = {};
+            for(var i = 0; i < tracks.length && i < 100; i++){
+                var albumID = parseInt(tracks[i]['AlbumID']);
+                var artistID = parseInt(tracks[i]['ArtistID']);
+                var album = albums[albumID]['Name'];
+                var artist = artists[artistID]['Name'];
+
+                genreAlbums[album] = albumID;
+                genreArtists[artist] = artistID;
+
+                // $('#artists .selection').append('<li class="item" id="' + artistID + '">' + artist + '</li>');
+                // $('#albums .selection').append('<li class="item item" id="' + albumID + '">' + album + '</li>');
+                
+                var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))];
+                var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))];
+                var songName = tracks[i]['Name'];
+                var songID = tracks[i]['ID'];
+                var reco = tracks[i]['reco'];
+                var FCC = tracks[i]['FCC'];
+                $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
+                $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
+                $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
+                $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
+                if(reco == 1){
+                    $('.' + songID).addClass('reco');
+                }
+                if(FCC == 1){
+                    $('.' + songID).addClass('FCC');
+                }
+            }
+            uniqueArtists = new Array()
+            for(var art in genreArtists){
+                uniqueArtists.push([art, genreArtists[art]])
+            }
+            uniqueAlbums = new Array()
+            for(var alb in genreAlbums){
+                uniqueAlbums.push([alb, genreAlbums[alb]])
+            }
+            uniqueArtists.sort(function(a, b){
+                if (a[0] < b[0]){
+                    return -1;
+                }
+                else if (a[0] > b[0]){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            })
+            uniqueAlbums.sort(function(a, b){
+                if (a[0] < b[0]){
+                    return -1;
+                }
+                else if (a[0] > b[0]){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            })
+            for(var i = 0; i < uniqueAlbums.length; i++){
+                $('#albums .selection').append('<li class="item item" id="' + uniqueAlbums[i][1] + '">' + uniqueAlbums[i][0] + '</li>');
+            }
+            for(var i = 0; i < uniqueArtists.length; i++){
+                $('#artists .selection').append('<li class="item" id="' + uniqueArtists[i][1] + '">' + uniqueArtists[i][0] + '</li>');
+            }
+        });
+    }
+    loadFilteredChunk = function(){
+        var max = lastFiltered + 100;
+        for(var i = lastFiltered; i < filteredData.length && i < max; i++){
+            var album = albums[parseInt(filteredData[i]['AlbumID'])]['Name'];
+            var artist = artists[parseInt(filteredData[i]['ArtistID'])]['Name'];
+            var genre1 = genres[(parseInt(filteredData[i]['PrimaryGenre']))];
+            var genre2 = genres[(parseInt(filteredData[i]['SecondaryGenre']))];
+            var songName = filteredData[i]['Name'];
+            var songID = filteredData[i]['ID'];
+            var reco = filteredData[i]['reco'];
+            var FCC = filteredData[i]['FCC'];
+            $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+            $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
+            $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
+            $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
+            $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
+            if(reco == 1){
+                $('.' + songID).addClass('reco');
+            }
+            if(FCC == 1){
+                $('.' + songID).addClass('FCC');
+            }
+        }
+        lastFiltered = max;
+    }
+
     loadTrackChunk = function(lastTrack){
         if((lastTrack == "" || lastTrack == undefined || lastTrack == null) && initialTrackHTML != ""){
             setLastTrack(firstLastTrack);
@@ -80,8 +198,7 @@ $(document).ready(function() {
     initialize = function(){
         $('#albums .selection').html(albumsHTML)
         $('#artists .selection').html(artistsHTML);
-        $('.filter-view').hide();
-        $('.playlist-view').hide();
+        lastTrack = '';
         loadTrackChunk();
     }
 	formatClass = function(str){
@@ -307,7 +424,7 @@ $(document).ready(function() {
     }
     fillGenres = function(){
         for(var i = 1; i < genres.length; i++){
-            $("#filter-form").append('<div class="checkbox"><label><input type="checkbox" name="' + genres[i] + '">' + genres[i] + '</label></div>')
+            $("#filter-form").append('<div class="radio"><label><input type="radio" name="genreFilters" value="' + i + '">' + genres[i] + '</label></div>')
         }
     }
     
@@ -315,18 +432,15 @@ $(document).ready(function() {
 	PublishError = function(e){
 		console.log("Logging exception to database");
 		var stack = e.stack;
-		if((e.stack == "" || e.stack == undefined))
-		{
+		if((e.stack == "" || e.stack == undefined)){
 			stack = "No stack available";
 		}
-		
 		var ajaxCall = $.ajax({
 			type: "GET",
 			async:true,
 			url: "../php/scripts/logException.php",
 			data: {'Message' : e.message, 'StackTrace' : stack, 'userID' : '0'},
         });
-	
 	}
 	
 	
@@ -407,16 +521,57 @@ $(document).ready(function() {
     });
     $(".track-view").scroll(function(){
         if(keepScrolling && $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight - 5){
+            if(isFiltered){
+                loadFilteredChunk();
+                return;
+            }
             keepScrolling = false;
             loadTrackChunk(lastTrack);
         }
     });
     $("#filter-form").on('click', function(){
-        $('input:checked').each(function() {
-            //selected.push($(this).attr('name'));
-        });
+        var updated = false;
+        var filterGenre = $('input[name=genreFilters]:checked', '#filter-form').val();
+        if(filters['genre'] != filterGenre){
+            filters['genre'] = filterGenre;
+            updated = true;
+        }
+        if($("input:checkbox").is(':checked')){
+            if(filters['recommended'] == 0){
+                filters['recommended'] = 1;
+                updated = true;
+            }
+        }else{
+            if(filters['recommended'] == 1){
+                filters['recommended'] = 0;
+                updated = true;
+            }
+        }
+        if(filters['genre'] == 'All' && filters['recommended'] == 0){
+            isFiltered = false;
+        }else{
+            isFiltered = true;
+        }
+        console.log(isFiltered);
+        if(updated){
+            if(filters['recommended'] == 0 && filters['genre'] != 'All'){
+                //Filtering only by genre
+                updateWithFilter();
+            }
+            else if(filters['recommended'] == 1 && filters['genre'] != 'All'){
+                //Filtering by recommended and genre
+            }
+            else if(filters['recommended'] == 1 && filters['genre'] == 'All'){
+                //Filtering by recommended only
+            }else{
+                //No filtering being applied
+                initialize();
+            }
+        }
     });
     //ON PAGE LOAD
     fillGenres();
     initialize();
+    $('.filter-view').hide();
+    $('.playlist-view').hide(); 
 })

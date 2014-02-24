@@ -48,6 +48,38 @@
 			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $userID);
 		}
 	}
+	//Fatal error handler for PHP, can be called using register_shutdown_function( "Publisher::fatalHandler" );
+	//Will call publish exception, but this handles PHP exceptions
+	public static function fatalHandler()
+	{
+		
+		$errfile = "unknown file";
+		$errstr  = "shutdown";
+		$errno   = E_CORE_ERROR;
+		$errline = 0;
+
+		$error = error_get_last();
+
+		if( $error !== NULL) {
+			$errno   = $error["type"];
+			$errfile = $error["file"];
+			$errline = $error["line"];
+			$errstr  = $error["message"];
+		}
+		
+		//Shutdown error, ignore this one, don't log.
+		if($errno == 16)
+		{
+			return;
+		}
+		
+		$trace = "File: ".$errfile." Line: ".$errline;
+		$errstr = "ErrorNum: ".$errno." ErrorString: ".$errstr;
+		Publisher::publishException($trace, $errstr, 0);
+
+		
+
+	}
  
  }
  

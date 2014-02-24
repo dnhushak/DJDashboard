@@ -4,12 +4,13 @@
 	include_once 'Album.php';
 	include_once 'Track.php';
 	include_once 'Genre.php';
+	include_once '../publisher.php';
 	class LibraryManager
 	{
 		private $GetArtistsAlphabetical;
 		private $GetArtists;
 		private $GetAlbumsByArtistID;
-		private $PlayTrackByID;
+		private $spPlayTrackByID;
 		private $GetTracksByAlbumID;
 		private $GetAlbums;
 		private $GetTrackChunksAlphabetical;
@@ -28,10 +29,13 @@
 		 */
 		private function initialize()
 		{
+			//Register failure procedure
+			register_shutdown_function( "Publisher::fatalHandler" );
+		
 			$this->GetArtistsAlphabetical = "GetArtistListAlphabetical";
 			$this->GetArtists = "GetArtistList";
 			$this->GetAlbumsByArtistID = "GetAlbumsFromArtistID";
-			$this->PlayTrackByID = "PlayTrackByID";
+			$this->spPlayTrackByID = "PlayTrackByID";
 			$this->GetTracksByAlbumID = "GetTracksByAlbumID";
 			$this->GetTracksByArtistID = "GetTracksByArtistID";
 			$this->GetAlbums = "GetAlbumList";
@@ -215,21 +219,6 @@
 			}
 		}
 		
-		/**
-		*	PlayTrack
-		*	Will probably be called when a playlist is submitted.
-		*	Logs a play of a track, then saves it in the DB.
-		*/
-		public function PlayTrack($ID)
-		{
-			$conn = new SqlConnect();
-			$UserID = 1;
-			$OnAirSessionID = null;
-			$results = $conn->calledStoredProc($this->PlayTrackByID, array($ID, $UserID, $OnAirSessionID));
-			
-			//USER INFORMATION
-			//LOGIN INFORMATION
-		}
 		public function GetAllGenres(){
 			$conn = new SqlConnect();
 			$results = $conn->callStoredProc($this->GetAllGenres, null);
@@ -259,6 +248,39 @@
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;
+		}
+		
+		/**
+		*		PLAY TRACKS
+		*		Two types of functions here, one is static, the other instance.  This will allow very easy playing of tracks.
+		*		When the track is played, it is logged in the DB with the following values:
+		*		trackID - Track ID of the track being played (foreign key to track)
+		*		userID - User who is playing this track
+		*		onairsession - On air session ID of this track (can be linked to playlists later)
+		*		
+		**/
+		public function PlayTrack($UserID, $TrackID, $OnAirSessionID)
+		{
+			try
+			{
+				$conn = new sqlConnect();
+				$results = $conn->callStoredProc($this->spPlayTrackByID, array($TrackID, $UserID, $OnAirSessionID));
+				if(!$results)
+				{
+					throw new Exception('Error in sql query; PlayTrack in LibraryManager');
+				}
+				else
+				{
+					//Track played successfully
+					return true;
+				}
+			}
+			catch (Exception $e)
+			{
+				Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+				return false;
+			}
+			
 		}
 	}
 ?>

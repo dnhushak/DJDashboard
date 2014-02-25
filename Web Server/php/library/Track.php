@@ -117,6 +117,10 @@ class Track {
 	}
 
 	public function setPrimaryGenreID($Genre){
+		if($Genre == "null" || $Genre == "" || $Genre == null){
+			$this->PrimaryGenreID = 0;
+			return;
+		}
 		$this->PrimaryGenreID = $Genre;
 	}
 	
@@ -136,6 +140,10 @@ class Track {
 	}
 
 	public function setSecondaryGenreID($Genre){
+		if($Genre == "null" || $Genre == "" || $Genre == null){
+			$this->SecondaryGenreID = 0;
+			return;
+		}
 		$this->SecondaryGenreID = $Genre;
 	}
 

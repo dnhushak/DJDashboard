@@ -76,6 +76,7 @@ html {
 .item {
 	padding-left: 8px;
 	overflow: hidden;
+	height: 20px;
 }
 .active-item {
 	background-color: #E6E6E6;

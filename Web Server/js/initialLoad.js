@@ -31,10 +31,9 @@ $(document).ready(function() {
             artists[parseInt(allArtists[i]['ID'])] = new Artist(allArtists[i]['Name'], parseInt(allArtists[i]['ID']));
         	artistsHTML += '<li class="item" id="'+allArtists[i]['ID']+'">'+allArtists[i]['Name']+'</li>'
         }
-        genres[0] = "";
+        genres[0] = " ";
         for(var i = 0; i < allGenres.length; i++){
             genres[parseInt(allGenres[i]['ID'])] = allGenres[i]['Name'];
         }
-        console.log(artists);
     });
 });

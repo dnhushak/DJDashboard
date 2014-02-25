@@ -10,6 +10,7 @@ session_start();
 	href="../css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" media="all"
 	href="../css/main.css">
+	<link type="text/css" href="../jplayerSkin/jplayer.css" rel="stylesheet" media="all"/>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/PageLoad.js"></script>

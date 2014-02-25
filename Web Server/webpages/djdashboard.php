@@ -1,5 +1,8 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
 <!DOCTYPE html>
+<?php
+session_start();
+?>
 <html>
 <head>
 <title>Kure 88.5 Ames Alternative</title>
@@ -22,13 +25,15 @@
 		</div>
 		<ul class="nav nav-tabs nav-justified">
 			<li class="active"><a id="home" style="cursor: pointer">Home</a></li>
-			<li><a id="spinlist" style="cursor: pointer">Spinlist</a></li>
+			<li><a id="loginpage" style="cursor: pointer">Login</a></li>
 			<li><a id="library" style="cursor: pointer">Library</a></li>
 			<li><a id="profile" style="cursor: pointer">Profile</a></li>
 		</ul>
-		<div id="content"> 
+		<div id="content"></div>
+		<div id="footer">
+			<a>Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.
+				KURE is Funded by the Government of the Student Body.</a>
 		</div>
-		<div id="footer"><a>Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.   KURE is Funded by the Government of the Student Body.</a></div>
 	</div>
 </body>
 </html>

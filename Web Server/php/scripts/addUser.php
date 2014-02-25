@@ -1,33 +1,37 @@
-<?php  
-
-	/**
-	 * @requires connect.php 
-	 * @requires util.php
-	 * @requires db.php
-	 */
-	require '../classes/user.php';
-
-	session_start();
-
-	try 
-	{
-		$player = new User($_POST['email'], $_POST['password'], $_POST['username'], 'rgb(255, 255, 255)');
-		$player->push();
-
-		// set the sessions
-		$_SESSION['username'] = $player->__get('username');
-		$_SESSION['id'] = $player->__get('id');
-
-		echo json_encode(array(
-			'player' => $player->serialize()
-		));
-
-		//header('Location: ../../main.php');
-	} 
-	catch(Exception $e) 
-	{
-		 echo json_encode(array(
-		 	'error' => true,
-		 	'message' => $e->getMessage(),
-		 ));
-	}
+<?php
+include_once ("../classes/authConfig.php");
+include_once ("../classes/authUtil.php");
+include_once ("../sqlconnect.php");
+$attemptuser = $_GET ['username'];
+$attemptpass = $_GET ['password'];
+$attemptfirstname = $_GET ['first'];
+$attemptlastname = $_GET ['last'];
+$salt = authUtil::makeSalt(saltSize);
+echo "<br/>" . $salt . "<br/>";
+$hash = authUtil::makePassHash(hashAlgo, $salt, $attemptuser, $attemptpass);
+// $attemptuser = 100;
+$proc = "AddUser";
+echo $attemptuser . "<br/>";
+$conn = new SqlConnect();
+$arr = array (
+		$attemptuser,
+		$hash,
+		$salt,
+		"NULL",
+		$attemptfirstname,
+		$attemptlastname,
+		"1" );
+var_dump($arr);
+$results;
+$results = $conn->callStoredProc($proc, array (
+		$attemptuser,
+		$hash,
+		$salt,
+		"NULL",
+		$attemptfirstname,
+		$attemptlastname,
+		"1" ));
+// if (!$userinfo = mysqli_fetch_assoc($results)) {
+// error
+// }
+?>

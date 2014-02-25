@@ -80,7 +80,7 @@ final class libraryBrowser {
 			$albumRow = array (
 					"ID" => utf8_encode($album->getID()),
 					"Name" => utf8_encode($album->getName()),
-					"PrimaryGenre" => utf8_encode($album->getPrimaryGenreID()),
+					"PrimaryGenre" => utf8_encode($album->getPrimaryGenre()),
 					"SecondaryGenre" => utf8_encode($album->getSecondaryGenre()) );
 			$allAlbum[] = $albumRow;
 		}

@@ -35,7 +35,8 @@ public class SAXParserExample extends DefaultHandler {
     private String previousTag;
     private String previousTagVal;
 
-    public SAXParserExample() {
+    public SAXParserExample() 
+	{
         myTracks = new ArrayList<Track>();
     }
     
@@ -44,7 +45,8 @@ public class SAXParserExample extends DefaultHandler {
     	SAXParserExample.LIBRARY_FILE_PATH = filePath;
     }
 
-    public void run() {
+    public void run() 
+	{
         parseDocument();
         //printData();
     }
@@ -58,16 +60,17 @@ public class SAXParserExample extends DefaultHandler {
     	return myTracks;
     }
 
-    private void parseDocument() {
+    private void parseDocument() 
+	{
         //get a factory
         SAXParserFactory spf = SAXParserFactory.newInstance();
-        try {
+        try 
+		{
             //get a new instance of parser
             SAXParser sp = spf.newSAXParser();
 
             //parse the file and also register this class for call backs
             sp.parse(LIBRARY_FILE_PATH, this);
-
         }
         catch(SAXException se) 
         {
@@ -87,13 +90,14 @@ public class SAXParserExample extends DefaultHandler {
      * Iterate through the list and print
      * the contents
      */
-    private void printData(){
-
+    private void printData()
+	{
         System.out.println("No of Tracks '" + myTracks.size() + "'.");
 
         Iterator<Track> it = myTracks.iterator();
 
-        while(it.hasNext()) {
+        while(it.hasNext()) 
+		{
             Track song = it.next();
             System.out.println(song.getAlbum() + " - " + song.getName());
         }
@@ -101,10 +105,10 @@ public class SAXParserExample extends DefaultHandler {
 
     //Event Handlers
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException 
+	{
 		//reset
         tempVal = "";
-
         if (foundTracks) 
         {
             if ("key".equals(previousTag) && "dict".equalsIgnoreCase(qName)) 
@@ -137,11 +141,11 @@ public class SAXParserExample extends DefaultHandler {
             }
             else if (previousTagVal.equalsIgnoreCase("Artist") && qName.equals("string"))
             {
-                    tempTrack.setArtist(tempVal);
+                    tempTrack.setArtist(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Album") && qName.equals("string"))
             {
-                    tempTrack.setAlbum(tempVal);
+                    tempTrack.setAlbum(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Play Count") && qName.equals("integer"))
             {
@@ -151,7 +155,7 @@ public class SAXParserExample extends DefaultHandler {
             // Add other tags here for use
             else if (previousTagVal.equalsIgnoreCase("Location") && qName.equals("string"))
             {
-            	tempTrack.setPath(tempVal);
+            	tempTrack.setPath(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Track Number") && qName.equals("integer"))
             {
@@ -172,10 +176,6 @@ public class SAXParserExample extends DefaultHandler {
             {
             	Integer value = Integer.parseInt(tempVal);
             	tempTrack.setTotalTime(value);
-            }
-            else if (previousTagVal.equalsIgnoreCase("Location")&& qName.equals("string"))
-            {
-            	tempTrack.setPath(tempVal);
             }
             else if (previousTagVal.equalsIgnoreCase("Grouping") && qName.equals("string"))
             {

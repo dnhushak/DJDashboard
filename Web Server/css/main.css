@@ -65,6 +65,7 @@ html {
 .list-view {
 	background-color: #FAFAFA;
 	border: 1px solid #F2F2F2;
+	height: 85%;
 }
 .elements {
 	padding-left: 0px;
@@ -94,9 +95,6 @@ html {
 .library {
 	height: 75%;
 	padding-bottom: 28px;
-}
-.list-view {
-	height: 100%;
 }
 .selection {
 	max-height: 100%;

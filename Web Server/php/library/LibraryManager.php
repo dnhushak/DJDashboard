@@ -16,9 +16,10 @@
 		private $GetTrackChunksAlphabetical;
 		private $spGetTrackData;
 		private $GetAllGenres;
-		private $GetAllTracksByGenre;
-		
-		
+		private $GetAllTracksByGenreAndReco;
+		private $GetAlbumsByGenreAndReco;
+		private $GetArtistsByGenreAndReco;
+	
 		public function __construct()
 		{
 			$this->initialize();
@@ -42,7 +43,9 @@
 			$this->GetTrackChunksAlphabetical = "GetTrackChunksAlphabetical";
 			$this->spGetTrackData = "GetAllTrackData";
 			$this->GetAllGenres = "GetAllGenre";
-			$this->GetAllTracksByGenre = "GetAllTracksByGenre";
+			$this->GetAllTracksByGenre = "GetAllTracksByGenreAndReco";
+			$this->GetAlbumsByGenreAndReco = "GetAlbumsByGenreAndReco";
+			$this->GetArtistsByGenreAndReco = "GetArtistsByGenreAndReco";
 		}
 		
 		/**
@@ -231,9 +234,9 @@
 			}
 			return $genreList;
 		}
-		public function GetTracksByGenre($genreID){
+		public function GetTracksByGenreAndReco($genreID, $isReco){
 			$conn = new SqlConnect();
-			$results = $conn->callStoredProc($this->GetAllTracksByGenre, $genreID);
+			$results = $conn->callStoredProc($this->GetAllTracksByGenreAndReco, array($genreID, $isReco));
 			$trackList = array();
 			while($rowInfo = mysqli_fetch_assoc($results)){
 				$tempTrack = new Track();
@@ -249,6 +252,26 @@
 			}
 			return $trackList;
 		}
+<<<<<<< .mine
+		public function GetArtistsByGenreAndReco($genreID, $isReco){
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->GetArtistsByGenreAndReco, array($genreID, $isReco));
+			$artistList = array();
+			while($rowInfo = mysqli_fetch_assoc($results)){
+				$artistList[] = $results['idartist'];
+			}
+			return $artistList;
+		}
+		public function GetAlbumsByGenreAndReco($genreID, $isReco){
+			$conn = new SqlConnect();
+			$results = $conn->callStoredProc($this->GetAlbumsByGenreAndReco, array($genreID, $isReco));
+			$albumList = array();
+			while($rowInfo = mysqli_fetch_assoc($results)){
+				$albumList[] = $results['idalbum'];
+			}
+			return $albumList;
+		}
+=======
 		
 		/**
 		*		PLAY TRACKS
@@ -282,5 +305,6 @@
 			}
 			
 		}
+>>>>>>> .r100
 	}
 ?>

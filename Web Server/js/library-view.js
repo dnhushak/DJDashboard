@@ -21,9 +21,11 @@ $(document).ready(function() {
     var isFiltered = false;
     var filteredData;
     var lastFiltered = 100;
+    var filteredAlbums;
 
-    //USEFULL FUNCTION
+    //USEFULL FUNCTIONS
     updateWithFilter = function() {
+        filteredAlbums = '';
         $.ajax({
             url: '../php/scripts/getTracksByGenre.php',
             type: 'GET',
@@ -35,12 +37,11 @@ $(document).ready(function() {
             try{
                 tracks = JSON.parse(data);
             }catch(e){
-                console.log('Error getting tracks by genre. GenreID=' + filters['genre']);
                 PublishError(e);
                 return;
             }
             $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
-            $('#albums .selection').html('<li class="active-item item" id="all">All</li>');
+            filteredAlbums += '<li class="active-item item" id="all">All</li>';
             clearTrackList();
             filteredData = tracks;
             lastFilterd = 100;
@@ -54,9 +55,6 @@ $(document).ready(function() {
 
                 genreAlbums[album] = albumID;
                 genreArtists[artist] = artistID;
-
-                // $('#artists .selection').append('<li class="item" id="' + artistID + '">' + artist + '</li>');
-                // $('#albums .selection').append('<li class="item item" id="' + albumID + '">' + album + '</li>');
                 
                 var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))];
                 var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))];
@@ -105,8 +103,9 @@ $(document).ready(function() {
                 }
             })
             for(var i = 0; i < uniqueAlbums.length; i++){
-                $('#albums .selection').append('<li class="item item" id="' + uniqueAlbums[i][1] + '">' + uniqueAlbums[i][0] + '</li>');
+                filteredAlbums += '<li class="item item" id="' + uniqueAlbums[i][1] + '">' + uniqueAlbums[i][0] + '</li>'
             }
+            $('#albums .selection').html(filteredAlbums);
             for(var i = 0; i < uniqueArtists.length; i++){
                 $('#artists .selection').append('<li class="item" id="' + uniqueArtists[i][1] + '">' + uniqueArtists[i][0] + '</li>');
             }
@@ -156,7 +155,6 @@ $(document).ready(function() {
             try{
                 tracks = JSON.parse(data);
             }catch(e){
-                console.log('Error getting track chunk lastTrack=' + lastTrack);
 				PublishError(e);
                 return;
             }
@@ -223,8 +221,6 @@ $(document).ready(function() {
             try{
                 albums = JSON.parse(data);
             }catch(e){
-                console.log('Error getting albums by artist');
-                console.log(data);
 				PublishError(e);
                 return;
             }
@@ -280,8 +276,6 @@ $(document).ready(function() {
             try{
                 songs = JSON.parse(data);
             }catch(e){
-                console.log('Error getting tacks by artist');
-                console.log(data);
 				PublishError(e);
                 return;
             }
@@ -360,8 +354,6 @@ $(document).ready(function() {
             try{
                 songs = JSON.parse(data);
             }catch(e){
-                console.log("Error getting tacks by album");
-                console.log(data);
 				PublishError(e);
                 return;
             }
@@ -408,8 +400,6 @@ $(document).ready(function() {
                 artists = JSON.parse(data);
 
             }catch(e){
-                console.log('Error loading all artists');
-                console.log(data);
 				PublishError(e);
                 return;
             }
@@ -430,7 +420,6 @@ $(document).ready(function() {
     
 	//Error Publisher
 	PublishError = function(e){
-		console.log("Logging exception to database");
 		var stack = e.stack;
 		if((e.stack == "" || e.stack == undefined)){
 			stack = "No stack available";
@@ -459,6 +448,13 @@ $(document).ready(function() {
 	});
     $(document).on('click', '#artists .item', function(){
         if($(this).attr('id') == 'all'){
+            if(isFiltered){
+                lastFiltered = 0;
+                clearTrackList();
+                loadFilteredChunk();
+                $('#albums .selection').html(filteredAlbums);
+                return;
+            }
             resetAlbums();
             lastTrack = '';
             loadTrackChunk(lastTrack);
@@ -472,6 +468,13 @@ $(document).ready(function() {
     $(document).on('click', '#albums .item', function(){
         if($(this).attr('id') == 'all'){
             if($('#artists .active-item').attr('id') == 'all'){
+                if(isFiltered){
+                    lastFiltered = 0;
+                    clearTrackList();
+                    loadFilteredChunk();
+                    $('#albums .selection').html(filteredAlbums);
+                    return;
+                }
                 resetAlbums();
                 lastTrack = '';
                 loadTrackChunk(lastTrack);
@@ -552,7 +555,6 @@ $(document).ready(function() {
         }else{
             isFiltered = true;
         }
-        console.log(isFiltered);
         if(updated){
             if(filters['recommended'] == 0 && filters['genre'] != 'All'){
                 //Filtering only by genre

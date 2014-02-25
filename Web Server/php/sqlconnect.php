@@ -29,9 +29,12 @@ class SqlConnect
 	
 	/**
 	 * Private function so it can't be called whenever
+	 *	Hides all connection info
 	 */
 	private function initialize()
 	{
+		try
+		{
 		$this->username = "u30919";
 		$this->password = "pkMDpK6Rh";
 		$this->database = "db30919";
@@ -40,7 +43,13 @@ class SqlConnect
 		
 		if(mysqli_connect_errno())
 		{
-			throw new exception("Failure to connect");
+			throw new Exception("Failure to connect");
+		}
+		}
+		catch (Exception $e)
+		{
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
 		}
 	}
 	
@@ -72,6 +81,12 @@ class SqlConnect
 			}else{
 				$cmd = $cmd.$args[$length-1].");";
 			}
+			//Check for error in query, if there is, throw an exception
+			if ($this->connection->error) 
+			{
+				throw new Exception($this->connection->error);
+			}
+			
 			$results = $this->connection->query($cmd);
 		}
 		else

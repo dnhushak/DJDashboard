@@ -86,7 +86,6 @@ class SqlConnect
 			{
 				throw new Exception($this->connection->error);
 			}
-			
 			$results = $this->connection->query($cmd);
 		}
 		else

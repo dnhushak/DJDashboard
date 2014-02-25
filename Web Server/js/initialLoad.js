@@ -35,8 +35,6 @@ $(document).ready(function() {
         for(var i = 0; i < allGenres.length; i++){
             genres[parseInt(allGenres[i]['ID'])] = allGenres[i]['Name'];
         }
-        console.log(artist);
-        console.log(genres);
-        console.log(genres);
+        console.log(artists);
     });
 });

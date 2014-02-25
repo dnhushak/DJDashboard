@@ -27,15 +27,15 @@ $(document).ready(function() {
     updateWithFilter = function() {
         filteredAlbums = '';
         $.ajax({
-            url: '../php/scripts/getTracksByGenre.php',
+            url: '../php/scripts/getFilterInfo.php',
             type: 'GET',
-            data: {'GenreID' : filters['genre']},
+            data: {'GenreID' : filters['genre'], 'Recommended' : filters['recommended']},
             success: function() {}
         }).done(function(data){
-            var tracks;
+            var info;
             var currentTrack = "";
             try{
-                tracks = JSON.parse(data);
+                info = JSON.parse(data);
             }catch(e){
                 PublishError(e);
                 return;
@@ -45,16 +45,16 @@ $(document).ready(function() {
             clearTrackList();
             filteredData = tracks;
             lastFilterd = 100;
-            var genreArtists = {};
-            var genreAlbums = {};
+
+            var tracks = info['Tracks'];
+            var infoAlbums = info['Albums'];
+            var infoArtists = info['Artists'];
+
             for(var i = 0; i < tracks.length && i < 100; i++){
                 var albumID = parseInt(tracks[i]['AlbumID']);
                 var artistID = parseInt(tracks[i]['ArtistID']);
                 var album = albums[albumID]['Name'];
                 var artist = artists[artistID]['Name'];
-
-                genreAlbums[album] = albumID;
-                genreArtists[artist] = artistID;
                 
                 var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))];
                 var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))];
@@ -74,41 +74,15 @@ $(document).ready(function() {
                     $('.' + songID).addClass('FCC');
                 }
             }
-            uniqueArtists = new Array()
-            for(var art in genreArtists){
-                uniqueArtists.push([art, genreArtists[art]])
-            }
-            uniqueAlbums = new Array()
-            for(var alb in genreAlbums){
-                uniqueAlbums.push([alb, genreAlbums[alb]])
-            }
-            uniqueArtists.sort(function(a, b){
-                if (a[0] < b[0]){
-                    return -1;
-                }
-                else if (a[0] > b[0]){
-                    return 1;
-                }else{
-                    return 0;
-                }
-            })
-            uniqueAlbums.sort(function(a, b){
-                if (a[0] < b[0]){
-                    return -1;
-                }
-                else if (a[0] > b[0]){
-                    return 1;
-                }else{
-                    return 0;
-                }
-            })
-            for(var i = 0; i < uniqueAlbums.length; i++){
-                filteredAlbums += '<li class="item item" id="' + uniqueAlbums[i][1] + '">' + uniqueAlbums[i][0] + '</li>'
+            for(var i = 0; i < infoAlbums.length; i++){
+                filteredAlbums += '<li class="item item" id="' + infoAlbums[i]['AlbumID'] + '">' + albums[parseInt(infoAlbums[i]['AlbumID'])]['Name'] + '</li>'
             }
             $('#albums .selection').html(filteredAlbums);
-            for(var i = 0; i < uniqueArtists.length; i++){
-                $('#artists .selection').append('<li class="item" id="' + uniqueArtists[i][1] + '">' + uniqueArtists[i][0] + '</li>');
+            for(var i = 0; i < infoArtists.length; i++){
+                console.log(infoArtists[i]['ArtistID'])
+                $('#artists .selection').append('<li class="item" id="' + infoArtists[i]['ArtistID'] + '">' + artists[parseInt(infoArtists[i]['ArtistID'])]['Name'] + '</li>');
             }
+            filteredData = tracks;
         });
     }
     loadFilteredChunk = function(){
@@ -556,15 +530,9 @@ $(document).ready(function() {
             isFiltered = true;
         }
         if(updated){
-            if(filters['recommended'] == 0 && filters['genre'] != 'All'){
-                //Filtering only by genre
+            if(isFiltered){
+                //Filtering
                 updateWithFilter();
-            }
-            else if(filters['recommended'] == 1 && filters['genre'] != 'All'){
-                //Filtering by recommended and genre
-            }
-            else if(filters['recommended'] == 1 && filters['genre'] == 'All'){
-                //Filtering by recommended only
             }else{
                 //No filtering being applied
                 initialize();

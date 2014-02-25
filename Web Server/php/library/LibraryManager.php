@@ -43,7 +43,7 @@
 			$this->GetTrackChunksAlphabetical = "GetTrackChunksAlphabetical";
 			$this->spGetTrackData = "GetAllTrackData";
 			$this->GetAllGenres = "GetAllGenre";
-			$this->GetAllTracksByGenre = "GetAllTracksByGenreAndReco";
+			$this->GetAllTracksByGenreAndReco = "GetAllTracksByGenreAndReco";
 			$this->GetAlbumsByGenreAndReco = "GetAlbumsByGenreAndReco";
 			$this->GetArtistsByGenreAndReco = "GetArtistsByGenreAndReco";
 		}
@@ -257,7 +257,7 @@
 			$results = $conn->callStoredProc($this->GetArtistsByGenreAndReco, array($genreID, $isReco));
 			$artistList = array();
 			while($rowInfo = mysqli_fetch_assoc($results)){
-				$artistList[] = $results['idartist'];
+				$artistList[] = $rowInfo['idartist'];
 			}
 			return $artistList;
 		}
@@ -266,7 +266,7 @@
 			$results = $conn->callStoredProc($this->GetAlbumsByGenreAndReco, array($genreID, $isReco));
 			$albumList = array();
 			while($rowInfo = mysqli_fetch_assoc($results)){
-				$albumList[] = $results['idalbum'];
+				$albumList[] = $rowInfo['idalbum'];
 			}
 			return $albumList;
 		}		

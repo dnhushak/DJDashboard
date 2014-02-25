@@ -141,8 +141,8 @@ final class libraryBrowser {
 		}
 		return $allGenres;
 	}
-	public function getTracksByGenre($genreID){
-		$trackArray = $this->manager->getTracksByGenre($genreID);
+	public function getTracksByGenreAndReco($genreID, $reco){
+		$trackArray = $this->manager->getTracksByGenreAndReco($genreID, $reco);
 		$allTracks = array();
 		foreach ($trackArray as $track) {
 			$trackRow = array(
@@ -157,6 +157,30 @@ final class libraryBrowser {
 			$allTracks[] = $trackRow;
 		}
 		return $allTracks;
+	}
+	public function getArtistsByGenreAndReco($genreID, $reco){
+		$artistArray = $this->manager->getArtistsByGenreAndReco($genreID, $reco);
+		$allArtists = array();
+		foreach ($artistArray as $id) {
+			$artistRow = array("ArtistID" => utf8_encode($id));
+			$allArtists[] = $artistRow;
+		}
+		return $allArtists;
+	}
+
+	public function getAlbumsByGenreAndReco($genreID, $reco){
+		$albumArray = $this->manager->getAlbumsByGenreAndReco($genreID, $reco);
+		$allAlbums = array();
+		foreach ($albumArray as $id) {
+			$albumRow = array("AlbumID" => utf8_encode($id));
+			$allAlbums[] = $albumRow;
+		}
+		return $allAlbums;
+	}
+	public function getFilterInfo($genreID, $reco){
+		return array("Tracks" => $this->getTracksByGenreAndReco($genreID, $reco),
+					 "Artists" => $this->getArtistsByGenreAndReco($genreID, $reco),
+					 "Albums" => $this->getAlbumsByGenreAndReco($genreID, $reco));
 	}
 }
 ?>

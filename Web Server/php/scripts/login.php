@@ -10,6 +10,7 @@ $user = $_POST ['user'];
 $pass = $_POST ['pass'];
 // Name the stored procedure we're calling
 $proc = "GetUserFromName";
+// Connect to the database
 $conn = new SqlConnect();
 $results;
 $results = $conn->callStoredProc($proc, array (
@@ -35,5 +36,4 @@ else {
 	echo "Failure";
 	session_unset();
 }
-echo "<br/><a href='../../webpages/djdashboard.php'>Back</a>"
-?>
+echo "<br/><a href='../../webpages/djdashboard.php'>Back</a>"?>

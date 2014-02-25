@@ -7,7 +7,10 @@ $ping = $sub->ping();
 if ($ping) {
 	$artistid = $sub->getArtistidByName("Pink Floyd");
 	$albumlist = $sub->getAlbumsByArtist($artistid);
-	$tracklist = $sub->getTracksByAlbum($albumlist[0]["id"]);
-	//var_dump($tracklist);
+	//var_dump($albumlist);
+	//echo $albumlist [0] ["id"];
+	$tracklist = $sub->getTracksByAlbum($albumlist [0] ["id"]);
+	 //$tracklist = $sub->getTracksByAlbum(595);
+	var_dump($tracklist);
 }
 ?>

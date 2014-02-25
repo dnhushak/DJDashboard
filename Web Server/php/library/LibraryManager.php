@@ -252,7 +252,6 @@
 			}
 			return $trackList;
 		}
-<<<<<<< .mine
 		public function GetArtistsByGenreAndReco($genreID, $isReco){
 			$conn = new SqlConnect();
 			$results = $conn->callStoredProc($this->GetArtistsByGenreAndReco, array($genreID, $isReco));
@@ -270,9 +269,7 @@
 				$albumList[] = $results['idalbum'];
 			}
 			return $albumList;
-		}
-=======
-		
+		}		
 		/**
 		*		PLAY TRACKS
 		*		Two types of functions here, one is static, the other instance.  This will allow very easy playing of tracks.
@@ -305,6 +302,5 @@
 			}
 			
 		}
->>>>>>> .r100
 	}
 ?>

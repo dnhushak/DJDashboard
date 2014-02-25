@@ -108,10 +108,17 @@ public class Track
         	this.artist = this.artist.length() > 100 ? this.artist.substring(0, 99) : this.artist;
         	this.album = this.album.replaceAll("'","");
         	this.album = this.album.length() > 100 ? this.album.substring(0, 99) : this.album;
-        	this.primaryGenre = this.primaryGenre.replaceAll("'","");
-        	this.primaryGenre = this.primaryGenre.length() > 100 ? this.primaryGenre.substring(0, 99) : this.primaryGenre;
-        	this.secondaryGenre = this.secondaryGenre.replaceAll("'","");
-        	this.secondaryGenre = this.secondaryGenre.length() > 100 ? this.secondaryGenre.substring(0, 99) : this.secondaryGenre;
+        	if(this.primaryGenre != null)
+        	{
+        		this.primaryGenre = this.primaryGenre.replaceAll("'","");
+        		this.primaryGenre = this.primaryGenre.length() > 100 ? this.primaryGenre.substring(0, 99) : this.primaryGenre;
+        	}
+        	if(this.secondaryGenre != null)
+        	{
+        		this.secondaryGenre = this.secondaryGenre.replaceAll("'","");
+        		this.secondaryGenre = this.secondaryGenre.length() > 100 ? this.secondaryGenre.substring(0, 99) : this.secondaryGenre;
+        	}
+       
         	this.path = this.path.replaceAll("'", "");
         	
         	//escape %20
@@ -121,7 +128,7 @@ public class Track
         	String query = "Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "('" + this.name + "','" +
         			this.artist + "','" + this.album + "'," + this.playCount + "," + this.FCC + "," + 
         			this.recommended + "," + 
-        			iTunesID + ",null, null, '" + this.primaryGenre + "','" + this.secondaryGenre + "','" + this.path + "');"; 
+        			iTunesID + ",null, null, " + (this.primaryGenre != null ? "'" + this.primaryGenre + "'" : "null") + "," + (this.secondaryGenre != null ? "'" + this.secondaryGenre + "'" : "null") + ",'" + this.path + "');"; 
         	return query;
         	
         }

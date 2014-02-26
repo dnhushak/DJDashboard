@@ -133,10 +133,17 @@ final class subsonicBrowser {
 				"id" => $artistid );
 		$albums = $this->sendRequest("getArtist", $args, FALSE);
 		$albums = json_decode($albums, TRUE);
+		if(!isset($albums ["subsonic-response"])){
+			return NULL;
+		}
+		$albumlist = array();
 		foreach ($albums ["subsonic-response"] ["artist"] ["album"] as $album) {
+			if(!isset($album['id']) || !isset($album['name'])){
+				continue;
+			}
 			$albumrow = array (
-					"id" => $album ["id"],
-					"name" => $album ["name"] );
+					"id" => $album["id"],
+					"name" => $album["name"] );
 			$albumlist [] = $albumrow;
 		}
 		return $albumlist;
@@ -150,7 +157,7 @@ final class subsonicBrowser {
 	public function getArtistidByName($artist){
 		$artists = $this->getArtists();
 		$artists = json_decode($artists, TRUE);
-		$artistid;
+		$artistid = -1;
 		foreach ($artists ["subsonic-response"] ["artists"] ["index"] as $val) {
 			foreach ($val ["artist"] as $index) {
 				if ($artist == $index ["name"]) {
@@ -159,7 +166,7 @@ final class subsonicBrowser {
 				}
 			}
 		}
-		if (is_null($artistid)) {
+		if ($artistid == -1) {
 			return FALSE;
 		}
 		else {
@@ -169,13 +176,22 @@ final class subsonicBrowser {
 
 	public function getTrackidByNames($artist, $album, $track){
 		$artistID = $this->getArtistidByName($artist);
+		if($artistID == FALSE){
+			return -1;
+		}
 		$albumList = $this->getAlbumsByArtist($artistID);
-		$albumID;
+		if($albumList == NULL){
+			return -1;
+		}
+		$albumID = -1;
 		foreach ($albumList as $alb){
 			if($alb["name"] == $album){
 				$albumID = $alb["id"];
 				break;
 			}
+		}
+		if($albumID == -1){
+			return -1;
 		}
 		$trackList = $this->getTracksByAlbum($albumID);
 		foreach ($trackList as $trk) {
@@ -183,9 +199,13 @@ final class subsonicBrowser {
 				return $trk['id'];
 			}
 		}
+		return -1;
 	}
 	public function getTrackPlayLinkByNames($artist, $album, $track){
 		$trackID = $this->getTrackidByNames($artist, $album, $track);
+		if($trackID == -1){
+			return json_encode(array("error" => utf8_encode("Song Could not be found in SubSonic database")));
+		}
 		$trackURL = $this->url . 'rest/stream.view?';
 		
 		// Add the required credential variables to the args array

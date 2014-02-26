@@ -5,15 +5,14 @@ $sub = new subsonicBrowser('http://kure-automation.stuorg.iastate.edu/', "kuredj
 // echo $sub->sendRequest(getArtists, $args, FALSE);
 $ping = $sub->ping();
 if ($ping) {
-	$artistid = $sub->getArtistidByName("Pink Floyd");
+	$artistid = $sub->getArtistidByName("Alkaline Trio");
 	$albumlist = $sub->getAlbumsByArtist($artistid);
-	// var_dump($albumlist);
 	//echo $albumlist [0] ["id"];
-	$tracklist = $sub->getTracksByAlbum($albumlist [0] ["id"]);
+	$tracklist = $sub->getTracksByAlbum($albumlist [4] ["id"]);
 	 //$tracklist = $sub->getTracksByAlbum(595);
-	// var_dump($tracklist);
+	var_dump($tracklist);
 
-	$track = $sub->getTrackPlayLinkByNames("Pink Floyd", "The Division Bell", "Marooned");
+	$track = $sub->getTrackidByNames("Alkaline Trio", "From Here To Infirmary", "Bloodied Up");
 	echo $track;
 }
 ?>

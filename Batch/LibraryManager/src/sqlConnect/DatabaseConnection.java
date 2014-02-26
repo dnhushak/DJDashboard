@@ -38,6 +38,11 @@ public class DatabaseConnection
 		          .getConnection(DBINFO.ConnectionString());
 	  }
 	  
+	  public Connection getConnection()
+	  {
+		  return connect;
+	  }
+	  
 	  
 	  public ResultSet callProcedure(String procedureName) throws SQLException
 	  {

@@ -99,7 +99,7 @@ public class Track
         	return ID;
         }
         
-        public String dbQuery()
+       public String dbQuery(List<String> genres)
         {
         	//Escape apostrophes
         	this.name = this.name.replaceAll("'","");
@@ -110,13 +110,29 @@ public class Track
         	this.album = this.album.length() > 100 ? this.album.substring(0, 99) : this.album;
         	if(this.primaryGenre != null)
         	{
-        		this.primaryGenre = this.primaryGenre.replaceAll("'","");
-        		this.primaryGenre = this.primaryGenre.length() > 100 ? this.primaryGenre.substring(0, 99) : this.primaryGenre;
+        		int gPos = genres.indexOf(primaryGenre.toLowerCase());
+        		if(gPos != -1)
+        		{
+        			this.primaryGenre = this.primaryGenre.replaceAll("'","");
+        			this.primaryGenre = this.primaryGenre.length() > 100 ? this.primaryGenre.substring(0, 99) : this.primaryGenre;
+        		}
+        		else
+        		{
+        			primaryGenre = null;
+        		}
         	}
         	if(this.secondaryGenre != null)
         	{
-        		this.secondaryGenre = this.secondaryGenre.replaceAll("'","");
-        		this.secondaryGenre = this.secondaryGenre.length() > 100 ? this.secondaryGenre.substring(0, 99) : this.secondaryGenre;
+        		int gPos = genres.indexOf(secondaryGenre.toLowerCase());
+        		if(gPos != -1)
+        		{
+        			this.secondaryGenre = this.secondaryGenre.replaceAll("'","");
+        			this.secondaryGenre = this.secondaryGenre.length() > 100 ? this.secondaryGenre.substring(0, 99) : this.secondaryGenre;
+        		}
+        		else
+        		{
+        			secondaryGenre = null;
+        		}
         	}
        
         	this.path = this.path.replaceAll("'", "");
@@ -128,7 +144,7 @@ public class Track
         	String query = "Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "('" + this.name + "','" +
         			this.artist + "','" + this.album + "'," + this.playCount + "," + this.FCC + "," + 
         			this.recommended + "," + 
-        			iTunesID + ",null, null, " + (this.primaryGenre != null ? "'" + this.primaryGenre + "'" : "null") + "," + (this.secondaryGenre != null ? "'" + this.secondaryGenre + "'" : "null") + ",'" + this.path + "');"; 
+        			iTunesID + ",null, null," + (this.primaryGenre != null ? "'" + this.primaryGenre + "'" : "null") + "," + (this.secondaryGenre != null ? "'" + this.secondaryGenre + "'" : "null") + ",'" + this.path + "');"; 
         	return query;
         	
         }

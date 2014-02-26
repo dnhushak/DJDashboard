@@ -1,5 +1,7 @@
 package libraryManager;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,13 +39,22 @@ public class Library
 		try
 		{
 			DatabaseConnection conn = new DatabaseConnection();
+			Statement stmt = conn.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery("Select * from genre");
+			List<String> genres = new ArrayList<String>();
+			while(rs.next())
+			{
+				genres.add(rs.getString("name"));
+			}
+			rs.close();
+			stmt.close();
 			Iterator<Track> libIter = library.iterator();
 			while(libIter.hasNext())
 			{
 				try
 				{
 					Track t = libIter.next();
-					conn.callQuery(t.dbQuery());
+					conn.callQuery(t.dbQuery(genres));
 				}
 				catch(Exception e)
 				{

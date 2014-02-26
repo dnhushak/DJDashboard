@@ -227,7 +227,7 @@ public class Track
 		 
 		private String verifyGenre(List<String> genres, String genre)
 		{
-			int gPos = genres.indexOf(secondaryGenre.toLowerCase());
+			int gPos = genres.indexOf(genre.toLowerCase());
 			if(gPos != -1)
 			{
 				genre = genre.replaceAll("'","");

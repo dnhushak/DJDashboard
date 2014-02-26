@@ -25,7 +25,7 @@ $(document).ready(function(){
 				alert(error['error']);
 			}catch(e){
 				$("#jquery_jplayer_1").jPlayer("setMedia", {mp3: data});
-				//$("#jquery_jplayer_1").jPlayer("play");
+				$("#jquery_jplayer_1").jPlayer("play");
 				$("#song-title").text(track + ' - ' + artist);
 			}
 		});

@@ -133,18 +133,27 @@ final class subsonicBrowser {
 				"id" => $artistid );
 		$albums = $this->sendRequest("getArtist", $args, FALSE);
 		$albums = json_decode($albums, TRUE);
-		if(!isset($albums ["subsonic-response"])){
+		if(!isset($albums["subsonic-response"])){
 			return NULL;
 		}
 		$albumlist = array();
-		foreach ($albums ["subsonic-response"] ["artist"] ["album"] as $album) {
-			if(!isset($album['id']) || !isset($album['name'])){
-				continue;
-			}
+		if($albums["subsonic-response"]["artist"]["albumCount"] == 1){
+			$album = $albums["subsonic-response"]["artist"]["album"];
 			$albumrow = array (
 					"id" => $album["id"],
 					"name" => $album["name"] );
-			$albumlist [] = $albumrow;
+			$albumlist[] = $albumrow;
+		}else{
+			foreach ($albums["subsonic-response"]["artist"]["album"] as $album) {
+				// var_dump($album);
+				if(!isset($album['id']) || !isset($album['name'])){
+					continue;
+				}
+				$albumrow = array (
+						"id" => $album["id"],
+						"name" => $album["name"] );
+				$albumlist[] = $albumrow;
+			}
 		}
 		return $albumlist;
 	}
@@ -195,7 +204,7 @@ final class subsonicBrowser {
 		}
 		$trackList = $this->getTracksByAlbum($albumID);
 		foreach ($trackList as $trk) {
-			if($trk['name'] == $track){
+			if(strpos($trk['name'], $track) !== false){
 				return $trk['id'];
 			}
 		}

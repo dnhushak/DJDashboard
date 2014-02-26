@@ -5,14 +5,16 @@ $sub = new subsonicBrowser('http://kure-automation.stuorg.iastate.edu/', "kuredj
 // echo $sub->sendRequest(getArtists, $args, FALSE);
 $ping = $sub->ping();
 if ($ping) {
-	$artistid = $sub->getArtistidByName("Alkaline Trio");
+	$artistid = $sub->getArtistidByName("Blink-182");
+	//echo $artistid;
 	$albumlist = $sub->getAlbumsByArtist($artistid);
+	var_dump($albumlist);
 	//echo $albumlist [0] ["id"];
-	$tracklist = $sub->getTracksByAlbum($albumlist [4] ["id"]);
+	$tracklist = $sub->getTracksByAlbum($albumlist [0] ["id"]);
 	 //$tracklist = $sub->getTracksByAlbum(595);
 	var_dump($tracklist);
 
-	$track = $sub->getTrackidByNames("Alkaline Trio", "From Here To Infirmary", "Bloodied Up");
+	$track = $sub->getTrackidByNames("Blink-182", "Dude Ranch", "Dammit");
 	echo $track;
 }
 ?>

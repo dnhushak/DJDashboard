@@ -39,15 +39,7 @@ public class Library
 		try
 		{
 			DatabaseConnection conn = new DatabaseConnection();
-			Statement stmt = conn.getConnection().createStatement();
-			ResultSet rs = stmt.executeQuery("Select * from genre");
-			List<String> genres = new ArrayList<String>();
-			while(rs.next())
-			{
-				genres.add(rs.getString("name"));
-			}
-			rs.close();
-			stmt.close();
+			List<String> genres = List<String> genres = getDatabaseGenres(conn);
 			Iterator<Track> libIter = library.iterator();
 			while(libIter.hasNext())
 			{
@@ -70,6 +62,17 @@ public class Library
 		}
 	}
 	
-	
-
+	private List<String> getDatabaseGenres(DatabaseConnection conn) throws SQLException
+	{
+		Statement stmt = conn.getConnection().createStatement();
+		ResultSet rs = stmt.executeQuery("Select * from genre");
+		List<String> genres = new ArrayList<String>();
+		while(rs.next())
+		{
+			genres.add(rs.getString("name"));
+		}
+		rs.close();
+		stmt.close();
+		return genres;
+	}
 }

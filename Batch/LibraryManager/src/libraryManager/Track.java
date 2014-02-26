@@ -108,31 +108,13 @@ public class Track
         	this.artist = this.artist.length() > 100 ? this.artist.substring(0, 99) : this.artist;
         	this.album = this.album.replaceAll("'","");
         	this.album = this.album.length() > 100 ? this.album.substring(0, 99) : this.album;
-        	if(this.primaryGenre != null)
+			if(this.primaryGenre != null)
         	{
-        		int gPos = genres.indexOf(primaryGenre.toLowerCase());
-        		if(gPos != -1)
-        		{
-        			this.primaryGenre = this.primaryGenre.replaceAll("'","");
-        			this.primaryGenre = this.primaryGenre.length() > 100 ? this.primaryGenre.substring(0, 99) : this.primaryGenre;
-        		}
-        		else
-        		{
-        			primaryGenre = null;
-        		}
+        		this.primaryGenre = verifyGenre(genres, this.primaryGenre);
         	}
         	if(this.secondaryGenre != null)
         	{
-        		int gPos = genres.indexOf(secondaryGenre.toLowerCase());
-        		if(gPos != -1)
-        		{
-        			this.secondaryGenre = this.secondaryGenre.replaceAll("'","");
-        			this.secondaryGenre = this.secondaryGenre.length() > 100 ? this.secondaryGenre.substring(0, 99) : this.secondaryGenre;
-        		}
-        		else
-        		{
-        			secondaryGenre = null;
-        		}
+        		this.secondaryGenre = verifyGenre(genres, this.secondaryGenre);
         	}
        
         	this.path = this.path.replaceAll("'", "");
@@ -157,8 +139,7 @@ public class Track
 
 		public void setTrackNumber(Integer value) 
 		{
-			trackNum = value;
-			
+			trackNum = value;	
 		}
 		
 		public int getTrackNumber()
@@ -242,4 +223,20 @@ public class Track
 		{
 			name = name.toUpperCase().replace(tag, "").trim();
 		}
+		
+		 
+		private String verifyGenre(List<String> genres, String genre)
+		{
+			int gPos = genres.indexOf(secondaryGenre.toLowerCase());
+			if(gPos != -1)
+			{
+				genre = genre.replaceAll("'","");
+				genre = genre.length() > 100 ? genre.substring(0, 99) : genre;
+			}
+			else
+			{
+				genre = null;
+			}
+			return genre;
+		}	
 }

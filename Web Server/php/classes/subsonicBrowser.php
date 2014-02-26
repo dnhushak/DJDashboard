@@ -103,6 +103,7 @@ final class subsonicBrowser {
 		// Subsonic REST API spits out songs as an array of associative arrays if songcount >1,
 		// If soungcount == 1, it just gives an associative array. *HEAD-DESK*
 		$songCount = $tracks ["subsonic-response"] ["album"] ["songCount"];
+		$tracklist = array();
 		if ($songCount != 1) {
 			// Go through each array of songs
 			foreach ($tracks ["subsonic-response"] ["album"] ["song"] as $track) {
@@ -142,7 +143,7 @@ final class subsonicBrowser {
 	}
 	// TODO: make this return an associative array of id=>artist name
 	public function getArtists(){
-		$artists = $this->sendRequest(getArtists, NULL, FALSE);
+		$artists = $this->sendRequest("getArtists", NULL, FALSE);
 		return $artists;
 	}
 	// TODO: update to use the getArtists new return type
@@ -167,6 +168,39 @@ final class subsonicBrowser {
 	}
 
 	public function getTrackidByNames($artist, $album, $track){
+		$artistID = $this->getArtistidByName($artist);
+		$albumList = $this->getAlbumsByArtist($artistID);
+		$albumID;
+		foreach ($albumList as $alb){
+			if($alb["name"] == $album){
+				$albumID = $alb["id"];
+				break;
+			}
+		}
+		$trackList = $this->getTracksByAlbum($albumID);
+		foreach ($trackList as $trk) {
+			if($trk['name'] == $track){
+				return $trk['id'];
+			}
+		}
+	}
+	public function getTrackPlayLinkByNames($artist, $album, $track){
+		$trackID = $this->getTrackidByNames($artist, $album, $track);
+		$trackURL = $this->url . 'rest/stream.view?';
+		
+		// Add the required credential variables to the args array
+		$args ['u'] = $this->user;
+		$args ['p'] = $this->pass;
+		$args ['v'] = $this->version;
+		$args ['c'] = $this->apiname;
+		$args ['f'] = $this->format;
+		
+		// Put each arg in the url as key=arg&
+		foreach (array_keys($args) as $key) {
+			$arg = urlencode($args [$key]);
+			$trackURL = $trackURL . $key . '=' . $arg . '&';
+		}
+		return $trackURL . "id=" . $trackID . "&format=mp3"; 
 	}
 }
 ?>

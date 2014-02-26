@@ -221,7 +221,29 @@ public class Track
 		
 		private void stripTag(String tag)
 		{
-			name = name.toUpperCase().replace(tag, "").trim();
+			String temp = name;
+			String word = null;
+			int lBracket = -1;
+			int rBracket = -1;
+			
+			while(temp.length() != 0)
+			{
+				lBracket = temp.indexOf("[");
+				rBracket = temp.indexOf("]");
+			
+				if(lBracket == -1 || rBracket == -1)
+				{
+					break;
+				}
+			
+				word = temp.substring(lBracket, rBracket + 1);
+				temp = temp.substring(Math.min(temp.length(), (rBracket + 1)));
+				if(word.equalsIgnoreCase(tag))
+				{
+					name = name.replace(word, "");
+				}
+			}
+			name = name.trim();
 		}
 		
 		 

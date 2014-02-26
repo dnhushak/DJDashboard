@@ -230,6 +230,7 @@ public class Track
 			int gPos = genres.indexOf(genre.toLowerCase());
 			if(gPos != -1)
 			{
+				genre = genres.get(gPos);
 				genre = genre.replaceAll("'","");
 				genre = genre.length() > 100 ? genre.substring(0, 99) : genre;
 			}

@@ -3,6 +3,7 @@ body {
 	font-family: "Helvetica", sans-serif;
 	height: 100%;
 	min-height: 100%;
+	min-width: 554px;
 }
 html {
 	height: 100%;
@@ -32,7 +33,7 @@ html {
 	padding: 0px;
 	padding-top: 10px;
 	overflow: hidden;
-	height: 115%;
+	height: 100%;
 }
 #footer {
 	background-color: #f4f4f4;
@@ -77,6 +78,8 @@ html {
 	padding-left: 8px;
 	overflow: hidden;
 	height: 20px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .active-item {
 	background-color: #E6E6E6;
@@ -150,4 +153,10 @@ html {
 }
 .track .FCC {
 	color: red;
+}
+.library-holder {
+	height: 85%;
+}
+.player {
+	height: 15%;
 }

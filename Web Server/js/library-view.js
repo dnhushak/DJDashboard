@@ -138,7 +138,7 @@ $(document).ready(function() {
                 var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))];
                 var songName = tracks[i]['Name'];
                 var songID = tracks[i]['ID'];
-                var reco = tracks[i]['reco'];
+                var reco = tracks[i]['Recommended'];
                 var FCC = tracks[i]['FCC'];
                 $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
                 $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');

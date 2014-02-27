@@ -11,7 +11,7 @@ try
 	$UserID = $_GET['UserID'];
 	$pman = new PlaylistManager();
 	$result = $pman->RetrieveAllPlaylistsByUserID($UserID);
-	var_dump($result);
+	echo json_encode($result,JSON_PRETTY_PRINT);
 }
 catch (Exception $e)
 {

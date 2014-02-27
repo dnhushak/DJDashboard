@@ -1,6 +1,8 @@
 <?php
 
-class Track {
+class Track implements JsonSerializable
+
+{
 	private $ID;
 	private $Name;
 	private $FCC;
@@ -14,6 +16,24 @@ class Track {
 	private $CreateDate;
 	private $EndDate;
 	private $ReleaseDate;
+	
+	public function jsonSerialize()
+	{
+		$arr = array();
+		$arr[] = $this->ID;
+		$arr[] = $this->Name;
+		$arr[] = $this->FCC;
+		$arr[] = $this->Recommended;
+		$arr[] = $this->PlayCount;
+		$arr[] = $this->PrimaryGenreID;
+		$arr[] = $this->SecondaryGenreID;
+		$arr[] = $this->Artist;
+		$arr[] = $this->Album;
+		$arr[] = $this->CreateDate;
+		$arr[] = $this->EndDate;
+		$arr[] = $this->ReleaseDate;
+		return $arr;
+	}
 	
 	public function setCreateDate($date)
 	{
@@ -155,5 +175,7 @@ class Track {
 	public function getPlayCount(){
 		return $this->PlayCount;
 	}
+	
+	
 }
 ?>

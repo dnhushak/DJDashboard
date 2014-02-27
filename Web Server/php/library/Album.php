@@ -1,11 +1,23 @@
 <?php
-	class Album
+	class Album implements JsonSerializable
 	{
 		private $name;
 		private $ID;
 		private $TrackList;
 		private $PrimaryGenre;
 		private $SecondaryGenre;
+		
+		//Serialize method to create JSON objects
+		public function jsonSerialize()
+		{
+			$arr = array();
+			$arr[] = $this->name;
+			$arr[] = $this->ID;
+			$arr[] = $this->TrackList;
+			$arr[] = $this->PrimaryGenre;
+			$arr[] = $this->SecondaryGenre;
+			return $arr;
+		}
 		
 		public function getTracks()
 		{

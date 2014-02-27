@@ -25,4 +25,8 @@ $(document).ready(function(){
 			}
 		});
 	});
+	$('.jp-stop').on('click', function(){
+		$("#jquery_jplayer_1").jPlayer("clearMedia");
+		$("#song-title").html('');
+	});
 });

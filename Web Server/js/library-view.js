@@ -62,7 +62,7 @@ $(document).ready(function() {
                 var songID = tracks[i]['ID'];
                 var reco = tracks[i]['Recommended'];
                 var FCC = tracks[i]['FCC'];
-                $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
                 $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
                 $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
                 $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
@@ -95,7 +95,7 @@ $(document).ready(function() {
             var songID = filteredData[i]['ID'];
             var reco = filteredData[i]['Recommended'];
             var FCC = filteredData[i]['FCC'];
-            $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+            $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
             $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
             $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
             $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
@@ -140,7 +140,6 @@ $(document).ready(function() {
                 var songID = tracks[i]['ID'];
                 var reco = tracks[i]['Recommended'];
                 var FCC = tracks[i]['FCC'];
-                // $('.track .add-playlist').append('<img src="../resources/add.png" class="image-responsive">');
                 $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
                 $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
                 $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
@@ -224,7 +223,7 @@ $(document).ready(function() {
                         var songID = artistAlbums[i]['tracks'][j]['ID'];
                         var reco = artistAlbums[i]['tracks'][j]['reco'];
                         var FCC = artistAlbums[i]['tracks'][j]['FCC'];
-                        $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                        $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
                         $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
                         $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
                         $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
@@ -270,7 +269,7 @@ $(document).ready(function() {
                     var pGenre = genres[parseInt(songs[i]['PrimaryGenre'])];
                     var sGenre = genres[parseInt(songs[i]['SecondaryGenre'])];
 
-                    $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                    $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
                     $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
                     $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
                     $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ pGenre +'</li>');
@@ -303,7 +302,7 @@ $(document).ready(function() {
                     var songID = trackList[i]['ID'];
                     var reco = trackList[i]['reco'];
                     var FCC = trackList[i]['FCC'];
-                    $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                    $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
                     $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
                     $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
                     $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
@@ -345,7 +344,7 @@ $(document).ready(function() {
                     var FCC = false;
                     var pGenre = genres[parseInt(songs[i]['PrimaryGenre'])];
                     var sGenre = genres[parseInt(songs[i]['SecondaryGenre'])];
-                    $('.track .tracks').append('<li class="item '+ songID +'">'+ songName +'</li>');   
+                    $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
                     $('.artist .tracks').append('<li class="item '+ songID +'">'+ artist +'</li>');
                     $('.album .tracks').append('<li class="item '+ songID +'">'+ album +'</li>'); 
                     $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ pGenre +'</li>');

@@ -160,3 +160,12 @@ html {
 .player {
 	height: 15%;
 }
+.pl-button {
+	margin-bottom: 2px;
+	margin-right: 5px;
+}
+.playlist-song {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

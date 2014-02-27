@@ -1,10 +1,5 @@
 $(document).ready(function(){
 	$("#jquery_jplayer_1").jPlayer({
-		ready : function(){
-			$(this).jPlayer("setMedia", {
-				mp3: "http://kure-automation.stuorg.iastate.edu/rest/stream.view?u=kuredj&p=kuredj&v=1.8.0&c=KURE+DJ+Dash&f=json&id=4413&format=mp3"
-			});
-		},
 		swfPath : "../js/",
 		supplied : "mp3" 
 	});

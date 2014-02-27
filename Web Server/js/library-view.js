@@ -140,7 +140,8 @@ $(document).ready(function() {
                 var songID = tracks[i]['ID'];
                 var reco = tracks[i]['Recommended'];
                 var FCC = tracks[i]['FCC'];
-                $('.track .tracks').append('<li class="item ' + songID + '">'+ songName +'</li>');   
+                // $('.track .add-playlist').append('<img src="../resources/add.png" class="image-responsive">');
+                $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
                 $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
                 $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
                 $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
@@ -539,6 +540,14 @@ $(document).ready(function() {
             $(".track-view").scrollTop(0);
         }
     });
+    $(document).on('click', '.add-playlist', function(){
+        var songID = $(this).parent().attr('class').match(/\d+/);
+        var name = $(this).parent().text();
+        $('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + name + '</li>');
+    })
+    $(document).on('click', '.delete-playlist', function(){
+        $(this).parent().remove();
+    })
     //ON PAGE LOAD
     fillGenres();
     initialize();

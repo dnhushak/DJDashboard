@@ -1,5 +1,5 @@
 <?php
-include('../Library/PlaylistManager.php');
+include('../library/PlaylistManager.php');
 include_once('../publisher.php');
 
 	//Fatal error handler for PHP

@@ -156,7 +156,7 @@ html {
 	color: red;
 }
 .library-holder {
-	height: 85%;
+	height: 80%;
 }
 .player {
 	height: 15%;
@@ -172,4 +172,13 @@ html {
 }
 .error-message {
 	padding: 15px;
+}
+.modal-lg {
+	width: 900px;
+}
+.searching {
+	width: 100%;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	padding-right: 10px;
 }

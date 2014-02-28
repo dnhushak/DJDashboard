@@ -15,6 +15,7 @@ $(document).ready(function() {
 		}
 	}).done(function(html) {
 		$("#content").html(html);
+		$("#content").css("height", "initial");
 	});
 
 	$("#home").on('click', function() {
@@ -26,6 +27,7 @@ $(document).ready(function() {
 			}
 		}).done(function(html) {
 			$("#content").html(html);
+			$("#content").css("height", "initial");
 		});
 	});
 	$("#manageUsers").on('click', function() {
@@ -37,6 +39,7 @@ $(document).ready(function() {
 			}
 		}).done(function(html) {
 			$("#content").html(html);
+			$("#content").css("height", "initial");
 		});
 	});
 	$("#manageLibrary").on('click', function() {
@@ -59,6 +62,7 @@ $(document).ready(function() {
 			}
 		}).done(function(html) {
 			$("#content").html(html);
+			$("#content").css("height", "initial");
 		});
 	});
 	$("#manageGrants").on('click', function() {
@@ -70,6 +74,7 @@ $(document).ready(function() {
 			}
 		}).done(function(html) {
 			$("#content").html(html);
+			$("#content").css("height", "initial");
 		});
 	});
 	$("#spinlist").on('click', function() {
@@ -81,6 +86,7 @@ $(document).ready(function() {
 			}
 		}).done(function(html) {
 			$("#content").html(html);
+			$("#content").css("height", "initial");
 		});
 	});
 	$("#library").on('click', function() {
@@ -103,6 +109,7 @@ $(document).ready(function() {
 			}
 		}).done(function(html) {
 			$("#content").html(html);
+			$("#content").css("height", "initial");
 		});
 	});
 });

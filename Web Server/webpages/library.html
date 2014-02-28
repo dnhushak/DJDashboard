@@ -49,6 +49,17 @@
     		</div>
 	</div>
 </div>
+<div class="input-group searching">
+	<div class="input-group-btn">
+		<button id="search-catagory" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tracks<span class="caret"></span></button>
+		<ul class="dropdown-menu">
+			<li><a class="catagory" href="#">Tracks</a></li>
+			<li><a class="catagory" href="#">Artists</a></li>
+			<li><a class="catagory" href="#">Albums</a></li>
+		</ul>
+	</div><!-- /btn-group -->
+	<input type="text" class="form-control">
+</div><!-- /input-group -->
 <div class="library-holder">
 	<div class="filter-view">
 		<form role="form" id="filter-form">
@@ -130,9 +141,59 @@
 	<div class="playlist-view">
 		<form role="form" id="filter-form">
 			<h3>Playlist</h3>
+			<button type="button" class="btn btn-default" id="save-playlist">Save</button>
+			<button type="button" class="btn btn-default" id="custom-song" data-toggle="modal" data-target="#custom-song-modal">Custom Song</button>
 			<hr>
 			<ul class="elements playlist">
 			</ul>
 		</form>
 	</div>
 </div>
+
+<div class="modal fade" role="dialog" id="custom-song-modal"> 
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add Custom Song</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-inline" role="form">
+					<div class="form-group">
+						<label class="sr-only" for="input-track">Track Name</label>
+						<input type="email" class="form-control" id="input-track" placeholder="Track Name">
+					</div>
+					<div class="form-group">
+						 <label class="sr-only" for="input-artist">Artist Name</label>
+						<input type="password" class="form-control" id="input-artist" placeholder="Artist Name">
+					</div>
+					<div class="form-group">
+						 <label class="sr-only" for="input-album">Album Name</label>
+						<input type="password" class="form-control" id="input-album" placeholder="Album Name">
+					</div>
+					<div class="form-group">
+						<select class="form-control" id="primary-genres-allowed">
+						 	<option value="none">Primary Genre</option>
+						        <option value="none">None</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" id="secondary-genres-allowed">
+						 	<option value="none">Secondary Genre</option>
+						        <option value="none">None</option>
+						</select>
+					</div>
+			<!--		<div class="checkbox">
+						<label>
+							<input type="checkbox"> Explicit
+						</label>
+					</div> -->
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

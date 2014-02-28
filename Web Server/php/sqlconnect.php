@@ -35,19 +35,15 @@ class SqlConnect
 	{
 		try
 		{
-		$this->username = "u30919";
-		$this->password = "pkMDpK6Rh";
-		$this->database = "db30919";
-		$this->connUrl = "mysql.cs.iastate.edu";
-		$this->connection = new mysqli($this->connUrl, $this->username, $this->password, $this->database);
-		
-		
-		
-		
-		if(mysqli_connect_errno())
-		{
-			throw new Exception("Failure to connect");
-		}
+			$this->username = "u30919";
+			$this->password = "pkMDpK6Rh";
+			$this->database = "db30919";
+			$this->connUrl = "mysql.cs.iastate.edu";
+			$this->connection = new mysqli($this->connUrl, $this->username, $this->password, $this->database);
+			if(mysqli_connect_errno())
+			{
+				throw new Exception("Failure to connect");
+			}
 		}
 		catch (Exception $e)
 		{

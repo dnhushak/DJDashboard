@@ -15,15 +15,9 @@ class PlaylistManager
 	private static $spRetrieveUserPlaylistIDs = "RetrieveUserPlaylistIDs";
 	private static $spGetPlaylistTracks = "GetPlaylistTracks";
 
-	public static function CreatePlaylist($UserID, $TrackArray, $PlaylistName)
+	public static function CreatePlaylist($UserID, $idString, $PlaylistName)
 	{
 		//Create a comma delim'd string
-		$idString = "";
-		
-		foreach ($TrackArray as &$value) 
-		{
-			$idString = $idString . $value . ",";
-		}
 		
 		try
 		{

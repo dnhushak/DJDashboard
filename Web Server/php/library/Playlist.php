@@ -4,12 +4,21 @@ include_once('../publisher.php');
 	//Fatal error handler for PHP
 register_shutdown_function( "Publisher::fatalHandler" );
 
-class Playlist
+class Playlist implements JsonSerializable
 {
 	private $ID;
 	private $Name;
 	private $strTrackList;
 	private $arrTrackList;
+	
+	public function jsonSerialize()
+	{
+			$arr = array();
+			$arr[] = $this->Name;
+			$arr[] = $this->ID;
+			$arr[] = $this->strTrackList;
+			return $arr;
+	}
 	
 	public function setID($aID)
 	{

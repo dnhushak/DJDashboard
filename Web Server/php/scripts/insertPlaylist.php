@@ -10,15 +10,12 @@ try
 {
 	$UserID = $_GET['UserID'];
 	$PlaylistName = $_GET['PlaylistName'];
-	//Temporary
-	$TrackArray = array();
-	for($i = 0; $i < 1000; $i += 100)
-	{
-		$TrackArray[] = $i;
-	}
+	
+	
+	$json = json_decode($input);  
 	echo $UserID;
 	echo $PlaylistName;
-	var_dump($TrackArray);
+	//var_dump($TrackArray);
 	$result = PlaylistManager::CreatePlaylist($UserID, $TrackArray, $PlaylistName);
 	echo $result;
 }

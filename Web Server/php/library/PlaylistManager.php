@@ -47,8 +47,8 @@ class PlaylistManager
 			$results = $conn->callStoredProc(PlaylistManager::$spRetrieveUserPlaylistIDs, array($UserID));
 			while($rowInfo = mysqli_fetch_assoc($results)){
 				$tempPlaylist = new Playlist();
-				$tempPlaylist->setID($rowInfo['idplaylist']);
-				$tempPlaylist->setName($rowInfo['name']);
+				$tempPlaylist->setID(utf8_encode($rowInfo['idplaylist']));
+				$tempPlaylist->setName(utf8_encode($rowInfo['name']));
 				$arrPlayList[] = $tempPlaylist;
 			}
 			return $arrPlayList;
@@ -68,7 +68,10 @@ class PlaylistManager
 			$completePlaylist = array();
 			foreach($playlistArray as $value)
 			{
-				$completePlaylist[] = $this->RetrievePlaylistByID($value->getID());
+				
+				$value->setArrTrackList($this->RetrievePlaylistByID($value->getID()));
+				$completePlaylist[$value->getID()] = $value;
+				//$completePlaylist[] = $this->RetrievePlaylistByID($value->getID());
 			}
 			return $completePlaylist;
 		}
@@ -91,20 +94,20 @@ class PlaylistManager
 				$trk = new Track();
 				$alb = new Album();
 				$art = new Artist();
-				$trk->setID($rowInfo['idtrack']);
-				$trk->setName($rowInfo['TrackName']);
-				$alb->setID($rowInfo['idalbum']);
-				$alb->setName($rowInfo['AlbumName']);
-				$art->setID($rowInfo['idartist']);
-				$art->setName($rowInfo['ArtistName']);
+				$trk->setID(utf8_encode($rowInfo['idtrack']));
+				$trk->setName(utf8_encode($rowInfo['TrackName']));
+				$alb->setID(utf8_encode($rowInfo['idalbum']));
+				$alb->setName(utf8_encode($rowInfo['AlbumName']));
+				$art->setID(utf8_encode($rowInfo['idartist']));
+				$art->setName(utf8_encode($rowInfo['ArtistName']));
 				
-				$trk->setCreateDate($rowInfo['CreateDate']);
-				$trk->setReleaseDate($rowInfo['ReleaseDate']);
-				$trk->setFCC($rowInfo['FCC']);
-				$trk->setRecommended($rowInfo['Recommended']);
-				$trk->setPrimaryGenreID($rowInfo['PrimaryGenreID']);
-				$trk->setSecondaryGenreID($rowInfo['SecondaryGenreID']);
-				$trk->setPlayCount($rowInfo['PlayCount']);
+				$trk->setCreateDate(utf8_encode($rowInfo['CreateDate']));
+				$trk->setReleaseDate(utf8_encode($rowInfo['ReleaseDate']));
+				$trk->setFCC(utf8_encode($rowInfo['FCC']));
+				$trk->setRecommended(utf8_encode($rowInfo['Recommended']));
+				$trk->setPrimaryGenreID(utf8_encode($rowInfo['PrimaryGenreID']));
+				$trk->setSecondaryGenreID(utf8_encode($rowInfo['SecondaryGenreID']));
+				$trk->setPlayCount(utf8_encode($rowInfo['PlayCount']));
 				$trk->setAlbum($alb);
 				$trk->setArtist($art);
 				$trackList[] = $trk;

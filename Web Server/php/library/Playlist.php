@@ -14,10 +14,22 @@ class Playlist implements JsonSerializable
 	public function jsonSerialize()
 	{
 			$arr = array();
-			$arr[] = $this->Name;
-			$arr[] = $this->ID;
-			$arr[] = $this->strTrackList;
+			$arr['PlaylistName'] = $this->Name;
+			$arr['PlaylistID'] = $this->ID;
+			$arr['TrackString'] = $this->strTrackList;
+			$arr['TrackArray'] = $this->arrTrackList;
 			return $arr;
+	}
+	
+	//Set this option to an array of tracks.
+	public function setArrTrackList($arr)
+	{
+		$this->arrTrackList = $arr;
+	}
+	
+	public function getArrTrackList()
+	{
+		return $this->arrTrackList;
 	}
 	
 	public function setID($aID)

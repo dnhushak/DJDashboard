@@ -17,4 +17,7 @@ if ($ping) {
 	$track = $sub->getTrackidByNames("Blink-182", "Dude Ranch", "Dammit");
 	echo $track;
 }
+else{
+	echo "No Ping";
+}
 ?>

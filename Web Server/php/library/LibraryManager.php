@@ -19,6 +19,9 @@
 		private $GetAllTracksByGenreAndReco;
 		private $GetAlbumsByGenreAndReco;
 		private $GetArtistsByGenreAndReco;
+		private $spGetTracksLike;
+		private $spGetArtistsWhereTrackLike;
+		private $spGetAlbumsWhereTrackLike;
 	
 		public function __construct()
 		{
@@ -46,6 +49,9 @@
 			$this->GetAllTracksByGenreAndReco = "GetAllTracksByGenreAndReco";
 			$this->GetAlbumsByGenreAndReco = "GetAlbumsByGenreAndReco";
 			$this->GetArtistsByGenreAndReco = "GetArtistsByGenreAndReco";
+			$this->spGetTracksLike = "GetTracksLike";
+			$this->spGetArtistsWhereTrackLike = "GetArtistsWhereTrackLike";
+			$this->spGetAlbumsWhereTrackLike = "GetAlbumsWhereTrackLike";
 		}
 		
 		/**
@@ -300,6 +306,89 @@
 				Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 				return false;
 			}
+			
+		}
+		
+		public function GetTracksLike($LikeName)
+		{
+			//Build master array
+			$completeArray = array();
+			$conn = new sqlConnect();
+
+			try
+			{
+			//Get tracks like likename
+			$results = $conn->callStoredProc($this->spGetTracksLike, array($LikeName));
+			$trackList = array();
+			/**
+			if($results == false)
+			{
+				throw new exception("TrackResults are null in LibraryManager.GetTracksLike()");
+			}
+			**/
+			while($rowInfo = mysqli_fetch_assoc($results)){
+				$tempTrack = new Track();
+				$tempTrack->setArtist(utf8_encode($rowInfo['idArtist']));
+				$tempTrack->setName(utf8_encode($rowInfo['Name']));
+				$tempTrack->setFCC((utf8_encode($rowInfo['FCC'])));
+				$tempTrack->setID(utf8_encode($rowInfo['idTrack']));
+				$tempTrack->setRecommended(utf8_encode($rowInfo['Recommended']));
+				$tempTrack->setAlbumID(utf8_encode($rowInfo['idAlbum']));
+				$tempTrack->setPrimaryGenreID(utf8_encode($rowInfo['idPrimaryGenre']));
+				$tempTrack->setSecondaryGenreID(utf8_encode($rowInfo['idSecondaryGenre']));
+				$trackList[] = $tempTrack;
+			}
+			$completeArray['Tracks'] = $trackList;
+			
+			//Get albums where trackname like likename
+			$conn->freeResults();
+			$results = $conn->callStoredProc($this->spGetAlbumsWhereTrackLike, array($LikeName));
+			$albumList = array();
+			/**
+			if($results == false)
+			{
+				throw new exception("AlbumResults are null in LibraryManager.GetTracksLike()");
+			}
+			**/
+			while($rowInfo = mysqli_fetch_assoc($results))
+			{
+				$tempAlbum = new Album();
+				$tempAlbum->setID(utf8_encode($rowInfo['idAlbum']));
+				$albumList[] = $tempAlbum;
+			}
+			$completeArray['Albums'] = $albumList;
+			
+			//Get Artists where trackname like likename
+			$conn->freeResults();
+			$results = $conn->callStoredProc($this->spGetArtistsWhereTrackLike, array($LikeName));
+			$artistList = array();
+			/**
+			if($results == false)
+			{
+				throw new exception();
+			}
+			**/
+			while($rowInfo = mysqli_fetch_assoc($results))
+			{
+				$tempArtist = new Artist();
+				$tempArtist->setID(utf8_encode($rowInfo['idArtist']));
+				$artistList[] = $tempArtist;
+			}
+			$completeArray['Artists'] = $artistList;
+			
+			return $completeArray;
+			}
+			catch (Exception $e)
+			{
+				Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+				return false;
+			}
+			catch (string $str)
+			{
+				Publisher::publishException("Custom Exception", $str, 0);
+				return false;
+			}
+			
 			
 		}
 	}

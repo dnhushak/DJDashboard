@@ -60,6 +60,9 @@ class SqlConnect
 	 */
 	public function callStoredProc($procedureName, $args)
 	{
+		//Free result before next query.
+		
+    	
 		//Removing values here and replacing with what is in the initialize method.
 		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
 		try
@@ -96,17 +99,24 @@ class SqlConnect
 				}
 				$results = $this->connection->query($cmd);
 			}
-		else
-		{
-			$results = $this->connection->query("Call ".$procedureName."();");
-		}
-		return $results;
+			else
+			{
+				$results = $this->connection->query("Call ".$procedureName."();");
+			}
+			//Free results for multiple uses
+			//mysqli_free_result(); NEVERMIND! DO NOT PUT IT HERE
+			return $results;
 		}
 		catch (Exception $e)
 		{
 			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			return false;
 		}
+	}
+	
+	public function freeResults()
+	{
+		$this->connection->next_result();
 	}
 }
 ?>

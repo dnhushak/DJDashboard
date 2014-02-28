@@ -1,8 +1,16 @@
 <?php
-	class Genre
+	class Genre implements JsonSerializable
 	{
 		private $name;
 		private $ID;
+		
+		public function jsonSerialize()
+		{
+			$arr = array();
+			$arr['GenreName'] = $this->ID;
+			$arr['GenreID'] = $this->name;
+			return $arr;
+		}
 		
 		public function getName()
 		{

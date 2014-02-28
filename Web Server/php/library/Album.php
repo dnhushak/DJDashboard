@@ -11,11 +11,11 @@
 		public function jsonSerialize()
 		{
 			$arr = array();
-			$arr[] = $this->name;
-			$arr[] = $this->ID;
-			$arr[] = $this->TrackList;
-			$arr[] = $this->PrimaryGenre;
-			$arr[] = $this->SecondaryGenre;
+			$arr['AlbumName'] = $this->name;
+			$arr['AlbumID'] = $this->ID;
+			$arr['TrackList'] = $this->TrackList;
+			$arr['PrimaryGenreID'] = $this->PrimaryGenre;
+			$arr['SecondaryGenreID'] = $this->SecondaryGenre;
 			return $arr;
 		}
 		

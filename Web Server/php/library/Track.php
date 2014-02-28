@@ -20,18 +20,18 @@ class Track implements JsonSerializable
 	public function jsonSerialize()
 	{
 		$arr = array();
-		$arr[] = $this->ID;
-		$arr[] = $this->Name;
-		$arr[] = $this->FCC;
-		$arr[] = $this->Recommended;
-		$arr[] = $this->PlayCount;
-		$arr[] = $this->PrimaryGenreID;
-		$arr[] = $this->SecondaryGenreID;
-		$arr[] = $this->Artist;
-		$arr[] = $this->Album;
-		$arr[] = $this->CreateDate;
-		$arr[] = $this->EndDate;
-		$arr[] = $this->ReleaseDate;
+		$arr['TrackID'] = $this->ID;
+		$arr['TrackName'] = $this->Name;
+		$arr['FCC'] = $this->FCC;
+		$arr['Recommended'] = $this->Recommended;
+		$arr['PlayCount'] = $this->PlayCount;
+		$arr['PrimaryGenreID'] = $this->PrimaryGenreID;
+		$arr['SecondaryGenreID'] = $this->SecondaryGenreID;
+		$arr['Artist'] = $this->Artist;
+		$arr['Album'] = $this->Album;
+		$arr['CreateDate'] = $this->CreateDate;
+		$arr['EndDate'] = $this->EndDate;
+		$arr['ReleaseDate'] = $this->ReleaseDate;
 		return $arr;
 	}
 	

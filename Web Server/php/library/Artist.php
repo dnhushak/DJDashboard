@@ -8,9 +8,9 @@
 		public function jsonSerialize()
 		{
 			$arr = array();
-			$arr[] = $this->name;
-			$arr[] = $this->ID;
-			$arr[] = $this->AlbumList;
+			$arr['ArtistName'] = $this->name;
+			$arr['ArtistID'] = $this->ID;
+			$arr['AlbumList'] = $this->AlbumList;
 			return $arr;
 		}
 		

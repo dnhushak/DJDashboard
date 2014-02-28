@@ -213,7 +213,8 @@ final class subsonicBrowser {
 	public function getTrackPlayLinkByNames($artist, $album, $track){
 		$trackID = $this->getTrackidByNames($artist, $album, $track);
 		if($trackID == -1){
-			return json_encode(array("error" => utf8_encode("Song Could not be found in SubSonic database")));
+			return json_encode(array("error" => utf8_encode($track . " could not be found in the SubSonic database.". 
+					"<br>If it should be there or you would like it to be added please contact the music director")));
 		}
 		$trackURL = $this->url . 'rest/stream.view?';
 		

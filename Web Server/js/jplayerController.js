@@ -17,7 +17,8 @@ $(document).ready(function(){
 			console.log(data);
 			try{
 				var error = $.parseJSON(data);
-				alert(error['error']);
+				$(".error-message").html(error['error']);
+				$("#errorModal").modal("show");
 			}catch(e){
 				$("#jquery_jplayer_1").jPlayer("setMedia", {mp3: data});
 				$("#jquery_jplayer_1").jPlayer("play");

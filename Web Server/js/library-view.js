@@ -552,4 +552,5 @@ $(document).ready(function() {
     initialize();
     $('.filter-view').hide();
     $('.playlist-view').hide(); 
+    $('.song-error').hide();
 })

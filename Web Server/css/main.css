@@ -170,3 +170,6 @@ html {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+.error-message {
+	padding: 15px;
+}

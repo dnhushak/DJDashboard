@@ -41,6 +41,9 @@ class SqlConnect
 		$this->connUrl = "mysql.cs.iastate.edu";
 		$this->connection = new mysqli($this->connUrl, $this->username, $this->password, $this->database);
 		
+		
+		
+		
 		if(mysqli_connect_errno())
 		{
 			throw new Exception("Failure to connect");
@@ -48,6 +51,7 @@ class SqlConnect
 		}
 		catch (Exception $e)
 		{
+			//Zero is the default user, used for very low errors
 			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			return false;
 		}
@@ -64,30 +68,38 @@ class SqlConnect
 		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
 		try
 		{
-		if($args != null)//Each arg in order
-		{
-			$cmd = "Call ".$procedureName."(";
-			$length = count($args);
-			for($i = 0; $i < $length - 1; $i++)
+			if($args != null)//Each arg in order
 			{
-				if(is_string($args[$i])){
-					$cmd = $cmd."'".$args[$i]."'".",";
-				}else{
-					$cmd = $cmd.$args[$i].",";
+				$cmd = "Call ".$procedureName."(";
+				$length = count($args);
+				//Append first arguments, do not append the last one (no final comma)
+				for($i = 0; $i < $length - 1; $i++)
+				{
+					if(is_string($args[$i]))
+					{
+						$cmd = $cmd."'".$args[$i]."'".",";
+					}
+					else
+					{
+						$cmd = $cmd.$args[$i].",";
+					}
 				}
+				//Append final argument (with no final comma)
+				if(is_string($args[$length-1]))
+				{
+					$cmd = $cmd."'".$args[$i]."');";
+				}	
+				else
+				{
+					$cmd = $cmd.$args[$length-1].");";
+				}
+				//Check for error in query, if there is, throw an exception
+				if ($this->connection->error) 
+				{
+					throw new Exception($this->connection->error);
+				}
+				$results = $this->connection->query($cmd);
 			}
-			if(is_string($args[$length-1])){
-				$cmd = $cmd."'".$args[$i]."');";
-			}else{
-				$cmd = $cmd.$args[$length-1].");";
-			}
-			//Check for error in query, if there is, throw an exception
-			if ($this->connection->error) 
-			{
-				throw new Exception($this->connection->error);
-			}
-			$results = $this->connection->query($cmd);
-		}
 		else
 		{
 			$results = $this->connection->query("Call ".$procedureName."();");

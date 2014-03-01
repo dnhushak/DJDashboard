@@ -221,7 +221,7 @@ public class Track
 			
 			 if(lBracket == -1 || rBracket == -1) { break; } //no potential tags left, so exit
 			
-			 word = temp.substring(lBracket, rBracket + 1); //any word in the for of [word]
+			 word = temp.substring(lBracket, rBracket + 1); //any word in the form of [word]
 			 temp = temp.substring(Math.min(temp.length(), (rBracket + 1))); //only keeps everything to the right of ']'
 			 if(word.equalsIgnoreCase(tag))
 			 {

@@ -1,4 +1,5 @@
 package libraryManager;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import java.util.Scanner;
 /**
  * 
  * @author travis
@@ -128,7 +129,15 @@ public class SAXParserExample extends DefaultHandler {
 
     public void characters(char[] ch, int start, int length) throws SAXException 
 	{
-        tempVal = new String(ch,start,length);
+        if(previousTagVal != null && (previousTagVal.equals("Name") || previousTagVal.equals("Artist") || previousTagVal.equals("Album") || previousTagVal.equals("Grouping")))
+        {
+        	String temp = new String(ch, start, length);
+        	tempVal = tempVal + temp;
+        }
+        else
+        {
+        	tempVal = new String(ch,start,length);
+        }
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException 

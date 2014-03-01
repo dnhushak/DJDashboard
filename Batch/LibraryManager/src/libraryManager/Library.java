@@ -1,24 +1,22 @@
 package libraryManager;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import sqlConnect.DatabaseConnection;
 
 public class Library 
 {
 	private List<Track> library;
-	
-	
-	
+
 	public Library()
 	{
 		library = new LinkedList<Track>();
 	}
-	
-	
+		
 	/**
 	 * Takes the path to an iTunes data file and deserializes it into the library
 	 * @param iTunesLibPath URI pathname to itunes data file
@@ -33,13 +31,12 @@ public class Library
 		library = parser.getTracks();
 	}
 	
-	
 	public boolean addAllToDB()
 	{
 		try
 		{
 			DatabaseConnection conn = new DatabaseConnection();
-			List<String> genres = List<String> genres = getDatabaseGenres(conn);
+			Map<String, Pair<Integer, String>> genres = getDatabaseGenres(conn);
 			Iterator<Track> libIter = library.iterator();
 			while(libIter.hasNext())
 			{
@@ -62,17 +59,18 @@ public class Library
 		}
 	}
 	
-	private List<String> getDatabaseGenres(DatabaseConnection conn) throws SQLException
+	private Map<String, Pair<Integer, String>> getDatabaseGenres(DatabaseConnection conn) throws SQLException
 	{
-		Statement stmt = conn.getConnection().createStatement();
-		ResultSet rs = stmt.executeQuery("Select * from genre");
-		List<String> genres = new ArrayList<String>();
+		ResultSet rs = conn.callProcedure("GetAllGenre");
+		Map<String, Pair<Integer, String>> genres = new HashMap<String, Pair<Integer, String>>();
+		String gName = null;
 		while(rs.next())
 		{
-			genres.add(rs.getString("name"));
+			gName = rs.getString("name");
+			genres.put(gName.toUpperCase(), new Pair<Integer, String>(rs.getInt("idgenre"), gName));
 		}
+		System.out.println(genres.toString());
 		rs.close();
-		stmt.close();
 		return genres;
 	}
 }

@@ -1,6 +1,8 @@
 package libraryManager;
 
 import java.util.Map;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 import sqlConnect.DBINFO;
 
 public class Track
@@ -46,6 +48,7 @@ public class Track
         	setRecommended(true);
         	stripTag(RECO_TAG);
         }
+		removeAccent();
      }
         
      public void setRecommended(boolean value)
@@ -250,6 +253,17 @@ public class Track
 			 return pair.getFirst(); 
 		 }
 		 return -1;
+	 }
+	 
+	  /**
+	  * converts letters with accents to the same English character without the accent. All credit goes to
+	  * this source: http://stackoverflow.com/questions/1008802/converting-symbols-accent-letters-to-english-alphabet
+	  */
+	 private void removeAccent() 
+	 {
+		 String nfdNormalizedString = Normalizer.normalize(this.name, Normalizer.Form.NFD); 
+		 Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		 this.name = pattern.matcher(nfdNormalizedString).replaceAll("");
 	 }
 }
 

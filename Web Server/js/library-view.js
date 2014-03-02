@@ -19,9 +19,11 @@ $(document).ready(function() {
     var keepScrolling = true;
     var filters = { recommended: 0, genre: 'All' };
     var isFiltered = false;
+    var isSearching = false;
     var filteredData;
     var lastFiltered = 100;
     var filteredAlbums;
+    var searchAlbums;
 
     //USEFULL FUNCTIONS
     updateWithFilter = function() {
@@ -62,17 +64,7 @@ $(document).ready(function() {
                 var songID = tracks[i]['ID'];
                 var reco = tracks[i]['Recommended'];
                 var FCC = tracks[i]['FCC'];
-                $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
-                $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
-                $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
-                $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
-                $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
-                if(reco == 1){
-                    $('.' + songID).addClass('reco');
-                }
-                if(FCC == 1){
-                    $('.' + songID).addClass('FCC');
-                }
+                addSong(songID, songName, artist, album, genre1, genre2, FCC, reco);
             }
             for(var i = 0; i < infoAlbums.length; i++){
                 filteredAlbums += '<li class="item item" id="' + infoAlbums[i]['AlbumID'] + '">' + albums[parseInt(infoAlbums[i]['AlbumID'])]['Name'] + '</li>'
@@ -95,17 +87,7 @@ $(document).ready(function() {
             var songID = filteredData[i]['ID'];
             var reco = filteredData[i]['Recommended'];
             var FCC = filteredData[i]['FCC'];
-            $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
-            $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
-            $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
-            $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
-            $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
-            if(reco == 1){
-                $('.' + songID).addClass('reco');
-            }
-            if(FCC == 1){
-                $('.' + songID).addClass('FCC');
-            }
+            addSong(songID, songName, artist, album, genre1, genre2, FCC, reco)
         }
         lastFiltered = max;
     }
@@ -140,20 +122,7 @@ $(document).ready(function() {
                 var songID = tracks[i]['ID'];
                 var reco = tracks[i]['Recommended'];
                 var FCC = tracks[i]['FCC'];
-                $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
-                $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
-                $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
-                $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
-                $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
-                if(reco == 1){
-                    $('.' + songID).addClass('reco');
-                }
-                if(FCC == 1){
-                    $('.' + songID).addClass('FCC');
-                }
-                if(lastTrack == "" || lastTrack == undefined || lastTrack == null){
-                    initialTrackHTML = $('.track-view').html();
-                }
+                addSong(songID, songName, artist, album, genre1, genre2, FCC, reco)
                 currentTrack = songName;
             }
             setLastTrack(currentTrack);
@@ -223,17 +192,7 @@ $(document).ready(function() {
                         var songID = artistAlbums[i]['tracks'][j]['ID'];
                         var reco = artistAlbums[i]['tracks'][j]['reco'];
                         var FCC = artistAlbums[i]['tracks'][j]['FCC'];
-                        $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
-                        $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
-                        $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
-                        $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
-                        $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
-                        if(reco){
-                            $('.' + songID).addClass('reco');
-                        }
-                        if(FCC){
-                            $('.' + songID).addClass('FCC');
-                        }
+                        addSong(songID, songName, artist, album, genre1, genre2, FCC, reco)
                     }
                 }
                 return;
@@ -262,27 +221,14 @@ $(document).ready(function() {
 
                     var songID = songs[i]['ID'];
                     var songName = songs[i]['Name'];
-                    var reco = false;
-                    var FCC = false;
+                    var reco = songs[i]['Recommended'];
+                    var FCC = songs[i]['FCC'];
                     var artist = $('#artists .active-item').text();
                     var album = songs[i]['Album'];
                     var pGenre = genres[parseInt(songs[i]['PrimaryGenre'])];
                     var sGenre = genres[parseInt(songs[i]['SecondaryGenre'])];
 
-                    $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
-                    $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
-                    $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
-                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ pGenre +'</li>');
-                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ sGenre +'</li>');
-                    if(songs[i]['Recommended'] == 1){
-                        reco = true;
-
-                        $('.' + songID).addClass('reco');
-                    }
-                    if(songs[i]['FCC'] == 1){
-                        FCC = true;
-                        $( '.' + songID).addClass('FCC');
-                    }
+                    addSong(songID, songName, artist, album, pGenre, sGenre, FCC, reco);
                     albums[albumID].addTrack(new Track(songName, songID, reco, FCC, artist, album, pGenre, sGenre));
                 }
             }
@@ -302,17 +248,7 @@ $(document).ready(function() {
                     var songID = trackList[i]['ID'];
                     var reco = trackList[i]['reco'];
                     var FCC = trackList[i]['FCC'];
-                    $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
-                    $('.artist .tracks').append('<li class="item ' + songID + '">'+ artist +'</li>');
-                    $('.album .tracks').append('<li class="item ' + songID + '">'+ album +'</li>'); 
-                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ genre1 +'</li>');
-                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ genre2 +'</li>');
-                    if(reco){
-                        $('.' + songID).addClass('reco');
-                    }
-                    if(FCC){
-                        $('.' + songID).addClass('FCC');
-                    }
+                    addSong(songID, songName, artist, album, genre1, genre2, FCC, reco);
                 }
                 return;
             }
@@ -340,23 +276,11 @@ $(document).ready(function() {
                     var songID = songs[i]['ID'];
                     var artist = songs[i]['Artist'];
                     var album = $('#albums .active-item').text();
-                    var reco = false;
-                    var FCC = false;
+                    var reco = songs[i]['Recommended'];
+                    var FCC = songs[i]['FCC'];
                     var pGenre = genres[parseInt(songs[i]['PrimaryGenre'])];
                     var sGenre = genres[parseInt(songs[i]['SecondaryGenre'])];
-                    $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
-                    $('.artist .tracks').append('<li class="item '+ songID +'">'+ artist +'</li>');
-                    $('.album .tracks').append('<li class="item '+ songID +'">'+ album +'</li>'); 
-                    $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ pGenre +'</li>');
-                    $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ sGenre +'</li>');  
-                    if(songs[i]['Recommended'] == 1){
-                        reco = true;
-                        $('.' + songs[i]['ID']).addClass('reco');
-                    }
-                    if(songs[i]['FCC'] == 1){
-                        FCC = true;
-                        $('.' + songs[i]['ID']).addClass('FCC');
-                    }
+                    addSong(songID, songName, artist, album, pGenre, sGenre, FCC, reco);
                     albums[id].addTrack(new Track(songName, songID, reco, FCC, artist, album, pGenre, sGenre));
                 }
             }
@@ -390,7 +314,7 @@ $(document).ready(function() {
             $("#filter-form").append('<div class="radio"><label><input type="radio" name="genreFilters" value="' + i + '">' + genres[i] + '</label></div>')
             $("#primary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
             $("#secondary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
-	}
+	   }
     }
     
 	//Error Publisher
@@ -404,11 +328,74 @@ $(document).ready(function() {
 			async:true,
 			url: "../php/scripts/logException.php",
 			data: {'Message' : e.message, 'StackTrace' : stack, 'userID' : '0'},
-        });
+       		});
 	}
-	
+	searchText = function(text){
+		$.ajax({
+			type: "GET",
+			data: {"TrackLike": text},
+			url: "../php/scripts/getTrackLikeInfo.php"
+		}).done(function(data){
+			var info;
+			try{
+				info = JSON.parse(data);
+				console.log(info);	
+			}catch(e){
+				PublishError(e);
+				return;
+			}
+            clearTrackList();
+			var songs = info['Tracks']
+			var arts = info['Artists'];
+			var albs = info['Albums'];
+			for(var i = 0; i < songs.length; i++){
+				var songID = songs[i]['TrackID'];
+				var name = songs[i]['TrackName'];
+				var artist = artists[parseInt(songs[i]['Artist'])]['Name'];
+				var album = albums[parseInt(songs[i]['Album'])]['Name'];
+				var FCC = songs[i]['FCC'];
+				var reco = songs[i]['Recommended'];
+                var pGenre = genres[parseInt(songs[i]['PrimaryGenreID'])]
+                var sGenre = genres[parseInt(songs[i]['SecondaryGenreID'])];
+                addSong(songID, name, artist, album, pGenre, sGenre, FCC, reco);
+			}
+            $('#artists .selection').html('<li class="active-item item" id="all">All</li>');
+            for(var i = 0; i < arts.length; i++){
+                $('#artists .selection').append('<li class="item" id="'+arts[i]['ArtistID']+'">'+ artists[parseInt(arts[i]['ArtistID'])]['Name'] +'</li>'); 
+            }
+            searchAlbums = '<li class="active-item item" id="all">All</li>';
+            for(var i = 0; i < albs.length; i++){
+                searchAlbums += '<li class="item item" id="' + albs[i]['AlbumID'] + '">' + albums[parseInt(albs[i]['AlbumID'])]['Name'] + '</li>'
+            }
+            $('#albums .selection').html(searchAlbums);
+		});
+	}
+    addSong = function(songID, songName, artist, album, pGenre, sGenre, FCC , reco){
+        $('.track .tracks').append('<li class="item ' + songID + '"><img src="../resources/add.png" class="image-responsive add-playlist pl-button">'+ songName +'</li>');   
+        $('.artist .tracks').append('<li class="item '+ songID +'">'+ artist +'</li>');
+        $('.album .tracks').append('<li class="item '+ songID +'">'+ album +'</li>'); 
+        $('.primary-genre .tracks').append('<li class="item '+ songID +'">'+ pGenre +'</li>');
+        $('.secondary-genre .tracks').append('<li class="item '+ songID +'">'+ sGenre +'</li>');   
+        if(reco == 1){
+            $('.' + songID).addClass('reco');
+        }
+        if(FCC == 1){
+            $('.' + songID).addClass('FCC');
+        }
+    }
 	
     //Event Handlers
+	$('#search-text').keyup(function(){
+		var text = $(this).val();
+		if(text.length > 1){
+            isSearching = true;
+			searchText(text);	
+		}else{
+            clearTrackList();
+            initialize();
+            isSearching = false
+        }
+	});
 	$(document).on('click', '.select-column', function(){
 		$('.active-column').removeClass('active-column');
 		$(this).addClass('active-column');
@@ -423,15 +410,20 @@ $(document).ready(function() {
 	});
     $(document).on('click', '#artists .item', function(){
         if($(this).attr('id') == 'all'){
+            clearTrackList();
             if(isFiltered){
                 lastFiltered = 0;
-                clearTrackList();
                 loadFilteredChunk();
                 $('#albums .selection').html(filteredAlbums);
                 return;
             }
+            if(isSearching){
+                searchText($('#search-text').val());
+                return;
+            }
             resetAlbums();
             lastTrack = '';
+            clearTrackList();
             loadTrackChunk(lastTrack);
             keepScrolling = true;
         }else{
@@ -499,6 +491,9 @@ $(document).ready(function() {
     });
     $(".track-view").scroll(function(){
         if(keepScrolling && $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight - 5){
+            if(isSearching){
+                return;
+            }
             if(isFiltered){
                 loadFilteredChunk();
                 return;

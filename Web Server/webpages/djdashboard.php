@@ -18,6 +18,7 @@ session_start();
 <script src="../js/classes/Artist.js"></script>
 <script src="../js/classes/Album.js"></script>
 <script src="../js/classes/Track.js"></script>
+<script src="../js/typeahead.js"></script>
 </head>
 <body>
 	<div class="container">

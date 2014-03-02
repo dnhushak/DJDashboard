@@ -1,6 +1,8 @@
 <script src="../js/library-view.js"></script>
 <script src="../js/jquery.jplayer.min.js"></script>
 <script src="../js/jplayerController.js"></script>
+<script src="../js/autocomplete.js"></script>
+
 <div id="jquery_jplayer_1" class="jp-jplayer"></div>
 <div class="player">
 	<div id="jp_container_1" class="jp-audio" style="margin: auto; margin-bottom: 10px;">
@@ -159,15 +161,15 @@
 				<form class="form-inline" role="form">
 					<div class="form-group">
 						<label class="sr-only" for="input-track">Track Name</label>
-						<input type="email" class="form-control" id="input-track" placeholder="Track Name">
+						<input type="text" class="form-control typeahead" id="input-track" autocomplete="off" spellcheck="false" placeholder="Track Name">
 					</div>
 					<div class="form-group">
 						 <label class="sr-only" for="input-artist">Artist Name</label>
-						<input type="password" class="form-control" id="input-artist" placeholder="Artist Name">
+						<input type="text" class="form-control" id="input-artist" placeholder="Artist Name">
 					</div>
 					<div class="form-group">
 						 <label class="sr-only" for="input-album">Album Name</label>
-						<input type="password" class="form-control" id="input-album" placeholder="Album Name">
+						<input type="text" class="form-control" id="input-album" placeholder="Album Name">
 					</div>
 					<div class="form-group">
 						<select class="form-control" id="primary-genres-allowed">
@@ -190,7 +192,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-primary">Add Song</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

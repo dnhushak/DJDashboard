@@ -16,6 +16,7 @@ class Track implements JsonSerializable
 	private $CreateDate;
 	private $EndDate;
 	private $ReleaseDate;
+	private $Path;
 	
 	public function jsonSerialize()
 	{
@@ -100,9 +101,20 @@ class Track implements JsonSerializable
 		$this->Album = $Album;
 	}
 	
+	public function setPath($Path)
+	{
+		$this->Path = $Path;
+	}
+
+	public function getPath()
+	{
+		return $this->Path;
+	}
+	
 	public function getAlbumID(){
 		return $this->AlbumID;
 	}
+	
 
 	public function setAlbumID($AlbumID){
 		$this->AlbumID = $AlbumID;

@@ -19,6 +19,8 @@ $artist->setName($_GET['ArtistName']);
 
 $editor = new LibraryEditor();
 
+$newArtistID = $editor->insertCustomArtist($artist);
 
+echo $newArtistID;
  
 ?>

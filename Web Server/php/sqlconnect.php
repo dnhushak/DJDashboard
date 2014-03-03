@@ -125,7 +125,10 @@ class SqlConnect
 	
 	public function freeResults()
 	{
-		$this->connection->next_result();
+		if(mysqli_more_results())
+		{
+			$this->connection->next_result();
+		}
 	}
 }
 ?>

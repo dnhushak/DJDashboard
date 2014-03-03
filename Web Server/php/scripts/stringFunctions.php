@@ -1,5 +1,13 @@
 <?php
 
+function normalizeStringArray($arr){
+	$ret = array ();
+	foreach ($arr as $val) {
+		$ret [] = normalizeAll($val);
+	}
+	return $ret;
+}
+
 /**
  * Normalizes a string by:
  * -Removing unicode characters
@@ -130,3 +138,4 @@ function removeLeadingArticles($string){
 	return $string;
 }
 ?>
+

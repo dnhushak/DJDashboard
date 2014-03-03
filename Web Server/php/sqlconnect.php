@@ -7,6 +7,7 @@
  */
  
  include_once('publisher.php');
+ include_once('scripts/stringFunctions.php');
  
 class SqlConnect
 {
@@ -69,6 +70,10 @@ class SqlConnect
 		{
 			if($args != null)//Each arg in order
 			{
+				//Check for SQL Injection.  If so, we will throw errors.
+				//$args = normalizeStringArray($args);
+				
+				
 				$cmd = "Call ".$procedureName."(";
 				$length = count($args);
 				//Append first arguments, do not append the last one (no final comma)

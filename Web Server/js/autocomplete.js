@@ -19,8 +19,12 @@ $(document).ready(function(){
 	});
 	$('#input-track').bind('typeahead:selected', function(obj, datum, name){
 		$('#input-track').val(datum['TrackName']);
+		$('#input-track-id').html(datum['TrackID']);
+		console.log($('#input-track-id').html());
 		$('#input-artist').val(artists[parseInt(datum['Artist'])]['Name']);
+		$('#input-artist-id').html(datum['Artist']);
 		$('#input-album').val(albums[parseInt(datum['Album'])]['Name']);
+		$('#input-album-id').html(datum['Album']);
 		$('#primary-genres-allowed').val(datum['PrimaryGenreID']);
 		$('#secondary-genres-allowed').val(datum['SecondaryGenreID']);
 	});

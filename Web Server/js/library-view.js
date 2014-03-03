@@ -338,8 +338,7 @@ $(document).ready(function() {
 		}).done(function(data){
 			var info;
 			try{
-				info = JSON.parse(data);
-				console.log(info);	
+                info = JSON.parse(data);
 			}catch(e){
 				PublishError(e);
 				return;

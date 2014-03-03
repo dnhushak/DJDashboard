@@ -369,7 +369,7 @@
 				$artistList = array();
 				if($results == false)
 				{
-					throw new exception("AlbumResults are null in LibraryManager.GetTracksLike()");
+					throw new exception("AlbumResults are null in LibraryManager.GetArtistsAutoComplete()");
 				}
 				while($rowInfo = mysqli_fetch_assoc($results))
 				{

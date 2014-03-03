@@ -16,6 +16,7 @@ include_once('../sqlconnect.php');
  class LibraryEditor
  {
  	private $spInsertCustomTrack;
+ 	private $spInsertCustomArtist;
  	
  	
  	public function __construct()
@@ -26,7 +27,39 @@ include_once('../sqlconnect.php');
  	public function initialize()
  	{
  		$this->spInsertCustomTrack = "InsertCustomTrack";
+ 		$this->spInsertCustomArtist = "InsertCustomArtist";
  	
+ 	}
+ 	
+ 	/**
+ 	 * Function to add custom artists that aren't already in the database.
+ 	 */
+ 	public function insertCustomArtist($artist)
+ 	{
+ 		$conn = new sqlConnect();
+ 		try
+ 		{
+ 			$userID = 0;
+ 			if($artist == null)
+ 			{
+ 				throw new Exception("Artist is null in insertCustomArtist()");
+ 			}
+ 			$result = $conn->callStoredProc($this->spInsertCustomArtist, array($artist->getName()));
+ 			if($result == false)
+ 			{
+ 				throw new Exception("SQL returned false! in insertCustomArtist()");
+ 			}
+ 			$rowInfo = mysqli_fetch_assoc($result);
+ 			$newArtistID = utf8_encode($rowInfo['ArtistID']);
+
+			return $newArtistID;
+ 		} 
+ 		catch (Exception $e)
+		{
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $userID);
+			return false;
+		}
+ 				
  	}
  	
  	/**

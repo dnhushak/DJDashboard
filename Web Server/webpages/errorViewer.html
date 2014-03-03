@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="library-holder">
+	<div class="filter-view">
+		<form role="form" id="filter-form">
+			<h3>Filters</h3>
+			<hr>
+			<div class="checkbox">
+				<label>
+		     		<input type="checkbox" name="recommended">Recommended
+		    	</label>
+		    </div>
+		    <div class="radio">
+		    	<label>
+		    		<input type="radio" name="genreFilters" value="0" checked>All Genres
+		    	</label>
+	    	</div>
+		</form>
+	</div>
+	<div class="expandable" id="filters"></div>
+	<div class="main-view">
+		<div class="row selector custom-row">
+			<div class="col-md-6 library-column select-column" id="artists">
+				<h5 class="title" style="text-align: center;">Artists</h5>
+				<div class="list-view">
+					<ul class="elements selection">
+						<li class="active-item item" id="all">All</li>
+					</ul>	
+				</div>
+			</div>
+			<div class="col-md-6 library-column select-column" id="albums">
+				<h5 class="title" style="text-align: center;">Albums</h5>
+				<div class="list-view">
+					<ul class="elements selection">
+						<li class="active-item item" id="all">All</li>
+					</ul>	
+				</div>
+			</div>
+		</div>
+		<div class="row select-column library custom-row">
+			<div class="col-md-4 library-column track-column track">
+				<h5 class="title">Name</h5>
+			</div>
+			<div class="col-md-3 library-column track-column artist">
+				<h5 class="title">Artist</h5>
+			</div>
+			<div class="col-md-3 library-column track-column ablum">
+				<h5 class="title">Album</h5>
+			</div>
+			<div class="col-md-1 library-column track-column primary-genre">
+				<h5 class="title">P. Genre</h5>
+			</div>
+			<div class="col-md-1 library-column track-column secondary-genre">
+				<h5 class="title">S. Genre</h5>
+			</div>
+			<div class="track-view" id="track-top">
+				<div class="col-md-4 library-column track-column track">
+					<ul class="elements tracks">
+					</ul>
+				</div>
+				<div class="col-md-3 library-column track-column artist">
+					<ul class="elements tracks">
+					</ul>
+				</div>
+				<div class="col-md-3 library-column track-column album">
+					<ul class="elements tracks">
+					</ul>
+				</div>
+				<div class="col-md-1 library-column track-column primary-genre">
+					<ul class="elements tracks">
+					</ul>
+				</div>
+				<div class="col-md-1 library-column track-column secondary-genre">
+					<ul class="elements tracks">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="expandable" id="current-playlist"></div>
+	<div class="playlist-view">
+		<form role="form" id="filter-form">
+			<h3>Playlist</h3>
+			<button type="button" class="btn btn-default" id="save-playlist">Save</button>
+			<button type="button" class="btn btn-default" id="custom-song" data-toggle="modal" data-target="#custom-song-modal">Custom Song</button>
+			<hr>
+			<ul class="elements playlist">
+			</ul>
+		</form>
+	</div>
+</div>
+
+</body>
+</html>

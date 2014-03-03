@@ -127,7 +127,6 @@
 		public function GetAllArtists($Alphabetical)
 		{
 			$conn = new SqlConnect();
-			$results;
 			if($Alphabetical)
 			{
 				$results = $conn->callStoredProc($this->GetArtistsAlphabetical, null);
@@ -155,7 +154,6 @@
 		**/
 		public function GetAllAlbums($Alphbetical){
 			$conn = new SqlConnect();
-			$results;
 			if($Alphbetical){
 				//Need stored procedure for this
 			}else{
@@ -250,14 +248,14 @@
 			$trackList = array();
 			while($rowInfo = mysqli_fetch_assoc($results)){
 				$tempTrack = new Track();
-				$tempTrack->setArtist($rowInfo['idArtist']);
-				$tempTrack->setName($rowInfo['Name']);
-				$tempTrack->setFCC(($rowInfo['FCC']));
-				$tempTrack->setID($rowInfo['idTrack']);
-				$tempTrack->setRecommended($rowInfo['Recommended']);
-				$tempTrack->setAlbumID($rowInfo['idAlbum']);
-				$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
-				$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
+				$tempTrack->setArtist(utf8_encode($rowInfo['idArtist']));
+				$tempTrack->setName(utf8_encode($rowInfo['Name']));
+				$tempTrack->setFCC(utf8_encode($rowInfo['FCC']));
+				$tempTrack->setID(utf8_encode($rowInfo['idTrack']));
+				$tempTrack->setRecommended(utf8_encode($rowInfo['Recommended']));
+				$tempTrack->setAlbumID(utf8_encode($rowInfo['idAlbum']));
+				$tempTrack->setPrimaryGenreID(utf8_encode($rowInfo['idPrimaryGenre']));
+				$tempTrack->setSecondaryGenreID(utf8_encode($rowInfo['idSecondaryGenre']));
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;

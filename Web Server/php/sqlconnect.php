@@ -78,6 +78,10 @@ class SqlConnect
 					{
 						$cmd = $cmd."'".$args[$i]."'".",";
 					}
+					else if($args[$i] == null)
+					{
+						$cmd = $cmd."null,";
+					}
 					else
 					{
 						$cmd = $cmd.$args[$i].",";
@@ -97,6 +101,8 @@ class SqlConnect
 				{
 					throw new Exception($this->connection->error);
 				}
+				echo $cmd;
+				
 				$results = $this->connection->query($cmd);
 			}
 			else

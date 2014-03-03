@@ -13,8 +13,8 @@ try
 	$UserID = $_GET['UserID'];
 	$TrackName = $_GET['TrackName'];
 	$ReleaseDate = $_GET['ReleaseDate'];
-	$FCC = $_GET['FCC'];
-	$Recommended = $_GET['Recommended'];
+	$FCC = false;
+	$Recommended = false;
 	$PrimaryGenreID = $_GET['PrimaryGenreID'];
 	$SecondaryGenreID = $_GET['SecondaryGenreID'];
 	$ArtistID = $_GET['ArtistID'];

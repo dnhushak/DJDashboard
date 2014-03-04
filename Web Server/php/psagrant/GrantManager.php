@@ -16,13 +16,15 @@ include_once '../publisher.php';
 class GrantManager {
 
 	private $spGetEligibleGrants;
+	private $spGetAllGrantInfo;
 
 	public function __construct() {
 		$this->initialize();
 	}
 
 	public function initialize() {
-		$this->spGetEligibleGrants = "getEligibleGrants";
+		$this->spGetEligibleGrants = "GetEligibleGrants";
+		$this->spGetAllGrantInfo = "GetAllGrantInfo";
 	}
 
 	public function getGrants($numberOfGrants) {
@@ -37,9 +39,49 @@ class GrantManager {
 			$eligibleGrants = array();
 			while($rowInfo = mysqli_fetch_assoc($results)){
 				$tempGrant = new Grant();
-				$tempTrack->setArtist(utf8_encode($rowInfo['idArtist']));
-				$trackList[] = $tempTrack;
+				$tempGrant->setGrantID(utf8_encode($rowInfo['GrantID']));
+				$tempGrant->setPlayCount(utf8_encode($rowInfo['PlayCount']));
+				$tempGrant->setStartDate(utf8_encode($rowInfo['StartDate']));
+				$tempGrant->setEndDate(utf8_encode($rowInfo['EndDate']));
+				$tempGrant->setTimeLeft(utf8_encode($rowInfo['TimeLeft']));
+				$tempGrant->setMaxPlayCount(utf8_encode($rowInfo['MaxPlayCount']));
+				//Calculate the priority
+				$playDiff = $tempGrant->getMaxPlayCount() - $tempGrant->getPlayCount();
+				$dateDiff = $tempGrant->getTimeLeft();
+				
+				$tempGrant->setPriority($playDiff * pow(10, 6)/ $dateDiff);
+				
+				$eligibleGrants[] = $tempGrant;
+			}
+			
+			$arrLen = count($eligibleGrants);
+			$min = $numberOfGrants;
+			if($eligibleGrants < $min)
+			{
+				$min = $eligibleGrants;
 			}	
+			
+			//Sort them by priority
+			usort($eligibleGrants, "Grant::cmp");
+			
+			$finalArr = array();
+			
+			for($i = 0; $i < $min; $i++)
+			{
+				//Call for rest of data.
+				$conn->freeResults();
+				$results = $conn->callStoredProc($this->spGetAllGrantInfo, array($eligibleGrants[$i]->getGrantID()));
+				while($rowInfo = mysqli_fetch_assoc($results)){
+				$eligibleGrants[$i]->setGrantName(utf8_encode($rowInfo['GrantName']));
+				$eligibleGrants[$i]->setMessage(utf8_encode($rowInfo['Message']));
+				}
+				$finalArr[] = $eligibleGrants[$i];
+			}
+			
+			return $finalArr;
+			
+			
+			
 			
 			
 		} catch (Exception $e) {

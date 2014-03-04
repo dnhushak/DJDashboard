@@ -7,6 +7,9 @@
  
  include('../psagrant/GrantManager.php');
  
+	error_reporting(0);
+ 
+ 
  $count = $_GET['Count'];
 
 if($count == null)

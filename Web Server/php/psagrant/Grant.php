@@ -38,7 +38,7 @@
  	//COMPARER
  	static function cmp($a, $b)
 	{
-    	return $a->priority > $b->priority;
+    	return $a->priority < $b->priority;
 	}
  	
  	public function setMaxPlayCount($mpc)

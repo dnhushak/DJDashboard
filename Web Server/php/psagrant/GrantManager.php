@@ -48,7 +48,8 @@ class GrantManager {
 				//Calculate the priority
 				$playDiff = $tempGrant->getMaxPlayCount() - $tempGrant->getPlayCount();
 				$dateDiff = $tempGrant->getTimeLeft();
-
+				
+				//RATIO
 				$tempGrant->setPriority($playDiff * pow(10, 6) / $dateDiff);
 
 				$eligibleGrants[] = $tempGrant;

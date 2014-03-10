@@ -7,8 +7,9 @@ import sqlConnect.DBINFO;
 
 public class Track
 {
-	private static final String EXPLICIT_TAG = "[EXPLICIT]";
-	private static final String RECO_TAG = "[RECO]";
+	public static final String EXPLICIT_TAG = "[EXPLICIT]";
+	public static final String RECO_TAG = "[RECO]";
+	public static final String[] articles = { "THE", "A", "AN", "LA", "EL", "LAS", "LOS", "UNA", "UN", "UNAS", "UNOS" };
 	private String name;
     private String artist;
     private String album;
@@ -48,7 +49,7 @@ public class Track
         	setRecommended(true);
         	stripTag(RECO_TAG);
         }
-		removeAccent();
+		 this.name = sanatizeString(this.name);
      }
         
      public void setRecommended(boolean value)
@@ -68,7 +69,7 @@ public class Track
 
      public void setArtist(String artistName) 
      {
-    	 this.artist = artistName;
+    	 this.artist = sanatizeString(artistName);
      }
 
      public String getAlbum() 
@@ -78,7 +79,7 @@ public class Track
 
      public void setAlbum(String albumName) 
      {
-    	 this.album = albumName;
+    	 this.album = sanatizeString(albumName);
      }
 
      public int getPlayCount() 
@@ -264,6 +265,76 @@ public class Track
 		 String nfdNormalizedString = Normalizer.normalize(this.name, Normalizer.Form.NFD); 
 		 Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 		 this.name = pattern.matcher(nfdNormalizedString).replaceAll("");
+	 }
+	 
+	 	 private String sanatizeString(String str)
+	 {
+		 str = removeAccent(str);
+		 str = singleSpacedAndCapitalize(str);
+		 str = removeArticle(str);
+		 return str;
+	 }
+	 
+	 /**
+	  * converts letters with accents to the same English character without the accent. All credit goes to
+	  * this source: http://stackoverflow.com/questions/1008802/converting-symbols-accent-letters-to-english-alphabet
+	  */
+	 private String removeAccent(String str) 
+	 {
+		 String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
+		 Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		 str = pattern.matcher(nfdNormalizedString).replaceAll("");
+		 return str;
+	 }
+	 
+	 private String singleSpacedAndCapitalize(String str)
+	 {
+		 StringBuilder sb = new StringBuilder();
+		 String[] strings = str.split("\\s+|\\t+");
+		 for(int i = 0; i < strings.length; i++)
+		 {
+			 if(strings[i].length() > 1)
+			 {
+				 sb.append(strings[i].substring(0, 1).toUpperCase());
+				 sb.append(strings[i].substring(1, strings[i].length()));
+			 }
+			 else
+			 {
+				sb.append(strings[i].toUpperCase());
+			 }
+			 
+			 if(i != strings.length - 1)
+			 {
+				 sb.append(" ");
+			 }
+		 }
+		 return sb.toString();
+	 }
+	 
+	 private String removeArticle(String str)
+	 {
+		 int space = str.indexOf(" ");
+		 if(space != -1)
+		 {
+			 String firstWord = str.substring(0, space);
+			 if(isArticle(firstWord))
+			 {
+				 return str.substring(Math.min(space + 1, str.length() - 1));
+			 }
+		 }
+		 return str;
+	 }
+	 
+	 private boolean isArticle(String str)
+	 {
+		 for(String s : articles)
+		 {
+			 if(str.equalsIgnoreCase(s))
+			 {
+				 return true;
+			 }
+		 }
+		 return false;
 	 }
 }
 

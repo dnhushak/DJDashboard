@@ -10,9 +10,9 @@ register_shutdown_function( "Publisher::fatalHandler" );
 
 try
 {
-	$UserID = $_GET['UserID'];
+	$UserID = 0;//$_GET['UserID'];
 	$TrackName = $_GET['TrackName'];
-	$ReleaseDate = $_GET['ReleaseDate'];
+	$ReleaseDate = null; //$_GET['ReleaseDate'];
 	$FCC = false;
 	$Recommended = false;
 	$PrimaryGenreID = $_GET['PrimaryGenreID'];

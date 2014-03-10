@@ -17,6 +17,7 @@ include_once('../sqlconnect.php');
  {
  	private $spInsertCustomTrack;
  	private $spInsertCustomArtist;
+ 	private $spInsertCustomAlbum;
  	
  	
  	public function __construct()
@@ -27,6 +28,7 @@ include_once('../sqlconnect.php');
  	public function initialize()
  	{
  		$this->spInsertCustomTrack = "InsertCustomTrack";
+ 		$this->spInsertCustomAlbum = "InsertCustomAlbum";
  		$this->spInsertCustomArtist = "InsertCustomArtist";
  	
  	}
@@ -116,6 +118,31 @@ include_once('../sqlconnect.php');
 		}
  		
  		
+ 	}
+ 	public function insertCustomAlbum($album){
+ 		$conn = new sqlConnect();
+ 		try
+ 		{
+ 			$userID = 0;
+ 			if($album == null)
+ 			{
+ 				throw new Exception("Album is null in insertCustomAlbum()");
+ 			}
+ 			$result = $conn->callStoredProc($this->spInsertCustomAlbum, array($album->getArtistID(), $album->getName(), 0, $album->getPrimaryGenre(), $album->getSecondaryGenre()));
+ 			if($result == false)
+ 			{
+ 				throw new Exception("SQL returned false! in insertCustomAlbum()");
+ 			}
+ 			$rowInfo = mysqli_fetch_assoc($result);
+ 			$newAlbumID = utf8_encode($rowInfo['AlbumID']);
+
+			return $newAlbumID;
+ 		} 
+ 		catch (Exception $e)
+		{
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $userID);
+			return false;
+		}
  	}
  }
  

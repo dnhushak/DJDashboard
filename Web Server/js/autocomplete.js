@@ -1,5 +1,19 @@
 $(document).ready(function(){
 
+	var songID = 0;
+	var artistID = 0;
+	var albumID = 0;
+	var pGenreID = 0;
+	var sGenreID = 0;
+
+	$(".save-track").on('click', function(){
+		if($('#input-track').val() != "" && $('#input-artist').val() != "" && $('#input-album').val() != ""){
+			customArtist();
+		}else{
+
+		}
+	})
+
 	var tracks = new Bloodhound({
 		datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.TrackName); },
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -19,14 +33,16 @@ $(document).ready(function(){
 	});
 	$('#input-track').bind('typeahead:selected', function(obj, datum, name){
 		$('#input-track').val(datum['TrackName']);
-		$('#input-track-id').html(datum['TrackID']);
-		console.log($('#input-track-id').html());
 		$('#input-artist').val(artists[parseInt(datum['Artist'])]['Name']);
-		$('#input-artist-id').html(datum['Artist']);
 		$('#input-album').val(albums[parseInt(datum['Album'])]['Name']);
-		$('#input-album-id').html(datum['Album']);
 		$('#primary-genres-allowed').val(datum['PrimaryGenreID']);
 		$('#secondary-genres-allowed').val(datum['SecondaryGenreID']);
+
+		songID = datum['TrackID'];
+		artistID = datum['Artist'];
+		albumID = datum['Album'];
+		pGenreID = $('#primary-genres-allowed').val();
+		sGenreID = $('#secondary-genres-allowed').val();
 	});
 
 	var arts = new Bloodhound({
@@ -63,4 +79,44 @@ $(document).ready(function(){
 		displayKey: 'AlbumName',
 		source: albs.ttAdapter(),
 	});
+	var customArtist = function(){
+		$.ajax({
+            url: '../php/scripts/insertCustomArtist.php',
+            type: 'GET',
+            data: {'ArtistName' : $('#input-artist').val()}
+        }).done(function(addedID){
+        	artistID = parseInt(addedID);
+        	customAlbum();
+        })
+
+	}
+	var customAlbum = function(){
+		$.ajax({
+            url: '../php/scripts/insertCustomAlbum.php',
+            type: 'GET',
+            data: {'AlbumName' : $('#input-album').val(),
+        			'ArtistID' : artistID,
+        			'PGenre' : pGenreID,
+        			'SGenre' : sGenreID}
+        }).done(function(addedID){
+        	console.log(addedID);
+        	albumID = parseInt(addedID);
+        	customTrack();
+        })
+
+	}
+	var customTrack = function(){
+		$.ajax({
+            url: '../php/scripts/insertCustomTrack.php',
+            type: 'GET',
+            data: {'TrackName' : $('#input-track').val(),
+        			'ArtistID' : artistID,
+        			'AlbumID' : albumID,
+        			'PrimaryGenreID' : pGenreID,
+        			'SecondaryGenreID' : sGenreID}
+        }).done(function(addedID){
+        	songID = parseInt(addedID);
+        	$('#custom-song-modal').modal('hide');
+        })
+	}
 });

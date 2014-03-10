@@ -6,6 +6,7 @@
 		private $TrackList;
 		private $PrimaryGenre;
 		private $SecondaryGenre;
+		private $artistID;
 		
 		//Serialize method to create JSON objects
 		public function jsonSerialize()
@@ -16,6 +17,7 @@
 			$arr['TrackList'] = $this->TrackList;
 			$arr['PrimaryGenreID'] = $this->PrimaryGenre;
 			$arr['SecondaryGenreID'] = $this->SecondaryGenre;
+			$arr['ArtistID'] = $this->artistID;
 			return $arr;
 		}
 		
@@ -57,12 +59,18 @@
 
 		public function setPrimaryGenre($genre)
 		{
-			return $this->PrimaryGenre = $genre;
+			$this->PrimaryGenre = $genre;
 		}
 		
 		public function setSecondaryGenre($genre)
 		{
-			return $this->SecondaryGenre = $genre;
+			$this->SecondaryGenre = $genre;
+		}
+		public function setArtistID($id){
+			$this->artistID = $id;
+		}
+		public function getArtistID(){
+			return $this->artistID;
 		}
 	}
 ?>

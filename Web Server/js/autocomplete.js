@@ -117,6 +117,7 @@ $(document).ready(function(){
         }).done(function(addedID){
         	songID = parseInt(addedID);
         	$('#custom-song-modal').modal('hide');
+        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
         })
 	}
 });

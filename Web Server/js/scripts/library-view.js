@@ -400,11 +400,11 @@ $(document).ready(function() {
             var tracks;
             try{
                 tracks = JSON.parse(data);
-                console.log(tracks);
             }catch(e){
                 PublishError(e);
                 return;
             }
+            $('.playlist').html('');
             for(var i = 0; i < tracks.length; i++){
                 $('.playlist').append('<li class="playlist-song ' + tracks[i]['TrackID'] + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + tracks[i]['TrackName'] + '</li>');
             }

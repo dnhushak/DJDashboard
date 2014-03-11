@@ -392,7 +392,24 @@ $(document).ready(function() {
         });
     }
     loadPlaylist = function(playlistID){
-        //TODO
+        $.ajax({
+            type: "GET",
+            url: "../php/scripts/getPlaylistByID.php",
+            data: {"PlaylistID" : playlistID}
+        }).done(function(data){
+            var tracks;
+            try{
+                tracks = JSON.parse(data);
+                console.log(tracks);
+            }catch(e){
+                PublishError(e);
+                return;
+            }
+            for(var i = 0; i < tracks.length; i++){
+                $('.playlist').append('<li class="playlist-song ' + tracks[i]['TrackID'] + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + tracks[i]['TrackName'] + '</li>');
+            }
+            $('#load-modal').modal('hide');
+        });
     }
     getAllPlaylists = function(){
         $.ajax({
@@ -408,11 +425,9 @@ $(document).ready(function() {
             }
             $('#all-playlists').html('');
             for(var i = 0; i < lists.length; i++){
-                if(i == 0){
-                    $('#all-playlists').append('<a style="cursor: pointer;" class="list-group-item active ' + lists[i]['PlaylistID'] + '">' + lists[i]['PlaylistName'] + '</a>')
-                }else{
-                    $('#all-playlists').append('<a style="cursor: pointer;" class="list-group-item ' + lists[i]['PlaylistID'] + '">' + lists[i]['PlaylistName'] + '</a>')
-                }
+                $('#all-playlists').append('<li class="list-group-item"><span class="playlist-name">' + lists[i]['PlaylistName'] + '</span>' +
+                                            '<button style="float: right;" type="button" class="btn btn-xs btn-primary" id="load-playlist"' + 
+                                            'value="' + lists[i]['PlaylistID'] + '">Load</button></li>');
             }
         });
     }
@@ -591,8 +606,10 @@ $(document).ready(function() {
         });
         savePlaylist(idArray.join(','), plName);
     });
-    $('#load-playlist').on('click', function(){
-        var playlistID = $('.list-group-item.active').attr('class').match(/\d+/);
+    $(document).on('click', '#load-playlist', function(){
+        var playlistID = $(this).val();
+        var playlistName = $(this).parent().find('.playlist-name').text();
+        $('#playlist-name').val(playlistName);
         loadPlaylist(playlistID);
     })
     $('#load-playlist-view').on('click', function(){

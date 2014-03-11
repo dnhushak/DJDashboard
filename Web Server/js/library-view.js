@@ -382,6 +382,9 @@ $(document).ready(function() {
             $('.' + songID).addClass('FCC');
         }
     }
+    savePlaylist = function(idCSL){
+        console.log('saving playlist not yet implemented');
+    }
 	
     //Event Handlers
 	$('#search-text').keyup(function(){
@@ -545,6 +548,13 @@ $(document).ready(function() {
     })
     $('.catagory').on('click',function(){
         $('#search-catagory').html($(this).text() + '<span class="caret"></span>');
+    });
+    $('#save-playlist').on('click', function(){
+        var idArray = new Array();
+        $(".playlist-song").each(function(i){
+            idArray[i] = $(this).attr('class').match(/\d+/);
+        });
+        savePlaylist(idArray.join(','));
     });
     //ON PAGE LOAD
     fillGenres();

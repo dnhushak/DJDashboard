@@ -9,7 +9,7 @@ $(document).ready(function() {
 	};
 
 	$.ajax({
-		url : 'login.html',
+		url : 'home.html',
 		type : 'POST',
 		success : function() {
 		}

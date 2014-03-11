@@ -22,6 +22,7 @@ html {
 .container {
 	height: 100%;
 }
+
 #content {
 	background-color: #FFFFFF;
 	border-left:1px solid #ddd;
@@ -33,7 +34,6 @@ html {
 	padding: 0px;
 	padding-top: 10px;
 	overflow: hidden;
-	height: 100%;
 }
 #footer {
 	background-color: #f4f4f4;

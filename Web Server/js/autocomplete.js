@@ -6,11 +6,25 @@ $(document).ready(function(){
 	var pGenreID = 0;
 	var sGenreID = 0;
 
+	$(".song-input-error").hide();
+
+	$(".close-custom-song").on('click', function(){
+		$('#input-track').val("");
+		$('#input-artist').val("");
+		$('#input-album').val("");
+		songID = 0;
+		artistID = 0;
+		albumID = 0;
+		pGenreID = 0;
+		sGenreID = 0;
+		$(".song-input-error").hide();
+	});
+
 	$(".save-track").on('click', function(){
 		if($('#input-track').val() != "" && $('#input-artist').val() != "" && $('#input-album').val() != ""){
 			customArtist();
 		}else{
-
+			$(".song-input-error").show();
 		}
 	})
 
@@ -117,7 +131,16 @@ $(document).ready(function(){
         }).done(function(addedID){
         	songID = parseInt(addedID);
         	$('#custom-song-modal').modal('hide');
+			$('#input-track').val("");
+			$('#input-artist').val("");
+			$('#input-album').val("");
+			songID = 0;
+			artistID = 0;
+			albumID = 0;
+			pGenreID = 0;
+			sGenreID = 0;
+			$(".song-input-error").hide();
         	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
-        })
+        });
 	}
 });

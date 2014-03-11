@@ -123,6 +123,7 @@ class SqlConnect
 		}
 		catch (Exception $e)
 		{
+			echo 'error';
 			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			return false;
 		}

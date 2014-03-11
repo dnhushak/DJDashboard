@@ -13,39 +13,39 @@ session_start();
 	<link type="text/css" href="../jplayerSkin/jplayer.css" rel="stylesheet" media="all"/>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../js/PageLoad.js"></script>
-<script src="../js/initialLoad.js"></script>
-<script src="../js/classes/Artist.js"></script>
-<script src="../js/classes/Album.js"></script>
-<script src="../js/classes/Track.js"></script>
-<script src="../js/typeahead.js"></script>
-<script src="../js/handlebars.js"></script>
+<script src="../js/login_verify.js"></script>
+
 </head>
 <body>
 	<?php
-
 		if (session_status() == PHP_SESSION_NONE) {
 		    session_start();
 		}
-		if(!isset($_SESSION['user'])){
-			header("Location: index.php");
-			exit();
-		}
+		session_unset();
 	?>
 	<div class="container">
 		<div class="header">
 			<img alt="Logo" src="../resources/logo.png">
 		</div>
-		<ul class="nav nav-tabs nav-justified">
-			<li class="active"><a id="home" style="cursor: pointer">Home</a></li>
-			<li><a id="library" style="cursor: pointer">Library</a></li>
-			<li><a id="profile" style="cursor: pointer">Profile</a></li>
-		</ul>
-		<div id="content"></div>
+		<div id="content" style="border-top-left-radius: 4px; border-top-right-radius: 4px; margin-top: 10px;">
+			<div class="col-md-12" style="margin-bottom: 20px;">
+				<div class="alert alert-danger" id="login-error"></div>
+				<form role="form">
+					<div class="form-group">
+						<label for="user-name">User Name</label>
+						<input id="user-name" class="form-control" type="text" name="user">
+					</div>
+					<div class="form-group">
+						<label for"password">Password</label>
+						<input id="password" class="form-control" type="password"name="pass" />
+					</div>
+				</form>
+				<button id="login" class="btn btn-default">Submit</button>
+			</div>
+		</div>
 		<div id="footer">
-			<a>Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.
+			<a>Copyright Â© 2014 KURE 88.5 Ames Alternative. All Rights Reserved.
 				KURE is Funded by the Government of the Student Body.</a>
-			<a style="float: right;" href="index.php">Logout</a>
 		</div>
 	</div>
 </body>

@@ -391,6 +391,31 @@ $(document).ready(function() {
             console.log(data);
         });
     }
+    loadPlaylist = function(playlistID){
+        //TODO
+    }
+    getAllPlaylists = function(){
+        $.ajax({
+            type: "GET",
+            url: "../php/scripts/getPlaylistIDByUser.php"
+        }).done(function(data){
+            var lists;
+            try{
+                lists = JSON.parse(data);
+            }catch(e){
+                PublishError(e);
+                return;
+            }
+            $('#all-playlists').html('');
+            for(var i = 0; i < lists.length; i++){
+                if(i == 0){
+                    $('#all-playlists').append('<a style="cursor: pointer;" class="list-group-item active ' + lists[i]['PlaylistID'] + '">' + lists[i]['PlaylistName'] + '</a>')
+                }else{
+                    $('#all-playlists').append('<a style="cursor: pointer;" class="list-group-item ' + lists[i]['PlaylistID'] + '">' + lists[i]['PlaylistName'] + '</a>')
+                }
+            }
+        });
+    }
 	
     //Event Handlers
 	$('#search-text').keyup(function(){
@@ -565,6 +590,17 @@ $(document).ready(function() {
             idArray[i] = $(this).attr('class').match(/\d+/);
         });
         savePlaylist(idArray.join(','), plName);
+    });
+    $('#load-playlist').on('click', function(){
+        var playlistID = $('.list-group-item.active').attr('class').match(/\d+/);
+        loadPlaylist(playlistID);
+    })
+    $('#load-playlist-view').on('click', function(){
+        getAllPlaylists();
+    });
+    $(document).on('click', '.list-group-item', function(){
+        $('.list-group-item.active').removeClass('active');
+        $(this).addClass('active');
     });
     //ON PAGE LOAD
     fillGenres();

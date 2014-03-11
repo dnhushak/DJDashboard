@@ -5,14 +5,15 @@ include_once('../publisher.php');
 	//Fatal error handler for PHP
 register_shutdown_function( "Publisher::fatalHandler" );
 
-
 try
 {
-	$UserID = $_GET['UserID'];
+	if(session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
+	$UserID = $_SESSION['userid'];
 	
-	echo $UserID;
 	$result = PlaylistManager::RetrievePlaylistIDsByUserID($UserID);
-	var_dump($result);
+	echo json_encode($result);
 }
 catch (Exception $e)
 {

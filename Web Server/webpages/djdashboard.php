@@ -23,7 +23,6 @@ session_start();
 </head>
 <body>
 	<?php
-
 		if (session_status() == PHP_SESSION_NONE) {
 		    session_start();
 		}
@@ -39,6 +38,7 @@ session_start();
 		<ul class="nav nav-tabs nav-justified">
 			<li class="active"><a id="home" style="cursor: pointer">Home</a></li>
 			<li><a id="library" style="cursor: pointer">Library</a></li>
+			<li><a id="library" style="cursor: pointer">On-Air</a></li>
 			<li><a id="profile" style="cursor: pointer">Profile</a></li>
 		</ul>
 		<div id="content"></div>

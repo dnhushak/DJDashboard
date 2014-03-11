@@ -143,7 +143,7 @@
 			<h3>Playlist</h3>
 			<div class="btn-group btn-group-xs">
 				<button type="button" class="btn btn-default" id="save-playlist">Save</button>
-				<button type="button" class="btn btn-default" id="load-playlist">Load</button>
+				<button type="button" class="btn btn-default" id="load-playlist-view" data-toggle="modal" data-target="#load-modal">Load</button>
 				<button type="button" class="btn btn-default" id="custom-song" data-toggle="modal" data-target="#custom-song-modal">Custom Song</button>
 			</div>
 			<div class="input-group input-group-sm">
@@ -201,6 +201,24 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary save-track">Add Song</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" role="dialog" id="load-modal"> 
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Load Playlist</h4>
+			</div>
+			<div class="modal-body">
+				<ul id="all-playlists">
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary close-custom-song" data-dismiss="modal" id="load-playlist">Load</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

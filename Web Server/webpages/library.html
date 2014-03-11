@@ -141,8 +141,15 @@
 	<div class="playlist-view">
 		<form role="form" id="filter-form">
 			<h3>Playlist</h3>
-			<button type="button" class="btn btn-default" id="save-playlist">Save</button>
-			<button type="button" class="btn btn-default" id="custom-song" data-toggle="modal" data-target="#custom-song-modal">Custom Song</button>
+			<div class="btn-group btn-group-xs">
+				<button type="button" class="btn btn-default" id="save-playlist">Save</button>
+				<button type="button" class="btn btn-default" id="load-playlist">Load</button>
+				<button type="button" class="btn btn-default" id="custom-song" data-toggle="modal" data-target="#custom-song-modal">Custom Song</button>
+			</div>
+			<div class="input-group input-group-sm">
+				<label class="sr-only" for="playlist-name">Playlist Name</label>
+				<input type="text" class="form-control typeahead" id="playlist-name" autocomplete="off" spellcheck="false" placeholder="Playlist Name">
+			</div>
 			<hr>
 			<ul class="elements playlist">
 			</ul>

@@ -8,7 +8,10 @@ register_shutdown_function( "Publisher::fatalHandler" );
 
 try
 {
-	$UserID = $_GET['UserID'];
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
+	$UserID = $_SESSION['userid'];
 	$PlaylistName = $_GET['PlaylistName'];
 	$Tracks = $_GET['Tracks'];
 	

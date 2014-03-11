@@ -10,7 +10,7 @@ $(document).ready(function() {
 
     //Global variables
     var mainViewWidth = 98;
-    var expansionOffset = 14;
+    var expansionOffset = 20;
     var filtersExpanded = false;
     var playlistExpanded = false;
     var initialTrackHTML = '';
@@ -382,8 +382,14 @@ $(document).ready(function() {
             $('.' + songID).addClass('FCC');
         }
     }
-    savePlaylist = function(idCSL){
-        console.log('saving playlist not yet implemented');
+    savePlaylist = function(idCSL, plName){
+        $.ajax({
+            type: "GET",
+            data: {"Tracks": idCSL, "PlaylistName": plName},
+            url: "../php/scripts/insertPlaylist.php"
+        }).done(function(data){
+            console.log(data);
+        });
     }
 	
     //Event Handlers
@@ -462,7 +468,7 @@ $(document).ready(function() {
             $('.filter-view').show();
             mainViewWidth -= expansionOffset;
             $(".main-view").css('width', mainViewWidth.toString() + '%');
-            $('.filter-view').css('width', '14%');
+            $('.filter-view').css('width',  expansionOffset + '%');
             $('.filter-view').css('height', '100%');
             filtersExpanded = true;
         }else{
@@ -479,7 +485,7 @@ $(document).ready(function() {
             $('.playlist-view').show();
             mainViewWidth -= expansionOffset;
             $(".main-view").css('width', mainViewWidth.toString() + '%');
-            $('.playlist-view').css('width', '14%');
+            $('.playlist-view').css('width', expansionOffset + '%');
             $('.playlist-view').css('height', '100%');
             playlistExpanded = true;
         }else{
@@ -550,11 +556,15 @@ $(document).ready(function() {
         $('#search-catagory').html($(this).text() + '<span class="caret"></span>');
     });
     $('#save-playlist').on('click', function(){
+        var plName = $('#playlist-name').val();
+        if($('#playlist-name').val() == ''){
+            plName = "Playlist";
+        }
         var idArray = new Array();
         $(".playlist-song").each(function(i){
             idArray[i] = $(this).attr('class').match(/\d+/);
         });
-        savePlaylist(idArray.join(','));
+        savePlaylist(idArray.join(','), plName);
     });
     //ON PAGE LOAD
     fillGenres();

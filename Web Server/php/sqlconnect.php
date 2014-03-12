@@ -95,7 +95,7 @@ class SqlConnect
 				//Append final argument (with no final comma)
 				if(is_string($args[$length-1]))
 				{
-					$args[$i] = mysqli_real_escape_string($args[$i]);
+					//$args[$i] = mysqli_real_escape_string($args[$i]);
 					$cmd = $cmd."'".$args[$i]."');";
 				}	
 				else if($args[$i] == null)

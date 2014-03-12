@@ -12,7 +12,9 @@ try
 	}
 	$UserID = $_SESSION['userid'];
 	
-	$result = PlaylistManager::RetrievePlaylistIDsByUserID($UserID);
+	//Changed to not use statically
+	$manager = new PlaylistManager();
+	$result = $manager->RetrievePlaylistIDsByUserID($UserID);
 	echo json_encode($result);
 }
 catch (Exception $e)

@@ -111,7 +111,7 @@ class SqlConnect
 				{
 					throw new Exception($this->connection->error);
 				}
-				
+				$this->lastCommand = $cmd;
 				$results = $this->connection->query($cmd);
 			}
 			else
@@ -120,7 +120,7 @@ class SqlConnect
 			}
 			//Free results for multiple uses
 			//mysqli_free_result(); NEVERMIND! DO NOT PUT IT HERE
-			$this->lastCommand = $cmd;
+			
 			
 			return $results;
 		}

@@ -8,7 +8,7 @@ try
 {
 	$manager = new LibraryManager();
 	$TrackID = $_GET['TrackID'];
-	$UserID = 0; //TODO
+	$UserID = $_SESSION['userid'];
 	$OnAirSessionID = 0; //TODO
 	$result = $manager->PlayTrack($UserID, $TrackID, $OnAirSessionID);
 	echo $result;

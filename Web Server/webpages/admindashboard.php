@@ -7,8 +7,8 @@
 <link rel="stylesheet" type="text/css" media="all"
 	href="../css/main.css">
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/PageLoad.js"></script>
+<script src="../js/libraries/bootstrap.min.js"></script>
+<script src="../js/scripts/PageLoad.js"></script>
 </head>
 <body>
 	<div class="container">

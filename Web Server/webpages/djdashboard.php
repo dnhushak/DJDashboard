@@ -12,14 +12,14 @@ session_start();
 	href="../css/main.css">
 	<link type="text/css" href="../jplayerSkin/jplayer.css" rel="stylesheet" media="all"/>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/PageLoad.js"></script>
-<script src="../js/initialLoad.js"></script>
+<script src="../js/libraries/bootstrap.min.js"></script>
+<script src="../js/scripts/PageLoad.js"></script>
+<script src="../js/scripts/initialLoad.js"></script>
 <script src="../js/classes/Artist.js"></script>
 <script src="../js/classes/Album.js"></script>
 <script src="../js/classes/Track.js"></script>
-<script src="../js/typeahead.js"></script>
-<script src="../js/handlebars.js"></script>
+<script src="../js/libraries/typeahead.js"></script>
+<script src="../js/libraries/handlebars.js"></script>
 </head>
 <body>
 	<?php

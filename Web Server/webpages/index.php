@@ -12,8 +12,8 @@ session_start();
 	href="../css/main.css">
 	<link type="text/css" href="../jplayerSkin/jplayer.css" rel="stylesheet" media="all"/>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/login_verify.js"></script>
+<script src="../js/libraries/bootstrap.min.js"></script>
+<script src="../js/scripts/login_verify.js"></script>
 
 </head>
 <body>

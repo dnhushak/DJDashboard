@@ -36,6 +36,8 @@ try
 	$editor = new LibraryEditor();
 	
 	$result = $editor->insertCustomTrack($track);
+
+	echo $result;
 }
 catch (Exception $e)
 {

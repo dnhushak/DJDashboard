@@ -113,7 +113,6 @@ $(document).ready(function(){
         			'PGenre' : pGenreID,
         			'SGenre' : sGenreID}
         }).done(function(addedID){
-        	console.log(addedID);
         	albumID = parseInt(addedID);
         	customTrack();
         })
@@ -129,7 +128,11 @@ $(document).ready(function(){
         			'PrimaryGenreID' : pGenreID,
         			'SecondaryGenreID' : sGenreID}
         }).done(function(addedID){
-        	songID = parseInt(addedID);
+        	console.log(artistID);
+        	console.log(albumID);
+        	console.log(addedID);
+        	songID = addedID;
+        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
         	$('#custom-song-modal').modal('hide');
 			$('#input-track').val("");
 			$('#input-artist').val("");
@@ -140,7 +143,6 @@ $(document).ready(function(){
 			pGenreID = 0;
 			sGenreID = 0;
 			$(".song-input-error").hide();
-        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
         });
 	}
 });

@@ -104,7 +104,7 @@ include_once('../sqlconnect.php');
  			$results = $conn->callStoredProc($this->spInsertCustomTrack, $arr);
  			if($results == false)
  			{
- 				throw new Exception("Error in SQL Query");
+ 				throw new Exception("Error in SQL Query  |" . $conn->getLastCommand());
  			}
  			$rowInfo = mysqli_fetch_assoc($results);
  			$newTrackID = utf8_encode($rowInfo['TrackID']);

@@ -16,7 +16,7 @@ class SqlConnect
 	private $password;
 	private $database;
 	private $connUrl;
-	
+	private $lastCommand;
 	/**
 	 * Grab default values
 	 */
@@ -95,6 +95,7 @@ class SqlConnect
 				//Append final argument (with no final comma)
 				if(is_string($args[$length-1]))
 				{
+					$args[$i] = mysqli_real_escape_string($args[$i]);
 					$cmd = $cmd."'".$args[$i]."');";
 				}	
 				else if($args[$i] == null)
@@ -119,14 +120,20 @@ class SqlConnect
 			}
 			//Free results for multiple uses
 			//mysqli_free_result(); NEVERMIND! DO NOT PUT IT HERE
+			$this->lastCommand = $cmd;
+			
 			return $results;
 		}
 		catch (Exception $e)
 		{
-			echo 'error';
 			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			return false;
 		}
+	}
+	
+	public function getLastCommand()
+	{
+		return $this->lastCommand;
 	}
 	
 	public function freeResults()

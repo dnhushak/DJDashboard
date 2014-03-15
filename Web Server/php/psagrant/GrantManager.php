@@ -28,6 +28,9 @@ class GrantManager {
 		$this->spGetAllGrantInfo = "GetAllGrantInfo";
 	}
 
+	/**
+	 * Retrieves $numberOfGrant (int) number of grants back to the the calling program.  This will return an array of Grant objects.
+	 */
 	public function getGrants($numberOfGrants) {
 		try {
 			//Retrieve all eligible grants

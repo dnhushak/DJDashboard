@@ -6,7 +6,7 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
  
- class PublicServiceAnnouncement
+ class PublicServiceAnnouncement  implements JsonSerializable
  {
  	private $createDate;
  	private $id;
@@ -14,6 +14,20 @@
  	private $message;
  	private $endDate;
  	private $playCount;
+ 	
+ 	/**
+ 	 *  Creates an array that can be seraialized into a JSON object
+ 	 */
+ 	public function jsonSerialize()
+	{
+		$arr = array();
+		$arr['CreateDate'] = $this->createDate;
+		$arr['ID'] = $this->id;
+		$arr['Name'] = $this->name;
+		$arr['Message'] = $this->message;
+		$arr['EndDate'] = $this->endDate;
+		$arr['PlayCount'] = $this->playCount;
+	}
  	
  	public function setCreateDate($date)
  	{

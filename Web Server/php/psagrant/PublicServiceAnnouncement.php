@@ -14,6 +14,7 @@
  	private $message;
  	private $endDate;
  	private $playCount;
+ 	private $sponsor;
  	
  	/**
  	 *  Creates an array that can be seraialized into a JSON object
@@ -27,6 +28,7 @@
 		$arr['Message'] = $this->message;
 		$arr['EndDate'] = $this->endDate;
 		$arr['PlayCount'] = $this->playCount;
+		$arr['Sponsor'] = $this->sponsor;
 	}
  	
  	public function setCreateDate($date)
@@ -89,5 +91,14 @@
  		return $this->playCount;
  	}
  	
+ 	public function setSponsor($spon)
+ 	{
+ 		$this->sponsor = $spon;
+ 	}
+ 	
+ 	public function getSponsor()
+ 	{
+ 		return $this->sponsor;
+ 	}
  }
 ?>

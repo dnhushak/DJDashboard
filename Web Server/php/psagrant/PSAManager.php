@@ -51,6 +51,7 @@
  		$args[] = $psa->getName();
  		$args[] = $psa->getMessage();
  		$args[] = $psa->getEndDate();
+ 		$args[] = $psa->getSponsor();
  		
  		$conn = new sqlConnect();
  		

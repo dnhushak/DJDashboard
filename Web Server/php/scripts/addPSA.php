@@ -17,11 +17,13 @@ try
 	$PSAName = $_GET['PSAName'];
 	$PSAMessage = $_GET['PSAMessage'];
 	$PSAEndDate = $_GET['PSAEndDate'];
+	$PSASponsor = $_GET['PSASponsor'];
 	
 	$psa = new PublicServiceAnnouncement();
 	$psa->setName($PSAName);
 	$psa->setMessage($PSAMessage);
 	$psa->setEndDate($PSAEndDate);
+	$psa->setSponsor($PSASponsor);
 	
 	$psaManage = new PSAManager();
 	$id = $psaManage->addPSA($psa);

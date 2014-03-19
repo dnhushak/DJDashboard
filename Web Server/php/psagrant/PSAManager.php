@@ -15,6 +15,8 @@
  {
  	
  	private $spInsertPSA;
+ 	private $spGetEligiblePSAs;
+ 	private $spGetAllPSAInfo;
  	
  	
  	public function __construct() {
@@ -24,7 +26,8 @@
 	public function initialize()
 	{
 		$this->spInsertPSA = "AddPSA";
-		
+		$this->spGetEligiblePSAs = "GetEligiblePSAs";
+		$this->spGetAllPSAInfo = "GetAllPSAInfo";
 	}
  	
  	/**
@@ -33,10 +36,75 @@
  	 */
  	public function getPSAs($numberOfPSA)
  	{
- 		//todo
- 		//Initial call: Get all PSAs that are eligible
  		
- 		//Second call, take highest n PSAs and return them in an array.
+ 		//Initial call: Get all PSAs that are eligible
+ 		try
+ 		{
+ 			$conn = new sqlConnect();
+ 			$results = $conn->callStoredProc($this->spGetEligiblePSAs, null);
+ 			$eligibleArr = array();
+ 			while ($rowInfo = mysqli_fetch_assoc($results)) 
+ 			{
+ 				$p = new PublicServiceAnnouncement();
+ 				
+ 				$p->setID(utf8_encode($rowInfo['PSAID']));
+ 				$p->setPlayCount(utf8_encode($rowInfo['PlayCount']));
+ 				$p->setCreateDate(utf8_encode($rowInfo['StartDate']));
+ 				$p->setEndDate(utf8_encode($rowInfo['EndDate']));
+ 				$p->setMaxPlayCount(utf8_encode($rowInfo['MaxPlayCount']));
+ 				$p->setTimeLeft(utf8_encode($rowInfo['TimeLeft']));
+ 				//Calculate the priority
+				$playDiff = $p->getMaxPlayCount() - $p->getPlayCount();
+				$dateDiff = $p->getTimeLeft();
+				
+				//RATIO
+				if($dateDiff != 0)
+				{
+					$p->setPriority($playDiff * pow(10, 6) / $dateDiff);
+				}
+				else
+				{
+					$p->setPriority($playDiff * pow(10, 6));
+				}
+ 				$eligibleArr[] = $p;
+ 			}
+ 			
+ 			//Sort the eligible PSAs
+ 			
+			$arrLen = count($eligibleArr);
+			
+			//Get count to receive, if we are for more than are eligible, only return eligible ones
+			if($numberOfPSA > count($arrLen))
+			{
+				$numberOfPSA = count($arrLen);
+			}
+
+			//Sort them by priority
+			usort($eligibleArr, "PublicServiceAnnouncement::cmp");
+			
+			//Create finalized array
+			$finalArr = array();
+			
+			//get remaining info for final ones
+			for($i = 0; $i < $numberOfPSA; $i++)
+			{
+				$conn->freeResults();
+				$results = $conn->callStoredProc($this->spGetAllPSAInfo, array($eligibleArr[$i]->getID()));
+				while ($rowInfo = mysqli_fetch_assoc($results)) {
+					$eligibleArr[$i]->setName(utf8_encode($rowInfo['Name']));
+					$eligibleArr[$i]->setMessage(utf8_encode($rowInfo['Message']));
+					$eligibleArr[$i]->setSponsor(utf8_encode($rowInfo['Sponsor']));
+					$finalArr[] = $eligibleArr[$i];
+				}
+			}
+			
+			return $finalArr;
+ 		}
+ 		catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+ 		//Second call, take highest n number of PSAs and return them in an array.
  	}
  	
  	

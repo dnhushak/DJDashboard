@@ -15,6 +15,9 @@
  	private $endDate;
  	private $playCount;
  	private $sponsor;
+ 	private $maxplaycount;
+ 	private $timeLeft;
+ 	private $priority;
  	
  	/**
  	 *  Creates an array that can be seraialized into a JSON object
@@ -28,7 +31,32 @@
 		$arr['Message'] = $this->message;
 		$arr['EndDate'] = $this->endDate;
 		$arr['PlayCount'] = $this->playCount;
+		$arr['MaxPlayCount'] = $this->playCount;
 		$arr['Sponsor'] = $this->sponsor;
+		$arr['TimeLeft'] = $this->timeLeft;
+		$arr['Priority'] = $this->priority;
+		return $arr;
+	}
+	
+	//COMPARER
+ 	static function cmp($a, $b)
+	{
+    	return $a->priority < $b->priority;
+	}
+	
+	public function setPriority($p)
+	{
+		$this->priority = $p;
+	}
+	
+	public function setTimeLeft($tl)
+	{
+		$this->timeLeft = $tl;
+	}
+	
+	public function getTimeLeft()
+	{
+		return $this->timeLeft;
 	}
  	
  	public function setCreateDate($date)
@@ -99,6 +127,16 @@
  	public function getSponsor()
  	{
  		return $this->sponsor;
+ 	}
+ 	
+ 	public function setMaxPlayCount($p)
+ 	{
+ 		$this->maxplaycount = $p;
+ 	}
+ 	
+ 	public function getMaxPlayCount()
+ 	{
+ 		return $this->maxplaycount;
  	}
  }
 ?>

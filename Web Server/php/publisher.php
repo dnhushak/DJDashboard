@@ -11,6 +11,11 @@ class Publisher {
 	
 	// publish an exception to the db
 	public static function publishException($stacktrace, $message, $userID) {
+		//Access the session if userID is null, may still be null if session is not set
+		if($userID == null)
+		{
+			$userID = $_SESSION['userid'];
+		}
 		$conn = new SqlConnect ();
 		$results = $conn->callStoredProc ( Publisher::$spLogException, array (
 				$userID,

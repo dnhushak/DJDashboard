@@ -11,6 +11,8 @@
  
  //disable recording because i don't care if we don't get a count.
 	//error_reporting(0);
+	
+register_shutdown_function( "Publisher::fatalHandler" );
  
  try
 {

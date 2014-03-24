@@ -11,6 +11,7 @@
 		private $GetArtists;
 		private $GetAlbumsByArtistID;
 		private $spPlayTrackByID;
+		private $spUpdatePlayByID;
 		private $GetTracksByAlbumID;
 		private $GetAlbums;
 		private $GetTrackChunksAlphabetical;
@@ -42,6 +43,7 @@
 			$this->GetArtists = "GetArtistList";
 			$this->GetAlbumsByArtistID = "GetAlbumsFromArtistID";
 			$this->spPlayTrackByID = "PlayTrackByID";
+			$this->spUpdatePlayByID = "UpdatePlayByID";
 			$this->GetTracksByAlbumID = "GetTracksByAlbumID";
 			$this->GetTracksByArtistID = "GetTracksByArtistID";
 			$this->GetAlbums = "GetAlbumList";
@@ -309,6 +311,30 @@
 				return false;
 			}
 			
+		}
+		
+		public function UpdatePlay($PlayID, $UserID, $TrackID)
+		{
+			try
+			{
+				$conn = new sqlConnect();
+				$results = $conn->callStoredProc($this->spUpdatePlayByID, array($PlayID, $TrackID, $UserID));
+				if(!$results)
+				{
+					throw new Exception('Error in sql query; PlayTrack in LibraryManager');
+				}
+				else
+				{
+					//Track played successfully
+					return true;
+				}
+			}
+			catch (Exception $e)
+			{
+				Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+				return false;
+			}
+				
 		}
 		public function GetTrackAutoComplete($track){
 			try{

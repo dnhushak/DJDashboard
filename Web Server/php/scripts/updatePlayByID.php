@@ -6,10 +6,10 @@ include_once ('../publisher.php');
 register_shutdown_function("Publisher::fatalHandler");
 try {
 	$manager = new LibraryManager();
+	$PlayID = $_GET ['PlayID'];
 	$TrackID = $_GET ['TrackID'];
 	$UserID = $_SESSION ['userid'];
-	$OnAirSessionID = $_SESSION['onairid'];
-	$result = $manager->PlayTrack($UserID, $TrackID, $OnAirSessionID);
+	$result = $manager->UpdatePlay($PlayID, $TrackID, $UserID);
 	echo $result;
 }
 catch (Exception $e) {

@@ -9,6 +9,7 @@ try {
 	$PlayID = $_GET ['PlayID'];
 	$TrackID = $_GET ['TrackID'];
 	$UserID = $_SESSION ['userid'];
+	$UserID= null;
 	$result = $manager->UpdatePlay($PlayID, $TrackID, $UserID);
 	echo $result;
 }

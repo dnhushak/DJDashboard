@@ -34,16 +34,27 @@ $('document').ready(function(){
                 return;
             }
             $('.songs').html('');
+            onAirSongs = new Array();
             for(var i = 0; i < tracks.length; i++){
-                var songHTML = '<tr class="' + tracks[i]['TrackID'] + '">';
-                songHTML += '<td>' + tracks[i]['TrackName'] + '</td>';
-                songHTML += '<td>' + tracks[i]['Artist']['ArtistName'] + '</td>';
-                songHTML += '<td>' + tracks[i]['Album']['AlbumName'] + '</td>';
-                songHTML += '<td>' + genres[parseInt(tracks[i]['PrimaryGenreID'])] + '</td>';
-                songHTML += '<td>' + genres[parseInt(tracks[i]['SecondaryGenreID'])] + '</td>';
-                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played">Mark Played</button></td>';
+                var songID = tracks[i]['TrackID'];
+                var songName = tracks[i]['TrackName'];
+                var artistName = tracks[i]['Artist']['ArtistName'];
+                var albumName = tracks[i]['Album']['AlbumName'];
+                var pGenre = genres[parseInt(tracks[i]['PrimaryGenreID'])];
+                var sGenre = genres[parseInt(tracks[i]['SecondaryGenreID'])];
+                var reco = tracks[i]['Recommended'];
+                var FCC = tracks[i]['FCC'];
+                var tempTrack = new Track(songName, songID, reco, FCC, artistName, albumName, pGenre, sGenre);
+                var songHTML = '<tr class="' + songID + '">';
+                songHTML += '<td>' + songName + '</td>';
+                songHTML += '<td>' + artistName + '</td>';
+                songHTML += '<td>' + albumName + '</td>';
+                songHTML += '<td>' + pGenre + '</td>';
+                songHTML += '<td>' + sGenre + '</td>';
+                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
                 songHTML += '</td>';
                 $('.songs').append(songHTML);
+                onAirSongs.push(tempTrack);
             }
             $('#load-modal').modal('hide');
         });
@@ -59,9 +70,39 @@ $('document').ready(function(){
     })
     $(document).on('click', '#mark-played', function(){
         var songID = $(this).parent().parent().attr('class');
-        console.log(songID);
+        onAirSongs[parseInt($(this).val())]['Played'] = true;
         $(this).parent().parent().addClass('success');
         $(this).text('Played');
         $(this).attr('disabled', 'disabled');
+
     })
+
+    for(var i = 0; i < onAirSongs.length; i++){
+        var songID = onAirSongs[i]['ID'];
+        var songName = onAirSongs[i]['Name'];
+        var artistName = onAirSongs[i]['Artist'];
+        var albumName = onAirSongs[i]['Album'];
+        var pGenre = onAirSongs[i]['PrimaryGenre'];
+        var sGenre = onAirSongs[i]['SecondaryGenre'];
+        var reco = onAirSongs[i]['reco'];
+        var FCC = onAirSongs[i]['FCC'];
+        var songHTML;
+        if(onAirSongs[i]['Played']){
+            songHTML = '<tr class="success ' + songID + '">';
+        }else{
+            songHTML = '<tr class="' + songID + '">';
+        }
+        songHTML += '<td>' + songName + '</td>';
+        songHTML += '<td>' + artistName + '</td>';
+        songHTML += '<td>' + albumName + '</td>';
+        songHTML += '<td>' + pGenre + '</td>';
+        songHTML += '<td>' + sGenre + '</td>';
+        if(onAirSongs[i]['Played']){
+            songHTML += '<td><button disabled="disabled" type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Played</button></td>';
+        }else{
+            songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
+        }
+        songHTML += '</td>';
+        $('.songs').append(songHTML);
+    }
 });

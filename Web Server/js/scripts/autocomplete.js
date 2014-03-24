@@ -142,15 +142,23 @@ $(document).ready(function(){
         }).done(function(addedID){
         	songID = addedID;
         	if(onairView){
-        		console.log($('#secondary-genres-allowed').val());
+        		var songName = $('#input-track').val();
+        		var artistName = $('#input-artist').val();;
+        		var albumName = $('#input-album').val();;
+        		var pGenre = genres[parseInt($('#primary-genres-allowed').val())];
+        		var sGenre = genres[parseInt($('#secondary-genres-allowed').val())];
+        		var FCC = false;
+        		var reco = false;
+        		var tempTrack = new Track(songName, songID, reco, FCC, artistName, albumName, pGenre, sGenre);
         		var songHTML = '<tr class="' + songID + '">';
-                songHTML += '<td>' + $('#input-track').val() + '</td>';
-                songHTML += '<td>' + $('#input-artist').val(); + '</td>';
-                songHTML += '<td>' + $('#input-album').val(); + '</td>';
-                songHTML += '<td>' + genres[parseInt($('#primary-genres-allowed').val())] + '</td>';
-                songHTML += '<td>' + genres[parseInt($('#secondary-genres-allowed').val())] + '</td>';
-                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played">Mark Played</button></td>';
+                songHTML += '<td>' + songName + '</td>';
+                songHTML += '<td>' + artistName + '</td>';
+                songHTML += '<td>' + albumName + '</td>';
+                songHTML += '<td>' + pGenre + '</td>';
+                songHTML += '<td>' + sGenre + '</td>';
+                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
                 songHTML += '</td>';
+                onAirSongs.push(tempTrack);
                 $('.songs').append(songHTML);
         	}else{
 	        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');

@@ -1,6 +1,7 @@
 var albums = new Array();
 var artists = new Array();
 var genres = new Array();
+var onAirSongs = new Array();
 var artistsHTML = '';
 var albumsHTML = '';
 $(document).ready(function() {

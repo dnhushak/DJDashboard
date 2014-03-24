@@ -5,7 +5,7 @@
  * @param {bool} reco - is reccomended
  * @param {bool} FCC - is explicit
  */
-function Track (name, id, reco, FCC, artistName, albumName, pGenre, sGenre) {
+function Track (name, id, reco, FCC, artistName, albumName, pGenre, sGenre, played) {
 	this.Name = name;
 	this.ID = id;
 	this.reco = reco;
@@ -14,4 +14,5 @@ function Track (name, id, reco, FCC, artistName, albumName, pGenre, sGenre) {
 	this.Album = albumName;
 	this.PrimaryGenre = pGenre;
 	this.SecondaryGenre = sGenre;
+	this.Played = typeof played !== 'undefined' ? played : false;
 }

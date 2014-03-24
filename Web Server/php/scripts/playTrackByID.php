@@ -15,6 +15,6 @@ try {
 catch (Exception $e) {
 	Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $UserID);
 	return false;
-}
+}	
 
 ?>

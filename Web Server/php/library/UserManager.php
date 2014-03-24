@@ -79,9 +79,6 @@ class UserManager {
 					$_SESSION ['userid'],
 					$hash,
 					0 ));
-			echo json_encode(array (
-					"error" => $_SESSION ['userid'] . " | " . $hash ));
-			exit();
 		}
 		
 		// Incorrect password for username

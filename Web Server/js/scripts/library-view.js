@@ -312,8 +312,6 @@ $(document).ready(function() {
     fillGenres = function(){
         for(var i = 1; i < genres.length; i++){
             $("#filter-form").append('<div class="radio"><label><input type="radio" name="genreFilters" value="' + i + '">' + genres[i] + '</label></div>')
-            $("#primary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
-            $("#secondary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
 	   }
     }
     

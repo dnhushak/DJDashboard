@@ -1,0 +1,115 @@
+<script src="../js/scripts/onair.js"></script>
+<script src="../js/scripts/autocomplete.js"></script>
+<div class="col-md-12">
+	<h2>
+		Songs
+	</h2>
+	<hr>
+	<div>
+		<button type="button" class="btn btn-primary custom-song-button" data-toggle="modal" data-target="#custom-song-modal">Add Song</button>	
+		<button type="button" class="btn btn-primary load-playlist-button" data-toggle="modal" data-target="#load-modal">Load Playlist</button>
+	</div>
+	<table class="table table-condensed song-table">
+		<thead>
+			<th>Song</th>
+			<th>Artist</th>
+			<th>Album</th>
+			<th>P. Genre</th>
+			<th>S. Genre</th>
+			<th>Played</th>
+		</thead>
+		<tbody class="songs">
+			<tr class="success">
+				<td>Song NameSong NameSong Name</td>
+				<td>ArtistArtistArtist</td>
+				<td>AlbumAlbumAlbum</td>
+				<td>Genre</td>
+				<td>Genre</td>
+				<td><button disabled="disabled" type="button" class="btn btn-primary btn-sm">Played</button></td>
+			</tr>
+			<tr>
+				<td>Song Name</td>
+				<td>Artist</td>
+				<td>Album</td>
+				<td>Genre</td>
+				<td>Genre</td>
+				<td><button type="button" class="btn btn-primary btn-sm" id="mark-played">Mark Played</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="col-md-6">
+	<h2>
+		Grants & PSAs
+	</h2>
+	<hr>
+</div>
+<div class="col-md-6">
+	<h2>
+		Something Else
+	</h2>
+	<hr>
+</div>
+<div class="modal fade" role="dialog" id="custom-song-modal"> 
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Add Custom Song</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger song-input-error">Required field was missing.</div>
+				<form class="form-inline" role="form" class="track-info">
+					<h5>Track Info</h5>
+					<div class="form-group">
+						<label class="sr-only" for="input-track">Track Name</label>
+						<input type="text" class="form-control typeahead" id="input-track" autocomplete="off" spellcheck="false" placeholder="Track Name">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="input-artist">Artist Name</label>
+						<input type="text" class="form-control" id="input-artist" placeholder="Artist Name">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="input-album">Album Name</label>
+						<input type="text" class="form-control" id="input-album" placeholder="Album Name">
+					</div>
+					<div class="form-group">
+						<select class="form-control" id="primary-genres-allowed">
+						 	<option value="0">Primary Genre</option>
+					        <option value="0">None</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" id="secondary-genres-allowed">
+						 	<option value="title">Secondary Genre</option>
+					        <option value="0">None</option>
+						</select>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary save-track" id="onair">Add Song</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" role="dialog" id="load-modal"> 
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Load Playlist</h4>
+			</div>
+			<div class="modal-body">
+				<ul id="all-playlists">
+					<li class="list-group-item">
+					</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -229,3 +229,7 @@ html {
 .tt-suggestion p {
     margin: 0;
 }
+.song-table {
+	margin-top: 5px;
+	border: 1px solid #ddd;
+}

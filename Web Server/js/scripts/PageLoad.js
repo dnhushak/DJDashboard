@@ -77,10 +77,10 @@ $(document).ready(function() {
 			$("#content").css("height", "initial");
 		});
 	});
-	$("#spinlist").on('click', function() {
-		changeActive('spinlist');
+	$("#on-air").on('click', function() {
+		changeActive('on-air');
 		$.ajax({
-			url : 'spinlist.html',
+			url : 'onair.html',
 			type : 'POST',
 			success : function() {
 			}

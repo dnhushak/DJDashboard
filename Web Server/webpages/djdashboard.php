@@ -20,6 +20,7 @@ session_start();
 <script src="../js/classes/Track.js"></script>
 <script src="../js/libraries/typeahead.js"></script>
 <script src="../js/libraries/handlebars.js"></script>
+
 </head>
 <body>
 	<?php
@@ -38,7 +39,7 @@ session_start();
 		<ul class="nav nav-tabs nav-justified">
 			<li class="active"><a id="home" style="cursor: pointer">Home</a></li>
 			<li><a id="library" style="cursor: pointer">Library</a></li>
-			<li><a id="library" style="cursor: pointer">On-Air</a></li>
+			<li><a id="on-air" style="cursor: pointer">On-Air</a></li>
 			<li><a id="profile" style="cursor: pointer">Profile</a></li>
 		</ul>
 		<div id="content"></div>

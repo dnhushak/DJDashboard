@@ -5,8 +5,14 @@ $(document).ready(function(){
 	var albumID = 0;
 	var pGenreID = 0;
 	var sGenreID = 0;
+	var onairView = false;
 
 	$(".song-input-error").hide();
+
+	for(var i = 1; i < genres.length; i++){
+		$("#primary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
+		$("#secondary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
+	}
 
 	$(".close-custom-song").on('click', function(){
 		$('#input-track').val("");
@@ -22,6 +28,12 @@ $(document).ready(function(){
 
 	$(".save-track").on('click', function(){
 		if($('#input-track').val() != "" && $('#input-artist').val() != "" && $('#input-album').val() != ""){
+			if($(this).attr('id') === 'onair'){
+				onairView = true;
+			}else{
+				onairView = false;
+			}
+			console.log(onairView);
 			customArtist();
 		}else{
 			$(".song-input-error").show();
@@ -128,11 +140,21 @@ $(document).ready(function(){
         			'PrimaryGenreID' : pGenreID,
         			'SecondaryGenreID' : sGenreID}
         }).done(function(addedID){
-        	console.log(artistID);
-        	console.log(albumID);
-        	console.log(addedID);
         	songID = addedID;
-        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
+        	if(onairView){
+        		console.log($('#secondary-genres-allowed').val());
+        		var songHTML = '<tr class="' + songID + '">';
+                songHTML += '<td>' + $('#input-track').val() + '</td>';
+                songHTML += '<td>' + $('#input-artist').val(); + '</td>';
+                songHTML += '<td>' + $('#input-album').val(); + '</td>';
+                songHTML += '<td>' + genres[parseInt($('#primary-genres-allowed').val())] + '</td>';
+                songHTML += '<td>' + genres[parseInt($('#secondary-genres-allowed').val())] + '</td>';
+                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played">Mark Played</button></td>';
+                songHTML += '</td>';
+                $('.songs').append(songHTML);
+        	}else{
+	        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
+        	}
         	$('#custom-song-modal').modal('hide');
 			$('#input-track').val("");
 			$('#input-artist').val("");

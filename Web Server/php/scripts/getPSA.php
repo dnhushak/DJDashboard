@@ -10,7 +10,8 @@
  include_once('../publisher.php');
  
  //disable recording because i don't care if we don't get a count.
-	//error_reporting(0);
+ 
+	error_reporting(0);
 	
 register_shutdown_function( "Publisher::fatalHandler" );
  
@@ -21,7 +22,7 @@ register_shutdown_function( "Publisher::fatalHandler" );
 	}
 	$UserID = $_SESSION['userid'];
 	 $count = $_GET['Count'];
-
+//If we don't get a count, only return one (I'm not goign to return all)
 	if($count == null)
 	{
 		$count = 1;

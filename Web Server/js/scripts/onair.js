@@ -72,8 +72,9 @@ $('document').ready(function(){
         var songID = $(this).parent().parent().attr('class');
         onAirSongs[parseInt($(this).val())]['Played'] = true;
         $(this).parent().parent().addClass('success');
-        $(this).text('Played');
-        $(this).attr('disabled', 'disabled');
+        $(this).text('Update');
+        $(this).removeClass('btn-primary');
+        $(this).addClass('btn-danger');
 
     })
 

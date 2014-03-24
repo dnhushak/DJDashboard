@@ -10,7 +10,7 @@ try {
 	$UserID = $_SESSION ['userid'];
 	$OnAirSessionID = $_SESSION['onairid'];
 	$result = $manager->PlayTrack($UserID, $TrackID, $OnAirSessionID);
-	echo $result;
+	echo json_encode($result); //Echo the final ID to send back to frontend
 }
 catch (Exception $e) {
 	Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $UserID);

@@ -14,7 +14,7 @@ class Publisher {
 		//Access the session if userID is null, may still be null if session is not set
 		if($userID == null)
 		{
-			$userID = $_SESSION['userid'];
+			$userID = $_SESSION['userid']; //This may, in turn, throw an exception if session is not set.
 		}
 		$conn = new SqlConnect ();
 		$results = $conn->callStoredProc ( Publisher::$spLogException, array (

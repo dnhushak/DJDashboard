@@ -8,8 +8,7 @@ try {
 	$manager = new LibraryManager();
 	$PlayID = $_GET ['PlayID'];
 	$TrackID = $_GET ['TrackID'];
-	//$UserID = $_SESSION ['userid'];
-	$UserID= null;
+	$UserID = $_SESSION ['userid'];
 	$result = $manager->UpdatePlay($PlayID, $TrackID, $UserID);
 	echo $result;
 }

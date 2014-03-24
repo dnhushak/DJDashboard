@@ -46,7 +46,7 @@ class UserManager {
 		// If username does not exist
 		if ($results === true || $results === false) {
 			echo json_encode(array (
-					"error" => "Username and password did not match."));
+					"error" => "Username and password did not match." ));
 			session_unset();
 			exit();
 		}
@@ -75,7 +75,12 @@ class UserManager {
 			$_SESSION ['usertype'] = $userinfo ['idusertype'];
 			$_SESSION ['firstname'] = $userinfo ['firstname'];
 			$_SESSION ['lastname'] = $userinfo ['lastname'];
-			
+			$results = $conn->callStoredProc($this->spUserLogin, array (
+					$_SESSION ['userid'],
+					$hash,
+					0 ));
+			echo json_encode(array (
+					"error" => $_SESSION ['userid'] . " | " . $hash ));
 			exit();
 		}
 		

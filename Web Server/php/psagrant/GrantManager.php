@@ -48,6 +48,8 @@ class GrantManager {
 				$tempGrant->setEndDate(utf8_encode($rowInfo['EndDate']));
 				$tempGrant->setTimeLeft(utf8_encode($rowInfo['TimeLeft']));
 				$tempGrant->setMaxPlayCount(utf8_encode($rowInfo['MaxPlayCount']));
+				
+				
 				//Calculate the priority
 				$playDiff = $tempGrant->getMaxPlayCount() - $tempGrant->getPlayCount();
 				$dateDiff = $tempGrant->getTimeLeft();

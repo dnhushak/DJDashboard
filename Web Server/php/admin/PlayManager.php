@@ -73,6 +73,8 @@
 		return $arr;
 	}
 
+	//Gets the last n number of plays from the database.  
+	//Will use the specific 'types' to determine what it was.
 	public function getPlays()
 	{
 		try
@@ -81,12 +83,18 @@
 		$arr = array();
 		while ($rowInfo = mysqli_fetch_assoc($results)) {
 			$innerArr = array();
-			foreach($rowInfo as $str)
-			{
-				$innerArr[] = utf8_encode($str);
-			}
+			
+			$innerArr['PlayID'] = utf8_encode($rowInfo['PlayID']);
+			$innerArr['ItemID'] = utf8_encode($rowInfo['ItemID']);
+			$innerArr['Name'] = utf8_encode($rowInfo['Name']);
+			$innerArr['UserID'] = utf8_encode($rowInfo['UserID']);
+			$innerArr['OnAirSessionID'] = utf8_encode($rowInfo['OnAirSessionID']);
+			$innerArr['PlayDate'] = utf8_encode($rowInfo['PlayDate']);
+			$innerArr['TypeID'] = utf8_encode($rowInfo['Type']);
+			
 			$arr[] = $innerArr;
 		}
+		$this->conn->freeResults();
 		return $arr;
 		}
 		catch (Exception $e) {

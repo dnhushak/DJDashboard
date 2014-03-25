@@ -31,7 +31,7 @@ CREATE TABLE `errorlog` (
   `stacktrace` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`iderrorlog`),
   KEY `IDERRORLOGUSER_idx` (`iduser`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -43,4 +43,4 @@ CREATE TABLE `errorlog` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-02 19:06:06
+-- Dump completed on 2014-03-25 10:04:14

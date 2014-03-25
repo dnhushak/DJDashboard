@@ -18,23 +18,22 @@ USE `db30919`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `playtrack`
+-- Table structure for table `playpsa`
 --
 
-DROP TABLE IF EXISTS `playtrack`;
+DROP TABLE IF EXISTS `playpsa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `playtrack` (
-  `idplaytrack` bigint(20) NOT NULL AUTO_INCREMENT,
-  `idtrack` bigint(20) DEFAULT NULL,
+CREATE TABLE `playpsa` (
+  `idplaypsa` bigint(20) NOT NULL AUTO_INCREMENT,
+  `idpsa` bigint(20) DEFAULT NULL,
   `iduser` int(11) DEFAULT NULL,
   `idonairsession` bigint(20) DEFAULT NULL,
   `playdate` datetime DEFAULT NULL,
-  PRIMARY KEY (`idplaytrack`),
-  KEY `IDPLAYTRACKTRACK_idx` (`idtrack`),
-  KEY `IDPLAYTRACKUSER_idx` (`iduser`),
-  KEY `IDPLAYTRACKONAIRSESSION_idx` (`idonairsession`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`idplaypsa`),
+  KEY `IDPLAYPSAUSER_idx` (`iduser`),
+  KEY `IDPLAYPSAPSA_idx` (`idpsa`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -46,4 +45,4 @@ CREATE TABLE `playtrack` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-25 10:04:12
+-- Dump completed on 2014-03-25 10:04:13

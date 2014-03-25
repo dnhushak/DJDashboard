@@ -46,7 +46,7 @@ CREATE TABLE `track` (
   KEY `IDTRACKARTIST_idx` (`idartist`),
   KEY `IDTRACKGENREPRIM_idx` (`idPrimaryGenre`),
   KEY `IDTRACKGENRESEC_idx` (`idSecondaryGenre`)
-) ENGINE=InnoDB AUTO_INCREMENT=18482 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18495 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +58,4 @@ CREATE TABLE `track` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-02 19:06:04
+-- Dump completed on 2014-03-25 10:04:12

@@ -27,12 +27,17 @@ DROP TABLE IF EXISTS `psa`;
 CREATE TABLE `psa` (
   `idpsa` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
-  `message` varchar(255) DEFAULT NULL,
+  `message` varchar(2048) DEFAULT NULL,
   `createdate` datetime DEFAULT NULL,
   `enddate` datetime DEFAULT NULL,
   `playcount` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idpsa`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `maxplaycount` int(11) DEFAULT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `sponsor` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idpsa`),
+  KEY `PSAUSERID_idx` (`iduser`),
+  CONSTRAINT `PSAUSERID` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -44,4 +49,4 @@ CREATE TABLE `psa` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-02 19:06:10
+-- Dump completed on 2014-03-25 10:04:12

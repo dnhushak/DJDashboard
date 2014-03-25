@@ -35,7 +35,7 @@ CREATE TABLE `album` (
   KEY `IDALBUMARTIST_idx` (`idartist`),
   KEY `IDPRIMARYGENREGENRE_idx` (`idprimarygenre`),
   KEY `IDSECONDARYGENRE_idx` (`idsecondarygenre`)
-) ENGINE=InnoDB AUTO_INCREMENT=2981 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3027 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +47,4 @@ CREATE TABLE `album` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-02 19:06:01
+-- Dump completed on 2014-03-25 10:04:13

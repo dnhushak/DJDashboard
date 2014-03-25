@@ -24,6 +24,7 @@
 		if (session_status() == PHP_SESSION_NONE) {
 		    session_start();
 		}
+		var_dump($_SESSION);
 		if(!isset($_SESSION['user'])){
 			header("Location: index.php");
 			exit();

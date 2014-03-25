@@ -140,7 +140,7 @@ $(document).ready(function(){
         			'PrimaryGenreID' : pGenreID,
         			'SecondaryGenreID' : sGenreID}
         }).done(function(addedID){
-        	songID = addedID;
+        	songID = parseInt(addedID);
         	if(onairView){
         		var songName = $('#input-track').val();
         		var artistName = $('#input-artist').val();;

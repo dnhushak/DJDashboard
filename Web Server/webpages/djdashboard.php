@@ -1,8 +1,5 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
 <!DOCTYPE html>
-<?php
-session_start();
-?>
 <html>
 <head>
 <title>Kure 88.5 Ames Alternative</title>

@@ -59,6 +59,23 @@ $('document').ready(function(){
             $('#load-modal').modal('hide');
         });
     }
+
+    markPlayedTrack = function(trackID, songIndex){
+        $.ajax({
+            type: "GET",
+            url: "../php/scripts/playTrackByID.php",
+            data: {"TrackID" : trackID}
+        }).done(function(data){
+            var playID;
+            try{
+                playID = JSON.parse(data)['PlayID'];
+                onAirSongs[songIndex]['PlayID'] = playID;
+            }catch(e){
+                PublishError(e);
+                return;
+            }
+        });
+    }
     $('.load-playlist-button').on('click', function(){
         getAllPlaylists();
     });
@@ -70,12 +87,14 @@ $('document').ready(function(){
     })
     $(document).on('click', '#mark-played', function(){
         var songID = $(this).parent().parent().attr('class');
-        onAirSongs[parseInt($(this).val())]['Played'] = true;
+        var songIndex = parseInt($(this).val());
         $(this).parent().parent().addClass('success');
         $(this).text('Update');
         $(this).removeClass('btn-primary');
         $(this).addClass('btn-danger');
-
+        console.log(songID);
+        console.log(songIndex);
+        markPlayedTrack(songID, songIndex);
     })
 
     for(var i = 0; i < onAirSongs.length; i++){
@@ -88,7 +107,7 @@ $('document').ready(function(){
         var reco = onAirSongs[i]['reco'];
         var FCC = onAirSongs[i]['FCC'];
         var songHTML;
-        if(onAirSongs[i]['Played']){
+        if(onAirSongs[i]['PlayID'] != 0){
             songHTML = '<tr class="success ' + songID + '">';
         }else{
             songHTML = '<tr class="' + songID + '">';
@@ -98,10 +117,10 @@ $('document').ready(function(){
         songHTML += '<td>' + albumName + '</td>';
         songHTML += '<td>' + pGenre + '</td>';
         songHTML += '<td>' + sGenre + '</td>';
-        if(onAirSongs[i]['Played']){
-            songHTML += '<td><button disabled="disabled" type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Played</button></td>';
+        if(onAirSongs[i]['PlayID'] != 0){
+            songHTML += '<td><button disabled="disabled" type="button" class="btn btn-danger btn-sm" id="mark-played" value="' + i + '">Update</button></td>';
         }else{
-            songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
+            songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + i + '">Mark Played</button></td>';
         }
         songHTML += '</td>';
         $('.songs').append(songHTML);

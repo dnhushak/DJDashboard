@@ -33,6 +33,23 @@ class UserManager {
 		$this->spGetUserFromName = "GetUserFromName";
 	}
 
+	public function addUser($user, $pass, $type, $first, $last){
+		$salt = authUtil::makeSalt(saltSize);
+		$hash = authUtil::makePassHash(hashAlgo, $salt, $user, $pass);
+		$proc = "AddUser";
+		$conn = new SqlConnect();
+		$arr = array (
+				$user,
+				$hash,
+				$salt,
+				"NULL",
+				$first,
+				$last,
+				$type);
+		var_dump($arr);
+		$results = $conn->callStoredProc($this->spAddUser, $arr);
+	}
+
 	public function login($user, $pass){
 		
 		// Connect to the database

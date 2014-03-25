@@ -79,6 +79,7 @@ class UserManager {
 					$_SESSION ['userid'],
 					$hash,
 					0 ));
+			exit();
 		}
 		
 		// Incorrect password for username

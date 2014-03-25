@@ -92,7 +92,6 @@ $('document').ready(function(){
         $(this).text('Update');
         $(this).removeClass('btn-primary');
         $(this).addClass('btn-danger');
-        $(this).attr('id', 'update-played');
         console.log(songID);
         console.log(songIndex);
         markPlayedTrack(songID, songIndex);
@@ -121,7 +120,7 @@ $('document').ready(function(){
         if(onAirSongs[i]['PlayID'] != 0){
             songHTML += '<td><button disabled="disabled" type="button" class="btn btn-danger btn-sm" id="mark-played" value="' + i + '">Update</button></td>';
         }else{
-            songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="update-played" value="' + i + '">Mark Played</button></td>';
+            songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + i + '">Mark Played</button></td>';
         }
         songHTML += '</td>';
         $('.songs').append(songHTML);

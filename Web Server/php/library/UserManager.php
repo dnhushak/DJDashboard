@@ -46,7 +46,6 @@ class UserManager {
 				$first,
 				$last,
 				$type);
-		var_dump($arr);
 		$results = $conn->callStoredProc($this->spAddUser, $arr);
 	}
 

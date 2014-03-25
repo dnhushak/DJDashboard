@@ -33,8 +33,7 @@ DELIMITER ;;
 CREATE DEFINER=`u30919`@`%` PROCEDURE `AddGrant`(
 	aGrantName varchar(45),
 	aGrantMessage varchar(2048),
-	aEndDate datetime,
-	aMaxPlayCount int
+	aEndDate datetime
 )
 BEGIN
 -- --------------------------------
@@ -66,38 +65,9 @@ BEGIN
 				SET enddate = null, message = aGrantMessage, name = aGrantName;
 		END IF;
 	ELSE
-		INSERT INTO db30919.grant(name, message, startdate, enddate, playcount, maxplaycount)
-			VALUES(aGrantName, aGrantMessage, current_timestamp, aEndDate, 0, aMaxPlayCount);
+		INSERT INTO db30919.grant(name, message, startdate, enddate, playcount)
+			VALUES(aGrantName, aGrantMessage, current_timestamp, aEndDate, 0);
 	END IF;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `AddPSA` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AddPSA`(
-	aName varchar(45),
-	aMessage varchar(2048),
-	aEndDate datetime,
-	aUserID int,
-	aSponsor varchar(45)
-)
-BEGIN
-	INSERT INTO psa(name, message, createdate, enddate, playcount, iduser, sponsor)
-		VALUES(aName, aMessage, current_timestamp(), aEndDate, 0, aUserID, aSponsor);
-
-	#Return the new ID
-	SELECT @@IDENTITY as 'ID';
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -216,8 +186,8 @@ BEGIN
 		SET Name = CalledName, CreateDate = current_timestamp, EndDate = CalledEndDate, ReleaseDate = CalledReleaseDate,
 			FCC = FCCFlag, Recommended = CalledRecommended, ITLID = ITunesID, Path = FilePath, idPrimaryGenre = @PrimaryGenreID, idSecondaryGenre = @SecondaryGenreID
 		WHERE idtrack = @TrackID;
+		SELECT @TrackID as 'ID';
 	END IF;
-	SELECT @TrackID as 'ID';
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -256,7 +226,7 @@ begin
 		SELECT 1 as 'Error';
 	ELSE
 		INSERT INTO user(idusertype, username, salt, passwordhash, startdate, enddate, idlastlogon, firstname, lastname)
-			VALUES(aUserTypeID, aUserName, aSalt, aPasswordHash, current_timestamp(), aEndDate, null, aFirstName, aLastName);
+			VALUES(aUserTypeID, aUserName, aSalt, aPasswordHash, current_timestamp, aEndDate, null, aFirstName, aLastName);
 		SELECT 0 as 'Error';
 	END IF;
 END ;;
@@ -315,36 +285,6 @@ BEGIN
 	END IF;
 	
 	
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `DeletePlaytrack` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `DeletePlaytrack`(
-	aPlayID bigint,
-	aUserID int
-)
-BEGIN
-	SET @CorrectUser = (SELECT iduser FROM playtrack WHERE idplaytrack = aPlayID);
-	IF(aUserID = @CorrectUser)
-	THEN
-		UPDATE playtrack SET idonairsession = null, playdate = null, idtrack = null
-			WHERE idplaytrack = aPlayID;
-		CALL LogError(aUserID, 'Deleted an existing play', 'Delete Playtrack Stored Procedure');
-	ELSE
-		CALL LogError(aUserID, 'Incorrect user tried to delete a play row','DeletePlaytrack Stored Procedure');
-	END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -541,56 +481,6 @@ DELIMITER ;;
 CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllGenre`()
 BEGIN
 	SELECT idGenre as 'idGenre', Name as 'Name' FROM genre;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetAllGrantInfo` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllGrantInfo`(
-	aGrantID int
-)
-BEGIN
-	SELECT idgrant as 'GrantID', name as 'GrantName', message as 'Message'
-	FROM db30919.grant
-	WHERE idgrant = aGrantID;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetAllPSAInfo` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllPSAInfo`(
-	aPSAID int
-)
-BEGIN
-	SELECT idpsa as 'PSAID', name as 'Name',
-		message as 'Message', createdate as 'CreateDate',
-		enddate as 'EndDate', playcount as 'PlayCount',
-		maxplaycount as 'MaxPlayCount', iduser as 'UserID',
-		sponsor as 'Sponsor'
-	FROM psa
-	WHERE idpsa = aPSAID;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -808,40 +698,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetCountPlaysGivenTimeframe` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetCountPlaysGivenTimeframe`(
-	aStartDate datetime
-)
-BEGIN
--- ------------------------
--- Used to get stats about the tracks played in given time.  Usually set to one month.
---  Using this we can create graphs and other cool chart things
--- ------------------------
-	SELECT trk.Name as 'TrackName', ptrk.idtrack as 'TrackID', ptrk.idplaytrack as 'PlayID',
-	art.Name as 'ArtistName', art.idartist as 'ArtistID', 
-		alb.Name as 'AlbumName', alb.idalbum as 'AlbumID', trk.playcount as 'TotalPlayCount',
-		count(ptrk.idtrack) as 'TimeframeCount'
-	FROM playtrack ptrk
-	INNER JOIN track trk ON ptrk.idtrack = trk.idtrack
-	INNER JOIN album alb ON trk.idalbum = alb.idalbum
-	INNER JOIN artist art ON alb.idartist = art.idartist
-	WHERE ptrk.playdate > aStartDate
-	GROUP BY trk.idtrack;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `GetDJs` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -870,84 +726,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetEligibleGrants` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetEligibleGrants`()
-BEGIN
-	SELECT idgrant as 'GrantID', playcount as 'PlayCount', 
-		startdate as 'StartDate', enddate as 'EndDate',
-		maxplaycount as 'MaxPlayCount',
-		TIMESTAMPDIFF(SECOND, current_timestamp(), g.enddate) as 'TimeLeft'
-	FROM db30919.grant g
-	WHERE ((enddate IS NULL) OR (enddate >= current_timestamp()));
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetEligiblePSAs` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetEligiblePSAs`()
-BEGIN
-
-	SELECT idpsa as 'PSAID', playcount as 'PlayCount', 
-		createdate as 'StartDate', enddate as 'EndDate',
-		maxplaycount as 'MaxPlayCount',
-		TIMESTAMPDIFF(SECOND, current_timestamp(), p.enddate) as 'TimeLeft'
-	FROM psa p
-	WHERE ((enddate IS NULL) OR (enddate >= current_timestamp()));
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetExceptions` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetExceptions`()
-BEGIN
-	#Created by Robert Clabough
-	#3/3/2014
-	#Created to show exceptions easily to user
-	SELECT el.idexceptionlog as 'ExceptionLogID', el.message as 'message', el.stacktrace as 'stacktrace',
-		el.createdate as 'createdate', el.iduser as 'UserID', u.username as 'UserName', u.lastname as 'LastName',
-		u.firstname as 'FirstName'
-	FROM exceptionlog el
-	LEFT OUTER JOIN user u ON el.iduser = u.iduser
-	ORDER BY createdate desc
-	LIMIT 100;
-		
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `GetExceptionsByUserID` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -965,52 +743,6 @@ BEGIN
 	SELECT idexceptionlog as 'ID', message, stacktrace, createdate, iduser
 	FROM exceptionlog
 	WHERE iduser = aUserID;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetMost50PopularTracks` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetMost50PopularTracks`(
-	aStartTime datetime
-)
-BEGIN
-	SELECT ptrk.idplaytrack as 'LastPlayID', trk.idtrack as 'TrackID', count(ptrk.idtrack) as 'TimeframePlayCount'
-	FROM playtrack ptrk
-	INNER JOIN track trk ON ptrk.idtrack = trk.idtrack
-	WHERE ptrk.playdate >= aStartTime
-	GROUP BY ptrk.idtrack
-	ORDER  BY trk.PlayCount desc;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetPlayableTypes` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetPlayableTypes`()
-BEGIN
-	SELECT idplayabletypes as 'TypeID', name as 'TypeName'
-	FROM playabletypes;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1068,44 +800,6 @@ BEGIN
 	FROM db30919.playtrack play
 	INNER JOIN db30919.track trk ON play.idtrack = trk.idtrack
 	WHERE play.iduser = aUserID;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetRecentPlays` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetRecentPlays`()
-BEGIN
-	SET @TrackType = (SELECT idplayabletypes from playabletypes where name='Track');
-	SET @GrantType = (SELECT idplayabletypes from playabletypes where name = 'Grant');
-	SET @PSAType = (SELECT idplayabletypes from playabletypes WHERE name = 'PSA');
-
-	SELECT ptrk.idplaytrack as 'PlayID', ptrk.idtrack as 'ItemID', t.name as 'Name', ptrk.iduser as 'UserID', ptrk.idonairsession as 'OnAirSessionID',
-			ptrk.playdate as 'PlayDate', @TrackType as 'Type'
-	FROM playtrack ptrk
-	INNER JOIN track t ON ptrk.idtrack = t.idtrack
-	UNION 
-	SELECT pgnt.idplaygrant as 'PlayID', pgnt.idgrant as 'ItemID', g.name as 'Name', pgnt.iduser as 'UserID', pgnt.idonairsession as 'OnAirSessionID',
-			pgnt.playdate as 'PlayDate', @GrantType as 'Type'
-	FROM playgrant pgnt
-	INNER JOIN db30919.grant g ON pgnt.idgrant = g.idgrant
-	UNION 
-	SELECT ppsa.idplaypsa as 'PlayID', ppsa.idpsa as 'ItemID', p.name as 'Name', ppsa.iduser as 'UserID', ppsa.idonairsession as 'OnAirsessionID',
-			ppsa.playdate as 'PlayDate', @PSAType as 'Type'
-	FROM playpsa ppsa
-	INNER JOIN psa p ON ppsa.idpsa = p.idpsa
-	order by playdate desc
-	LIMIT 0, 100;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1383,6 +1077,8 @@ BEGIN
 	SET @UserID = (SELECT iduser FROM user WHERE username = aUserName);
 	IF(@UserID IS NOT NULL) THEN 
 		SELECT iduser, idusertype, username, passwordhash, startdate, enddate, firstname, lastname, salt from user where username = aUserName;
+	ELSE
+		SELECT 1 as 'Error';
 	END IF;
 
 END ;;
@@ -1522,14 +1218,8 @@ BEGIN
 	#Created by Robert Clabough
 	#2/26/2014
 	#Builds a playlist
-	SET @PreviousPlaylistID = (SELECT idplaylist FROM playlist WHERE name = aPlaylistName AND iduser = aUserID);
-	IF(@PreviousPlaylistID IS NULL) then
-		INSERT INTO playlist(iduser, name, tracks, createdate) VALUES(aUserID, aPlaylistName, aTracks, current_timestamp());
-		SELECT @@IDENTITY;
-	ELSE
-		UPDATE playlist SET tracks = aTracks WHERE name = aPlaylistName AND iduser = aUserID;
-		SELECT @PreviousPlaylistID;
-	END IF;
+	INSERT INTO playlist(iduser, name, tracks, createdate) VALUES(aUserID, aPlaylistName, aTracks, current_timestamp());
+	SELECT @@IDENTITY;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1596,109 +1286,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `OnAirLogin` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `OnAirLogin`(
-	aUserID int
-)
-BEGIN
--- --------------------------------------------------------------------------------
--- UserLogin
---
---  Created by Darren Hushak
---  3/24/14
---
--- Registers a new on air session
--- --------------------------------------------------------------------------------
-	INSERT INTO onairsession(iduser, logon) VALUES(aUserID, current_timestamp);
-	SET @OnAirID = @@IDENTITY;
-	SELECT @OnAirID as 'OnAirID';
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `OnAirLogout` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `OnAirLogout`(
-	aUserID int,
-	aOnAirSessionID int
-)
-BEGIN
--- --------------------------------------------------------------------------------
--- UserLogin
---
---  Created by Darren Hushak
---  3/24/14
---
--- Logs out an on air session
--- --------------------------------------------------------------------------------
-	SET @CorrectUser = (SELECT iduser FROM onairsession WHERE idonairsession = aOnAirSessionID);
-	IF(@CorrectUser = aUserID) THEN
-		UPDATE onairsession SET logout = current_timestamp WHERE idonairsession = aOnAirSessionID;
-	else
-		CALL LogError(aUserID, 'User tried to log out of a different user\'s on air session');
-	END IF;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `PlayGrantByID` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `PlayGrantByID`(
-	aGrantID bigint,
-	aUserID int,
-	aOnAirSessionID bigint
-)
-BEGIN
-	#Plays a grant given grant ID, user ID, and on air session
-
-	#Insert into the playgrant table.
-	INSERT INTO playgrant(idgrant, iduser, idonairsession, playdate)
-		VALUES(aGrantID, aUserID, aOnAirSessionID, current_timestamp());
-
-	#Create a variable that is the last inserted ID (in playgrant)
-	SET @PlayID = @@IDENTITY;
-
-	#Update the play in the grant table
-	UPDATE db30919.grant SET playcount = playcount + 1 WHERE idgrant = aGrantID;
-
-	#Return the new playID
-	SELECT @PlayID as 'PlayID';
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `PlayTrackByID` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1722,17 +1309,13 @@ BEGIN
 --  This will play the track, adding it to the PlayTrack table, and incrementing the playcount in track
 -- ---------------------------------------------------
 
-#Modified to 'return' the new play ID
 	#Insert the play into the track plays table
 	INSERT INTO db30919.playtrack(idtrack, iduser, idonairsession, playdate)
 		VALUES(aTrackID, aUserID, aOnAirSessionID, current_timestamp);
-	SET @PlayID = @@IDENTITY;
 	#Update the playcount in the track table
 	UPDATE db30919.track
 		SET PlayCount = PlayCount + 1
 		WHERE idtrack = aTrackID;
-
-	SELECT @PlayID as 'PlayID';
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1757,35 +1340,6 @@ BEGIN
 	#Will be useful to display all possible playlists without returning a lot
 	#of data that may never be seen
 	SELECT idplaylist, name, createdate, iduser FROM playlist WHERE iduser = aUserID;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `UpdatePlayByID` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `UpdatePlayByID`(
-	aPlayID bigint,
-	aTrackID bigint,
-	aUserID int
-)
-BEGIN
-	#Allows updating the play in the table to a different song, if they got the id incorrect
-	SET @CorrectUser = (SELECT iduser FROM playtrack WHERE idplaytrack = aPlayID);
-	IF(@CorrectUser = aUserID) THEN
-		UPDATE playtrack SET idtrack = aTrackID WHERE idplaytrack = aPlayID;
-	else
-		CALL LogError(aUserID, 'Unknown user tried to update a play', 'UpdatePlayByID Stored Procedure');
-	END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1887,4 +1441,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-25 10:04:15
+-- Dump completed on 2014-03-02 19:06:14

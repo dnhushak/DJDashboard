@@ -25,6 +25,7 @@ public class SAXParserExample extends DefaultHandler {
     private static String LIBRARY_FILE_PATH = "/tmp/iTunes Music Library.xml"; //"C:\\iTunes Music Library.xml";
 
     private List<Track> myTracks;
+	private SubsonicLibrary subsonicLibrary;
 
     private String tempVal;
 
@@ -39,6 +40,7 @@ public class SAXParserExample extends DefaultHandler {
     public SAXParserExample() 
 	{
         myTracks = new ArrayList<Track>();
+		subsonicLibrary = new SubsonicLibrary();
     }
     
     public static void setFilePath(String filePath)
@@ -49,7 +51,6 @@ public class SAXParserExample extends DefaultHandler {
     public void run() 
 	{
         parseDocument();
-        //printData();
     }
     
     /**
@@ -84,23 +85,6 @@ public class SAXParserExample extends DefaultHandler {
         catch (IOException ie) 
         {
             ie.printStackTrace();
-        }
-    }
-
-    /**
-     * Iterate through the list and print
-     * the contents
-     */
-    private void printData()
-	{
-        System.out.println("No of Tracks '" + myTracks.size() + "'.");
-
-        Iterator<Track> it = myTracks.iterator();
-
-        while(it.hasNext()) 
-		{
-            Track song = it.next();
-            System.out.println(song.getAlbum() + " - " + song.getName());
         }
     }
 
@@ -146,7 +130,10 @@ public class SAXParserExample extends DefaultHandler {
         {
             if (previousTagVal.equalsIgnoreCase("Name") && qName.equals("string"))
             {
-                    tempTrack.setName(tempVal.trim());
+                    String name = tempVal.trim();
+            		int subsonicID = subsonicLibrary.getSubsonicTrackID(name);
+            		tempTrack.setSubsonicID(subsonicID);
+                    tempTrack.setName(name);
             }
             else if (previousTagVal.equalsIgnoreCase("Artist") && qName.equals("string"))
             {

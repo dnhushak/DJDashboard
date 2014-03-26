@@ -24,6 +24,7 @@ public class Track
     private boolean FCC;
     private int playCount;
     private boolean recommended;
+	private int subsonicID;
 
     public Track()
     {
@@ -51,6 +52,11 @@ public class Track
         }
 		 this.name = sanatizeString(this.name);
      }
+	 
+	public void setSubsonicID(int sID)
+    {
+    	subsonicID = sID;
+    }
         
      public void setRecommended(boolean value)
      {

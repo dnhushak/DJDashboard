@@ -76,6 +76,7 @@ $('document').ready(function(){
             }
         });
     }
+
     $('.load-playlist-button').on('click', function(){
         getAllPlaylists();
     });
@@ -84,7 +85,7 @@ $('document').ready(function(){
         var playlistName = $(this).parent().find('.playlist-name').text();
         $('#playlist-name').val(playlistName);
         loadPlaylist(playlistID);
-    })
+    });
     $(document).on('click', '#mark-played', function(){
         var songID = $(this).parent().parent().attr('class');
         var songIndex = parseInt($(this).val());
@@ -92,10 +93,18 @@ $('document').ready(function(){
         $(this).text('Update');
         $(this).removeClass('btn-primary');
         $(this).addClass('btn-danger');
-        console.log(songID);
-        console.log(songIndex);
+        $(this).attr('id', 'update-played');
+        $(this).attr("data-toggle", "modal");
+        $(this).attr("data-target", "#custom-song-modal");
         markPlayedTrack(songID, songIndex);
-    })
+    });
+
+    $(document).on('click', '#update-played', function(){
+        console.log($(this).parent().parent().html());
+        $('.custom-title').html("Update Song");
+        $('#onair').html('Update');
+        getTrackDataForUpdate($(this).parent().parent().attr('class').match(/\d+/), $(this).val());
+    });
 
     for(var i = 0; i < onAirSongs.length; i++){
         var songID = onAirSongs[i]['ID'];
@@ -118,7 +127,7 @@ $('document').ready(function(){
         songHTML += '<td>' + pGenre + '</td>';
         songHTML += '<td>' + sGenre + '</td>';
         if(onAirSongs[i]['PlayID'] != 0){
-            songHTML += '<td><button disabled="disabled" type="button" class="btn btn-danger btn-sm" id="mark-played" value="' + i + '">Update</button></td>';
+            songHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="update-played" value="' + i + '" data-toggle="modal" data-target="#custom-song-modal">Update</button></td>';
         }else{
             songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + i + '">Mark Played</button></td>';
         }

@@ -11,6 +11,9 @@ class Publisher {
 	
 	// publish an exception to the db
 	public static function publishException($stacktrace, $message, $userID) {
+		if (session_status() == PHP_SESSION_NONE) {
+		    session_start();
+		}
 		//Access the session if userID is null, may still be null if session is not set
 		if($userID == null)
 		{

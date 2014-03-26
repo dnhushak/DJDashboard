@@ -195,9 +195,7 @@ class LibraryManager {
 	public function GetAllTrackData($TrackID) {
 		try {
 			$conn = new SqlConnect();
-			$results = $conn->callStoredProc($this->spGetTrackData, array (
-				$TrackID
-			));
+			$results = $conn->callStoredProc($this->spGetTrackData, array($TrackID));
 			// Keys are 1-1, so there should only be one row
 			$r = mysqli_fetch_assoc($results);
 			$track = new Track();
@@ -215,8 +213,8 @@ class LibraryManager {
 			$track->setCreateDate($r['CreateDate']);
 			$track->setReleaseDate($r['ReleaseDate']);
 			$track->setEndDate($r['EndDate']);
-			$track->setPrimaryGenreID($r['idPrimaryGenre']);
-			$track->setSecondaryGenreID($r['idSecondaryGenre']);
+			$track->setPrimaryGenreID($r['PrimaryGenreID']);
+			$track->setSecondaryGenreID($r['SecondGenreID']);
 			return $track;
 		} catch (Exception $e) {
 			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);

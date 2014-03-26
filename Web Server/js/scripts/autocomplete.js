@@ -7,14 +7,22 @@ $(document).ready(function(){
 	var sGenreID = 0;
 	var onairView = false;
 
+	//FOR UPDATING
+	var oldSongID = -1;
+	var onairIndex = -1;
+
 	$(".song-input-error").hide();
 
 	for(var i = 1; i < genres.length; i++){
 		$("#primary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
 		$("#secondary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
 	}
-
+	$(".custom-song-button").on('click', function(){
+		$('.custom-title').html("Add Custom Song");
+        $('#onair').html('Add Song');
+	});
 	$(".close-custom-song").on('click', function(){
+
 		$('#input-track').val("");
 		$('#input-artist').val("");
 		$('#input-album').val("");
@@ -23,6 +31,8 @@ $(document).ready(function(){
 		albumID = 0;
 		pGenreID = 0;
 		sGenreID = 0;
+		oldSongID = -1;
+		onairIndex = -1;
 		$(".song-input-error").hide();
 	});
 
@@ -33,7 +43,6 @@ $(document).ready(function(){
 			}else{
 				onairView = false;
 			}
-			console.log(onairView);
 			customArtist();
 		}else{
 			$(".song-input-error").show();
@@ -130,6 +139,33 @@ $(document).ready(function(){
         })
 
 	}
+    getTrackDataForUpdate = function(trackID, songIndex){
+        $.ajax({
+            type: "GET",
+            url: "../php/scripts/getTrackData.php",
+            data: { 'TrackID' : parseInt(trackID)}
+        }).done(function(data){
+            var songInfo;
+            try{
+                songInfo = JSON.parse(data);
+            }catch(e){
+                return;
+            }
+            songID = songInfo['TrackID'];
+            $('#input-track').val(songInfo['TrackName']);
+            artistID = songInfo['ArtistID'];
+            $('#input-artist').val(songInfo['ArtistName']);
+            albumID = songInfo['AlbumID'];
+            $('#input-album').val(songInfo['AlbumName']);
+            pGenreID = songInfo['PrimaryGenreID'];
+            sGenreID = songInfo['SecondaryGenreID'];
+            $('#primary-genres-allowed').val(pGenreID);
+            $('#secondary-genres-allowed').val(sGenreID);
+
+            onairIndex = songIndex;
+            oldSongID = trackID;
+        });
+    }
 	var customTrack = function(){
 		$.ajax({
             url: '../php/scripts/insertCustomTrack.php',
@@ -150,16 +186,28 @@ $(document).ready(function(){
         		var FCC = false;
         		var reco = false;
         		var tempTrack = new Track(songName, songID, reco, FCC, artistName, albumName, pGenre, sGenre);
-        		var songHTML = '<tr class="' + songID + '">';
+        		var songHTML = '';
                 songHTML += '<td>' + songName + '</td>';
                 songHTML += '<td>' + artistName + '</td>';
                 songHTML += '<td>' + albumName + '</td>';
                 songHTML += '<td>' + pGenre + '</td>';
                 songHTML += '<td>' + sGenre + '</td>';
-                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
-                songHTML += '</td>';
-                onAirSongs.push(tempTrack);
-                $('.songs').append(songHTML);
+        		if(oldSongID == -1 || onairIndex == -1){
+	                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
+	                songHTML += '</td>';
+	                onAirSongs.push(tempTrack);
+	                $('.songs').append('<tr class="' + songID + '">' + songHTML);
+        		}else{
+        			songHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="update-played" value="' + onairIndex + '" data-toggle="modal" data-target="#custom-song-modal">Update</button></td>';
+	                tempTrack['PlayID'] = onAirSongs[onairIndex]['PlayID'];
+        			onAirSongs[onairIndex] = tempTrack;
+        			var trackShown = $('.' + oldSongID).first();
+        			trackShown.html(songHTML);
+        			trackShown.attr('class', '');
+        			trackShown.addClass('' + songID);
+        			trackShown.addClass('success');
+        			updatePlayID(tempTrack['PlayID'], songID);
+        		}
         	}else{
 	        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
         	}
@@ -173,6 +221,17 @@ $(document).ready(function(){
 			pGenreID = 0;
 			sGenreID = 0;
 			$(".song-input-error").hide();
+        });
+	}
+	var updatePlayID = function(playID, trackID){
+		$.ajax({
+            url: '../php/scripts/updatePlayByID.php',
+            type: 'GET',
+            data: { 'TrackID' : trackID,
+        			'PlayID' : playID}
+        }).done(function(data){
+        	oldSongID = -1;
+        	onairIndex = -1;
         });
 	}
 });

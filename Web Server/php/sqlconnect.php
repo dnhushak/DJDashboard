@@ -104,6 +104,7 @@ class SqlConnect
 				}
 				else
 				{
+					var_dump($args);
 					$cmd = $cmd.$args[$length-1].");";
 				}
 				//Check for error in query, if there is, throw an exception

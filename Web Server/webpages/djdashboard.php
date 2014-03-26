@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" media="all"
 	href="../css/main.css">
 	<link type="text/css" href="../jplayerSkin/jplayer.css" rel="stylesheet" media="all"/>
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="../js/libraries/bootstrap.min.js"></script>
 <script src="../js/scripts/PageLoad.js"></script>
 <script src="../js/scripts/initialLoad.js"></script>
@@ -24,7 +24,6 @@
 		if (session_status() == PHP_SESSION_NONE) {
 		    session_start();
 		}
-		var_dump($_SESSION);
 		if(!isset($_SESSION['user'])){
 			header("Location: index.php");
 			exit();

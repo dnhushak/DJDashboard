@@ -14,5 +14,5 @@ function Track (name, id, reco, FCC, artistName, albumName, pGenre, sGenre, play
 	this.Album = albumName;
 	this.PrimaryGenre = pGenre;
 	this.SecondaryGenre = sGenre;
-	this.Played = typeof played !== 'undefined' ? played : false;
+	this.PlayID = typeof played !== 'undefined' ? played : 0;
 }

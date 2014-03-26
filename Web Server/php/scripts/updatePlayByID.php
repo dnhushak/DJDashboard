@@ -5,6 +5,11 @@ include_once ('../publisher.php');
 // Fatal error handler for PHP
 register_shutdown_function("Publisher::fatalHandler");
 try {
+
+	if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+	}
+
 	$manager = new LibraryManager();
 	$PlayID = $_GET ['PlayID'];
 	$TrackID = $_GET ['TrackID'];

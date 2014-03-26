@@ -63,6 +63,8 @@ class UserManager {
 		if ($results === true || $results === false) {
 			echo json_encode(array (
 					"error" => "Username and password did not match." ));
+			//adding in user error logging, we want to keep track of failed logins.
+			Publisher::publishUserError(0, 'Username and password did not match', 'UserManager.php -> login');
 			session_unset();
 			exit();
 		}
@@ -93,7 +95,11 @@ class UserManager {
 			$_SESSION ['lastname'] = $userinfo ['lastname'];
 			//Modified stored proc to only take in userID, since this is being done already in php.
 			//rclabou - 3/26/2014
+			$conn->freeResults();
 			$results = $conn->callStoredProc($this->spUserLogin, array ($_SESSION ['userid']));
+			if ($results === true || $results === false) {
+				Publisher::publishException($_SESSION['userid'], 'Session did not start correctly', 'UserManager -> login');
+			}			
 			exit();
 		}
 		

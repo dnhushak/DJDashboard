@@ -1,6 +1,8 @@
 <?php
-include_once ('../sqlconnect.php');
-include_once ('../publisher.php');
+
+$ds = DIRECTORY_SEPARATOR;
+require_once ("..{$ds}sqlconnect.php");
+require_once ("..{$ds}publisher.php");
 include_once ("../classes/authConfig.php");
 include_once ("../classes/authUtil.php");
 

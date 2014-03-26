@@ -1,13 +1,6 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
 <!DOCTYPE html>
 <?php
-
-
-if($_SESSION['sessionid'] != null)
-{
-	//Logout if there is a session ID
-	UserManager::endSession($_SESSION['sessionid']);
-}
 session_start();
 ?>
 <html>

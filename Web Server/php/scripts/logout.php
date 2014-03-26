@@ -4,6 +4,9 @@ include_once('../publisher.php');
 
 //Fatal error handler for PHP
 register_shutdown_function( "Publisher::fatalHandler" );
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 try {
 	if($_SESSION['sessionid'] != null)
 	{

@@ -1,9 +1,11 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
 <!DOCTYPE html>
 <?php
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
-var_dump($root);
-include_once('../php/library/UserManager.php');
+$ds = DIRECTORY_SEPARATOR;
+$base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
+var_dump($base_dir);
+require_once("{$base_dir}php{$ds}library{$ds}UserManager.php");
+
 if($_SESSION['sessionid'] != null)
 {
 	//Logout if there is a session ID

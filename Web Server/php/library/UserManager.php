@@ -100,7 +100,7 @@ class UserManager {
 			$conn->freeResults();
 			$results = $conn->callStoredProc($this->spUserLogin, array ($_SESSION ['userid']));
 			if ($results === true || $results === false) {
-				Publisher::publishException($_SESSION['userid'], 'Session did not start correctly', 'UserManager -> login');
+				Publisher::publishException('UserManager : '.mysqli_connect_errno($conn), 'Session did not start correctly', $_SESSION['userid']);
 			}
 			else
 			{

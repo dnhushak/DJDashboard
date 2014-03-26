@@ -1,6 +1,6 @@
 <?php
-include_once '../sqlconnect.php';
-include_once '../publisher.php';
+include_once ('../sqlconnect.php');
+include_once ('../publisher.php');
 include_once ("../classes/authConfig.php");
 include_once ("../classes/authUtil.php");
 

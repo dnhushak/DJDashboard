@@ -3,7 +3,7 @@
 <?php
 $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 var_dump($root);
-include_once($root.'./php/library/UserManager.php');
+include_once('./php/library/UserManager.php');
 if($_SESSION['sessionid'] != null)
 {
 	//Logout if there is a session ID

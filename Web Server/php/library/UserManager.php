@@ -12,6 +12,7 @@ class UserManager {
 	private $spAddUser;
 	private $spAddUserType;
 	private $spGetUserFromName;
+	private $spEndSession;
 
 	public function __construct(){
 		$this->initialize();
@@ -31,6 +32,7 @@ class UserManager {
 		$this->spAddUser = "AddUser";
 		$this->spAddUserType = "AddUserType";
 		$this->spGetUserFromName = "GetUserFromName";
+		$this->spEndSession = "EndUserSession";
 	}
 
 	public function addUser($user, $pass, $type, $first, $last){
@@ -99,8 +101,14 @@ class UserManager {
 			$results = $conn->callStoredProc($this->spUserLogin, array ($_SESSION ['userid']));
 			if ($results === true || $results === false) {
 				Publisher::publishException($_SESSION['userid'], 'Session did not start correctly', 'UserManager -> login');
+			}
+			else
+			{
+				$row = mysqli_fetch_assoc($results);
+				$_SESSION ['sessionid'] = $row['ID'];
 			}			
 			exit();
+			
 		}
 		
 		// Incorrect password for username
@@ -108,6 +116,18 @@ class UserManager {
 			echo json_encode(array (
 					"error" => "Username and password did not match." ));
 			session_unset();
+		}
+	}
+	public static function endSession($sessionID)
+	{
+		$conn = new SqlConnect();
+		
+		$results;
+		// Get all information by username
+		$results = $conn->callStoredProc($this->spEndSession, array (
+				$sessionID ));
+		if ($results === true || $results === false) {
+			Publisher::publishException($_SESSION['userid'], 'Session did not end correctly', 'UserManager -> (static) endSession');
 		}
 	}
 }

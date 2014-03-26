@@ -18,6 +18,7 @@ session_start();
 </head>
 <body>
 	<?php
+		include_once('../php/library/UserManager.php');
 		if (session_status() == PHP_SESSION_NONE) {
 		    session_start();
 		}

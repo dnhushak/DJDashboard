@@ -1,10 +1,7 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
 <!DOCTYPE html>
 <?php
-$ds = DIRECTORY_SEPARATOR;
-$base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-var_dump($base_dir);
-require_once("{$base_dir}php{$ds}library{$ds}UserManager.php");
+
 
 if($_SESSION['sessionid'] != null)
 {

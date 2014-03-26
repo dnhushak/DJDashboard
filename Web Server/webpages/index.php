@@ -1,7 +1,9 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
 <!DOCTYPE html>
 <?php
-include_once(__DIR__.'../php/library/UserManager.php');
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+var_dump($root);
+include_once('$root/../php/library/UserManager.php');
 if($_SESSION['sessionid'] != null)
 {
 	//Logout if there is a session ID

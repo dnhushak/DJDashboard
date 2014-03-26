@@ -1,11 +1,6 @@
 $(document).ready(function(){
 	$('#login-error').hide();
 
-	$.ajax({
-        url: '../php/scripts/logout.php',
-        type: 'POST',
-        data: {},
-    })
 	
 	$("#login").on('click', function(){
 		if($('#user-name').val() == ''){

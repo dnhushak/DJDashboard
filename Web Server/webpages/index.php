@@ -17,12 +17,34 @@ session_start();
 
 </head>
 <body>
+
+
+
 	<?php
-		if (session_status() == PHP_SESSION_NONE) {
-		    session_start();
-		}
-		session_unset();
-	?>
+
+
+include_once ('../php/sqlconnect.php');
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+
+if ($_SESSION['sessionid'] != null) {
+	try {
+		$conn = new SqlConnect();
+
+		$results;
+		// Get all information by username
+		$results = $conn->callStoredProc("EndUserSession", array (
+			$_SESSION['sessionid']
+		));
+	} catch (Exception $e) {
+		Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
+		return false;
+	}
+}
+
+session_unset();
+?>
 	<div class="container">
 		<div class="header">
 			<img alt="Logo" src="../resources/logo.png">

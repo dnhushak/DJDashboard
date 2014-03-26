@@ -1,21 +1,21 @@
 <?php
-include_once('../library/userManager.php');
+include_once('../library/UserManager.php');
 include_once('../publisher.php');
 
 //Fatal error handler for PHP
 register_shutdown_function( "Publisher::fatalHandler" );
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
+$sessionid = $_POST['sessionid'];
+
+
 try {
-	if($_SESSION['sessionid'] != null)
-	{
-		UserManager::endSession($_SESSION['sessionid']);
-	}
+	
+		UserManager::endSession($sessionid);
+		echo('Logout Success');
+	
 }
 catch (Exception $e)
 {
-	Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $UserID);
+	Publisher::publishException($e->getTraceAsString(), $e->getMessage(), null);
 	return false;
 }
 

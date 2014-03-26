@@ -1,6 +1,12 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
 <!DOCTYPE html>
 <?php
+include_once('../php/library/UserManager.php');
+if($_SESSION['sessionid'] != null)
+{
+	//Logout if there is a session ID
+	UserManager::endSession($_SESSION['sessionid']);
+}
 session_start();
 ?>
 <html>
@@ -18,13 +24,8 @@ session_start();
 </head>
 <body>
 	<?php
-		include_once('../php/library/UserManager.php');
 		if (session_status() == PHP_SESSION_NONE) {
 		    session_start();
-		}
-		if($_SESSION['sessionid'] != null)
-		{
-			UserManager::endSession($_SESSION['sessionid']);
 		}
 		session_unset();
 	?>

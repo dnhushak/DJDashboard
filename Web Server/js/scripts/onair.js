@@ -1,5 +1,25 @@
 $('document').ready(function(){
 
+    getRecentlyPlayed = function(){
+        $.ajax({
+            type: "GET",
+            url: "../php/scripts/getRecentlyPlayed.php"
+        }).done(function(data){
+            var tracks;
+            try{
+                tracks = JSON.parse(data);
+            }catch(e){
+                console.log(data);
+                return;
+            }
+            console.log(tracks);
+            $('.recently-played').html('');
+            for(var i = 0; i < tracks.length; i++){
+                $('.recently-played').append('<li class="list-group-item">' + tracks[i]['TrackName'] + ' - ' + tracks[i]['Artist'] +'</li>')
+            }
+        });
+    }
+
     getAllPlaylists = function(){
         $.ajax({
             type: "GET",
@@ -70,6 +90,7 @@ $('document').ready(function(){
             try{
                 playID = JSON.parse(data)['PlayID'];
                 onAirSongs[songIndex]['PlayID'] = playID;
+                getRecentlyPlayed();
             }catch(e){
                 PublishError(e);
                 return;
@@ -105,7 +126,11 @@ $('document').ready(function(){
         $('#onair').html('Update');
         getTrackDataForUpdate($(this).parent().parent().attr('class').match(/\d+/), $(this).val());
     });
+    $('#onair').on('click', function(){
+        setTimeout(function(){getRecentlyPlayed();}, 500);
+    });
 
+    getRecentlyPlayed();
     for(var i = 0; i < onAirSongs.length; i++){
         var songID = onAirSongs[i]['ID'];
         var songName = onAirSongs[i]['Name'];

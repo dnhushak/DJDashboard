@@ -25,6 +25,7 @@ class LibraryManager {
 	private $spGetAlbumsWhereTrackLike;
 	private $spGetArtistsAutoComplete;
 	private $spGetAlbumsAutoComplete;
+	private $spGetRecentlyPlayed;
 
 	public function __construct() {
 		$this->initialize();
@@ -56,6 +57,7 @@ class LibraryManager {
 		$this->spGetAlbumsWhereTrackLike = "GetAlbumsWhereTrackLike";
 		$this->spGetArtistsAutoComplete = "GetArtistsAutoComplete";
 		$this->spGetAlbumsAutoComplete = "GetAlbumsAutoComplete";
+		$this->spGetRecentlyPlayed = "GetLast25Played";
 	}
 
 	/**
@@ -462,6 +464,33 @@ class LibraryManager {
 			Publisher :: publishException("Custom Exception", $str, 0);
 			return false;
 		}
+	}
+	public function GetRecentlyPlayed() {
+
+		$trackArray = array();
+		$conn = new sqlConnect();
+
+		try {
+			$results = $conn->callStoredProc($this->spGetRecentlyPlayed, null);
+			$trackList = array();
+			while ($rowInfo = mysqli_fetch_assoc($results)) {
+				$tempTrack = new Track();
+				$tempTrack->setID(utf8_encode($rowInfo['TrackID']));
+				$tempTrack->setName(utf8_encode($rowInfo['TrackName']));
+				$tempTrack->setAlbum(utf8_encode($rowInfo['AlbumName']));
+				$tempTrack->setArtist(utf8_encode($rowInfo['ArtistName']));
+				$trackList[] = $tempTrack;
+			}
+			return $trackList;
+
+		}catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		} catch (string $str) {
+			Publisher :: publishException("Custom Exception", $str, 0);
+			return false;
+		}
+
 	}
 }
 ?>

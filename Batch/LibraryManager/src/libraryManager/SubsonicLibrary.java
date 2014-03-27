@@ -17,7 +17,7 @@ public class SubsonicLibrary
 		initializeLibrary();
 	}
 	
-	void initializeLibrary()
+	private void initializeLibrary()
 	{
 		generateArtistList();
 		generateAlbumList();

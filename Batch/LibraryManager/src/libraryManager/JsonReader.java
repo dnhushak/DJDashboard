@@ -11,6 +11,9 @@ import java.nio.charset.Charset;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+* credit for static methods to help read json from a url: http://stackoverflow.com/questions/4308554/simplest-way-to-read-json-from-a-url-in-java
+*/
 public class JsonReader 
 {
   private static String readAll(Reader rd) throws IOException 

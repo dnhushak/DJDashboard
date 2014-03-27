@@ -24,10 +24,9 @@ public class Library
 	public void createFromITunesDB(String iTunesLibPath)
 	{
 		//Parse XML to TrackList
-		SAXParserExample parser = new SAXParserExample();
-		SAXParserExample.setFilePath(iTunesLibPath);
+		ITunesParser parser = new ITunesParser();
+		ITunesParser.setFilePath(iTunesLibPath);
 		parser.run();
-		
 		library = parser.getTracks();
 	}
 	
@@ -47,9 +46,8 @@ public class Library
 				}
 				catch(Exception e)
 				{
-					//System.out.println(e.getMessage());
+					e.printStackTrace());
 				}
-				
 			}
 			return true;
 		}
@@ -69,7 +67,6 @@ public class Library
 			gName = rs.getString("name");
 			genres.put(gName.toUpperCase(), new Pair<Integer, String>(rs.getInt("idgenre"), gName));
 		}
-		System.out.println(genres.toString());
 		rs.close();
 		return genres;
 	}

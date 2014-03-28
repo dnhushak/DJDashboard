@@ -6,7 +6,6 @@ $('document').ready(function(){
             data: {'Count': 25},
             url: "../php/scripts/getGrants.php"
         }).done(function(data){
-            console.log(data);
             var grants;
             try{
                 grants = JSON.parse(data);
@@ -14,7 +13,6 @@ $('document').ready(function(){
                 console.log(data);
                 return;
             }
-            console.log(grants);
             $('.grants').html('');
             for(var i = 0; i < grants.length; i++){
                 var grantHTML = '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">'
@@ -148,7 +146,6 @@ $('document').ready(function(){
     });
 
     $(document).on('click', '#update-played', function(){
-        console.log($(this).parent().parent().html());
         $('.custom-title').html("Update Song");
         $('#onair').html('Update');
         getTrackDataForUpdate($(this).parent().parent().attr('class').match(/\d+/), $(this).val());

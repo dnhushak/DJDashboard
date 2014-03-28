@@ -106,6 +106,18 @@ class UserManager {
 			{
 				$row = mysqli_fetch_assoc($results);
 				$_SESSION ['sessionid'] = $row['ID'];
+				$_SESSION['usertypename'] = $row['UserTypeName'];
+				$_SESSION['plibraryview'] = $row['LibraryView'];
+				$_SESSION['plibrarymanage'] = $row['LibraryManage'];
+				$_SESSION['ppsaview'] = $row['PSAView'];
+				$_SESSION['ppsamanage'] = $row['PSAManage'];
+				$_SESSION['pgrantview'] = $row['GrantView'];
+				$_SESSION['pgrantedit'] = $row['GrantEdit'];
+				$_SESSION['pmanageusers'] = $row['ManageUsers'];
+				$_SESSION['pplaylistedit'] = $row['PlaylistEdit'];
+				$_SESSION['ppermissionedit'] = $row['EditPermissions'];
+				$_SESSION['peditusertype'] = $row['EditUserType'];
+				$_SESSION['ponairsignon'] = $row['OnAirSignOn'];
 			}			
 			exit();
 			

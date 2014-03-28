@@ -2,8 +2,9 @@
 include('../library/PlaylistManager.php');
 include_once('../publisher.php');
 
-	//Fatal error handler for PHP
+//Fatal error handler for PHP
 register_shutdown_function( "Publisher::fatalHandler" );
+
 
 try
 {

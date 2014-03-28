@@ -56,8 +56,8 @@ $('document').ready(function(){
             try{
                 lists = JSON.parse(data);
             }catch(e){
-                PublishError(e);
-                return;
+                console.log(data);
+		return;
             }
             $('#all-playlists').html('');
             for(var i = 0; i < lists.length; i++){

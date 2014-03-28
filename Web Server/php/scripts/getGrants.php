@@ -19,7 +19,7 @@ if($count == null)
 
 //Used to get all track data from track ID
 $manager = new GrantManager();
- $results = $manager->getGrants($count);
- echo JSON_ENCODE($results, JSON_PRETTY_PRINT);
+$results = $manager->getGrants($count);
+echo JSON_ENCODE($results, JSON_PRETTY_PRINT);
  
 ?>

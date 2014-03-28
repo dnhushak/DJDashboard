@@ -1,5 +1,33 @@
 $('document').ready(function(){
 
+    getGrants = function(){
+        $.ajax({
+            type: "GET",
+            data: {'Count': 25},
+            url: "../php/scripts/getGrants.php"
+        }).done(function(data){
+            console.log(data);
+            var grants;
+            try{
+                grants = JSON.parse(data);
+            }catch(e){
+                console.log(data);
+                return;
+            }
+            console.log(grants);
+            $('.grants').html('');
+            for(var i = 0; i < grants.length; i++){
+                var grantHTML = '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">'
+                grantHTML += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" class=' + grants[i]['GrantID'] + '>';
+                grantHTML += grants[i]['GrantName'] + '</a></h4></div>';
+                grantHTML += '<div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">';
+                grantHTML += grants[i]['Message'];
+                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary custom-song-button btn-sm" data-toggle="modal" data-target="#custom-song-modal">Mark Read</button></div></div></div>'
+                $('.grants').append(grantHTML);
+            }
+        });
+    }
+
     getRecentlyPlayed = function(){
         $.ajax({
             type: "GET",
@@ -12,7 +40,6 @@ $('document').ready(function(){
                 console.log(data);
                 return;
             }
-            console.log(tracks);
             $('.recently-played').html('');
             for(var i = 0; i < tracks.length; i++){
                 $('.recently-played').append('<li class="list-group-item">' + tracks[i]['TrackName'] + ' - ' + tracks[i]['Artist'] +'</li>')
@@ -131,6 +158,7 @@ $('document').ready(function(){
     });
 
     getRecentlyPlayed();
+    getGrants();
     for(var i = 0; i < onAirSongs.length; i++){
         var songID = onAirSongs[i]['ID'];
         var songName = onAirSongs[i]['Name'];

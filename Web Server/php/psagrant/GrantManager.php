@@ -59,11 +59,10 @@ class GrantManager {
 
 				$eligibleGrants[] = $tempGrant;
 			}
-
 			$arrLen = count($eligibleGrants);
 			$min = $numberOfGrants;
-			if ($eligibleGrants < $min) {
-				$min = $eligibleGrants;
+			if ($arrLen < $min) {
+				$min = $arrLen;
 			}
 
 			//Sort them by priority

@@ -15,6 +15,10 @@ class PlaylistManager
 	private static $spRetrieveUserPlaylistIDs = "RetrieveUserPlaylistIDs";
 	private static $spGetPlaylistTracks = "GetPlaylistTracks";
 
+	public function __construct() {
+		//print "In BaseClass constructor\n";
+	}
+
 	public static function CreatePlaylist($UserID, $idString, $PlaylistName)
 	{
 		//Create a comma delim'd string

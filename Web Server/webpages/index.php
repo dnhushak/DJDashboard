@@ -19,30 +19,29 @@ session_start();
 <body>
 
 
-
 	<?php
 
 
 include_once ('../php/sqlconnect.php');
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
-}
+} else {
+	//If we are coming back to index and resetting the session, then we also need to end it in the db.
+	if ($_SESSION['sessionid'] != null) {
+		try {
+			$conn = new SqlConnect();
 
-if ($_SESSION['sessionid'] != null) {
-	try {
-		$conn = new SqlConnect();
-
-		$results;
-		// Get all information by username
-		$results = $conn->callStoredProc("EndUserSession", array (
-			$_SESSION['sessionid']
-		));
-	} catch (Exception $e) {
-		Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
-		return false;
+			$results;
+			// Get all information by username
+			$results = $conn->callStoredProc("EndUserSession", array (
+				$_SESSION['sessionid']
+			));
+		} catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
+			return false;
+		}
 	}
 }
-
 session_unset();
 ?>
 	<div class="container">

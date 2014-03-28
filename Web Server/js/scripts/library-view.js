@@ -433,12 +433,14 @@ $(document).ready(function() {
     //Event Handlers
 	$('#search-text').keyup(function(){
 		var text = $(this).val();
-		if(text.length > 1){
+		if(text.length > 2){
             isSearching = true;
 			searchText(text);	
 		}else{
-            clearTrackList();
-            initialize();
+            if(isSearching == true){
+                clearTrackList();
+                initialize();
+            }
             isSearching = false
         }
 	});

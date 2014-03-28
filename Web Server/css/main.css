@@ -233,3 +233,8 @@ html {
 	margin-top: 5px;
 	border: 1px solid #ddd;
 }
+.on-air-nav {
+	background-color: #9FF781;
+	border: 0px;
+	color: black;
+}

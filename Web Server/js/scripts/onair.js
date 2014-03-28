@@ -106,6 +106,7 @@ $('document').ready(function(){
     }
 
     markPlayedTrack = function(trackID, songIndex){
+        console.log(trackID);
         $.ajax({
             type: "GET",
             url: "../php/scripts/playTrackByID.php",

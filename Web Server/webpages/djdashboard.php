@@ -1,4 +1,5 @@
 <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"> -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,12 @@
 			exit();
 		}
 	?>
+<!-- 	<nav class="navbar navbar-default navbar-fixed-top on-air-nav" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			<span class="navbar-brand" style="color: black;">ON AIR</span>
+		</div>
+	</nav> -->
 	<div class="container">
 		<div class="header">
 			<img alt="Logo" src="../resources/logo.png">

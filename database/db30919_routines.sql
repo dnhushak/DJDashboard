@@ -94,9 +94,10 @@ CREATE DEFINER=`u30919`@`%` PROCEDURE `addTrack`(
 	ITunesID int,
 	CalledReleaseDate date,
 	CalledEndDate datetime,
-	aPrimaryGenre varchar(45),
-	aSecondaryGenre varchar(45),
-	FilePath varchar(1023)
+	aPrimaryGenre int,
+	aSecondaryGenre int,
+	FilePath varchar(1023),
+	aSubSonicID bigint
 )
 BEGIN
 -- -----------------------------------
@@ -122,8 +123,8 @@ BEGIN
 --    ITunesID - ID from itunes library xml, may be fully implemented later
 --    CalledReleaseDate - Date this song was officially released
 --    CalledEndDate - Date this song is taken out of rotation (NOT DELETED)
---    aPrimaryGenre - Primary Genre of song (e.g. 'Rock' or 'Classic Rock')
---    aSecondaryGenre - Secondary Genre of song
+--    aPrimaryGenre - id of Primary Genre of song (e.g. 'Rock' or 'Classic Rock')
+--    aSecondaryGenre - id of Secondary Genre of song
 --    FilePath - UTF filepath to song on local machines (used for copying later)
 -- -----------------------------------
 
@@ -138,7 +139,8 @@ BEGIN
 			SET aPrimaryGenre = null;
 		ELSE
 
-		SET @PrimaryGenreID = (SELECT idGenre FROM db30919.genre WHERE Name = aPrimaryGenre limit 1);
+		SET @PrimaryGenreID = aPrimaryGenre;
+			#(SELECT idGenre FROM db30919.genre WHERE Name = aPrimaryGenre limit 1);
 			#IF(@PrimaryGenreID IS NULL) THEN
 			#INSERT INTO genre(Name) Values(aPrimaryGenre);
 			#SET @PrimaryGenreID = @@IDENTITY;
@@ -151,7 +153,8 @@ BEGIN
 		IF(aPrimaryGenre = 'null') THEN
 			SET aPrimaryGenre = null;
 		ELSE
-		SET @SecondaryGenreID = (SELECT idGenre FROM db30919.genre WHERE Name = aSecondaryGenre limit 1);
+		SET @SecondaryGenreID = aSecondaryGenre; 
+			#(SELECT idGenre FROM db30919.genre WHERE Name = aSecondaryGenre limit 1);
 			#IF(@SecondaryGerneID IS NULL) THEN
 			#INSERT INTO genre(Name) Values(aSecondaryGenre);
 			#SET @SecondaryGenreID = @@IDENTITY;

@@ -119,23 +119,23 @@ public class ITunesParser extends DefaultHandler
         {
             if (previousTagVal.equalsIgnoreCase("Name") && qName.equals("string"))
             {
-                    String name = tempVal.trim();
-            		int subsonicID = subsonicLibrary.getSubsonicTrackID(name);
-            		tempTrack.setSubsonicID(subsonicID);
-                    tempTrack.setName(name);
+                String name = tempVal.trim();
+				int subsonicID = subsonicLibrary.getSubsonicTrackID(name);
+				tempTrack.setSubsonicID(subsonicID);
+                tempTrack.setName(name);
             }
             else if (previousTagVal.equalsIgnoreCase("Artist") && qName.equals("string"))
             {
-                    tempTrack.setArtist(tempVal.trim());
+                tempTrack.setArtist(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Album") && qName.equals("string"))
             {
-                    tempTrack.setAlbum(tempVal.trim());
+                tempTrack.setAlbum(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Play Count") && qName.equals("integer"))
             {
-                    Integer value = Integer.parseInt(tempVal);
-                    tempTrack.setPlayCount(value.intValue());
+                Integer value = Integer.parseInt(tempVal);
+                tempTrack.setPlayCount(value.intValue());
             }
             else if (previousTagVal.equalsIgnoreCase("Location") && qName.equals("string"))
             {

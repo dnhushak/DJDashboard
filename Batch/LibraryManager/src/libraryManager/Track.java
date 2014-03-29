@@ -19,7 +19,7 @@ public class Track
     private int iTunesID;
     private String primaryGenre;
     private String secondaryGenre;
-    private long totalTime;
+	private long totalTime;
     private long sampleRate;
     private boolean FCC;
     private int playCount;
@@ -75,7 +75,7 @@ public class Track
 
     public void setArtist(String artistName) 
     {
-    	this.artist = sanatizeString(artistName);
+    	artist = sanatizeString(artistName);
     }
 
     public String getAlbum() 
@@ -85,7 +85,7 @@ public class Track
 
     public void setAlbum(String albumName) 
     {
-    	this.album = sanatizeString(albumName);
+    	album = sanatizeString(albumName);
     }
 
     public int getPlayCount() 
@@ -123,13 +123,21 @@ public class Track
         int pGenre = this.primaryGenre != null ? verifyGenre(genres, this.primaryGenre) : -1;
         int sGenre = this.secondaryGenre != null ? verifyGenre(genres, this.secondaryGenre) : -1;
         		
-        //Query goes : Name, Artist, Album, PlayCount, FCCFlag, Recommended, ItunesID, ReleaseDate, EndDate
-        String query = "Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "('" + this.name + "','" +
-        		this.artist + "','" + this.album + "'," + this.playCount + "," + this.FCC + "," + 
-        		this.recommended + "," + 
-        		iTunesID + ",null, null," + (pGenre != -1 ? pGenre : "null") + "," + (sGenre != -1 ? sGenre : "null") + "," + (this.subsonicID != -1 ? this.subsonicID : "null") + ",'" + this.path + "');"; 
-        return query;
-        	
+        StringBuilder query = new StringBuilder();
+        query.append("Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "(");
+        query.append("'" + name + "',");                                             //name
+        query.append("'" + artist + "',");                                           //artist
+        query.append("'" + album + "',");                                            //album
+        query.append(playCount + ",");                                               //play count
+        query.append(FCC + ",");                                                     //FCC
+        query.append(recommended + ",");                                             //recommended
+        query.append(iTunesID + ",null,null,");                                      //iTunesID, release date, end date
+        query.append((pGenre != -1 ? pGenre : "null") + ",");                        //primary genre
+        query.append((sGenre != -1 ? sGenre : "null") + ",'");                       //secondary genre
+        query.append("'" + path + "',");                                             //path
+        query.append((this.subsonicID != -1 ? this.subsonicID : "null"));            //subsonic id
+        query.append(");");
+        return query.toString();
     }
 
 	public void setTrackNumber(Integer value) 
@@ -160,6 +168,11 @@ public class Track
 	public void setTotalTime(Integer value) 
 	{
 		totalTime = value;	
+	}
+	
+	public long getTotalTime()
+	{
+		return totalTime;
 	}
 		
 	public void setPrimaryGenre(String pGenre)
@@ -199,7 +212,7 @@ public class Track
 		
 	public boolean equalsITunesID(Track other)
 	{
-		return other.getITunesID() == this.iTunesID;
+		return other.iTunesID == this.iTunesID;
 	}
 		
 	@Override
@@ -208,7 +221,7 @@ public class Track
 		if(obj == null || !(obj instanceof Track)) { return false; }
 			
 		Track other = (Track) obj;
-		return other.getID() == this.ID;
+		return other.ID == this.ID;
 	}
 		
 	/**

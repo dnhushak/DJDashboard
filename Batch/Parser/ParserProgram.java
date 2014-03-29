@@ -40,11 +40,9 @@ public class ParserProgram
 			e.printStackTrace();
 		}
 		
-		/*Library library = new Library();
-		System.out.println("Creating Library...");
+		Library library = new Library();
 		library.createFromITunesDB(dest.getAbsolutePath());
-		System.out.println("Library created\nAdding to the database...");
-    	library.addAllToDB();*/
+    	library.addAllToDB();
     	
     	if(directory.exists() && dest.exists())
     	{

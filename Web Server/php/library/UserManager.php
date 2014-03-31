@@ -149,10 +149,11 @@ class UserManager {
 	public static function startOnAirSession()
 	{
 		$conn = new SqlConnect();
-		$results = $conn->callStoredProc($this->spOnAirLogin, array($_SESSION['userid']));
-		if ($results === true || $results === false) {
-			Publisher::publishException($_SESSION['userid'], 'OnAir Session did not start correctly', 'UserManager -> (static) startOnAirSession');
-		}
+		//$results = $conn->callStoredProc($this->spOnAirLogin, array($_SESSION['userid']));
+		//if ($results === true || $results === false) {
+			//Publisher::publishException($_SESSION['userid'], 'OnAir Session did not start correctly', 'UserManager -> (static) startOnAirSession');
+		//}
+		$results = $conn->executeScalar($this->spOnAirLogin, array($_SESSION['userid']));
 	}
 	
 	public static function endOnAirSession()

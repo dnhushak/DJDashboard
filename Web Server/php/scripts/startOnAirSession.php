@@ -29,7 +29,7 @@
  	if($_SESSION['userid'] != null && $_SESSION['ponairsignon'])
  	{
  		//Success, we can log in
- 		UserManager::startOnAirSession();
- 		return;
+ 		
+ 		return UserManager::startOnAirSession();
  	}
 ?>

@@ -3,7 +3,6 @@ $('document').ready(function(){
 	startOnAirSession = function(){
         $.ajax({
             type: "GET",
-            data: {},
             url: "../php/scripts/startOnAirSession.php"
         });
     }
@@ -162,7 +161,8 @@ $('document').ready(function(){
     $('#onair').on('click', function(){
         setTimeout(function(){getRecentlyPlayed();}, 500);
     });
-
+	
+	startOnAirSession();
     getRecentlyPlayed();
     getGrants();
     for(var i = 0; i < onAirSongs.length; i++){

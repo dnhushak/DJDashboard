@@ -154,6 +154,8 @@ class UserManager {
 			//Publisher::publishException($_SESSION['userid'], 'OnAir Session did not start correctly', 'UserManager -> (static) startOnAirSession');
 		//}
 		$results = $conn->executeScalar($this->spOnAirLogin, array($_SESSION['userid']), 'OnAirID');
+		$_SESSION['onairid'] = $results;
+		return $results;
 	}
 	
 	public static function endOnAirSession()

@@ -26,6 +26,28 @@ include_once ('../php/sqlconnect.php');
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 } else {
+	
+	if($_SESSION['onairid'] != null)
+	{
+		try {
+			$conn = new SqlConnect();
+
+			$results;
+			// Get all information by username
+			$arr = array();
+			$arr[] = $_SESSION['userid'];
+			$arr[] = $_SESSION['onairid'];
+			$results = $conn->callStoredProc("OnAirLogout", $arr);
+			
+			if($results == false)
+			{
+				Publisher::publishException('index.php', 'Error in resultset from OnAirLogout', $_SESSION['userid']);
+			}
+		} catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
+			return false;
+		}
+	}
 	//If we are coming back to index and resetting the session, then we also need to end it in the db.
 	if ($_SESSION['sessionid'] != null) {
 		try {
@@ -41,6 +63,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			return false;
 		}
 	}
+	
 }
 session_unset();
 ?>

@@ -104,6 +104,7 @@ class UserManager {
 			}
 			else
 			{
+				//All permissions are set here
 				$row = mysqli_fetch_assoc($results);
 				$_SESSION ['sessionid'] = $row['ID'];
 				$_SESSION['usertypename'] = $row['UserTypeName'];
@@ -141,6 +142,13 @@ class UserManager {
 		if ($results === true || $results === false) {
 			Publisher::publishException($_SESSION['userid'], 'Session did not end correctly', 'UserManager -> (static) endSession');
 		}
+	}
+	
+	public function startOnAirSession()
+	{
+		$conn = new sqlConnect();
+		//$result = $conn->callStoredProc($this->spOnAirLogin, array($_SESSION['userid']));
+		$result = $conn->executeScalar($this->spOnAirLogin, array($_SESSION['userid']));
 	}
 }
 

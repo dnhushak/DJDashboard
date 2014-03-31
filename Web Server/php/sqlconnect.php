@@ -127,9 +127,23 @@ class SqlConnect
 		}
 		catch (Exception $e)
 		{
-			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
 			return false;
 		}
+	}
+	
+	public function executeScalar($storedProcName, $args)
+	{
+		$results = $this->callStoredProc($storedProcName, $args);
+		if($results == false){
+			Publisher::publishException("ExecuteScalar","Resultset is boolean [false]",$_SESSION['userid']);
+		}
+		$row = mysqli_fetch_assoc($results);
+		$field = $row[0][0];
+		$field = utf8_encode($field);
+		var_dump($field);
+		return $field;
+		
 	}
 	
 	public function getLastCommand()

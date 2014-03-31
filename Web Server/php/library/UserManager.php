@@ -13,6 +13,8 @@ class UserManager {
 	private $spAddUserType;
 	private $spGetUserFromName;
 	private $spEndSession;
+	private $spStartOnAirSession;
+	private $spCurrentOnAirUser;
 
 	public function __construct(){
 		$this->initialize();
@@ -33,6 +35,7 @@ class UserManager {
 		$this->spAddUserType = "AddUserType";
 		$this->spGetUserFromName = "GetUserFromName";
 		$this->spEndSession = "EndUserSession";
+		$this->spCurrentOnAirUser = "GetCurrentOnAirUser";
 	}
 
 	public function addUser($user, $pass, $type, $first, $last){
@@ -104,7 +107,6 @@ class UserManager {
 			}
 			else
 			{
-				//All permissions are set here
 				$row = mysqli_fetch_assoc($results);
 				$_SESSION ['sessionid'] = $row['ID'];
 				$_SESSION['usertypename'] = $row['UserTypeName'];
@@ -144,11 +146,39 @@ class UserManager {
 		}
 	}
 	
-	public function startOnAirSession()
+	public static function startOnAirSession()
 	{
-		$conn = new sqlConnect();
-		//$result = $conn->callStoredProc($this->spOnAirLogin, array($_SESSION['userid']));
-		$result = $conn->executeScalar($this->spOnAirLogin, array($_SESSION['userid']));
+		$conn = new SqlConnect();
+		$results = $conn->callStoredProc($this->spOnAirLogin, array($_SESSION['userid']));
+		if ($results === true || $results === false) {
+			Publisher::publishException($_SESSION['userid'], 'OnAir Session did not start correctly', 'UserManager -> (static) startOnAirSession');
+		}
+	}
+	
+	public static function endOnAirSession()
+	{
+		$conn = new SqlConnect();
+		$results = $conn->callStoredProc($this->spOnAirLogoff, array($_SESSION['userid']));
+		if ($results === true || $results === false) {
+			Publisher::publishException($_SESSION['userid'], 'OnAir Session did not end correctly', 'UserManager -> (static) startOnAirSession');
+		}
+	}
+	
+	public static function getOnAirUser()
+	{
+		$conn = new SqlConnect();
+		$results = $conn->callStoredProc($this->spCurrentOnAirUser, null);
+		if ($results === true || $results === false) {
+			Publisher::publishException($_SESSION['userid'], 'Session did not end correctly', 'UserManager -> (static) endSession');
+			return false;
+		}
+		$row = mysqli_fetch_assoc($results);
+		$ret = array();
+		$ret['UserID'] = utf8_encode($row['UserID']);
+		$ret['UserName'] = utf8_encode($row['UserName']);
+		$ret['FirstName'] = utf8_encode($row['FirstName']);
+		$ret['LastName'] = utf8_encode($row['LastName']);
+		return ret;
 	}
 }
 

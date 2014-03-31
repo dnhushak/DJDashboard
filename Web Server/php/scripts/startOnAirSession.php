@@ -12,6 +12,9 @@
  	include_once('../publisher.php');
  	include_once('../library/UserManager.php');
  	
+ 	// Fatal error handler for PHP
+register_shutdown_function("Publisher::fatalHandler");
+ 	
  	if (session_status() == PHP_SESSION_NONE) {
 		    session_start();
 		}
@@ -29,7 +32,7 @@
  	if($_SESSION['userid'] != null && $_SESSION['ponairsignon'])
  	{
  		//Success, we can log in
- 		
- 		return UserManager::startOnAirSession();
+ 		$manager = new UserManager();
+ 		return $manager->startOnAirSession();
  	}
 ?>

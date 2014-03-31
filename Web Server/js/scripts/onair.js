@@ -1,5 +1,13 @@
 $('document').ready(function(){
 
+	startOnAirSession = function(){
+        $.ajax({
+            type: "GET",
+            data: {},
+            url: "../php/scripts/startOnAirSession.php"
+        });
+    }
+	
     getGrants = function(){
         $.ajax({
             type: "GET",

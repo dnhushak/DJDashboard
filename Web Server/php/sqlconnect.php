@@ -132,14 +132,15 @@ class SqlConnect
 		}
 	}
 	
-	public function executeScalar($storedProcName, $args)
+	public function executeScalar($storedProcName, $args, $fieldName)
 	{
 		$results = $this->callStoredProc($storedProcName, $args);
 		if($results == false){
 			Publisher::publishException("ExecuteScalar","Resultset is boolean [false]",$_SESSION['userid']);
 		}
 		$row = mysqli_fetch_assoc($results);
-		$field = $row[0][0];
+		
+		$field = $row[$fieldName];
 		$field = utf8_encode($field);
 		var_dump($field);
 		return $field;

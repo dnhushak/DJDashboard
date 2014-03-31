@@ -113,7 +113,7 @@ class UserManager {
 				$_SESSION['plibraryview'] = $row['LibraryView'];
 				$_SESSION['plibrarymanage'] = $row['LibraryManage'];
 				$_SESSION['ppsaview'] = $row['PSAView'];
-				$_SESSION['ppsamanage'] = $row['PSAManage'];
+				$_SESSION['ppsamanage'] = $row['PSAEdit'];
 				$_SESSION['pgrantview'] = $row['GrantView'];
 				$_SESSION['pgrantedit'] = $row['GrantEdit'];
 				$_SESSION['pmanageusers'] = $row['ManageUsers'];
@@ -146,14 +146,14 @@ class UserManager {
 		}
 	}
 	
-	public static function startOnAirSession()
+	public function startOnAirSession()
 	{
 		$conn = new SqlConnect();
 		//$results = $conn->callStoredProc($this->spOnAirLogin, array($_SESSION['userid']));
 		//if ($results === true || $results === false) {
 			//Publisher::publishException($_SESSION['userid'], 'OnAir Session did not start correctly', 'UserManager -> (static) startOnAirSession');
 		//}
-		$results = $conn->executeScalar($this->spOnAirLogin, array($_SESSION['userid']));
+		$results = $conn->executeScalar($this->spOnAirLogin, array($_SESSION['userid']), 'OnAirID');
 	}
 	
 	public static function endOnAirSession()

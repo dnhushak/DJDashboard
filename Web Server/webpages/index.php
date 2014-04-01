@@ -22,26 +22,26 @@ session_start();
 	<?php
 
 
+/// All of this is to end sessions and on air sessions in the DB.  All of it is based from session variables.
+/// rclabou, 03/31/2014
 include_once ('../php/sqlconnect.php');
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 } else {
-	
-	if($_SESSION['onairid'] != null)
-	{
+
+	if ($_SESSION['onairid'] != null) {
 		try {
 			$conn = new SqlConnect();
 
 			$results;
 			// Get all information by username
-			$arr = array();
+			$arr = array ();
 			$arr[] = $_SESSION['userid'];
 			$arr[] = $_SESSION['onairid'];
 			$results = $conn->callStoredProc("OnAirLogout", $arr);
-			
-			if($results == false)
-			{
-				Publisher::publishException('index.php', 'Error in resultset from OnAirLogout', $_SESSION['userid']);
+
+			if ($results == false) {
+				Publisher :: publishException('index.php', 'Error in resultset from OnAirLogout', $_SESSION['userid']);
 			}
 		} catch (Exception $e) {
 			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
@@ -63,7 +63,7 @@ if (session_status() == PHP_SESSION_NONE) {
 			return false;
 		}
 	}
-	
+
 }
 session_unset();
 ?>

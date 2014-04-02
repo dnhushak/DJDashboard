@@ -110,31 +110,43 @@ public class Track
         
     public String dbQuery(Map<String, Pair<Integer, String>> genres)
     {
-        //Escape apostrophes
-        this.name = this.name.replaceAll("'","");
-        this.name = this.name.length() > 100 ? this.name.substring(0, 99) : this.name;
-        this.artist = this.artist.replaceAll("'","");
-        this.artist = this.artist.length() > 100 ? this.artist.substring(0, 99) : this.artist;
-        this.album = this.album.replaceAll("'","");
-        this.album = this.album.length() > 100 ? this.album.substring(0, 99) : this.album;
-        this.path = this.path.replaceAll("'", "");
-        this.path = this.path.replaceAll("%20", " "); //escape %20
+         //Escape apostrophes
+    	if(name != null)
+    	{
+    		name = name.replaceAll("'","");
+    		name = name.length() > 100 ? name.substring(0, 99) : name;
+    	}
+        if(artist != null)
+    	{
+        	artist = artist.replaceAll("'","");
+            artist = artist.length() > 100 ? artist.substring(0, 99) : artist;
+    	}
+        if(album != null)
+        {
+        	album = album.replaceAll("'","");
+            album = album.length() > 100 ? album.substring(0, 99) : album;
+        }
+        if(path != null)
+        {
+        	path = path.replaceAll("'", "");
+        	path = path.replaceAll("%20", " "); //escape %20
+        }
         	
-        int pGenre = this.primaryGenre != null ? verifyGenre(genres, this.primaryGenre) : -1;
-        int sGenre = this.secondaryGenre != null ? verifyGenre(genres, this.secondaryGenre) : -1;
+        int pGenre = primaryGenre != null ? verifyGenre(genres, primaryGenre) : -1;
+        int sGenre = secondaryGenre != null ? verifyGenre(genres, secondaryGenre) : -1;
         		
         StringBuilder query = new StringBuilder();
         query.append("Call " + DBINFO.DATABASE + "." + DBINFO.ADDTRACK + "(");
-        query.append("'" + name + "',");                                             //name
-        query.append("'" + artist + "',");                                           //artist
-        query.append("'" + album + "',");                                            //album
+        query.append((name != null ? "'" + name + "'," : "'Unkown Name',"));         //name
+        query.append((artist != null ? "'" + artist + "'," : "'Unkown Artist',"));   //artist
+        query.append((album != null ? "'" + album + "'," : "'Unknown Album',"));     //album
         query.append(playCount + ",");                                               //play count
         query.append(FCC + ",");                                                     //FCC
         query.append(recommended + ",");                                             //recommended
         query.append(iTunesID + ",null,null,");                                      //iTunesID, release date, end date
         query.append((pGenre != -1 ? pGenre : "null") + ",");                        //primary genre
-        query.append((sGenre != -1 ? sGenre : "null") + ",'");                       //secondary genre
-        query.append("'" + path + "',");                                             //path
+        query.append((sGenre != -1 ? sGenre : "null") + ",");                        //secondary genre
+        query.append((path != null ? "'" + path + "'," : "null,"));                  //path
         query.append((this.subsonicID != -1 ? this.subsonicID : "null"));            //subsonic id
         query.append(");");
         return query.toString();

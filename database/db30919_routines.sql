@@ -135,31 +135,26 @@ BEGIN
 
 	#PRIMARY GENRE
 	IF(aPrimaryGenre IS NOT NULL) THEN
-		IF(aPrimaryGenre = 'null') THEN
-			SET aPrimaryGenre = null;
-		ELSE
-
 		SET @PrimaryGenreID = aPrimaryGenre;
 			#(SELECT idGenre FROM db30919.genre WHERE Name = aPrimaryGenre limit 1);
 			#IF(@PrimaryGenreID IS NULL) THEN
 			#INSERT INTO genre(Name) Values(aPrimaryGenre);
 			#SET @PrimaryGenreID = @@IDENTITY;
 			#END IF;
-		END IF;
+	ELSE
+		SET @PrimaryGenreID = null;
 	END IF;
 
 	#SECONDARY GENRE
 	IF(aSecondaryGenre IS NOT NULL) THEN
-		IF(aPrimaryGenre = 'null') THEN
-			SET aPrimaryGenre = null;
-		ELSE
 		SET @SecondaryGenreID = aSecondaryGenre; 
 			#(SELECT idGenre FROM db30919.genre WHERE Name = aSecondaryGenre limit 1);
 			#IF(@SecondaryGerneID IS NULL) THEN
 			#INSERT INTO genre(Name) Values(aSecondaryGenre);
 			#SET @SecondaryGenreID = @@IDENTITY;
 			#END IF;
-		END IF;
+	ELSE
+		SET @SecondaryGenreID = null;
 	END IF;
 
 		#Fetch ArtistID, Add artist if not found

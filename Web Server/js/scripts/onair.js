@@ -76,6 +76,9 @@ $('document').ready(function(){
             }
         });
     }
+    var getMostPopular = function(){
+        $('.recently-played').html('');
+    }
 
     var getAllPlaylists = function(){
         $.ajax({
@@ -245,6 +248,16 @@ $('document').ready(function(){
         $(".grant-psa-nav .active").removeClass("active");
         $(this).addClass('active');
         getPSAs();
+    });
+    $(".recent").on('click', function(){
+        $(".plays-nav .active").removeClass("active");
+        $(this).addClass('active');
+        getRecentlyPlayed();
+    });
+    $(".popular").on('click', function(){
+        $(".plays-nav .active").removeClass("active");
+        $(this).addClass('active');
+        getMostPopular();
     });
 	
 

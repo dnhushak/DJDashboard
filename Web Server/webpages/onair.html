@@ -1,196 +1,209 @@
 <script src="../js/scripts/autocomplete.js"></script>
 <script src="../js/scripts/onair.js"></script>
-<div class="col-md-12">
-	<h2>
-		Songs
-	</h2>
-	<hr>
-	<div>
-		<button type="button" class="btn btn-primary custom-song-button" data-toggle="modal" data-target="#custom-song-modal">Add Song</button>	
-		<button type="button" class="btn btn-primary load-playlist-button" data-toggle="modal" data-target="#load-modal">Load Playlist</button>
+<div class="col-md-12 onair-warning" style="margin: 80px auto;">
+	<h3 style="text-align: center;">You are about to go on the air would you like to proceed?</h1>
+	<div style="text-align: center;">
+		<button type="button" class="btn btn-primary go-onair">Yes</button>
+		<button type="button" class="btn btn-primary go-away">No</button>
 	</div>
-	<table class="table table-hover song-table">
-		<thead>
-			<th>Song</th>
-			<th>Artist</th>
-			<th>Album</th>
-			<th>P. Genre</th>
-			<th>S. Genre</th>
-			<th>Played</th>
-		</thead>
-		<tbody class="songs">
-		</tbody>
-	</table>
 </div>
-<div class="col-md-6">
-	<h2>
-		Grants & PSAs
-	</h2>
-	<hr>
-	<div class="panel-group grants" id="accordion"></div>
-<body>
-<div id="grant_psa">
+<div class="main-view">
+	<div class="col-md-12">
+		<h2>
+			Songs
+		</h2>
+		<hr>
+		<div>
+			<button type="button" class="btn btn-primary custom-song-button" data-toggle="modal" data-target="#custom-song-modal">Add Song</button>	
+			<button type="button" class="btn btn-primary load-playlist-button" data-toggle="modal" data-target="#load-modal">Load Playlist</button>
+		</div>
+		<table class="table table-hover song-table">
+			<thead>
+				<th>Song</th>
+				<th>Artist</th>
+				<th>Album</th>
+				<th>P. Genre</th>
+				<th>S. Genre</th>
+				<th>Played</th>
+			</thead>
+			<tbody class="songs">
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-6">
+		<ul class="nav nav-pills grant-psa-nav">
+			<li class="cursor grant-tab active"><a>Grants</a></li>
+			<li class="cursor psa-tab"><a>PSAs</a></li>
+			<li class="cursor weather-tab"><a href="http://www.weather.com/weather/today/Ames+IA+USIA0026:1:US" target="_blank">Weather</a></li>
+		</ul>
+		<hr>
+		<div class="panel-group grants" id="accordion"></div>
+	<body>
+	<div id="grant_psa">
+	</div>
+	<script>
+	var ALERT_MINUTE = 22;
+	var HOUR_IN_MS = 3600000;
+	var MINUTE_IN_MS = 60000;
+	var SECOND_IN_MS = 1000;
+
+	var time = setTime(ALERT_MINUTE, false);
+	var timeoutTime = time + (10 * MINUTE_IN_MS);
+
+	function setTime(targetMin, cleared)
+	{
+		var date = new Date();
+		var minutes = date.getMinutes();
+		var seconds = date.getSeconds();
+		var targetMinMS = targetMin * MINUTE_IN_MS;
+		var currentMS = (minutes * MINUTE_IN_MS) + (seconds * SECOND_IN_MS);
+		
+		if((minutes == targetMin) && !cleared)
+		{
+			return 0;
+		}
+		else if(minutes < targetMin)
+		{	
+			return targetMinMS - currentMS;
+		}
+		else
+		{
+			return HOUR_IN_MS - (currentMS - targetMinMS);
+		}
+	}
+
+	var timer = setInterval(function(){grantpsaDisplay()},time);
+	var timeout = setInterval(function(){grantpsaTimeout()},timeoutTime);
+
+	function setGrantpsaDisplay()
+	{
+		document.getElementById("grant_psa").innerHTML = "<div id='title'></div><div id='output' style='line-height:3em;overflow:auto;padding:5px;color:#714D03;border:4px double #411414;'></div><button style='float: right' onclick='readGrantpsa()'>Mark Read</button>";
+	}
+
+	function grantpsaDisplay()
+	{
+		clearInterval(timer);
+		setGrantpsaDisplay();
+		var read = Math.floor(Math.random() * 2);
+		if(read == 0)
+		{
+			$.post("../php/scripts/getGrants.php", {count: 1}, function(data)
+			{                      
+				var grant = JSON.parse(data);
+				$('#title').html("Grant: " + grant[0]['GrantName']);
+				$('#output').html(grant[0]['Message']);
+			});
+		}
+		else
+		{
+			$.post("../php/scripts/getPSA.php", {count: 1}, function(data)
+			{                      
+				var grant = JSON.parse(data);
+				$('#title').html("PSA: " + grant[0]['Name']);
+				$('#output').html(grant[0]['Message']);
+			});
+		}
+	}
+
+	function grantpsaTimeout()
+	{
+		clearInterval(timeout);
+		time = setTime(ALERT_MINUTE, true);
+		timer = setInterval(function() {grantDisplay()}, time)
+		timeoutTime = time + (10 * MINUTE_IN_MS);
+		timeout = setInterval(function() {grantTimeout()}, timeoutTime);
+		clearGrantpsaDisplay();
+	}
+
+	function readGrantpsa()
+	{
+		clearInterval(timeout);
+		time = setTime(ALERT_MINUTE, true);
+		timer = setInterval(function() {grantDisplay()}, time)
+		timeoutTime = time + (10 * MINUTE_IN_MS);
+		timeout = setInterval(function() {grantTimeout()}, timeoutTime);
+		clearGrantpsaDisplay();
+	}
+
+	function clearGrantpsaDisplay()
+	{
+		document.getElementById("grant_psa").innerHTML = "";
+	}
+	</script>
+	</body>
+	</div>
+	<div class="col-md-6">
+		
+		<ul class="nav nav-pills grant-psa-nav">
+			<li class="cursor recent active"><a>Recently Played</a></li>
+			<li class="cursor popular"><a>Most Popular</a></li>
+		</ul>
+		<hr>
+		<ul class="list-group recently-played">
+
+		</ul>
+	</div>
+	<div class="modal fade" role="dialog" id="custom-song-modal"> 
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title custom-title">Add Custom Song</h4>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger song-input-error">Required field was missing.</div>
+					<form class="form-inline" role="form" class="track-info">
+						<h5>Track Info</h5>
+						<div class="form-group">
+							<label class="sr-only" for="input-track">Track Name</label>
+							<input type="text" class="form-control typeahead" id="input-track" autocomplete="off" spellcheck="false" placeholder="Track Name">
+						</div>
+						<div class="form-group">
+							<label class="sr-only" for="input-artist">Artist Name</label>
+							<input type="text" class="form-control" id="input-artist" placeholder="Artist Name">
+						</div>
+						<div class="form-group">
+							<label class="sr-only" for="input-album">Album Name</label>
+							<input type="text" class="form-control" id="input-album" placeholder="Album Name">
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="primary-genres-allowed">
+							 	<option value="0">Primary Genre</option>
+						        <option value="0">None</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<select class="form-control" id="secondary-genres-allowed">
+							 	<option value="title">Secondary Genre</option>
+						        <option value="0">None</option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary save-track" id="onair">Add Song</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<div class="modal fade" role="dialog" id="load-modal"> 
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Load Playlist</h4>
+				</div>
+				<div class="modal-body">
+					<ul id="all-playlists">
+						<li class="list-group-item">
+						</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </div>
-<script>
-var ALERT_MINUTE = 22;
-var HOUR_IN_MS = 3600000;
-var MINUTE_IN_MS = 60000;
-var SECOND_IN_MS = 1000;
-
-var time = setTime(ALERT_MINUTE, false);
-var timeoutTime = time + (10 * MINUTE_IN_MS);
-
-function setTime(targetMin, cleared)
-{
-	var date = new Date();
-	var minutes = date.getMinutes();
-	var seconds = date.getSeconds();
-	var targetMinMS = targetMin * MINUTE_IN_MS;
-	var currentMS = (minutes * MINUTE_IN_MS) + (seconds * SECOND_IN_MS);
-	
-	if((minutes == targetMin) && !cleared)
-	{
-		return 0;
-	}
-	else if(minutes < targetMin)
-	{	
-		return targetMinMS - currentMS;
-	}
-	else
-	{
-		return HOUR_IN_MS - (currentMS - targetMinMS);
-	}
-}
-
-var timer = setInterval(function(){grantpsaDisplay()},time);
-var timeout = setInterval(function(){grantpsaTimeout()},timeoutTime);
-
-function setGrantpsaDisplay()
-{
-	document.getElementById("grant_psa").innerHTML = "<div id='title'></div><div id='output' style='line-height:3em;overflow:auto;padding:5px;color:#714D03;border:4px double #411414;'></div><button style='float: right' onclick='readGrantpsa()'>Mark Read</button>";
-}
-
-function grantpsaDisplay()
-{
-	clearInterval(timer);
-	setGrantpsaDisplay();
-	var read = Math.floor(Math.random() * 2);
-	if(read == 0)
-	{
-		$.post("../php/scripts/getGrants.php", {count: 1}, function(data)
-		{                      
-			var grant = JSON.parse(data);
-			$('#title').html("Grant: " + grant[0]['GrantName']);
-			$('#output').html(grant[0]['Message']);
-		});
-	}
-	else
-	{
-		$.post("../php/scripts/getPSA.php", {count: 1}, function(data)
-		{                      
-			var grant = JSON.parse(data);
-			$('#title').html("PSA: " + grant[0]['Name']);
-			$('#output').html(grant[0]['Message']);
-		});
-	}
-}
-
-function grantpsaTimeout()
-{
-	clearInterval(timeout);
-	time = setTime(ALERT_MINUTE, true);
-	timer = setInterval(function() {grantDisplay()}, time)
-	timeoutTime = time + (10 * MINUTE_IN_MS);
-	timeout = setInterval(function() {grantTimeout()}, timeoutTime);
-	clearGrantpsaDisplay();
-}
-
-function readGrantpsa()
-{
-	clearInterval(timeout);
-	time = setTime(ALERT_MINUTE, true);
-	timer = setInterval(function() {grantDisplay()}, time)
-	timeoutTime = time + (10 * MINUTE_IN_MS);
-	timeout = setInterval(function() {grantTimeout()}, timeoutTime);
-	clearGrantpsaDisplay();
-}
-
-function clearGrantpsaDisplay()
-{
-	document.getElementById("grant_psa").innerHTML = "";
-}
-</script>
-</body>
-</div>
-<div class="col-md-6">
-	<h2>
-		Last 25 Played
-	</h2>
-	<hr>
-	<ul class="list-group recently-played">
-
-	</ul>
-</div>
-<div class="modal fade" role="dialog" id="custom-song-modal"> 
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title custom-title">Add Custom Song</h4>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-danger song-input-error">Required field was missing.</div>
-				<form class="form-inline" role="form" class="track-info">
-					<h5>Track Info</h5>
-					<div class="form-group">
-						<label class="sr-only" for="input-track">Track Name</label>
-						<input type="text" class="form-control typeahead" id="input-track" autocomplete="off" spellcheck="false" placeholder="Track Name">
-					</div>
-					<div class="form-group">
-						<label class="sr-only" for="input-artist">Artist Name</label>
-						<input type="text" class="form-control" id="input-artist" placeholder="Artist Name">
-					</div>
-					<div class="form-group">
-						<label class="sr-only" for="input-album">Album Name</label>
-						<input type="text" class="form-control" id="input-album" placeholder="Album Name">
-					</div>
-					<div class="form-group">
-						<select class="form-control" id="primary-genres-allowed">
-						 	<option value="0">Primary Genre</option>
-					        <option value="0">None</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<select class="form-control" id="secondary-genres-allowed">
-						 	<option value="title">Secondary Genre</option>
-					        <option value="0">None</option>
-						</select>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary save-track" id="onair">Add Song</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<div class="modal fade" role="dialog" id="load-modal"> 
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Load Playlist</h4>
-			</div>
-			<div class="modal-body">
-				<ul id="all-playlists">
-					<li class="list-group-item">
-					</li>
-				</ul>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default close-custom-song" data-dismiss="modal">Close</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

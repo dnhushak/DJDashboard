@@ -238,3 +238,6 @@ html {
 	border: 0px;
 	color: black;
 }
+.cursor{
+	cursor: pointer;
+}

@@ -41,10 +41,10 @@
 			<img alt="Logo" src="../resources/logo.png">
 		</div>
 		<ul class="nav nav-tabs nav-justified">
-			<li class="active"><a id="home" style="cursor: pointer">Home</a></li>
-			<li><a id="library" style="cursor: pointer">Library</a></li>
-			<li><a id="on-air" style="cursor: pointer">On-Air</a></li>
-			<li><a id="profile" style="cursor: pointer">Profile</a></li>
+			<li class="cursor active"><a id="home" style="cursor: pointer">Home</a></li>
+			<li class="cursor"><a id="library">Library</a></li>
+			<li class="cursor"><a id="on-air">On-Air</a></li>
+			<li class="cursor"><a id="profile">Profile</a></li>
 		</ul>
 		<div id="content"></div>
 		<div id="footer">

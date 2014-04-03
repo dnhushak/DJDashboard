@@ -1,13 +1,13 @@
 $('document').ready(function(){
 
-	startOnAirSession = function(){
+	var startOnAirSession = function(){
         $.ajax({
             type: "GET",
             url: "../php/scripts/startOnAirSession.php"
         });
     }
 	
-    getGrants = function(){
+    var getGrants = function(){
         $.ajax({
             type: "GET",
             data: {'Count': 25},
@@ -32,8 +32,33 @@ $('document').ready(function(){
             }
         });
     }
+    var getPSAs = function(){
+        $.ajax({
+            type: "GET",
+            data: {'Count': 25},
+            url: "../php/scripts/getPSA.php"
+        }).done(function(data){
+            var grants;
+            try{
+                grants = JSON.parse(data);
+            }catch(e){
+                console.log(data);
+                return;
+            }
+            $('.grants').html('');
+            for(var i = 0; i < grants.length; i++){
+                var grantHTML = '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">'
+                grantHTML += '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i + '" class=' + grants[i]['ID'] + '>';
+                grantHTML += grants[i]['Name'] + '</a></h4></div>';
+                grantHTML += '<div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">';
+                grantHTML += grants[i]['Message'];
+                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary custom-song-button btn-sm" data-toggle="modal" data-target="#custom-song-modal">Mark Read</button></div></div></div>'
+                $('.grants').append(grantHTML);
+            }
+        });
+    }
 
-    getRecentlyPlayed = function(){
+    var getRecentlyPlayed = function(){
         $.ajax({
             type: "GET",
             url: "../php/scripts/getRecentlyPlayed.php"
@@ -52,7 +77,7 @@ $('document').ready(function(){
         });
     }
 
-    getAllPlaylists = function(){
+    var getAllPlaylists = function(){
         $.ajax({
             type: "GET",
             url: "../php/scripts/getPlaylistIDByUser.php"
@@ -72,7 +97,7 @@ $('document').ready(function(){
             }
         });
     }
-    loadPlaylist = function(playlistID){
+    var loadPlaylist = function(playlistID){
         $.ajax({
             type: "GET",
             url: "../php/scripts/getPlaylistByID.php",
@@ -112,7 +137,7 @@ $('document').ready(function(){
         });
     }
 
-    markPlayedTrack = function(trackID, songIndex){
+    var markPlayedTrack = function(trackID, songIndex){
         console.log(trackID);
         $.ajax({
             type: "GET",
@@ -129,6 +154,38 @@ $('document').ready(function(){
                 return;
             }
         });
+    }
+    var loadPage = function(){
+        getRecentlyPlayed();
+        getGrants();
+        for(var i = 0; i < onAirSongs.length; i++){
+            var songID = onAirSongs[i]['ID'];
+            var songName = onAirSongs[i]['Name'];
+            var artistName = onAirSongs[i]['Artist'];
+            var albumName = onAirSongs[i]['Album'];
+            var pGenre = onAirSongs[i]['PrimaryGenre'];
+            var sGenre = onAirSongs[i]['SecondaryGenre'];
+            var reco = onAirSongs[i]['reco'];
+            var FCC = onAirSongs[i]['FCC'];
+            var songHTML;
+            if(onAirSongs[i]['PlayID'] != 0){
+                songHTML = '<tr class="success ' + songID + '">';
+            }else{
+                songHTML = '<tr class="' + songID + '">';
+            }
+            songHTML += '<td>' + songName + '</td>';
+            songHTML += '<td>' + artistName + '</td>';
+            songHTML += '<td>' + albumName + '</td>';
+            songHTML += '<td>' + pGenre + '</td>';
+            songHTML += '<td>' + sGenre + '</td>';
+            if(onAirSongs[i]['PlayID'] != 0){
+                songHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="update-played" value="' + i + '" data-toggle="modal" data-target="#custom-song-modal">Update</button></td>';
+            }else{
+                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + i + '">Mark Played</button></td>';
+            }
+            songHTML += '</td>';
+            $('.songs').append(songHTML);
+        }
     }
 
     $('.load-playlist-button').on('click', function(){
@@ -161,36 +218,43 @@ $('document').ready(function(){
     $('#onair').on('click', function(){
         setTimeout(function(){getRecentlyPlayed();}, 500);
     });
+    $(".go-onair").on('click', function(){
+        startOnAirSession();
+        loadPage();
+        $(".onair-warning").hide();
+        $(".main-view").show();
+    });
+    $(".go-away").on('click', function(){
+        changeActive('home');
+        $.ajax({
+            url : 'home.html',
+            type : 'POST',
+            success : function() {
+            }
+        }).done(function(html) {
+            $("#content").html(html);
+            $("#content").css("height", "initial");
+        });
+    });
+    $(".grant-tab").on('click', function(){
+        $(".grant-psa-nav .active").removeClass("active");
+        $(this).addClass('active');
+        getGrants();
+    });
+    $(".psa-tab").on('click', function(){
+        $(".grant-psa-nav .active").removeClass("active");
+        $(this).addClass('active');
+        getPSAs();
+    });
 	
-	startOnAirSession();
-    getRecentlyPlayed();
-    getGrants();
-    for(var i = 0; i < onAirSongs.length; i++){
-        var songID = onAirSongs[i]['ID'];
-        var songName = onAirSongs[i]['Name'];
-        var artistName = onAirSongs[i]['Artist'];
-        var albumName = onAirSongs[i]['Album'];
-        var pGenre = onAirSongs[i]['PrimaryGenre'];
-        var sGenre = onAirSongs[i]['SecondaryGenre'];
-        var reco = onAirSongs[i]['reco'];
-        var FCC = onAirSongs[i]['FCC'];
-        var songHTML;
-        if(onAirSongs[i]['PlayID'] != 0){
-            songHTML = '<tr class="success ' + songID + '">';
-        }else{
-            songHTML = '<tr class="' + songID + '">';
-        }
-        songHTML += '<td>' + songName + '</td>';
-        songHTML += '<td>' + artistName + '</td>';
-        songHTML += '<td>' + albumName + '</td>';
-        songHTML += '<td>' + pGenre + '</td>';
-        songHTML += '<td>' + sGenre + '</td>';
-        if(onAirSongs[i]['PlayID'] != 0){
-            songHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="update-played" value="' + i + '" data-toggle="modal" data-target="#custom-song-modal">Update</button></td>';
-        }else{
-            songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + i + '">Mark Played</button></td>';
-        }
-        songHTML += '</td>';
-        $('.songs').append(songHTML);
+
+
+    if(isOnAir){
+        loadPage();
+        $(".onair-warning").hide();
+        $(".main-view").show();
+    }else{
+        $(".onair-warning").show();
+        $(".main-view").hide();
     }
 });

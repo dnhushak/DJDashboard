@@ -4,6 +4,7 @@ var genres = new Array();
 var onAirSongs = new Array();
 var artistsHTML = '';
 var albumsHTML = '';
+var isOnAir = false;
 $(document).ready(function() {
 
     $.ajax({

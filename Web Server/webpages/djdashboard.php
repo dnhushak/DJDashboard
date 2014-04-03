@@ -30,12 +30,16 @@
 			exit();
 		}
 	?>
-<!-- 	<nav class="navbar navbar-default navbar-fixed-top on-air-nav" role="navigation">
-		<div class="container-fluid">
+	<nav class="navbar navbar-default navbar-fixed-top on-air-display hide" role="navigation" style="border: 0;">
+		<div class="container-fluid" style="background-color: #9FF781;">
 			<div class="navbar-header">
-			<span class="navbar-brand" style="color: black;">ON AIR</span>
+				<span class="navbar-brand" style="color: black;">ON AIR</span>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+       			 <li><a href="#">Go Off Air</a></li>
+       		</ul>
 		</div>
-	</nav> -->
+	</nav>
 	<div class="container">
 		<div class="header">
 			<img alt="Logo" src="../resources/logo.png">

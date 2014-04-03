@@ -222,6 +222,8 @@ $('document').ready(function(){
         setTimeout(function(){getRecentlyPlayed();}, 500);
     });
     $(".go-onair").on('click', function(){
+        isOnAir = true;
+        $(".on-air-display").removeClass("hide");
         startOnAirSession();
         loadPage();
         $(".onair-warning").hide();

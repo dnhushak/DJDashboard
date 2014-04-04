@@ -8,6 +8,22 @@ var isOnAir = false;
 
 $(document).ready(function() {
 
+    showErrorOnHome = function(errorName, errorMessage){
+        changeActive('home');
+        $.ajax({
+            url : 'home.html',
+            type : 'POST',
+            success : function() {
+            }
+        }).done(function(html) {
+            $("#content").html(html);
+            $("#content").css("height", "initial");
+            $("#errorLabel").html(errorName);
+            $(".error-message").html(errorMessage);
+            $("#errorModal").modal("show");
+        });
+
+    }
     $.ajax({
         url: '../php/scripts/getInitialInfo.php',
         type: 'GET',
@@ -40,26 +56,40 @@ $(document).ready(function() {
         }
     });
     
-    
-    
-    
+    $('.on-air-display').hide();
     
     $('#off-air-button').on('click', function(){
     	$.ajax({
-        url: '../php/scripts/endOnAirSession.php',
-        type: 'GET'
+            url: '../php/scripts/endOnAirSession.php',
+            type: 'GET'
+        });
+        $('.on-air-display').hide();
+        isOnAir = false;
+        changeActive('home');
+        $.ajax({
+            url : 'home.html',
+            type : 'POST',
+            success : function() {
+            }
+        }).done(function(html) {
+            $("#content").html(html);
+            $("#content").css("height", "initial");
+        });
     })
-    $('.on-air-display').addClass("hide");
-    isOnAir = false;
-    changeActive('home');
-		$.ajax({
-			url : 'home.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-			$("#content").css("height", "initial");
-		});
+    
+    $.ajax({
+        url: '../php/scripts/isOnAir.php',
+        type: 'GET'
+    }).done(function(data){
+        var temp;
+        try{
+            temp = $.parseJSON(data)['IsOnAir'];
+            isOnAir = temp;
+            if(isOnAir){
+                $('.on-air-display').show();
+            }
+        }catch(e){
+            return;
+        }
     });
 });

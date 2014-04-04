@@ -6,9 +6,25 @@ $('document').ready(function(){
             url: "../php/scripts/startOnAirSession.php"
         });
     }
-    
-    
-	
+    var testOnAir = function(){
+        $.ajax({
+            url: '../php/scripts/isOnAir.php',
+            type: 'GET'
+        }).done(function(data){
+            var temp;
+            try{
+                temp = $.parseJSON(data)['IsOnAir'];
+                isOnAir = temp;
+                if(!isOnAir){
+                    $('.on-air-display').hide();
+                    showErrorOnHome("Validation Error", "Another user has logged on and you have been kicked off");
+                    return;
+                }
+            }catch(e){
+                return;
+            }
+        });
+    }
     var getGrants = function(){
         $.ajax({
             type: "GET",
@@ -167,9 +183,16 @@ $('document').ready(function(){
             url: "../php/scripts/playTrackByID.php",
             data: {"TrackID" : trackID}
         }).done(function(data){
-            var playID;
+            var json;
             try{
-                playID = JSON.parse(data)['PlayID'];
+                json = JSON.parse(data);
+                if(json['error'] != undefined){
+                    isOnAir = false;
+                    showErrorOnHome(json['error'], json['errorMessage']);
+                    $('.on-air-display').hide();
+                    return;
+                }
+                var playID = json['PlayID'];
                 onAirSongs[songIndex]['PlayID'] = playID;
                 getRecentlyPlayed();
             }catch(e){
@@ -234,6 +257,7 @@ $('document').ready(function(){
     });
 
     $(document).on('click', '#update-played', function(){
+        testOnAir();
         $('.custom-title').html("Update Song");
         $('#onair').html('Update');
         getTrackDataForUpdate($(this).parent().parent().attr('class').match(/\d+/), $(this).val());
@@ -243,7 +267,7 @@ $('document').ready(function(){
     });
     $(".go-onair").on('click', function(){
         isOnAir = true;
-        $(".on-air-display").removeClass("hide");
+        $(".on-air-display").show();
         startOnAirSession();
         loadPage();
         $(".onair-warning").hide();
@@ -309,7 +333,8 @@ $('document').ready(function(){
         var oaUserName = initial['UserName'];
         var oaUserFirstName = initial['FirstName'];
         var oaUserLastName = initial['LastName'];
-        console.log(oaUserName + " is currently logged in");
-        $('#otherLoggedIn').append(oaUserFirstName + " " + oaUserLastName + " is currently logged in<br><br><i>You will be kicking them off</i>");
+        if(oaUserName != ""){
+            $('#otherLoggedIn').append(oaUserFirstName + " " + oaUserLastName + " is currently logged in<br><br><i>You will be kicking them off</i>");
+        }
     });
 });

@@ -30,7 +30,7 @@
 			exit();
 		}
 	?>
-	<nav class="navbar navbar-default navbar-fixed-top on-air-display hide" role="navigation" style="border: 0;">
+	<nav class="navbar navbar-default navbar-fixed-top on-air-display" role="navigation" style="border: 0;">
 		<div class="container-fluid" style="background-color: #9FF781;">
 			<div class="navbar-header">
 				<span class="navbar-brand" style="color: black;">ON AIR</span>

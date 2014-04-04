@@ -47,6 +47,14 @@ $('document').ready(function(){
             }
         });
     }
+
+    $(".close").on("click", function(evt){
+        $("#errorModal").modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        evt.stopPropagation();
+        evt.preventDefault();
+    });
 	
 	getRecentlyPlayed();
 });

@@ -6,7 +6,7 @@ $('document').ready(function(){
             url: "../php/scripts/startOnAirSession.php"
         });
     }
-    var testOnAir = function(){
+    var testOnAirUpdate = function(trackID, songIndex){
         $.ajax({
             url: '../php/scripts/isOnAir.php',
             type: 'GET'
@@ -17,8 +17,12 @@ $('document').ready(function(){
                 isOnAir = temp;
                 if(!isOnAir){
                     $('.on-air-display').hide();
-                    showErrorOnHome("Validation Error", "Another user has logged on and you have been kicked off");
+                    showErrorOnHome("Validation Error", "Another user has gone on air and you have been kicked off");
                     return;
+                }else{
+                    $('.custom-title').html("Update Song");
+                    $('#onair').html('Update');
+                    getTrackDataForUpdate(trackID, sondIndex);
                 }
             }catch(e){
                 return;
@@ -257,10 +261,9 @@ $('document').ready(function(){
     });
 
     $(document).on('click', '#update-played', function(){
-        testOnAir();
-        $('.custom-title').html("Update Song");
-        $('#onair').html('Update');
-        getTrackDataForUpdate($(this).parent().parent().attr('class').match(/\d+/), $(this).val());
+        var trackID = $(this).parent().parent().attr('class').match(/\d+/);
+        var songIndex = $(this).val();
+        testOnAirUpdate(trackID, songIndex);
     });
     $('#onair').on('click', function(){
         setTimeout(function(){getRecentlyPlayed();}, 500);

@@ -14,7 +14,6 @@ class authUtil {
 	 *
 	 */
 	public static function makeSalt($size){
-		echo $size;
 		return mcrypt_create_iv($size, MCRYPT_DEV_URANDOM);
 	}
 

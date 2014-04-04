@@ -9,24 +9,30 @@ $('document').ready(function(){
 	var getCurrentUsersProfile = function(){
         $.ajax({
             type: "GET",
-            url: "../php/scripts/getRecentlyPlayed.php"
+            url: "../php/scripts/getCurrentUserProfile.php"
         }).done(function(data){
-            var tracks;
+            var profile;
             try{
-                tracks = JSON.parse(data);
+                profile = JSON.parse(data);
             }catch(e){
                 console.log(data);
                 return;
             }
-          //Limit to 25 lines
-            var limit = tracks.length;
-            if(limit > 25) limit = 25;
-            for(var i = 0; i < limit; i++){
-                $('.recentList').append('<li id="'+tracks[i]['TrackID']+'">' + tracks[i]['TrackName'] + ' - ' + tracks[i]['Artist'] +'</li>')
+            var djNickName = profile['NickName'];
+            var djMotto = profile['Motto'];
+            var djBio = profile['Bio'];
+            
+            if(djNickName != ""){
+                $('#djTitle').append(djNickName + " <small> " + djMotto + "</small>");
             }
+            if(djBio != ""){
+            	$('#bio').append(djBio);
+            }
+            
+            
         });
     }
 	
-	getRecentlyPlayed();
+	getCurrentUsersProfile();
 });
 

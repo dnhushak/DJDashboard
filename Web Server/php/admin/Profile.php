@@ -17,6 +17,7 @@
  	private $bio;
  	private $motto;
  	private $image;
+ 	private $isOnAir;
  	
  	
  	//Serialize method to create JSON objects
@@ -29,8 +30,15 @@
 		$arr['Bio'] = $this->bio;
 		$arr['Motto'] = $this->motto;
 		$arr['Image'] = $this->image;
+		$arr['IsOnAir'] = $this->isOnAir;
 		return $arr;		
 	}
+ 	
+ 	public function setOnAir($oa)
+ 	{
+ 		$this->isOnAir = $oa;
+ 		
+ 	}
  	
  	public function getMotto()
  	{

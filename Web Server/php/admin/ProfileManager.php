@@ -11,6 +11,7 @@ include_once ('../library/UserManager.php');
 include_once ('../publisher.php');
 include_once ('../sqlconnect.php');
 include_once ('User.php');
+include_once ('Profile.php');
 
 class ProfileManager {
 	private $spGetDJs;
@@ -51,7 +52,18 @@ class ProfileManager {
 	 * Gets all profile information based on userID
 	 */
 	public function getProfile($userID) {
-		//TODO
+		$conn = new sqlConnect();
+		$result = $conn->callStoredProc($this->spGetProfile, array($userID));
+		//Only gets one row back
+		$rowInfo = mysqli_fetch_assoc($result);
+		$prof = new Profile();
+		$prof->setProfileID(utf8_encode($rowInfo['UserProfileID']));
+		$prof->setUserID(utf8_encode($rowInfo['UserID']));
+		$prof->setNickname(utf8_encode($rowInfo['NickName']));
+		$prof->setBio(utf8_encode($rowInfo['Bio']));
+		$prof->setMotto(utf8_encode($rowInfo['Motto']));
+		$prof->setOnAir(utf8_encode($rowInfo['OnAir']));
+		return $prof;
 	}
 }
 ?>

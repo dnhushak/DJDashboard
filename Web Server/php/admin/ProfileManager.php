@@ -14,6 +14,7 @@ include_once ('User.php');
 
 class ProfileManager {
 	private $spGetDJs;
+	private $spGetProfile;
 
 	public function __construct() {
 		$this->initialize();
@@ -24,6 +25,7 @@ class ProfileManager {
 	 */
 	private function initialize() {
 		$this->spGetDJs = "GetDJs";
+		$this->spGetProfile = ""
 	}
 
 	/**

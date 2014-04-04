@@ -25,7 +25,7 @@ class ProfileManager {
 	 */
 	private function initialize() {
 		$this->spGetDJs = "GetDJs";
-		$this->spGetProfile = ""
+		$this->spGetProfile = "GetUserProfile";
 	}
 
 	/**

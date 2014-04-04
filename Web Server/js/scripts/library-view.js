@@ -26,7 +26,7 @@ $(document).ready(function() {
     var searchAlbums;
 
     //USEFULL FUNCTIONS
-    updateWithFilter = function() {
+    varupdateWithFilter = function() {
         filteredAlbums = '';
         $.ajax({
             url: '../php/scripts/getFilterInfo.php',
@@ -427,6 +427,14 @@ $(document).ready(function() {
                                             '<button style="float: right;" type="button" class="btn btn-xs btn-primary" id="load-playlist"' + 
                                             'value="' + lists[i]['PlaylistID'] + '">Load</button></li>');
             }
+        });
+    }
+    var getSubsonicID = function(trackID){
+        $.ajax({
+            type: "GET",
+            url: "../php/scripts/getSubsonicID.php"
+        }).done(function(data){
+            console.log(data)
         });
     }
 	

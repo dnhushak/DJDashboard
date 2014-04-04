@@ -27,6 +27,7 @@ class LibraryManager {
 	private $spGetAlbumsAutoComplete;
 	private $spGetRecentlyPlayed;
 	private $spGetMostPopular;
+	private $spGetSubsonicID;
 
 	public function __construct() {
 		$this->initialize();
@@ -60,6 +61,7 @@ class LibraryManager {
 		$this->spGetAlbumsAutoComplete = "GetAlbumsAutoComplete";
 		$this->spGetRecentlyPlayed = "GetLast25Played";
 		$this->spGetMostPopular = "GetMost25PopularTracks";
+		$this->spGetSubsonicID = "GetTrackSubsonicID";
 	}
 
 	/**
@@ -508,6 +510,21 @@ class LibraryManager {
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;
+
+		}catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		} catch (string $str) {
+			Publisher :: publishException("Custom Exception", $str, 0);
+			return false;
+		}
+	}
+	public function GetSubsonicID($trackData){
+		$conn = new sqlConnect();
+
+		try {
+			$results = $conn->callStoredProc($this->spGetSubsonicID, array($trackData));
+			return mysqli_fetch_assoc($results);
 
 		}catch (Exception $e) {
 			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);

@@ -36,7 +36,7 @@
 				<span class="navbar-brand" style="color: black;">ON AIR</span>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
-       			 <li><a href="#">Go Off Air</a></li>
+       			 <li><a href="#" id="off-air-button">Go Off Air</a></li>
        		</ul>
 		</div>
 	</nav>

@@ -39,4 +39,23 @@ $(document).ready(function() {
             genres[parseInt(allGenres[i]['ID'])] = allGenres[i]['Name'];
         }
     });
+    
+    $('#off-air-button').on('click', function(){
+    	$.ajax({
+        url: '../php/scripts/endOnAirSession.php',
+        type: 'GET'
+    })
+    $('.on-air-display').addClass("hide");
+    isOnAir = false;
+    changeActive('home');
+		$.ajax({
+			url : 'home.html',
+			type : 'POST',
+			success : function() {
+			}
+		}).done(function(html) {
+			$("#content").html(html);
+			$("#content").css("height", "initial");
+		});
+    });
 });

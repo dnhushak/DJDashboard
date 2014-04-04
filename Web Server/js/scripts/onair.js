@@ -77,7 +77,26 @@ $('document').ready(function(){
         });
     }
     var getMostPopular = function(){
-        $('.recently-played').html('');
+        var d = new Date();
+        d.setDate(d.getDate() - 7);
+        var strDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+        $.ajax({
+            type: "GET",
+            url: "../php/scripts/getMostPopular.php",
+            data: {"StartDate": strDate}
+        }).done(function(data){
+            var tracks;
+            try{
+                tracks = JSON.parse(data);
+            }catch(e){
+                console.log(data);
+                return;
+            }
+            $('.recently-played').html('');
+            for(var i = 0; i < tracks.length; i++){
+                $('.recently-played').append('<li class="list-group-item">' + tracks[i]['TrackName'] + ' - ' + tracks[i]['Artist'] +'</li>')
+            }
+        });
     }
 
     var getAllPlaylists = function(){
@@ -90,7 +109,7 @@ $('document').ready(function(){
                 lists = JSON.parse(data);
             }catch(e){
                 console.log(data);
-		return;
+                return;
             }
             $('#all-playlists').html('');
             for(var i = 0; i < lists.length; i++){
@@ -141,7 +160,6 @@ $('document').ready(function(){
     }
 
     var markPlayedTrack = function(trackID, songIndex){
-        console.log(trackID);
         $.ajax({
             type: "GET",
             url: "../php/scripts/playTrackByID.php",

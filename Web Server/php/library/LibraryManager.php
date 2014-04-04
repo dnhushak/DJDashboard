@@ -26,6 +26,7 @@ class LibraryManager {
 	private $spGetArtistsAutoComplete;
 	private $spGetAlbumsAutoComplete;
 	private $spGetRecentlyPlayed;
+	private $spGetMostPopular;
 
 	public function __construct() {
 		$this->initialize();
@@ -58,6 +59,7 @@ class LibraryManager {
 		$this->spGetArtistsAutoComplete = "GetArtistsAutoComplete";
 		$this->spGetAlbumsAutoComplete = "GetAlbumsAutoComplete";
 		$this->spGetRecentlyPlayed = "GetLast25Played";
+		$this->spGetMostPopular = "GetMost25PopularTracks";
 	}
 
 	/**
@@ -490,7 +492,30 @@ class LibraryManager {
 			Publisher :: publishException("Custom Exception", $str, 0);
 			return false;
 		}
+	}
+	public function GetMostPopular($startDate){
+		$trackArray = array();
+		$conn = new sqlConnect();
 
+		try {
+			$results = $conn->callStoredProcWithDate($this->spGetMostPopular, array($startDate));
+			$trackList = array();
+			while ($rowInfo = mysqli_fetch_assoc($results)) {
+				$tempTrack = new Track();
+				$tempTrack->setID(utf8_encode($rowInfo['TrackID']));
+				$tempTrack->setName(utf8_encode($rowInfo['TrackName']));
+				$tempTrack->setArtist(utf8_encode($rowInfo['ArtistName']));
+				$trackList[] = $tempTrack;
+			}
+			return $trackList;
+
+		}catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		} catch (string $str) {
+			Publisher :: publishException("Custom Exception", $str, 0);
+			return false;
+		}
 	}
 }
 ?>

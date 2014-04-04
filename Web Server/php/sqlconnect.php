@@ -104,7 +104,71 @@ class SqlConnect
 				}
 				else
 				{
-					var_dump($args);
+					$cmd = $cmd.$args[$length-1].");";
+				}
+				//Check for error in query, if there is, throw an exception
+				if ($this->connection->error) 
+				{
+					throw new Exception($this->connection->error);
+				}
+				$this->lastCommand = $cmd;
+				$results = $this->connection->query($cmd);
+			}
+			else
+			{
+				$results = $this->connection->query("Call ".$procedureName."();");
+			}
+			//Free results for multiple uses
+			//mysqli_free_result(); NEVERMIND! DO NOT PUT IT HERE
+			
+			
+			return $results;
+		}
+		catch (Exception $e)
+		{
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
+			return false;
+		}
+	}
+		/**
+	 * Calls a stored procedure by procedurename and arguments.  If there are no args, set args to null.
+	 * args must be preformatted, for an example, string Jon Doe msut have quotes around it already.
+	 */
+	public function callStoredProcWithDate($procedureName, $args)
+	{
+		//Free result before next query.
+		
+    	
+		//Removing values here and replacing with what is in the initialize method.
+		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
+		try
+		{
+			if($args != null)//Each arg in order
+			{
+				//Check for SQL Injection.  If so, we will throw errors.
+				//$args = normalizeStringArray($args);
+				
+				
+				$cmd = "Call ".$procedureName."(";
+				$length = count($args);
+				//Append first arguments, do not append the last one (no final comma)
+				for($i = 0; $i < $length - 1; $i++)
+				{
+					if($args[$i] == null)
+					{
+						$cmd = $cmd."null,";
+					}
+					else
+					{
+						$cmd = $cmd.$args[$i].",";
+					}
+				}
+				if($args[$i] == null)
+				{
+					$cmd = $cmd."null);";
+				}
+				else
+				{
 					$cmd = $cmd.$args[$length-1].");";
 				}
 				//Check for error in query, if there is, throw an exception
@@ -142,7 +206,6 @@ class SqlConnect
 		
 		$field = $row[$fieldName];
 		$field = utf8_encode($field);
-		var_dump($field);
 		return $field;
 		
 	}

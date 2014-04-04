@@ -40,6 +40,10 @@ $(document).ready(function() {
         }
     });
     
+    
+    
+    
+    
     $('#off-air-button').on('click', function(){
     	$.ajax({
         url: '../php/scripts/endOnAirSession.php',

@@ -12,5 +12,6 @@
   */
   include_once('../library/UserManager.php');
   
-  return JSON_ENCODE(UserManager::getOnAirUser(), JSON_PRETTY_PRINT);
+  $manager = new UserManager();
+  echo JSON_ENCODE($manager->getOnAirUser(), JSON_PRETTY_PRINT);
 ?>

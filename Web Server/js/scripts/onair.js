@@ -6,6 +6,8 @@ $('document').ready(function(){
             url: "../php/scripts/startOnAirSession.php"
         });
     }
+    
+    
 	
     var getGrants = function(){
         $.ajax({
@@ -290,4 +292,24 @@ $('document').ready(function(){
         $(".onair-warning").show();
         $(".main-view").hide();
     }
+    
+    $.ajax({
+        url: '../php/scripts/getCurrentOnAirUser.php',
+        type: 'GET',
+        success: function(){}
+    }).done(function(data){
+        var initial;
+        try{
+            initial = JSON.parse(data);
+        }catch(e){
+            console.log('Error loading initial info');
+            console.log(data);
+            return;
+        }
+        var oaUserName = initial['UserName'];
+        var oaUserFirstName = initial['FirstName'];
+        var oaUserLastName = initial['LastName'];
+        console.log(oaUserName + " is currently logged in");
+        $('#otherLoggedIn').append(oaUserFirstName + " " + oaUserLastName + " is currently logged in<br><br><i>You will be kicking them off</i>");
+    });
 });

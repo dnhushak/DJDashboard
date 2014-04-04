@@ -167,7 +167,7 @@ class UserManager {
 		}
 	}
 	
-	public static function getOnAirUser()
+	public function getOnAirUser()
 	{
 		$conn = new SqlConnect();
 		$results = $conn->callStoredProc($this->spCurrentOnAirUser, null);
@@ -181,7 +181,7 @@ class UserManager {
 		$ret['UserName'] = utf8_encode($row['UserName']);
 		$ret['FirstName'] = utf8_encode($row['FirstName']);
 		$ret['LastName'] = utf8_encode($row['LastName']);
-		return ret;
+		return $ret;
 	}
 }
 

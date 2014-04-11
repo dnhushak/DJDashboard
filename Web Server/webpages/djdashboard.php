@@ -72,6 +72,9 @@
 					if(isset($_SESSION['peditusertype'])){
 						$htmlStr .= '<li><a href="">Manage User Types</a></li>';
 					}
+					if(isset($_SESSION['pmanageusers'])){
+						$htmlStr .= '<li><a href="errorViewer.html">View Exceptions</a></li>';
+					}
 					$htmlStr .= '</ul></li>';
 					echo $htmlStr;
 				}

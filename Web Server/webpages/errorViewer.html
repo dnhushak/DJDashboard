@@ -1,33 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+
 <link rel="stylesheet" type="text/css" media="all"
 	href="../css/bootstrap.min.css">
-</head>
-<body>
-<div class="library-holder">
-	<div class="main-view container">
-		<div class="row select-column library custom-row">
-			<div class="col-md-1 library-column track-column id">
-				<h5 class="title">ExceptionID</h5>
-			</div>
-			<div class="col-md-4 library-column track-column message">
-				<h5 class="title">Message</h5>
-			</div>
-			<div class="col-md-5 library-column track-column stacktrace">
-				<h5 class="title">StackTrace</h5>
-			</div>
-			<div class="col-md-1 library-column track-column userid">
-				<h5 class="title">UserID</h5>
-			</div>
-			<div class="col-md-1 library-column track-column username">
-				<h5 class="title">UserName</h5>
-			</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../js/libraries/bootstrap.min.js"></script>
+<script src="../js/libraries/jquery.jplayer.min.js"></script>
+<script src="../js/scripts/jplayerController.js"></script>
+<script src="../js/scripts/exceptionView.js"></script>
+
+
+<div class="main-view">
+	<div class="col-md-12">
+		<h2>Exceptions</h2>
+		<hr>
+		<div>
+			<button type="button" class="btn btn-primary custom-song-button"
+				data-toggle="modal" data-target="#custom-song-modal">Exceptions</button>
+				
+			<button type="button" class="btn btn-primary custom-song-button"
+				data-toggle="modal" data-target="#custom-song-modal">Errors</button>
 		</div>
+		<table class="table table-hover exception-table">
+			<thead>
+				<th>ExceptionID</th>
+				<th>User Name</th>
+				<th>Last Name</th>
+				<th>Message</th>
+				<th>Time</th>
+				<th>View</th>
+			</thead>
+			<tbody class="exceptions">
+			</tbody>
+		</table>
 	</div>
 </div>
-
-</body>
-</html>

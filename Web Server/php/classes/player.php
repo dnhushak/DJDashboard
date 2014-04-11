@@ -14,7 +14,7 @@ $headers = array (
 		'DecibelAppKey: ',
 		'DecibelTimestamp: ' );
 $tempFP = fopen('/Users/dnhushak/Documents/test.mp3', 'w+');
-curl_setopt($session, CURLOPT_FILE , $tempFP);
+curl_setopt($session, CURLOPT_FILE, $tempFP);
 curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($session, CURLOPT_BINARYTRANSFER, 1);
 // Execute cURL on the session handle

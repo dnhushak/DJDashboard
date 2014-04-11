@@ -6,18 +6,18 @@ $sub = new subsonicBrowser('http://kure-automation.stuorg.iastate.edu/', "kuredj
 $ping = $sub->ping();
 if ($ping) {
 	$artistid = $sub->getArtistidByName("Blink-182");
-	//echo $artistid;
+	// echo $artistid;
 	$albumlist = $sub->getAlbumsByArtist($artistid);
 	var_dump($albumlist);
-	//echo $albumlist [0] ["id"];
+	// echo $albumlist [0] ["id"];
 	$tracklist = $sub->getTracksByAlbum($albumlist [0] ["id"]);
-	 //$tracklist = $sub->getTracksByAlbum(595);
+	// $tracklist = $sub->getTracksByAlbum(595);
 	var_dump($tracklist);
-
+	
 	$track = $sub->getTrackidByNames("Blink-182", "Dude Ranch", "Dammit");
 	echo $track;
 }
-else{
+else {
 	echo "No Ping";
 }
 ?>

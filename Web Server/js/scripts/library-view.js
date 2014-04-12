@@ -26,7 +26,7 @@ $(document).ready(function() {
     var searchAlbums;
 
     //USEFULL FUNCTIONS
-    varupdateWithFilter = function() {
+    var updateWithFilter = function() {
         filteredAlbums = '';
         $.ajax({
             url: '../php/scripts/getFilterInfo.php',

@@ -46,34 +46,49 @@
 		</div>
 		<ul class="nav nav-tabs nav-justified">
 			<li class="cursor active"><a id="home" style="cursor: pointer">Home</a></li>
-			<li class="cursor"><a id="library">Library</a></li>
-			<li class="cursor"><a id="on-air">On-Air</a></li>
-			<li class="cursor"><a id="profile">Profile</a></li>
+			<?php
+				if (session_status() == PHP_SESSION_NONE) {
+				    session_start();
+				}
+				if(isset($_SESSION['plibraryview'])){
+					echo '<li class="cursor"><a id="library">Library</a></li>';
+				}
+			?>
+			<?php
+				if (session_status() == PHP_SESSION_NONE) {
+				    session_start();
+				}
+				if(isset($_SESSION['ponairsignon'])){
+					echo '<li class="cursor"><a id="on-air">On-Air</a></li>';
+					echo '<li class="cursor"><a id="profile">Profile</a></li>';
+				}
+			?>
 			<?php
 				if (session_status() == PHP_SESSION_NONE) {
 				    session_start();
 				}
 				if(isset($_SESSION['ppsamanage']) || isset($_SESSION['pgrantedit']) || isset($_SESSION['pmanageusers'])
-						|| isset($_SESSION['ppermissionedit']) || isset($_SESSION['peditusertype'])){
+						|| isset($_SESSION['ppermissionedit']) || isset($_SESSION['peditusertype']) || isset($_SESSION['plibrarymanage'])){
 
 					$htmlStr = '<li class="cursor dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
 			    	if(isset($_SESSION['ppsamanage'])){
-						$htmlStr .= '<li><a href="">Manage PSAs</a></li>';
+						$htmlStr .= '<li><a href="" class="manage-psa">Manage PSAs</a></li>';
 					}
 					if(isset($_SESSION['pgrantedit'])){
-						$htmlStr .= '<li><a href="">Manage Grants</a></li>';
+						$htmlStr .= '<li><a href="" class="manage-grant">Manage Grants</a></li>';
 					}
 					if(isset($_SESSION['pmanageusers'])){
-						$htmlStr .= '<li><a href="">Manage Users</a></li>';
+						$htmlStr .= '<li><a href="" class="manage-user">Manage Users</a></li>';
+						$htmlStr .= '<li><a href="errorViewer.html">View Exceptions</a></li>';
 					}
 					if(isset($_SESSION['ppermissionedit'])){
-						$htmlStr .= '<li><a href="">Manage Permissions</a></li>';
+						$htmlStr .= '<li><a href="" class="manage-permissions">Manage Permissions</a></li>';
 					}
 					if(isset($_SESSION['peditusertype'])){
-						$htmlStr .= '<li><a href="">Manage User Types</a></li>';
+						$htmlStr .= '<li><a href="" class="manage-user-types">Manage User Types</a></li>';
 					}
-					if(isset($_SESSION['pmanageusers'])){
-						$htmlStr .= '<li><a href="errorViewer.html">View Exceptions</a></li>';
+					if(isset($_SESSION['plibrarymanage'])){
+						$htmlStr .= '<li><a href="" class="manage-user-types">CMJ Library</a></li>';
 					}
 					$htmlStr .= '</ul></li>';
 					echo $htmlStr;

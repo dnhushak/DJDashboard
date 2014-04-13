@@ -53,6 +53,17 @@ $(document).ready(function() {
 			$("#content").html(html);
 		});
 	});
+	$("#viewExceptions").on('click', function() {
+		changeActive('viewExceptions');
+		$.ajax({
+			url : 'errorViewer.html',
+			type : 'POST',
+			success : function() {
+			}
+		}).done(function(html) {
+			$("#content").html(html);
+		});
+	});
 	$("#manageGrants").on('click', function() {
 		changeActive('manageGrants');
 		$.ajax({

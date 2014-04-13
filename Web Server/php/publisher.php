@@ -8,6 +8,7 @@ class Publisher {
 	private static $spLogError = "LogError";
 	private static $spUserExceptions = "GetExceptionsByUserID";
 	private static $spGetExceptions = "GetExceptions";
+	private static $spGetErrors = "GetErrors";
 	
 	// publish an exception to the db
 	public static function publishException($stacktrace, $message, $userID) {
@@ -106,6 +107,39 @@ class Publisher {
 			Publisher::publishException ( $e->getTraceAsString (), $e->getMessage (), 0 );
 		}
 	}
+	
+	/**
+	 * Get all of the latest errors and display them in an array[][]
+	 *
+	 * @param unknown $size
+	 *        	How many errors to get
+	 */
+	public static function getLatestErrors() {
+		try {
+			$conn = new sqlConnect ();
+			$results = $conn->callStoredProc ( Publisher::$spGetErrors, null );
+			if ($results == false) {
+				throw new exception ( "AlbumResults are null in LibraryManager.GetTracksLike()" );
+			}
+			$errorArr = array();
+			while ( $rowInfo = mysqli_fetch_assoc ( $results ) ) {
+				$tempArr = array();
+				$tempArr['ErrorLogID'] = utf8_encode ( $rowInfo ['iderrorlog'] ) ;
+				$tempArr['UserID'] = utf8_encode ( $rowInfo ['UserID'] ) ;
+				$tempArr['Message'] = utf8_encode ( $rowInfo ['Message'] ) ;
+				$tempArr['StackTrace'] = utf8_encode ( $rowInfo ['StackTrace'] ) ;
+				$tempArr['CreateDate'] = utf8_encode ( $rowInfo ['CreateDate'] ) ;
+				$tempArr['UserName'] = utf8_encode ( $rowInfo ['UserName'] ) ;
+				$tempArr['LastName'] = utf8_encode ( $rowInfo ['LastName'] ) ;
+				$tempArr['FirstName'] = utf8_encode ( $rowInfo ['FirstName'] ) ;
+				$errorArr[] = $tempArr;
+			}
+			return $errorArr;
+		} catch ( Exeption $e ) {
+			Publisher::publishException ( $e->getTraceAsString (), $e->getMessage (), 0 );
+		}
+	}
+	
 }
 
 ?>

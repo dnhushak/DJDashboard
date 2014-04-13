@@ -69,7 +69,7 @@ class UserManager {
 			echo json_encode(array (
 					"error" => "Username and password did not match." ));
 			//adding in user error logging, we want to keep track of failed logins.
-			Publisher::publishUserError(0, 'Username and password did not match', 'UserManager.php -> login');
+			Publisher::publishUserError(0, $user.' tried logging in; Username and password did not match', 'UserManager.php -> login');
 			session_unset();
 			exit();
 		}

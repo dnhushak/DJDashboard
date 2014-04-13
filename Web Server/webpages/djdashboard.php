@@ -50,7 +50,7 @@
 				if (session_status() == PHP_SESSION_NONE) {
 				    session_start();
 				}
-				if(isset($_SESSION['plibraryview'])){
+				if(isset($_SESSION['plibraryview'])&&($_SESSION['plibraryview'] == "1")){
 					echo '<li class="cursor"><a id="library">Library</a></li>';
 				}
 			?>
@@ -58,7 +58,7 @@
 				if (session_status() == PHP_SESSION_NONE) {
 				    session_start();
 				}
-				if(isset($_SESSION['ponairsignon'])){
+				if(isset($_SESSION['ponairsignon'])&&($_SESSION['ponairsignon'] == "1")){
 					echo '<li class="cursor"><a id="on-air">On-Air</a></li>';
 					echo '<li class="cursor"><a id="profile">Profile</a></li>';
 				}
@@ -71,23 +71,23 @@
 						|| isset($_SESSION['ppermissionedit']) || isset($_SESSION['peditusertype']) || isset($_SESSION['plibrarymanage'])){
 
 					$htmlStr = '<li class="cursor dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
-			    	if(isset($_SESSION['ppsamanage'])){
+			    	if(isset($_SESSION['ppsamanage'])&&($_SESSION['ppsamanage'] == "1")){
 						$htmlStr .= '<li><a href="" class="manage-psa">Manage PSAs</a></li>';
 					}
-					if(isset($_SESSION['pgrantedit'])){
+					if(isset($_SESSION['pgrantedit'])&&($_SESSION['pgrantedit'] == "1")){
 						$htmlStr .= '<li><a href="" class="manage-grant">Manage Grants</a></li>';
 					}
-					if(isset($_SESSION['pmanageusers'])){
+					if(isset($_SESSION['pmanageusers'])&&($_SESSION['pmanageusers'] == "1")){
 						$htmlStr .= '<li><a href="" class="manage-user">Manage Users</a></li>';
 						$htmlStr .= '<li><a href="errorViewer.html">View Exceptions</a></li>';
 					}
-					if(isset($_SESSION['ppermissionedit'])){
+					if(isset($_SESSION['ppermissionedit'])&&($_SESSION['ppermissionedit'] == "1")){
 						$htmlStr .= '<li><a href="" class="manage-permissions">Manage Permissions</a></li>';
 					}
-					if(isset($_SESSION['peditusertype'])){
+					if(isset($_SESSION['peditusertype'])&&($_SESSION['peditusertype'] == "1")){
 						$htmlStr .= '<li><a href="" class="manage-user-types">Manage User Types</a></li>';
 					}
-					if(isset($_SESSION['plibrarymanage'])){
+					if(isset($_SESSION['plibrarymanage'])&&($_SESSION['plibrarymanage'] == "1")){
 						$htmlStr .= '<li><a href="" class="manage-user-types">CMJ Library</a></li>';
 					}
 					$htmlStr .= '</ul></li>';
@@ -100,6 +100,14 @@
 			<a>Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.
 				KURE is Funded by the Government of the Student Body.</a>
 			<a style="float: right;" href="index.php">Logout</a>
+			<?php 
+			if (session_status() == PHP_SESSION_NONE) {
+				session_start();
+			}
+			if(isset($_SESSION['ppermissionedit'])&&($_SESSION['ppermissionedit'] == "1")){
+				$htmlStr .= '<a style="float: right;" href="debug.php">Debug</a>';
+			}
+			?>
 		</div>
 	</div>
 </body>

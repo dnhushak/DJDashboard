@@ -18,6 +18,7 @@ class PSAManager
 	private $spGetEligiblePSAs;
 	private $spGetAllPSAInfo;
 	private $spGetAllPSAs;
+	private $spPlayPSA;
 
 	public function __construct() {
 		$this->initialize();
@@ -29,6 +30,7 @@ class PSAManager
 		$this->spGetEligiblePSAs = "GetEligiblePSAs";
 		$this->spGetAllPSAInfo = "GetAllPSAInfo";
 		$this->spGetAllPSAs = "GetAllPSAs";
+		$this->spPlayPSA = "PlayPSAByID";
 	}
 
 	/**
@@ -187,5 +189,14 @@ class PSAManager
 		return $id;
 	}
 
+	public function playPSA($id, $userID, $onairsession){
+		$conn = new sqlConnect();
+		$arr = array();
+		$arr[] = $id;
+		$arr[] = $userID;
+		$arr[] = $onairsession;
+		$conn->callStoredProc($this->spPlayPSA, $arr);
+	}
+	
 }
 ?>

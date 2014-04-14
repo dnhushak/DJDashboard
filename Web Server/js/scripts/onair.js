@@ -1,5 +1,7 @@
 $('document').ready(function(){
 
+	var readType = "GRANT";
+	
 	var startOnAirSession = function(){
         $.ajax({
             type: "GET",
@@ -52,6 +54,7 @@ $('document').ready(function(){
                 grantHTML += '<button style="float: right;" type="button" class="btn btn-primary custom-song-button btn-sm" data-toggle="modal" data-target="#custom-song-modal">Mark Read</button></div></div></div>'
                 $('.grants').append(grantHTML);
             }
+            readType = "GRANT";
         });
     }
     var getPSAs = function(){
@@ -75,9 +78,10 @@ $('document').ready(function(){
                 grantHTML += grants[i]['Name'] + '</a></h4></div>';
                 grantHTML += '<div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">';
                 grantHTML += grants[i]['Message'];
-                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary custom-song-button btn-sm" data-toggle="modal" data-target="#custom-song-modal">Mark Read</button></div></div></div>'
+                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary custom-song-button btn-sm" id="psa-mark-played" value="'+grants[i]['ID']+'">Mark Read</button></div></div></div>'
                 $('.grants').append(grantHTML);
             }
+            readType = "PSA";
         });
     }
 
@@ -238,6 +242,14 @@ $('document').ready(function(){
             $('.songs').append(songHTML);
         }
     }
+    
+    var psaRead = function(id){
+    	$.ajax({
+            type: "GET",
+            url: "../php/scripts/playPSAByID.php",
+            data: {"PSAID" : id}
+        });
+    }
 
     $('.load-playlist-button').on('click', function(){
         getAllPlaylists();
@@ -247,6 +259,15 @@ $('document').ready(function(){
         var playlistName = $(this).parent().find('.playlist-name').text();
         $('#playlist-name').val(playlistName);
         loadPlaylist(playlistID);
+    });
+    $(document).on('click', '#psa-mark-played', function(){
+    	var itemID = parseInt($(this).val());
+    	if(readType == "PSA"){
+    		psaRead(itemID);
+    	}
+    	if(readType == "GRANT"){
+    		console.log('Grant read not implemented');
+    	}
     });
     $(document).on('click', '#mark-played', function(){
         var songID = $(this).parent().parent().attr('class');
@@ -294,6 +315,7 @@ $('document').ready(function(){
         $(this).addClass('active');
         getGrants();
     });
+   
     $(".psa-tab").on('click', function(){
         $(".grant-psa-nav .active").removeClass("active");
         $(this).addClass('active');

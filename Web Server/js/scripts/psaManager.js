@@ -154,6 +154,7 @@ $('document').ready(function() {
 		console.log('clicked');
 	});
 
+	//INITIAL LOAD
 	getPSAs();
 
 });

@@ -16,6 +16,7 @@ include_once ('Profile.php');
 class ProfileManager {
 	private $spGetDJs;
 	private $spGetProfile;
+	private $spGetAllUsers;
 
 	public function __construct() {
 		$this->initialize();
@@ -27,6 +28,7 @@ class ProfileManager {
 	private function initialize() {
 		$this->spGetDJs = "GetDJs";
 		$this->spGetProfile = "GetUserProfile";
+		$this->spGetAllUsers = "GetAllUsers";
 	}
 
 	/**
@@ -46,6 +48,21 @@ class ProfileManager {
 		
 		return $djArr;
 
+	}
+	
+	
+	public function getAllUsers(){
+		$conn = new sqlConnect();
+		
+		$results = $conn->callStoredProc($this->spGetAllUsers, null);
+
+		$users = array ();
+
+		while ($rowInfo = mysqli_fetch_assoc($results)) {
+			$users[] = User :: setFromAllUser($rowInfo);
+		}
+		
+		return $users;
 	}
 
 	/**

@@ -72,7 +72,7 @@
 
 					$htmlStr = '<li class="cursor dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
 			    	if(isset($_SESSION['ppsamanage'])&&($_SESSION['ppsamanage'] == "1")){
-						$htmlStr .= '<li><a href="" class="manage-psa">Manage PSAs</a></li>';
+						$htmlStr .= '<li><a href="managePSAs.html" class="manage-psa">Manage PSAs</a></li>';
 					}
 					if(isset($_SESSION['pgrantedit'])&&($_SESSION['pgrantedit'] == "1")){
 						$htmlStr .= '<li><a href="" class="manage-grant">Manage Grants</a></li>';

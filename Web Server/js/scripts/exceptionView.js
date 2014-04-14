@@ -81,7 +81,7 @@ $('document').ready(function(){
                 excpHTML += '<td>' + lastName + '</td>';
                 excpHTML += '<td>' + message.substring(0, 40); + '</td>';
                 excpHTML += '<td>' + createDate + '</td>';
-                excpHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="'+ i +'" onClick="viewButton(this.id)" value="' + exceptions.length + '">View</button></td>';
+                excpHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="viewButton" value="' + i + '">View</button></td>';
                 excpHTML += '</td>';
                 $('.exceptions').append(excpHTML);
             }
@@ -91,6 +91,11 @@ $('document').ready(function(){
         });
     }
 
+    $(document).on('click', '#viewButton', function(){
+    	console.log('cliked');
+        viewButton($(this).val());
+    });
+    
     function viewButton(clicked_id)
     {
 

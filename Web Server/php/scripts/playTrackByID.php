@@ -13,10 +13,6 @@ try {
 	$manager = new LibraryManager();
 	$userManager = new UserManager();
 
-	if(!($userManager->isOnAir())){
-		echo json_encode(array("errorMessage" => "Another user has gone on air and you have been kicked off",
-								"error" => "Validation Error"));
-	}	
 	if (!($userManager->IsOnAir())) {
 		echo json_encode(array (
 				"errorMessage" => "Another user has gone on air and you have been kicked off",

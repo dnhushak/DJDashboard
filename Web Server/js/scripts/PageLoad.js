@@ -139,4 +139,16 @@ $(document).ready(function() {
 			$("#content").css("height", "initial");
 		});
 	})
+	$("#view-exceptions").on('click', function() {
+		makeAdminActive();
+		$.ajax({
+			url : 'errorViewer.html',
+			type : 'POST',
+			success : function() {
+			}
+		}).done(function(html) {
+			$("#content").html(html);
+			$("#content").css("height", "initial");
+		});
+	})
 });

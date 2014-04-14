@@ -79,7 +79,7 @@
 					}
 					if(isset($_SESSION['pmanageusers'])&&($_SESSION['pmanageusers'] == "1")){
 						$htmlStr .= '<li><a href="" id="manage-user">Manage Users</a></li>';
-						$htmlStr .= '<li><a href="errorViewer.html">View Exceptions</a></li>';
+						$htmlStr .= '<li><a id="view-exceptions">View Exceptions</a></li>';
 					}
 					if(isset($_SESSION['ppermissionedit'])&&($_SESSION['ppermissionedit'] == "1")){
 						$htmlStr .= '<li><a href="" id="manage-permissions">Manage Permissions</a></li>';

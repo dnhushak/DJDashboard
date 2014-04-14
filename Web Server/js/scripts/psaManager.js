@@ -71,7 +71,7 @@ function editButton(id) {
 		data : {
 			'psaid' : arr[id]['PSAID']
 		},
-		url : "../php/scripts/getPSASpecificInfo.php"
+		url : "../php/scripts/GetPSASpecificInfo.php"
 	}).done(function(data) {
 		var profile;
 		try {

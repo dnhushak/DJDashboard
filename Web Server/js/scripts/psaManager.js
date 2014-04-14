@@ -44,9 +44,7 @@ $('document').ready(function() {
 				psaHTML += '<td>' + sponsor + '</td>';
 				psaHTML += '<td>' + userName + '</td>';
 				psaHTML += '<td>' + playCount + '</td>';
-				psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="'
-						+ i
-						+ '" onClick="editButton(this.id)" value="'
+				psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="editButton" value="'+i+'" onClick="editButton(this.id)" value="'
 						+ psas.length + '">Edit</button></td>';
 				psaHTML += '</td>';
 				$('.psas').append(psaHTML);
@@ -56,6 +54,11 @@ $('document').ready(function() {
 
 		});
 	}
+	
+	$(document).on('click', '#editButton', function(){
+    	console.log('cliked');
+        editButton($(this).val());
+    });
 
 	function editButton(id) {
 		$.ajax({

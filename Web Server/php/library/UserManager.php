@@ -15,6 +15,7 @@ class UserManager {
 	private $spEndSession;
 	private $spStartOnAirSession;
 	private $spCurrentOnAirUser;
+	private $spGetAllUserTypes;
 
 	public function __construct(){
 		$this->initialize();
@@ -36,9 +37,20 @@ class UserManager {
 		$this->spGetUserFromName = "GetUserFromName";
 		$this->spEndSession = "EndUserSession";
 		$this->spCurrentOnAirUser = "GetCurrentOnAirUser";
+		$this->spGetAllUserTypes = "GetAllUserTypes";
 	}
 
-	public function addUser($user, $pass, $type, $first, $last){
+	public function SendWelcomeEmail($email, $userName, $password){
+		$subject = "Your KURE DJ Dashboard Account";
+		$message = "Welcome to KURE DJ Dashboard\r\n\r\n" .
+				"An account has been created for you at the KURE DJ Dashboard\r\n" .
+				"Your Username is: " . $userName . "\r\n" .
+				"Your Password is: " . $password . "\r\n\r\n" .
+				"Upon your first login you will be prompted to change your password.";
+		return mail($email, $subject, $message);
+	}
+
+	public function addUser($user, $pass, $type, $first, $last, $email){
 		$salt = authUtil::makeSalt(saltSize);
 		$hash = authUtil::makePassHash(hashAlgo, $salt, $user, $pass);
 		$proc = "AddUser";
@@ -50,8 +62,14 @@ class UserManager {
 				"NULL",
 				$first,
 				$last,
-				$type);
+				$type,
+				$email);
 		$results = $conn->callStoredProc($this->spAddUser, $arr);
+		$error = mysqli_fetch_assoc($results);
+		if($error['Error'] == 0 || $error['Error'] == '0'){
+			$this->SendWelcomeEmail($email, $user, $pass);
+		}
+		return $error;
 	}
 
 	public function login($user, $pass){
@@ -193,6 +211,49 @@ class UserManager {
 		}else{
 			return false;
 		}
+	}
+	public static function generateRandomPassword($length = 8){
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    	$randomString = '';
+    	for ($i = 0; $i < $length; $i++) {
+       	 	$randomString .= $characters[rand(0, strlen($characters) - 1)];
+    	}
+    	return $randomString;
+	}
+	public function GetAllUserTypes(){
+		$conn = new SqlConnect();
+		$results = $conn->callStoredProc($this->spGetAllUserTypes, null);
+		$typeArr = array();
+		while($rowInfo = mysqli_fetch_assoc($results)){
+			$userTypeID = $rowInfo['idusertype'];
+			$typeName = $rowInfo['usertypename'];
+			$plibraryview = $rowInfo['plibraryview'];
+			$plibrarymanage = $rowInfo['plibrarymanage'];
+			$ppsaview = $rowInfo['ppsaview'];
+			$ppsamanage = $rowInfo['ppsamanage'];
+			$pgrantview = $rowInfo['pgrantview'];
+			$pgrantedit = $rowInfo['pgrantedit'];
+			$pmanageusers = $rowInfo['pmanageusers'];
+			$pplaylistedit = $rowInfo['pplaylistedit'];
+			$ppermissionedit = $rowInfo['ppermissionedit'];
+			$peditusertype = $rowInfo['peditusertype'];
+			$onairsignon = $rowInfo['onairsignon'];
+			$tempArray = array("UserTypeID" => $userTypeID,
+						  "UserTypeName" => $typeName, 
+						  "PLibraryView" => $plibraryview,
+						  "PLibraryManage" => $plibrarymanage,
+						  "PPSAView" => $ppsaview,
+						  "PPSAManage" => $ppsamanage,
+						  "PGrantView" => $pgrantview,
+						  "PGrantEdit" => $pgrantedit,
+						  "PManageUsers" => $pmanageusers,
+						  "PPlaylistEdit" => $pplaylistedit,
+						  "PPermissionEdit" => $ppermissionedit,
+						  "PEditUserType" => $peditusertype,
+						  "OnAirSignOn" => $onairsignon);
+			$typeArr[] = $tempArray;
+		}
+		return $typeArr;
 	}
 }
 

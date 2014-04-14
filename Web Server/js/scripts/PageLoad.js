@@ -34,64 +34,6 @@ $(document).ready(function() {
 			$("#content").css("height", "initial");
 		});
 	});
-	$("#manageUsers").on('click', function() {
-		changeActive('manageUsers');
-		$.ajax({
-			url : 'manageUsers.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-			$("#content").css("height", "initial");
-		});
-	});
-	$("#manageLibrary").on('click', function() {
-		changeActive('manageLibrary');
-		$.ajax({
-			url : 'manageLibrary.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-		});
-	});
-	$("#viewExceptions").on('click', function() {
-		changeActive('viewExceptions');
-		$.ajax({
-			url : 'errorViewer.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-		});
-	});
-	$("#manageGrants").on('click', function() {
-		changeActive('manageGrants');
-		$.ajax({
-			url : 'manageGrants.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-			$("#content").css("height", "initial");
-		});
-	});
-	$("#manageGrants").on('click', function() {
-		changeActive('manageGrants');
-		$.ajax({
-			url : 'manageGrants.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-			$("#content").css("height", "initial");
-		});
-	});
 	$("#on-air").on('click', function() {
 		changeActive('on-air');
 		$.ajax({
@@ -143,6 +85,18 @@ $(document).ready(function() {
 		makeAdminActive();
 		$.ajax({
 			url : 'errorViewer.html',
+			type : 'POST',
+			success : function() {
+			}
+		}).done(function(html) {
+			$("#content").html(html);
+			$("#content").css("height", "initial");
+		});
+	})
+	$("#manage-user").on('click', function() {
+		makeAdminActive();
+		$.ajax({
+			url : 'manageUsers.html',
 			type : 'POST',
 			success : function() {
 			}

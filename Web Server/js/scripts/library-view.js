@@ -634,4 +634,5 @@ $(document).ready(function() {
     $('.playlist-view').hide(); 
     $('.song-error').hide();
     $('#content').css('height', '120%');
+    $( "#sortable" ).sortable();
 })

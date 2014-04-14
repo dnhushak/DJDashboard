@@ -1,12 +1,21 @@
 <?php
 include ('../library/UserManager.php');
+
+$manager = new UserManager();
+
 $user = $_POST ['user'];
-$pass = $_POST ['pass'];
+
+if(isset($_POST['pass'])){
+	$pass = $_POST ['pass'];
+}else{
+	$pass = $manager->generateRandomPassword();
+}
+
 $first = $_POST ['first'];
+$email = $_POST ['email'];
 $last = $_POST ['last'];
 $type = $_POST ['type'];
 
-$manager = new UserManager();
-$manager->addUser($user, $pass, $type, $first, $last);
+echo json_encode($manager->addUser($user, $pass, $type, $first, $last, $email));
 
 ?>

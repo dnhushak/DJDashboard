@@ -14,6 +14,7 @@
  	private $userName;
  	private $userTypeID;
  	private $nickName;
+ 	private $email;
  	private $isOnAir;
  	private $profile; //IS OF Profile TYPE
  	
@@ -29,6 +30,7 @@
 		$arr['NickName'] = $this->nickName;
 		$arr['isOnAir'] = $this->isOnAir;
 		$arr['Profile'] = $this->profile;	
+		$arr['email'] = $this->email;
 		return $arr;
 	}
  	
@@ -48,7 +50,7 @@
  		$u->nickName = utf8_encode($table['nickname']);
  		$u->isOnAir = utf8_encode($table['OnAir']);
  		$u->userTypeID = utf8_encode($table['idusertype']);
- 		
+ 		$u->email = utf8_encode($table['email']);
  		return $u;
  	}
  	

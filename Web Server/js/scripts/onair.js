@@ -8,7 +8,7 @@ $('document').ready(function(){
             url: "../php/scripts/startOnAirSession.php"
         });
     }
-    var testOnAirUpdate = function(trackID, songIndex){
+    testOnAirUpdate = function(trackID, songIndex){
         $.ajax({
             url: '../php/scripts/isOnAir.php',
             type: 'GET'
@@ -24,7 +24,8 @@ $('document').ready(function(){
                 }else{
                     $('.custom-title').html("Update Song");
                     $('#onair').html('Update');
-                    getTrackDataForUpdate(trackID, sondIndex);
+                    getTrackDataForUpdate(trackID, songIndex);
+                    console.log("here");
                 }
             }catch(e){
                 return;
@@ -205,7 +206,7 @@ $('document').ready(function(){
                 onAirSongs[songIndex]['PlayID'] = playID;
                 getRecentlyPlayed();
             }catch(e){
-                PublishError(e);
+                console.log(data);
                 return;
             }
         });

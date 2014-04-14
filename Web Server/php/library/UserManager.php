@@ -183,6 +183,17 @@ class UserManager {
 		$ret['LastName'] = utf8_encode($row['LastName']);
 		return $ret;
 	}
+	public function isOnAir(){
+		$onAirID =  $this->getOnAirUser()['UserID'];
+		if (session_status() == PHP_SESSION_NONE) {
+	    	session_start();
+		}
+		if($_SESSION['userid'] == $onAirID){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
 
 ?>

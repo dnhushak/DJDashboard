@@ -1,88 +1,3 @@
-var getTrackDataForUpdate = function(trackID, songIndex){
-    $.ajax({
-        type: "GET",
-        url: "../php/scripts/getTrackData.php",
-        data: { 'TrackID' : parseInt(trackID)}
-    }).done(function(data){
-        var songInfo;
-        try{
-            songInfo = JSON.parse(data);
-        }catch(e){
-        	console.log(e);
-            return;
-        }
-        songID = songInfo['TrackID'];
-        $('#input-track').val(songInfo['TrackName']);
-        artistID = songInfo['ArtistID'];
-        $('#input-artist').val(songInfo['ArtistName']);
-        albumID = songInfo['AlbumID'];
-        $('#input-album').val(songInfo['AlbumName']);
-        pGenreID = songInfo['PrimaryGenreID'];
-        sGenreID = songInfo['SecondaryGenreID'];
-        $('#primary-genres-allowed').val(pGenreID);
-        $('#secondary-genres-allowed').val(sGenreID);
-
-        onairIndex = songIndex;
-        oldSongID = trackID;
-    });
-}
-customTrack = function(){
-	$.ajax({
-        url: '../php/scripts/insertCustomTrack.php',
-        type: 'GET',
-        data: {'TrackName' : $('#input-track').val(),
-    			'ArtistID' : artistID,
-    			'AlbumID' : albumID,
-    			'PrimaryGenreID' : pGenreID,
-    			'SecondaryGenreID' : sGenreID}
-    }).done(function(addedID){
-    	songID = parseInt(addedID);
-    	if(onairView){
-    		var songName = $('#input-track').val();
-    		var artistName = $('#input-artist').val();;
-    		var albumName = $('#input-album').val();;
-    		var pGenre = genres[parseInt($('#primary-genres-allowed').val())];
-    		var sGenre = genres[parseInt($('#secondary-genres-allowed').val())];
-    		var FCC = false;
-    		var reco = false;
-    		var tempTrack = new Track(songName, songID, reco, FCC, artistName, albumName, pGenre, sGenre);
-    		var songHTML = '';
-            songHTML += '<td>' + songName + '</td>';
-            songHTML += '<td>' + artistName + '</td>';
-            songHTML += '<td>' + albumName + '</td>';
-            songHTML += '<td>' + pGenre + '</td>';
-            songHTML += '<td>' + sGenre + '</td>';
-    		if(oldSongID == -1 || onairIndex == -1){
-                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
-                songHTML += '</td>';
-                onAirSongs.push(tempTrack);
-                $('.songs').append('<tr class="' + songID + '">' + songHTML);
-    		}else{
-    			songHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="update-played" value="' + onairIndex + '" data-toggle="modal" data-target="#custom-song-modal">Update</button></td>';
-                tempTrack['PlayID'] = onAirSongs[onairIndex]['PlayID'];
-    			onAirSongs[onairIndex] = tempTrack;
-    			var trackShown = $('.' + oldSongID).first();
-    			trackShown.html(songHTML);
-    			trackShown.attr('class', '');
-    			trackShown.addClass('' + songID);
-    			trackShown.addClass('success');
-    			updatePlayID(tempTrack['PlayID'], songID);
-    		}
-    	}else{
-        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
-    	}
-    	$('#custom-song-modal').modal('hide');
-		$('#input-track').val("");
-		$('#input-artist').val("");
-		$('#input-album').val("");
-		songID = 0;
-		artistID = 0;
-		albumID = 0;
-		pGenreID = 0;
-		sGenreID = 0;
-		$(".song-input-error").hide();
-    });
-}
 
 $(document).ready(function(){
 
@@ -236,4 +151,89 @@ $(document).ready(function(){
         	onairIndex = -1;
         });
 	}
+	var getTrackDataForUpdate = function(trackID, songIndex){
+    $.ajax({
+        type: "GET",
+        url: "../php/scripts/getTrackData.php",
+        data: { 'TrackID' : parseInt(trackID)}
+    }).done(function(data){
+        var songInfo;
+        try{
+            songInfo = JSON.parse(data);
+        }catch(e){
+        	console.log(e);
+            return;
+        }
+        songID = songInfo['TrackID'];
+        $('#input-track').val(songInfo['TrackName']);
+        artistID = songInfo['ArtistID'];
+        $('#input-artist').val(songInfo['ArtistName']);
+        albumID = songInfo['AlbumID'];
+        $('#input-album').val(songInfo['AlbumName']);
+        pGenreID = songInfo['PrimaryGenreID'];
+        sGenreID = songInfo['SecondaryGenreID'];
+        $('#primary-genres-allowed').val(pGenreID);
+        $('#secondary-genres-allowed').val(sGenreID);
+
+        onairIndex = songIndex;
+        oldSongID = trackID;
+    });
+}
+customTrack = function(){
+	$.ajax({
+        url: '../php/scripts/insertCustomTrack.php',
+        type: 'GET',
+        data: {'TrackName' : $('#input-track').val(),
+    			'ArtistID' : artistID,
+    			'AlbumID' : albumID,
+    			'PrimaryGenreID' : pGenreID,
+    			'SecondaryGenreID' : sGenreID}
+    }).done(function(addedID){
+    	songID = parseInt(addedID);
+    	if(onairView){
+    		var songName = $('#input-track').val();
+    		var artistName = $('#input-artist').val();;
+    		var albumName = $('#input-album').val();;
+    		var pGenre = genres[parseInt($('#primary-genres-allowed').val())];
+    		var sGenre = genres[parseInt($('#secondary-genres-allowed').val())];
+    		var FCC = false;
+    		var reco = false;
+    		var tempTrack = new Track(songName, songID, reco, FCC, artistName, albumName, pGenre, sGenre);
+    		var songHTML = '';
+            songHTML += '<td>' + songName + '</td>';
+            songHTML += '<td>' + artistName + '</td>';
+            songHTML += '<td>' + albumName + '</td>';
+            songHTML += '<td>' + pGenre + '</td>';
+            songHTML += '<td>' + sGenre + '</td>';
+    		if(oldSongID == -1 || onairIndex == -1){
+                songHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="mark-played" value="' + onAirSongs.length + '">Mark Played</button></td>';
+                songHTML += '</td>';
+                onAirSongs.push(tempTrack);
+                $('.songs').append('<tr class="' + songID + '">' + songHTML);
+    		}else{
+    			songHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="update-played" value="' + onairIndex + '" data-toggle="modal" data-target="#custom-song-modal">Update</button></td>';
+                tempTrack['PlayID'] = onAirSongs[onairIndex]['PlayID'];
+    			onAirSongs[onairIndex] = tempTrack;
+    			var trackShown = $('.' + oldSongID).first();
+    			trackShown.html(songHTML);
+    			trackShown.attr('class', '');
+    			trackShown.addClass('' + songID);
+    			trackShown.addClass('success');
+    			updatePlayID(tempTrack['PlayID'], songID);
+    		}
+    	}else{
+        	$('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + $('#input-track').val() + '</li>');
+    	}
+    	$('#custom-song-modal').modal('hide');
+		$('#input-track').val("");
+		$('#input-artist').val("");
+		$('#input-album').val("");
+		songID = 0;
+		artistID = 0;
+		albumID = 0;
+		pGenreID = 0;
+		sGenreID = 0;
+		$(".song-input-error").hide();
+    });
+}
 });

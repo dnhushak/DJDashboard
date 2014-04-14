@@ -75,11 +75,13 @@ class PSAManager
 			$arrLen = count($eligibleArr);
 				
 			//Get count to receive, if we are for more than are eligible, only return eligible ones
-			if($numberOfPSA > count($arrLen))
+			if($numberOfPSA > $arrLen)
 			{
-				$numberOfPSA = count($arrLen);
+				$numberOfPSA = $arrLen;
 			}
-
+			
+			
+			
 			//Sort them by priority
 			usort($eligibleArr, "PublicServiceAnnouncement::cmp");
 				

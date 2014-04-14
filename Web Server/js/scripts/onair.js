@@ -67,6 +67,7 @@ $('document').ready(function(){
                 console.log(data);
                 return;
             }
+            console.log(grants);
             $('.grants').html('');
             for(var i = 0; i < grants.length; i++){
                 var grantHTML = '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">'

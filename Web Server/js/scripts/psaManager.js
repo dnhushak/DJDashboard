@@ -3,7 +3,7 @@ var activeID;
 
 $('document').ready(function() {
 
-	var getExceptions = function() {
+	var getPSAs = function() {
 		$.ajax({
 			type : "GET",
 			url : "../php/scripts/getPSABasicInfo.php"
@@ -59,6 +59,10 @@ $('document').ready(function() {
     	console.log('cliked');
         editButton($(this).val());
     });
+	$(document).on('click', '#saveButton', function(){
+		savePSA(); //Save this one
+		getPSAs(); //Reload page
+	});
 
 	function editButton(id) {
 		$.ajax({
@@ -150,6 +154,6 @@ $('document').ready(function() {
 		console.log('clicked');
 	});
 
-	getExceptions();
+	getPSAs();
 
 });

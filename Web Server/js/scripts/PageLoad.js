@@ -4,9 +4,13 @@ $(document).ready(function() {
 	$("#content").css('padding-left', '0px');
 
 	changeActive = function(id) {
-		$('.active').attr('class', '');
+		$('.active').removeClass('active');
 		$('#' + id).parent().attr('class', 'active');
 	};
+	makeAdminActive = function(){
+		$('.active').removeClass('active');
+		$("#admin").attr("class", "active");
+	}
 
 	$.ajax({
 		url : 'home.html',
@@ -123,4 +127,16 @@ $(document).ready(function() {
 			$("#content").css("height", "initial");
 		});
 	});
+	$("#manage-psa").on('click', function() {
+		makeAdminActive();
+		$.ajax({
+			url : 'managePSAs.html',
+			type : 'POST',
+			success : function() {
+			}
+		}).done(function(html) {
+			$("#content").html(html);
+			$("#content").css("height", "initial");
+		});
+	})
 });

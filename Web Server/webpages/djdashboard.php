@@ -70,25 +70,25 @@
 				if(isset($_SESSION['ppsamanage']) || isset($_SESSION['pgrantedit']) || isset($_SESSION['pmanageusers'])
 						|| isset($_SESSION['ppermissionedit']) || isset($_SESSION['peditusertype']) || isset($_SESSION['plibrarymanage'])){
 
-					$htmlStr = '<li class="cursor dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
+					$htmlStr = '<li id="admin" class="cursor dropdown"><a id="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
 			    	if(isset($_SESSION['ppsamanage'])&&($_SESSION['ppsamanage'] == "1")){
-						$htmlStr .= '<li><a href="managePSAs.html" class="manage-psa">Manage PSAs</a></li>';
+						$htmlStr .= '<li><a id="manage-psa">Manage PSAs</a></li>';
 					}
 					if(isset($_SESSION['pgrantedit'])&&($_SESSION['pgrantedit'] == "1")){
-						$htmlStr .= '<li><a href="" class="manage-grant">Manage Grants</a></li>';
+						$htmlStr .= '<li><a href="" id="manage-grant">Manage Grants</a></li>';
 					}
 					if(isset($_SESSION['pmanageusers'])&&($_SESSION['pmanageusers'] == "1")){
-						$htmlStr .= '<li><a href="" class="manage-user">Manage Users</a></li>';
+						$htmlStr .= '<li><a href="" id="manage-user">Manage Users</a></li>';
 						$htmlStr .= '<li><a href="errorViewer.html">View Exceptions</a></li>';
 					}
 					if(isset($_SESSION['ppermissionedit'])&&($_SESSION['ppermissionedit'] == "1")){
-						$htmlStr .= '<li><a href="" class="manage-permissions">Manage Permissions</a></li>';
+						$htmlStr .= '<li><a href="" id="manage-permissions">Manage Permissions</a></li>';
 					}
 					if(isset($_SESSION['peditusertype'])&&($_SESSION['peditusertype'] == "1")){
-						$htmlStr .= '<li><a href="" class="manage-user-types">Manage User Types</a></li>';
+						$htmlStr .= '<li><a href="" id="manage-user-types">Manage User Types</a></li>';
 					}
 					if(isset($_SESSION['plibrarymanage'])&&($_SESSION['plibrarymanage'] == "1")){
-						$htmlStr .= '<li><a href="" class="manage-user-types">CMJ Library</a></li>';
+						$htmlStr .= '<li><a href="" id="manage-user-types">CMJ Library</a></li>';
 					}
 					$htmlStr .= '</ul></li>';
 					echo $htmlStr;

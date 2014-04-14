@@ -1,14 +1,4 @@
-
-<link rel="stylesheet" type="text/css" media="all"
-	href="../css/bootstrap.min.css">
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="../js/libraries/bootstrap.min.js"></script>
-<script src="../js/libraries/jquery.jplayer.min.js"></script>
-<script src="../js/scripts/jplayerController.js"></script>
 <script src="../js/scripts/psaManager.js"></script>
-
-
 <div class="main-view">
 	<div class="col-md-12">
 		<h2>Manage PSAs</h2>
@@ -32,47 +22,47 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="modal fade" role="dialog" id="load-modal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title"></h4>
+</div>
+<div class="modal fade" role="dialog" id="load-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body">
+				<h4>Name</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-track">Name</label> <input
+						type="text" class="form-control typeahead" id="input-name"
+						autocomplete="off" spellcheck="false" placeholder="PSA Name">
 				</div>
-				<div class="modal-body">
-					<h4>Name</h4>
-					<div class="form-group">
-						<label class="sr-only" for="input-track">Name</label> <input
-							type="text" class="form-control typeahead" id="input-name"
-							autocomplete="off" spellcheck="false" placeholder="PSA Name">
-					</div>
-					<h4>Sponsor</h4>
-					<div class="form-group">
-						<label class="sr-only" for="input-artist">Sponsor</label> <input
-							type="text" class="form-control" id="input-sponsor"
-							placeholder="Sponsor of Message">
-					</div>
-					<h4>Message</h4>
-					<div class="form-group">
-						<label class="sr-only" for="input-album">Message</label>
-						<textarea id="input-message" style="width:550px;height:150px;"></textarea>
-					</div>
-					<h4>Play Info</h4>
-					<div class="form-group">
-						<label class="sr-only" for="input-plays">Play Info</label> <input
-							type="text" class="form-control" id="input-plays"
-							placeholder="Plays / Max Plays">
-					</div>
+				<h4>Sponsor</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-artist">Sponsor</label> <input
+						type="text" class="form-control" id="input-sponsor"
+						placeholder="Sponsor of Message">
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default close-load-modal"
-						onClick="savePSA()" data-dismiss="modal">Save</button>
-					<button type="button" class="btn btn-default close-load-modal"
-						data-dismiss="modal">Close</button>
+				<h4>Message</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-album">Message</label>
+					<textarea id="input-message" style="width:550px;height:150px;"></textarea>
+				</div>
+				<h4>Play Info</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-plays">Play Info</label> <input
+						type="text" class="form-control" id="input-plays"
+						placeholder="Plays / Max Plays">
 				</div>
 			</div>
-			<!-- /.modal-content -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default close-load-modal"
+					onClick="savePSA()" data-dismiss="modal">Save</button>
+				<button type="button" class="btn btn-default close-load-modal"
+					data-dismiss="modal">Close</button>
+			</div>
 		</div>
-		<!-- /.modal-dialog -->
+		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal -->
+	<!-- /.modal-dialog -->
 </div>
+<!-- /.modal -->

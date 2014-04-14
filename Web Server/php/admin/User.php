@@ -22,6 +22,7 @@
  	private $endDate;
  	private $lastLogOn;
  	private $lastLogOff;
+ 	private $isActiveUser;
  	
  	public function __construct() {
  		$this->userID = "";
@@ -38,6 +39,7 @@
  		$this->endDate = "";
  		$this->lastLogOn = "";
  		$this->lastLogOff = "";
+ 		$this->isActiveUser = "";
  	}
  	
  	//Serialize method to create JSON objects
@@ -58,6 +60,7 @@
 		$arr['EndDate'] = $this->endDate;
 		$arr['LastLogOn'] = $this->lastLogOn;
 		$arr['LastLogOff'] = $this->lastLogOff;
+		$arr['ActiveUser'] = $this->isActiveUser;
 		return $arr;
 	}
  	
@@ -94,6 +97,7 @@
  		$u->endDate = utf8_encode($table['EndDate']);
  		$u->lastLogOn = utf8_encode($table['LastLogOn']);
  		$u->lastLogOff = utf8_encode($table['LastLogOff']);
+ 		$u->isActiveUser = utf8_encode($table['Active']);
  		return $u;
  		
  	}

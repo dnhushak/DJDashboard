@@ -85,6 +85,7 @@
  	}
  	
  	public static function setFromAllUser($table){
+ 		
  		$u = new User();
  		$u->userID = utf8_encode($table['iduser']);
  		$u->firstName = utf8_encode($table['FirstName']);

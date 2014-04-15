@@ -18,6 +18,7 @@ class GrantManager {
 
 	private $spGetEligibleGrants;
 	private $spGetAllGrantInfo;
+	private $spGetGrantBasicInfo;
 
 	public function __construct() {
 		$this->initialize();
@@ -26,6 +27,7 @@ class GrantManager {
 	public function initialize() {
 		$this->spGetEligibleGrants = "GetEligibleGrants";
 		$this->spGetAllGrantInfo = "GetAllGrantInfo";
+		$this->spGetGrantBasicInfo = "GetGrantBasicInfo";
 	}
 
 	/**
@@ -90,6 +92,30 @@ class GrantManager {
 			return false;
 		}
 
+	}
+
+	/**
+	 * Returns all basic info of all grants for the grant manager
+	 * @return multitype:NULL |boolean	
+	 * 		Array of grant type, only containing basic info
+	 */
+	public function getGrantBasicInfo(){
+		try
+		{
+			$conn = new sqlConnect();
+			$results = $conn->callStoredProc($this->spGetGrantBasicInfo, null);
+			$grantArray = array();
+			while ($rowInfo = mysqli_fetch_assoc($results))
+			{
+				$grantArray[] = Grant::BuildFromBasicInfoProc($rowInfo);
+			}
+			return $grantArray;
+		}
+		catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+		
 	}
 }
 ?>

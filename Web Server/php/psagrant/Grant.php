@@ -19,6 +19,21 @@
  	private $endDate;
  	private $priority; //Double to keep track of the priority
  	private $timeLeft;
+ 	private $isActive;
+ 	
+ 	public function __construct() {
+ 		$this->grantID = "";
+ 		$this->name = "";
+ 		$this->message = "";
+ 		$this->playCount = "";
+ 		$this->maxPlayCount = "";
+ 		$this->startDate = "";
+ 		$this->endDate = "";
+ 		$this->priority = "";
+ 		$this->timeLeft = "";
+ 		$this->isActive = "";
+ 		
+ 	}
  	
  	public function jsonSerialize()
 	{
@@ -32,6 +47,7 @@
 		$arr['EndDate'] = $this->endDate;
 		$arr['Priority'] = $this->priority;
 		$arr['TimeLeft'] = $this->timeLeft;
+		$arr['Active'] = $this->isActive;
 		return $arr;
 	}
  	
@@ -39,6 +55,16 @@
  	static function cmp($a, $b)
 	{
     	return $a->priority < $b->priority;
+	}
+	
+	public static function BuildFromBasicInfoProc($table){
+		$g = new Grant();
+		$g->grantID = utf8_encode($table['GrantID']);
+		$g->name = utf8_encode($table['GrantName']);
+		$g->startDate = utf8_encode($table['CreateDate']);
+		$g->playCount = utf8_encode($table['PlayCount']);
+		$g->isActive = utf8_encode($table['Active']);
+		return $g;
 	}
  	
  	public function setMaxPlayCount($mpc)

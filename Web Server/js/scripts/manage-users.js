@@ -18,6 +18,31 @@ $(document).ready(function(){
 			}
 		});
 	}
+	var LoadUsers = function(){
+		$.ajax({
+			url : '../php/scripts/getAllUsers.php',
+			type : 'POST',
+		}).done(function(data){
+			var users;
+			try{
+				users = JSON.parse(data);
+			}catch(e){
+				console.log(e);
+				return;
+			}
+			for(var i = 0; i < users.length; i++){
+				var userHTML = '<tr class="' + users[i]["UserID"] + '">';
+                userHTML += '<td>' + users[i]["UserName"] + '</td>';
+                userHTML += '<td>' + users[i]["FirstName"] + '</td>';
+                userHTML += '<td>' + users[i]["LastName"] + '</td>';
+                userHTML += '<td>' + users[i]["email"] + '</td>';
+                userHTML += '<td>' + users[i]["UserTypeName"] + '</td>';
+                userHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="mark-played" value="' + users[i]["UserID"] + '">Delete</button></td>';
+                userHTML += '</td>';
+                $('.users').append(userHTML);
+			}
+		});
+	}
 
 	$('#save-user').on('click', function(){
 		var userName = $("#user-input").val();
@@ -56,5 +81,6 @@ $(document).ready(function(){
 
 	$('.input-error').hide();
 	LoadUserTypes();
+	LoadUsers();
 
 });

@@ -1,6 +1,6 @@
 <?php
 
-include_once ('../Library/UserManager.php');
+include_once ('../library/UserManager.php');
 $manager = new UserManager();
 
 $email = "ctvandyke24@gmail.com";

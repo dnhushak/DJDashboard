@@ -7,7 +7,7 @@ $email = "ctvandyke24@gmail.com";
 $username = "caleb";
 $pass = "pass";
 
-echo $manager->SendWelcomeEmail($email, $username, $pass);
+var_dump( $manager->SendWelcomeEmail($email, $username, $pass) );
 
 
 ?>

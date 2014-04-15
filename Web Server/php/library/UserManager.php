@@ -47,7 +47,18 @@ class UserManager {
 				"Your Username is: " . $userName . "\r\n" .
 				"Your Password is: " . $password . "\r\n\r\n" .
 				"Upon your first login you will be prompted to change your password.";
-		return mail($email, $subject, $message);
+		$headers = "From: ctvandyke24@gmail.com";
+		$headers .= "Reply-To: ctvandyke24@gmail.com";
+		echo $email; 
+		echo "<br>";
+		echo $headers;
+		echo "<br>";
+		echo $subject; 
+		echo "<br>";
+		echo $message;
+		echo "<br>";
+
+		return mail($email, $subject, $message, $headers);
 	}
 
 	public function addUser($user, $pass, $type, $first, $last, $email){

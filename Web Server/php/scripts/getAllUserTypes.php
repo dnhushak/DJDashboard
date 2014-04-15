@@ -1,5 +1,5 @@
 <?php
-include_once ('../Library/UserManager.php');
+include_once ('../library/UserManager.php');
 include_once ('../publisher.php');
 
 register_shutdown_function("Publisher::fatalHandler");

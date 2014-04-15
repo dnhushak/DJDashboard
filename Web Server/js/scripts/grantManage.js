@@ -50,7 +50,6 @@ $('document').ready(function() {
 	}
 	
 	$(document).on('click', '#editButton', function(){
-    	console.log('cliked');
         editButton($(this).val());
     });
 	$(document).on('click', '#saveButton', function(){
@@ -62,21 +61,24 @@ $('document').ready(function() {
 		$.ajax({
 			type : "GET",
 			data : {
-				'psaid' : arr[id]['PSAID']
+				'grantid' : arr[id]['GrantID']
 			},
-			url : "../php/scripts/GetPSASpecificInfo.php"
+			url : "../php/scripts/GetGrantSpecificInfo.php"
 		}).done(function(data) {
-			var profile;
+			var grants;
 			try {
-				psas = JSON.parse(data);
+				grants = JSON.parse(data);
 			} catch (e) {
 				console.log(data);
 				return;
 			}
-
-			arr[id]['Message'] = psas['Message'];
-			arr[id]['Name'] = psas['Name'];
-			arr[id]['Sponsor'] = psas['Sponsor'];
+			console.log(grants);
+			arr[id]['Message'] = grants[0]['Message'];
+			arr[id]['MaxPlayCount'] = grants[0]['MaxPlayCount'];
+			arr[id]['EndDate'] = grants[0]['EndDate'];
+			arr[id]['UserName'] = grants[0]['ModifiedUserName'];
+			arr[id]['UserID'] = grants[0]['ModifiedUserID'];
+			console.log(arr[id]);
 			loaddata(id)
 		});
 		//ajax complete, load the data
@@ -135,11 +137,12 @@ $('document').ready(function() {
 		// $('.modal-body').html('');
 		$('#load-modal').modal('show');
 		$('.modal-header').append(
-				'<h3>PSA ID ' + arr[clicked_id]['PSAID'] + '</h3>');
+				'<h3>Grant ID ' + arr[clicked_id]['GrantID'] + '</h3>');
 		// $('.input-message').append(arr[clicked_id]['Message']);
-		document.getElementById('input-name').value = arr[clicked_id]['Name'];
+		
+		document.getElementById('input-name').value = arr[clicked_id]['GrantName'];
 		document.getElementById('input-message').value = arr[clicked_id]['Message'];
-		document.getElementById('input-sponsor').value = arr[clicked_id]['Sponsor'];
+		$('.modified-username').append('<h5>' +arr[clicked_id]['UserName'] + '</h5><br>');
 		document.getElementById('input-plays').value = arr[clicked_id]['PlayCount'] + " / " + arr[clicked_id]['MaxPlayCount'];
 	
 	}

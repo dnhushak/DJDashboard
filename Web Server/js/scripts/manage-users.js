@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	var showInactive = false;
+
 	var LoadUserTypes = function(){
 		$.ajax({
 			url : '../php/scripts/getAllUserTypes.php',
@@ -14,6 +16,8 @@ $(document).ready(function(){
 			}
 			for(var i = 0; i < types.length; i++){
 				$("#type-input").append('<option value="' + types[i]['UserTypeID'] + 
+					'">' + types[i]['UserTypeName'] + '</option>')
+				$("#type-update").append('<option value="' + types[i]['UserTypeID'] + 
 					'">' + types[i]['UserTypeName'] + '</option>')
 			}
 		});
@@ -30,14 +34,28 @@ $(document).ready(function(){
 				console.log(e);
 				return;
 			}
+			$('.users').html('');
 			for(var i = 0; i < users.length; i++){
-				var userHTML = '<tr class="' + users[i]["UserID"] + '">';
-                userHTML += '<td>' + users[i]["UserName"] + '</td>';
-                userHTML += '<td>' + users[i]["FirstName"] + '</td>';
-                userHTML += '<td>' + users[i]["LastName"] + '</td>';
-                userHTML += '<td>' + users[i]["email"] + '</td>';
-                userHTML += '<td>' + users[i]["UserTypeName"] + '</td>';
-                userHTML += '<td><button type="button" class="btn btn-danger btn-sm" id="mark-played" value="' + users[i]["UserID"] + '">Delete</button></td>';
+				if(users[i]["EndDate"] != "0000-00-00 00:00:00" && !showInactive){
+					continue;
+				}
+				var userHTML = "";
+				if(users[i]["EndDate"] == "0000-00-00 00:00:00"){
+					userHTML = '<tr class="' + users[i]["UserID"] + '">';
+				}else{
+					userHTML = '<tr class="' + users[i]["UserID"] + ' inactive">';
+				}
+                userHTML += '<td class="username">' + users[i]["UserName"] + '</td>';
+                userHTML += '<td class="firstname">' + users[i]["FirstName"] + '</td>';
+                userHTML += '<td class="lastname">' + users[i]["LastName"] + '</td>';
+                userHTML += '<td class="email">' + users[i]["email"] + '</td>';
+                userHTML += '<td class="usertype ' + users[i]['UserTypeID'] + '">' + users[i]["UserTypeName"] + '</td>';
+                userHTML += '<td><button data-toggle="modal" data-target="#update-user" type="button" class="btn btn-primary btn-sm update-user-btn"  value="' + users[i]["UserID"] + '">Update</button></td>';
+                if(users[i]["EndDate"] == "0000-00-00 00:00:00"){
+                	userHTML += '<td><button type="button" class="btn btn-danger btn-sm delete-user"  value="' + users[i]["UserID"] + '">Delete</button></td>';
+				}else{
+               		userHTML += '<td><button type="button" class="btn btn-danger btn-sm activate-user"  value="' + users[i]["UserID"] + '">Reactivate</button></td>';
+				}
                 userHTML += '</td>';
                 $('.users').append(userHTML);
 			}
@@ -77,6 +95,33 @@ $(document).ready(function(){
 				}
 			});
 		}
+	});
+
+	$(".inactive-btn").on("click", function(){
+		if(showInactive){
+			showInactive = false;
+			$(this).text("View Inactive Users");
+		}else{
+			showInactive = true;
+			$(this).text("Hide Inactive Users");
+		}
+		LoadUsers();
+	});
+	$(document).on('click', ".update-user-btn", function(){
+		var lastName = $(this).parent().parent().find('.lastname').text();
+		var email = $(this).parent().parent().find('.email').text();
+		var firstName = $(this).parent().parent().find('.firstname').text();
+		var userTypeID = $(this).parent().parent().find('.usertype').attr('class').match(/\d+/);
+
+		console.log(lastName);
+		console.log(email);
+		console.log(firstName);
+		console.log(userTypeID);
+
+		$('#last-name-update').val(lastName);
+		$('#first-name-update').val(firstName);
+		$('#email-update').val(email);
+		$('#type-update').val(userTypeID);
 	});
 
 	$('.input-error').hide();

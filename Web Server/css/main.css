@@ -241,3 +241,6 @@ html {
 .cursor{
 	cursor: pointer;
 }
+.inactive{
+	background-color: #BDBDBD;
+}

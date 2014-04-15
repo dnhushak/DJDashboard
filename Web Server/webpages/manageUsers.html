@@ -4,7 +4,7 @@
 		<h2>Manage Users</h2>
 		<hr>
 		<div>
-			<button type="button" class="btn btn-primary custom-song-button">
+			<button type="button" class="btn btn-primary inactive-btn">
 				View Inactive Users
 			</button>
 			<button class="btn btn-primary" data-toggle="modal" data-target="#create-user">Create User</button>
@@ -16,7 +16,8 @@
 				<th>Last Name</th>
 				<th>E-Mail</th>
 				<th>User Type</th>
-				<th>Edit</th>
+				<th>Update</th>
+				<th>Delete</th>
 			</thead>
 			<tbody class="users">
 			</tbody>
@@ -71,3 +72,43 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<div class="modal fade" role="dialog" id="update-user">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Update User</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger input-error">Please complete all fields.</div>
+				<form role="form">
+					<div class="form-group">
+						<label for="email-update">Email address</label>
+						<input type="email" class="form-control" 
+							id="email-update" placeholder="Enter email">
+					</div>
+					<div class="form-group">
+						<label for="first-name-update">First Name</label>
+						<input type="text" class="form-control" 
+							id="first-name-update" placeholder="Enter First Name">
+					</div>
+					<div class="form-group">
+						<label for="last-name-update">Last Name</label>
+						<input type="text" class="form-control" 
+							id="last-name-update" placeholder="Enter Last Name">
+					</div>
+					<div class="form-group">
+						<label for="type-update">User Type</label>
+						<select class="form-control" id="type-update">
+						</select>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+					id="save-update-user">Update User</button>
+				<button type="button" class="btn btn-default close-user-modal"
+					data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

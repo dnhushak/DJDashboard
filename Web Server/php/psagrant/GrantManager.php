@@ -94,6 +94,24 @@ class GrantManager {
 
 	}
 
+	public function getGrantAllInfo($GrantID){
+		try
+		{
+			$conn = new sqlConnect();
+			$results = $conn->callStoredProc($this->spGetAllGrantInfo, array($GrantID));
+			$grantArray = array();
+			while ($rowInfo = mysqli_fetch_assoc($results))
+			{
+				$grantArray[] = Grant::BuildFromSpecificInfoProc($rowInfo);
+			}
+			return $grantArray;
+		}
+		catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+	}
+	
 	/**
 	 * Returns all basic info of all grants for the grant manager
 	 * @return multitype:NULL |boolean	

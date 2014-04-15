@@ -20,6 +20,8 @@
  	private $priority; //Double to keep track of the priority
  	private $timeLeft;
  	private $isActive;
+ 	private $modifiedUserName;
+ 	private $modifiedUserID;
  	
  	public function __construct() {
  		$this->grantID = "";
@@ -32,6 +34,8 @@
  		$this->priority = "";
  		$this->timeLeft = "";
  		$this->isActive = "";
+ 		$this->modifiedUserName = "";
+ 		$this->modifiedUserID = "";
  		
  	}
  	
@@ -48,6 +52,8 @@
 		$arr['Priority'] = $this->priority;
 		$arr['TimeLeft'] = $this->timeLeft;
 		$arr['Active'] = $this->isActive;
+		$arr['ModifiedUserName'] = $this->modifiedUserName;
+		$arr['ModifiedUserID'] = $this->modifiedUserID;
 		return $arr;
 	}
  	
@@ -64,6 +70,19 @@
 		$g->startDate = utf8_encode($table['CreateDate']);
 		$g->playCount = utf8_encode($table['PlayCount']);
 		$g->isActive = utf8_encode($table['Active']);
+		return $g;
+	}
+	
+	public static function BuildFromSpecificInfoProc($table){
+		$g = new Grant();
+		$g->grantID = utf8_encode($table['GrantID']);
+		$g->name = utf8_encode($table['GrantName']);
+		$g->message = utf8_encode($table['Message']);
+		$g->maxPlayCount = utf8_encode($table['MaxPlayCount']);
+		$g->endDate = utf8_encode($table['EndDate']);
+		$g->modifiedUserName = utf8_encode($table['UserName']);
+		$g->modifiedUserID = utf8_encode($table['UserID']);
+		
 		return $g;
 	}
  	

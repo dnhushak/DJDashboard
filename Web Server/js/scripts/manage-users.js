@@ -2,6 +2,25 @@ $(document).ready(function(){
 
 	var showInactive = false;
 
+	var LoadSessionVars = function(){
+		$.ajax({
+			url : '../php/scripts/getSessionVars.php',
+			type : 'GET',
+		}).done(function(data){
+			var sess;
+			try{
+				sess = JSON.parse(data);
+			}catch(e){
+				console.log(e);
+				return;
+			}
+			console.log(sess);
+			if(sess['ppermissionedit'] == 0){
+				$('#type-update').parent().hide();
+			}
+		});
+	}
+
 	var DeleteUser = function(userID){
 		$.ajax({
 			url : '../php/scripts/deleteUser.php',
@@ -188,5 +207,5 @@ $(document).ready(function(){
 	$('.update-error').hide();
 	LoadUserTypes();
 	LoadUsers();
-
+	LoadSessionVars();
 });

@@ -82,9 +82,6 @@
 						$htmlStr .= '<li><a id="manage-user">Manage Users</a></li>';
 						$htmlStr .= '<li><a class="cursor" id="view-exceptions">View Exceptions</a></li>';
 					}
-					if(isset($_SESSION['ppermissionedit'])&&($_SESSION['ppermissionedit'] == "1")){
-						$htmlStr .= '<li><a class="cursor" id="manage-permissions">Manage Permissions</a></li>';
-					}
 					if(isset($_SESSION['peditusertype'])&&($_SESSION['peditusertype'] == "1")){
 						$htmlStr .= '<li><a class="cursor" id="manage-user-types">Manage User Types</a></li>';
 					}

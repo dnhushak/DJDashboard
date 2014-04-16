@@ -30,7 +30,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 } else {
 
-	if ($_SESSION['onairid'] != null) {
+	if (isset($_SESSION['onairid']) && $_SESSION['onairid'] != null) {
 		try {
 			$conn = new SqlConnect();
 
@@ -50,7 +50,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		}
 	}
 	//If we are coming back to index and resetting the session, then we also need to end it in the db.
-	if ($_SESSION['sessionid'] != null) {
+	if (isset($_SESSION['sessionid']) && $_SESSION['sessionid'] != null) {
 		try {
 			$conn = new SqlConnect();
 

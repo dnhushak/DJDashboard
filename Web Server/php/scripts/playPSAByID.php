@@ -21,7 +21,7 @@ register_shutdown_function( "Publisher::fatalHandler" );
 	    session_start();
 	}
 	$UserID = $_SESSION['userid'];
-	$OnAirSessionID = $_SESSION['onairsessionid'];
+	$OnAirSessionID = $_SESSION['onairid'];
 	$psaid = $_GET['PSAID'];
 
 	$manager = new PSAManager();

@@ -4,8 +4,7 @@
 		<h2>Manage User Types</h2>
 		<hr>
 		<div>
-			<button class="btn btn-primary" data-toggle="modal" data-target="#create-user">Save Changes</button>
-			<button class="btn btn-primary" data-toggle="modal" data-target="#create-user">Create User Type</button>
+			<button class="btn btn-primary create-user-type-btn" data-toggle="modal" data-target="#create-user-type">Create User Type</button>
 		</div>
 		<table class="table table-hover user-table">
 			<thead>
@@ -19,11 +18,105 @@
 				<th>View Grants</th>
 				<th>Edit Grants</th>
 				<th>Manage Users</th>
-				<th>Edit Permissions</th>
+				<th>Edit User Permissions</th>
 				<th>Edit User Types</th>
+				<th>Save</th>
 			</thead>
 			<tbody class="types">
 			</tbody>
 		</table>
 	</div>
+</div>
+<div class="modal fade" role="dialog" id="create-user-type">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Create User Type</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger input-error">Please complete the name field.</div>
+				<form role="form">
+					<div class="form-group">
+						<label for="user-type-input">User Type Name</label>
+						<input type="text" class="form-control" 
+							id="user-type-input" placeholder="Enter User Type Name">
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-edit-playlists" value="0">
+								Edit Playlists
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-on-air-sign-on" value="0">
+								On Air Sign On
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-view-library" value="0">
+								View Library
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-edit-library" value="0">
+								Edit Library
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-view-psas" value="0">
+								View PSAs
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-edit-psas" value="0">
+								Edit PSAs
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-view-grants" value="0">
+								View Grants
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-edit-grants" value="0">
+								Edit Grants
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-manage-users" value="0">
+								Manage Users
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-edit-permissions" value="0">
+								Edit User Permissions
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" id="new-edit-user-types" value="0">
+								Edit User Types
+						</label>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+					id="save-user-type">Create User Type</button>
+				<button type="button" class="btn btn-default close-user-modal"
+					data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
 </div>

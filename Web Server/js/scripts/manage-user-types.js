@@ -82,9 +82,32 @@ $(document).ready(function(){
 				}else{
 					typeHTML += '<td class="typeName"><input type="checkbox" value="0"></td>';
 				}
+				typeHTML += '<td><button type="button" class="btn btn-primary btn-sm save-user-type"  value="' + typeID + '">Save</button></td>'
 				$('.types').append(typeHTML);
 			}
 		})
 	};
+
+	$('#save-user-type').on('click', function(){
+		var name = $('#user-type-input').val();
+		var pEditPlayList = $('#new-edit-playlists').prop( "checked" );
+		var pOnAirSignOn = $('#new-on-air-sign-on').prop( "checked" );
+		var pViewLibrary = $('#new-view-library').prop( "checked" );
+		var pEditLibrary = $('#new-edit-library').prop( "checked" );
+		var pPSAView = $('#new-view-psas').prop( "checked" );
+		var pPSAManage = $('#new-edit-psas').prop( "checked" );
+		var pGrantView = $('#new-view-grants').prop( "checked" );
+		var pGrantEdit = $('#new-edit-grants').prop( "checked" );
+		var pManageUsers = $('#new-manage-users').prop( "checked" );
+		var pPermissionEdit = $('#new-edit-permissions').prop( "checked" );
+		var pEditUserType = $('#new-edit-user-types').prop( "checked" );
+		
+		if(name == ""){
+			$(".input-error").show();
+		}
+
+	})
+
 	LoadUserTypes();
+	$('.input-error').hide();
 });

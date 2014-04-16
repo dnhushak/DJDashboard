@@ -2,6 +2,43 @@ $(document).ready(function(){
 
 	var showInactive = false;
 
+	var DeleteUser = function(userID){
+		$.ajax({
+			url : '../php/scripts/deleteUser.php',
+			type : 'GET',
+			data: {'UserID' : userID}
+		}).done(function(data){
+			LoadUsers();
+		});
+	}
+
+	var UpdateUser = function(userID, firstName, lastName, email, type){
+		$.ajax({
+			url : '../php/scripts/updateUser.php',
+			type : 'GET',
+			data: {'UserID' : userID, 
+				'FirstName' : firstName,
+				'LastName' : lastName,
+				'Email' : email,
+				'TypeID' : type}
+		}).done(function(data){
+			$('.update-error').hide();
+			$('#update-user').modal('hide');
+			LoadUsers();
+
+		});
+	}
+
+	var ReactivateUser = function(userID){
+		$.ajax({
+			url : '../php/scripts/reactivateUser.php',
+			type : 'GET',
+			data: {'UserID' : userID}
+		}).done(function(data){
+			LoadUsers();
+		});
+	}
+
 	var LoadUserTypes = function(){
 		$.ajax({
 			url : '../php/scripts/getAllUserTypes.php',
@@ -63,6 +100,7 @@ $(document).ready(function(){
 	}
 
 	$('#save-user').on('click', function(){
+		console.log('saving users');
 		var userName = $("#user-input").val();
 		var email = $("#email-input").val();
 		var firstName = $("#first-name-input").val();
@@ -87,7 +125,9 @@ $(document).ready(function(){
 						$('.input-error').text('User name was already taken');
 						$('.input-error').show();
 					}else{
+						$('.input-error').hide();
 						$('#create-user').modal('hide');
+						LoadUsers();
 					}
 				}catch(e){
 					console.log(data);
@@ -112,19 +152,40 @@ $(document).ready(function(){
 		var email = $(this).parent().parent().find('.email').text();
 		var firstName = $(this).parent().parent().find('.firstname').text();
 		var userTypeID = $(this).parent().parent().find('.usertype').attr('class').match(/\d+/);
-
-		console.log(lastName);
-		console.log(email);
-		console.log(firstName);
-		console.log(userTypeID);
+		var userID = $(this).val();
 
 		$('#last-name-update').val(lastName);
 		$('#first-name-update').val(firstName);
 		$('#email-update').val(email);
 		$('#type-update').val(userTypeID);
+		$('#save-update-user').val(userID);
+	});
+	$('#save-update-user').on('click', function(){
+		var lastName = $('#last-name-update').val();
+		var firstName = $('#first-name-update').val();
+		var email = $('#email-update').val();
+		var type = $('#type-update').val();
+		var userID = $(this).val();
+
+		if(lastName == '' || firstName == '' || email == ''){
+			$('.update-error').show();
+		}else{
+			UpdateUser(userID, firstName, lastName, email, type);
+		}
+	});
+	$(document).on('click', '.delete-user' ,function(){
+		var userID = $(this).val();
+		DeleteUser(userID);
+	});
+	$(document).on('click', '.activate-user' ,function(){
+		var userID = $(this).val();
+		ReactivateUser(userID);
 	});
 
+
+
 	$('.input-error').hide();
+	$('.update-error').hide();
 	LoadUserTypes();
 	LoadUsers();
 

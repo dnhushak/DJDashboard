@@ -16,6 +16,9 @@ class UserManager {
 	private $spStartOnAirSession;
 	private $spCurrentOnAirUser;
 	private $spGetAllUserTypes;
+	private $spUpdateUser;
+	private $spDeleteUser;
+	private $spReactivateUser;
 
 	public function __construct(){
 		$this->initialize();
@@ -38,6 +41,9 @@ class UserManager {
 		$this->spEndSession = "EndUserSession";
 		$this->spCurrentOnAirUser = "GetCurrentOnAirUser";
 		$this->spGetAllUserTypes = "GetAllUserTypes";
+		$this->spUpdateUser = "UpdateUser";
+		$this->spDeleteUser = "DeleteUser";
+		$this->spReactivateUser = "ReactivateUser";
 	}
 
 	public function SendWelcomeEmail($email, $userName, $password){
@@ -47,18 +53,8 @@ class UserManager {
 				"Your Username is: " . $userName . "\r\n" .
 				"Your Password is: " . $password . "\r\n\r\n" .
 				"Upon your first login you will be prompted to change your password.";
-		$headers = "From: ctvandyke24@gmail.com";
-		$headers .= "Reply-To: ctvandyke24@gmail.com";
-		echo $email; 
-		echo "<br>";
-		echo $headers;
-		echo "<br>";
-		echo $subject; 
-		echo "<br>";
-		echo $message;
-		echo "<br>";
 
-		return mail($email, $subject, $message, $headers);
+		return mail($email, $subject, $message);
 	}
 
 	public function addUser($user, $pass, $type, $first, $last, $email){
@@ -266,6 +262,57 @@ class UserManager {
 		}
 		return $typeArr;
 	}
+	public function UpdateUser($userID, $firstName, $lastName, $email, $type){
+		try {
+			$conn = new sqlConnect();
+			$results = $conn->callStoredProc($this->spUpdateUser, array(
+				$userID,
+				$firstName,
+				$lastName,
+				$email,
+				$type
+			));
+			if (!$results) {
+				throw new Exception('Error in sql query; PlayTrack in LibraryManager');
+			} else {
+				return true;
+			}
+		} catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+	}
+	public function DeleteUser($userID){
+		try {
+			$conn = new sqlConnect();
+			$results = $conn->callStoredProc($this->spDeleteUser, array(
+				$userID
+			));
+			if (!$results) {
+				throw new Exception('Error in sql query; PlayTrack in LibraryManager');
+			} else {
+				return true;
+			}
+		} catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+	}
+	public function ReactivateUser($userID){
+		try {
+			$conn = new sqlConnect();
+			$results = $conn->callStoredProc($this->spReactivateUser, array(
+				$userID
+			));
+			if (!$results) {
+				throw new Exception('Error in sql query; PlayTrack in LibraryManager');
+			} else {
+				return true;
+			}
+		} catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+	}
 }
-
 ?>

@@ -83,7 +83,7 @@ class SqlConnect
 					{
 						$cmd = $cmd."'".$args[$i]."'".",";
 					}
-					else if($args[$i] == null)
+					else if($args[$i] === null)
 					{
 						$cmd = $cmd."null,";
 					}
@@ -98,13 +98,13 @@ class SqlConnect
 					//$args[$i] = mysqli_real_escape_string($args[$i]);
 					$cmd = $cmd."'".$args[$i]."');";
 				}	
-				else if($args[$i] == null)
+				else if($args[$i] === null)
 				{
 					$cmd = $cmd."null);";
 				}
 				else
 				{
-					$cmd = $cmd.$args[$length-1].");";
+					$cmd = $cmd.$args[$i].");";
 				}
 				//Check for error in query, if there is, throw an exception
 				if ($this->connection->error) 

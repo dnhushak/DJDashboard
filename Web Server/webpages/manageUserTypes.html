@@ -3,6 +3,10 @@
 	<div class="col-md-12">
 		<h2>Manage User Types</h2>
 		<hr>
+		<div class="alert alert-info alert-dismissable succesful-save">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<span id="saved-name">NAME</span> was succesfully saved.
+		</div>
 		<div>
 			<button class="btn btn-primary create-user-type-btn" data-toggle="modal" data-target="#create-user-type">Create User Type</button>
 		</div>
@@ -35,6 +39,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-danger input-error">Please complete the name field.</div>
+				<div class="alert alert-danger duplicate-error">A User Type with those permissions all ready exists</div>
 				<form role="form">
 					<div class="form-group">
 						<label for="user-type-input">User Type Name</label>

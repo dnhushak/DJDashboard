@@ -19,6 +19,7 @@ class UserManager {
 	private $spUpdateUser;
 	private $spDeleteUser;
 	private $spReactivateUser;
+	private $spUpdateUserType;
 
 	public function __construct(){
 		$this->initialize();
@@ -44,6 +45,7 @@ class UserManager {
 		$this->spUpdateUser = "UpdateUser";
 		$this->spDeleteUser = "DeleteUser";
 		$this->spReactivateUser = "ReactivateUser";
+		$this->spUpdateUserType = "UpdateUserType";
 	}
 
 	public function SendWelcomeEmail($email, $userName, $password){
@@ -309,6 +311,58 @@ class UserManager {
 			} else {
 				return true;
 			}
+		} catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+	}
+	public function AddUserType($typeName, $libView, $libEdit, $PSAView,
+				$PSAedit, $grantView, $grantEdit, $manageUsers, $plEdit,
+				$permEdit, $userTypeEdit, $onAirSignon){
+		try {
+			$conn = new sqlConnect();
+			$arr = array(
+				$typeName, 
+				$libView, 
+				$libEdit, 
+				$PSAView,
+				$PSAedit, 
+				$grantView, 
+				$grantEdit, 
+				$manageUsers, 
+				$plEdit,
+				$permEdit, 
+				$userTypeEdit, 
+				$onAirSignon
+			);
+			$results = $conn->callStoredProc($this->spAddUserType, $arr);
+			return mysqli_fetch_assoc($results);
+		} catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+	}
+	public function UpdateUserType($userID, $libView, $libEdit, $PSAView,
+				$PSAedit, $grantView, $grantEdit, $manageUsers, $plEdit,
+				$permEdit, $userTypeEdit, $onAirSignon){
+		try {
+			$conn = new sqlConnect();
+			$arr = array(
+				$userID, 
+				$libView, 
+				$libEdit, 
+				$PSAView,
+				$PSAedit, 
+				$grantView, 
+				$grantEdit, 
+				$manageUsers, 
+				$plEdit,
+				$permEdit, 
+				$userTypeEdit, 
+				$onAirSignon
+			);
+			$results = $conn->callStoredProc($this->spUpdateUserType, $arr);
+			return $results;
 		} catch (Exception $e) {
 			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			return false;

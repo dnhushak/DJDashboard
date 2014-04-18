@@ -17,6 +17,7 @@ class Track implements JsonSerializable
 	private $EndDate;
 	private $ReleaseDate;
 	private $Path;
+	private $idsubsonic;
 	
 	public function jsonSerialize()
 	{
@@ -33,6 +34,7 @@ class Track implements JsonSerializable
 		$arr['CreateDate'] = $this->CreateDate;
 		$arr['EndDate'] = $this->EndDate;
 		$arr['ReleaseDate'] = $this->ReleaseDate;
+		$arr['SubsonicID'] = $this->idsubsonic;
 		return $arr;
 	}
 	
@@ -76,6 +78,11 @@ class Track implements JsonSerializable
 		$lib->PlayTrack($this->ID);
 	}
 	// Getters / Setters
+	
+	public function setSubsonic($id){
+		$this->idsubsonic = $id;
+	}
+	
 	public function getID(){
 		return $this->ID;
 	}

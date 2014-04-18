@@ -82,6 +82,7 @@ class LibraryManager {
 			$tempTrack->setArtist($rowInfo['Artist']);
 			$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
 			$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
+			$tempTrack->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
 			$trackList[] = $tempTrack;
 		}
 		return $trackList;
@@ -104,6 +105,7 @@ class LibraryManager {
 			$tempTrack->setRecommended($rowInfo['Recommended']);
 			$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
 			$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
+			$tempTrack->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
 			$trackList[] = $tempTrack;
 		}
 		return $trackList;
@@ -193,6 +195,7 @@ class LibraryManager {
 			$tempTrack->setAlbumID($rowInfo['AlbumID']);
 			$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
 			$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
+			$tempTrack->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
 			$trackList[] = $tempTrack;
 		}
 		return $trackList;
@@ -221,6 +224,7 @@ class LibraryManager {
 			$track->setEndDate($r['EndDate']);
 			$track->setPrimaryGenreID($r['PrimaryGenreID']);
 			$track->setSecondaryGenreID($r['SecondGenreID']);
+			$track->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
 			return $track;
 		} catch (Exception $e) {
 			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
@@ -258,6 +262,7 @@ class LibraryManager {
 			$tempTrack->setAlbumID(utf8_encode($rowInfo['idAlbum']));
 			$tempTrack->setPrimaryGenreID(utf8_encode($rowInfo['idPrimaryGenre']));
 			$tempTrack->setSecondaryGenreID(utf8_encode($rowInfo['idSecondaryGenre']));
+			$tempTrack->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
 			$trackList[] = $tempTrack;
 		}
 		return $trackList;
@@ -363,6 +368,7 @@ class LibraryManager {
 				$tempTrack->setAlbum(utf8_encode($rowInfo['idAlbum']));
 				$tempTrack->setPrimaryGenreID(utf8_encode($rowInfo['idPrimaryGenre']));
 				$tempTrack->setSecondaryGenreID(utf8_encode($rowInfo['idSecondaryGenre']));
+				$tempTrack->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
 				$trackList[] = $tempTrack;
 			}
 			return $trackList;

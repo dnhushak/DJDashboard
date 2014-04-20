@@ -12,6 +12,8 @@ class MusicDirector {
 	// set distributor by ID
 	// getusersbypermission
 	// set album reviewer by id
+	// Add Album to rotation
+	// Remove album from rotation (but not from the library!)
 	// 
 	
 	private $GetArtistsAlphabetical;

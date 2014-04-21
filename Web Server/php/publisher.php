@@ -14,12 +14,9 @@ class Publisher {
 	// publish an exception to the db
 	public static function publishException($stacktrace, $message, $userID){
 		if (session_status() == PHP_SESSION_NONE) {
-			session_start();
+			$userID = 0;
 		}
-		// Access the session if userID is null, may still be null if session is not set
-		if ($userID == null) {
-			$userID = $_SESSION ['userid']; // This may, in turn, throw an exception if session is not set.
-		}
+		
 		// User's IP address
 		$usersip = $_SERVER ['REMOTE_ADDR'];
 		
@@ -107,6 +104,7 @@ class Publisher {
 				$tempArr ['UserName'] = utf8_encode($rowInfo ['UserName']);
 				$tempArr ['LastName'] = utf8_encode($rowInfo ['LastName']);
 				$tempArr ['FirstName'] = utf8_encode($rowInfo ['FirstName']);
+				//$tempArr ['IPAddress'] = utf8_encode($rowInfo ['IPAddress']);
 				$exceptionArr [] = $tempArr;
 			}
 			return $exceptionArr;

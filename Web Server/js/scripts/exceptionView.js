@@ -4,8 +4,7 @@ $('document').ready(function(){
     /**
      * Erases the list and gets errors
      */
-    function getErrors(){
-    	console.log('Error button');
+    function getErrors(){	
     	$.ajax({
             type: "GET",
             url: "../php/scripts/viewErrors.php"
@@ -92,9 +91,16 @@ $('document').ready(function(){
     }
 
     $(document).on('click', '#viewButton', function(){
-    	console.log('cliked');
         viewButton($(this).val());
     });
+    
+    $(document).on('click', '#ErrorButton', function(){
+    	getErrors();
+    });
+    
+    $(document).on('click', '#ExceptionButton', function(){
+    	getExceptions();
+    })
     
     function viewButton(clicked_id)
     {

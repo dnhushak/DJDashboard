@@ -16,26 +16,24 @@ class Publisher {
 		if (session_status() == PHP_SESSION_NONE) {
 			session_start();
 		}
-		// Access the session if userID is null, may still be null if session is not set
-		if ($userID == null) {
-			$userID = $_SESSION ['userid']; // This may, in turn, throw an exception if session is not set.
+		try {
+			// Access the session if userID is null, may still be null if session is not set
+			if ($userID == null) {
+				$userID = $_SESSION ['userid']; // This may, in turn, throw an exception if session is not set.
+			}
+		}
+		catch (exception $e) {
+			$userID = 0;
 		}
 		// User's IP address
 		$usersip = $_SERVER ['REMOTE_ADDR'];
-		
-		// Browser info
-		$browserinfo = get_browser($HTTP_USER_AGENT, true);
-		$browser = $browswerinfo [browser];
-		$browser += " " + $browswerinfo [version];
-		$operats += " " + $browswerinfo [platform];
 		
 		$conn = new SqlConnect();
 		$results = $conn->callStoredProc(Publisher::$spLogException, array (
 				$userID,
 				$message,
 				$stacktrace,
-				$usersip,
-				$browserinfo ));
+				$usersip));
 	}
 	
 	// Retrieve all exceptions when user was logged in.
@@ -51,20 +49,13 @@ class Publisher {
 			$conn = new SqlConnect();
 			
 			// User's ip address
-			$usersip = $_SERVER ['REMOTE_ADDR'];
-			
-			// Browser info
-			$browserinfo = get_browser($HTTP_USER_AGENT, true);
-			$browser = $browswerinfo [browser];
-			$browser += " " + $browswerinfo [version];
-			$operats += " " + $browswerinfo [platform];
+			$usersip = $_SERVER['REMOTE_ADDR'];
 			
 			$results = $conn->callStoredProc(Publisher::$spLogError, array (
 					$userID,
 					$message,
 					$stacktrace,
-					$usersip,
-					$browserinfo ));
+					$usersip));
 			return $results;
 		}
 		catch (Exception $e) {

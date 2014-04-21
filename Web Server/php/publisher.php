@@ -16,14 +16,9 @@ class Publisher {
 		if (session_status() == PHP_SESSION_NONE) {
 			session_start();
 		}
-		try {
-			// Access the session if userID is null, may still be null if session is not set
-			if ($userID == null) {
-				$userID = $_SESSION ['userid']; // This may, in turn, throw an exception if session is not set.
-			}
-		}
-		catch (exception $e) {
-			$userID = 0;
+		// Access the session if userID is null, may still be null if session is not set
+		if ($userID == null) {
+			$userID = $_SESSION ['userid']; // This may, in turn, throw an exception if session is not set.
 		}
 		// User's IP address
 		$usersip = $_SERVER ['REMOTE_ADDR'];
@@ -33,7 +28,7 @@ class Publisher {
 				$userID,
 				$message,
 				$stacktrace,
-				$usersip));
+				$usersip ));
 	}
 	
 	// Retrieve all exceptions when user was logged in.
@@ -47,15 +42,14 @@ class Publisher {
 	public static function publishUserError($userID, $stacktrace, $message){
 		try {
 			$conn = new SqlConnect();
-			
-			// User's ip address
-			$usersip = $_SERVER['REMOTE_ADDR'];
+			// User's IP address
+			$usersip = $_SERVER ['REMOTE_ADDR'];
 			
 			$results = $conn->callStoredProc(Publisher::$spLogError, array (
 					$userID,
 					$message,
 					$stacktrace,
-					$usersip));
+					$usersip ));
 			return $results;
 		}
 		catch (Exception $e) {

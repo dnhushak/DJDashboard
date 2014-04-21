@@ -5,6 +5,8 @@
 * To change the template for this generated file go to
 * Window - Preferences - PHPeclipse - PHP - Code Templates
 */
+
+
 include_once('../sqlconnect.php');
 include_once('PublicServiceAnnouncement.php');
 /**
@@ -26,6 +28,9 @@ class PSAManager
 
 	public function initialize()
 	{
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
 		$this->spInsertPSA = "AddPSA";
 		$this->spGetEligiblePSAs = "GetEligiblePSAs";
 		$this->spGetAllPSAInfo = "GetAllPSAInfo";

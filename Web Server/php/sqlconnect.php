@@ -1,14 +1,14 @@
 <?php
 /*
  * Created on Jan 28, 2014
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
- 
- include_once('publisher.php');
- include_once('scripts/stringFunctions.php');
- 
+*
+* To change the template for this generated file go to
+* Window - Preferences - PHPeclipse - PHP - Code Templates
+*/
+
+include_once('publisher.php');
+include_once('scripts/stringFunctions.php');
+
 class SqlConnect
 {
 	private $connection;
@@ -17,17 +17,20 @@ class SqlConnect
 	private $database;
 	private $connUrl;
 	private $lastCommand;
+	private $CONFIG_FILE_LOC = __DIR__;
 	/**
 	 * Grab default values
 	 */
 	public function __construct()
 	{
+		// Fatal error handler for PHP
+		register_shutdown_function("Publisher::fatalHandler");
 		$this->initialize();
-	}	
-	
+	}
 
-	
-	
+
+
+
 	/**
 	 * Private function so it can't be called whenever
 	 *	Hides all connection info
@@ -35,12 +38,18 @@ class SqlConnect
 	private function initialize()
 	{
 		try
-		{
-			$this->username = "u30919";
-			$this->password = "pkMDpK6Rh";
-			$this->database = "db30919";
-			$this->connUrl = "mysql.cs.iastate.edu";
+		{				
+			$xml = simplexml_load_file($this->CONFIG_FILE_LOC . '/config.xml');
+			//var_dump($xml);
+			$attr = $xml->attributes();
+			$this->connUrl = $attr['connectionString'];
+			$this->username = $attr['username'];
+			$this->password = $attr['password'];
+			$this->database = $attr['schema'];
+			
+			
 			$this->connection = new mysqli($this->connUrl, $this->username, $this->password, $this->database);
+			
 			if(mysqli_connect_errno())
 			{
 				throw new Exception("Failure to connect");
@@ -53,8 +62,8 @@ class SqlConnect
 			return false;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Calls a stored procedure by procedurename and arguments.  If there are no args, set args to null.
 	 * args must be preformatted, for an example, string Jon Doe msut have quotes around it already.
@@ -62,8 +71,8 @@ class SqlConnect
 	public function callStoredProc($procedureName, $args)
 	{
 		//Free result before next query.
-		
-    	
+
+		 
 		//Removing values here and replacing with what is in the initialize method.
 		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
 		try
@@ -72,8 +81,8 @@ class SqlConnect
 			{
 				//Check for SQL Injection.  If so, we will throw errors.
 				//$args = normalizeStringArray($args);
-				
-				
+
+
 				$cmd = "Call ".$procedureName."(";
 				$length = count($args);
 				//Append first arguments, do not append the last one (no final comma)
@@ -97,7 +106,7 @@ class SqlConnect
 				{
 					//$args[$i] = mysqli_real_escape_string($args[$i]);
 					$cmd = $cmd."'".$args[$i]."');";
-				}	
+				}
 				else if($args[$i] === null)
 				{
 					$cmd = $cmd."null);";
@@ -107,7 +116,7 @@ class SqlConnect
 					$cmd = $cmd.$args[$i].");";
 				}
 				//Check for error in query, if there is, throw an exception
-				if ($this->connection->error) 
+				if ($this->connection->error)
 				{
 					throw new Exception($this->connection->error);
 				}
@@ -118,10 +127,9 @@ class SqlConnect
 			{
 				$results = $this->connection->query("Call ".$procedureName."();");
 			}
-			//Free results for multiple uses
-			//mysqli_free_result(); NEVERMIND! DO NOT PUT IT HERE
 			
 			
+				
 			return $results;
 		}
 		catch (Exception $e)
@@ -130,15 +138,15 @@ class SqlConnect
 			return false;
 		}
 	}
-		/**
+	/**
 	 * Calls a stored procedure by procedurename and arguments.  If there are no args, set args to null.
 	 * args must be preformatted, for an example, string Jon Doe msut have quotes around it already.
 	 */
 	public function callStoredProcWithDate($procedureName, $args)
 	{
 		//Free result before next query.
-		
-    	
+
+		 
 		//Removing values here and replacing with what is in the initialize method.
 		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
 		try
@@ -147,8 +155,8 @@ class SqlConnect
 			{
 				//Check for SQL Injection.  If so, we will throw errors.
 				//$args = normalizeStringArray($args);
-				
-				
+
+
 				$cmd = "Call ".$procedureName."(";
 				$length = count($args);
 				//Append first arguments, do not append the last one (no final comma)
@@ -172,7 +180,7 @@ class SqlConnect
 					$cmd = $cmd.$args[$length-1].");";
 				}
 				//Check for error in query, if there is, throw an exception
-				if ($this->connection->error) 
+				if ($this->connection->error)
 				{
 					throw new Exception($this->connection->error);
 				}
@@ -185,8 +193,8 @@ class SqlConnect
 			}
 			//Free results for multiple uses
 			//mysqli_free_result(); NEVERMIND! DO NOT PUT IT HERE
-			
-			
+				
+				
 			return $results;
 		}
 		catch (Exception $e)
@@ -195,7 +203,7 @@ class SqlConnect
 			return false;
 		}
 	}
-	
+
 	public function executeScalar($storedProcName, $args, $fieldName)
 	{
 		$results = $this->callStoredProc($storedProcName, $args);
@@ -203,18 +211,18 @@ class SqlConnect
 			Publisher::publishException("ExecuteScalar","Resultset is boolean [false]",$_SESSION['userid']);
 		}
 		$row = mysqli_fetch_assoc($results);
-		
+
 		$field = $row[$fieldName];
 		$field = utf8_encode($field);
 		return $field;
-		
+
 	}
-	
+
 	public function getLastCommand()
 	{
 		return $this->lastCommand;
 	}
-	
+
 	public function freeResults()
 	{
 		if(mysqli_more_results($this->connection))
@@ -222,5 +230,9 @@ class SqlConnect
 			$this->connection->next_result();
 		}
 	}
+
 }
+
+
+
 ?>

@@ -41,7 +41,7 @@ class SqlConnect
 		{				
 			$xml = simplexml_load_file($this->CONFIG_FILE_LOC . '/config.xml');
 			//var_dump($xml);
-			$attr = $xml->attributes();
+			$attr = $xml->children()->attributes();
 			$this->connUrl = $attr['connectionString'];
 			$this->username = $attr['username'];
 			$this->password = $attr['password'];
@@ -49,6 +49,8 @@ class SqlConnect
 			
 			
 			$this->connection = new mysqli($this->connUrl, $this->username, $this->password, $this->database);
+			
+			
 			
 			if(mysqli_connect_errno())
 			{
@@ -144,11 +146,7 @@ class SqlConnect
 	 */
 	public function callStoredProcWithDate($procedureName, $args)
 	{
-		//Free result before next query.
-
-		 
-		//Removing values here and replacing with what is in the initialize method.
-		//$this->connection = new mysqli("mysql.cs.iastate.edu", "u30919", "pkMDpK6Rh", "db30919");
+		
 		try
 		{
 			if($args != null)//Each arg in order
@@ -232,6 +230,8 @@ class SqlConnect
 	}
 
 }
+
+//$sql = new SqlConnect();
 
 
 

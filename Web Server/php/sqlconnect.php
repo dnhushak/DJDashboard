@@ -64,7 +64,7 @@ class SqlConnect
 		catch (Exception $e)
 		{
 			//Zero is the default user, used for very low errors
-			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			//Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			return false;
 		}
 	}

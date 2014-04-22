@@ -17,6 +17,7 @@ public class DatabaseObject {
 	private String port = "3306";
 	private final String REPLACE_SCHEMA = "db30919|DB30919";
 	private final String REPLACE_HOST = "mysql.cs.iastate.edu";
+	private final String REPLACE_USER = "u30919";
 
 	public void setupConnection(Scanner keyboard) {
 		System.out.println("Database setup");
@@ -99,11 +100,13 @@ public class DatabaseObject {
 		sb.append("</configuration>\n");
 		File out = new File(path);
 		// Create things as needed
-		System.out.println("----------------------------XML Output----------------------------");
+		System.out
+				.println("----------------------------XML Output----------------------------");
 		System.out.println();
 		System.out.println(sb.toString());
 		System.out.println();
-		System.out.println("------------------------------------------------------------------");
+		System.out
+				.println("------------------------------------------------------------------");
 		try (FileWriter fw = new FileWriter(out)) {
 			fw.write(sb.toString());
 		} catch (Exception e) {
@@ -112,11 +115,13 @@ public class DatabaseObject {
 		}
 	}
 
-	public void deploy(String path) throws IOException{
-		//First create master script
+	public void deploy(String path) throws IOException {
+		// First create master script
 		String cmd = createMasterScript(path);
 		try {
-			DatabaseConnection connection = new DatabaseConnection(this.schema, this.connectionString, this.username, this.password, this.port);
+			DatabaseConnection connection = new DatabaseConnection(this.schema,
+					this.connectionString, this.username, this.password,
+					this.port);
 			System.out.println("Creating Schema.  This can take a while.");
 			connection.callProcedure(cmd);
 			System.out.println("Schema creation complete.");
@@ -124,20 +129,21 @@ public class DatabaseObject {
 			System.out.println("ERROR EXECUTING IN DATABASE");
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			System.out.println("\nDo not worry!  You can still create the database by running 'master.sql' on your database.");
+			System.out
+					.println("\nDo not worry!  You can still create the database by running 'master.sql' on your database.");
 		}
-		
+
 	}
-	
-	private String createMasterScript(String path) throws IOException{
+
+	private String createMasterScript(String path) throws IOException {
 
 		StringBuilder masterFile = new StringBuilder();
-		String createScript = "CREATE SCHEMA " + this.schema + " CHARACTER SET latin1;\n";
-		//masterFile.append(createScript);
+		String createScript = "CREATE SCHEMA " + this.schema
+				+ " CHARACTER SET latin1;\n";
+		// masterFile.append(createScript);
 		File folder = new File("scripts");
 		processScripts(folder, masterFile);
 		String output = FindAndReplace(masterFile.toString());
-
 
 		File out = new File(path);
 		FileWriter fw = new FileWriter(out);
@@ -145,19 +151,23 @@ public class DatabaseObject {
 		fw.close();
 		return output;
 	}
-	
-	private void processScripts(File folder, StringBuilder appendable) throws IOException {
-	    for (File fileEntry : folder.listFiles()) {
-	        if (!fileEntry.isDirectory()) {
-	            System.out.println("\t\tProcessing File: " + fileEntry.getName());
-	            ReadEntireFile(fileEntry, appendable);
-	        } else {
-	            System.out.println("\t\tError processing: " + fileEntry.getName());
-	        }
-	    }
+
+	private void processScripts(File folder, StringBuilder appendable)
+			throws IOException {
+		for (File fileEntry : folder.listFiles()) {
+			if (!fileEntry.isDirectory()) {
+				System.out.println("\t\tProcessing File: "
+						+ fileEntry.getName());
+				ReadEntireFile(fileEntry, appendable);
+			} else {
+				System.out.println("\t\tError processing: "
+						+ fileEntry.getName());
+			}
+		}
 	}
-	
-	private void ReadEntireFile(File file, StringBuilder appendable) throws IOException{
+
+	private void ReadEntireFile(File file, StringBuilder appendable)
+			throws IOException {
 		String line;
 
 		BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -167,11 +177,12 @@ public class DatabaseObject {
 		}
 		reader.close();
 	}
-	
-	private String FindAndReplace(String input){
-		
+
+	private String FindAndReplace(String input) {
+
 		String output = input.replaceAll(REPLACE_SCHEMA, this.schema);
-		//output = output.replaceAll("CREATE DATABASE ", "CREATE DATABASE `" + this.schema + "`" );
+		 output = output.replaceAll(REPLACE_USER, this.username);
+		// this.schema + "`" );
 		output = output.replaceAll(REPLACE_HOST, this.connectionString);
 		return output;
 	}

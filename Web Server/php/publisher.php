@@ -104,7 +104,7 @@ class Publisher {
 				$tempArr ['UserName'] = utf8_encode($rowInfo ['UserName']);
 				$tempArr ['LastName'] = utf8_encode($rowInfo ['LastName']);
 				$tempArr ['FirstName'] = utf8_encode($rowInfo ['FirstName']);
-				//$tempArr ['IPAddress'] = utf8_encode($rowInfo ['IPAddress']);
+				$tempArr ['ipAddress'] = utf8_encode($rowInfo ['IPAddress']);
 				$exceptionArr [] = $tempArr;
 			}
 			return $exceptionArr;

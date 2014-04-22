@@ -72,7 +72,7 @@ $('document').ready(function(){
                 var firstName = exceptions[i]['FirstName'];
                 var lastName = exceptions[i]['LastName'];
                 var createDate = exceptions[i]['CreateDate'];
-                
+                var ipaddress = exceptions[i]['ipAddress'];
                 var excpHTML = '<tr class="' + exceptionID + '">';
                 
                 excpHTML += '<td>' + exceptionID + '</td>';
@@ -111,6 +111,7 @@ $('document').ready(function(){
         $('.modal-header').append('<h3>ExceptionID ' + exceptions[clicked_id]['ExceptionLogID'] + '</h3>');
         $('.modal-body').append('<h4>User</h4><p>' + exceptions[clicked_id]['LastName'] + ', ' + exceptions[clicked_id]['FirstName']
         	+ '  [' + exceptions[clicked_id]['UserName'] + ']</p>');
+        $('.modal-body').append('<h4>IP Address</h4><p>' + exceptions[clicked_id]['ipAddress'] + '</p>');
         $('.modal-body').append('<h4>Message</h4><p>' + exceptions[clicked_id]['Message'] + '</p>');
         $('.modal-body').append('<h4>StackTrace</h4><p>' + exceptions[clicked_id]['StackTrace'] + '</p>');
     }

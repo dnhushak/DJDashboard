@@ -17,6 +17,7 @@ class SqlConnect
 	private $database;
 	private $connUrl;
 	private $lastCommand;
+	public static $lastException;
 	private $CONFIG_FILE_LOC = __DIR__;
 	/**
 	 * Grab default values
@@ -64,7 +65,11 @@ class SqlConnect
 		catch (Exception $e)
 		{
 			//Zero is the default user, used for very low errors
+
+			
 			//Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			SqlConnect::$lastException = $e;
+
 			return false;
 		}
 	}

@@ -140,7 +140,7 @@ class SqlConnect
 		}
 		catch (Exception $e)
 		{
-			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
+			//Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
 			return false;
 		}
 	}

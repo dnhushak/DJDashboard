@@ -42,6 +42,7 @@ $('document').ready(
 							}
 							for(var i = 0; i < playlists.length; i++){
 							var trackName = playlists[i]['TrackName'];
+							console.log(playlists[i]['TrackName']);
 							console.log(playlists[i]['Artist']);
 							var artistName = playlists[i]['Artist']['ArtistName'];
 							}

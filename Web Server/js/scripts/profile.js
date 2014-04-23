@@ -51,6 +51,7 @@ $('document').ready(function() {
 				var playlistID = playlists[i]['PlaylistID'];
 				panelHTML = panelHTML + '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#playlist' + playlistID + '">' + playlistName + '</a></h4></div><div id="playlist' + playlistID + '" class="panel-collapse collapse"></div></div>';
 				panelHTML = panelHTML + '<div class="panel-body"><ul>';
+				console.log(playlists[i]);
 				for ( var j = 0; j < playlists[i].length; j++) {
 					//Create songs in that drop down
 					console.log(playlists[i][j]);

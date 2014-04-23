@@ -43,6 +43,7 @@ $('document').ready(function() {
 				console.log(data);
 				return;
 			}
+			console.log('getfive');
 			var panelHTML = '';
 			for ( var i = 0; i < playlists.length; i++) {
 				//Create playlist drop down
@@ -50,7 +51,7 @@ $('document').ready(function() {
 				var playlistID = playlists[i]['PlaylistID'];'
 				console.log(playlistName);
 				panelHTML = panelHTML + '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#playlist' + playlistID + '">' + playlistName + '</a></h4></div><div id="playlist' + playlistID + '" class="panel-collapse collapse"></div></div>';
-				panelHTML = panelHTML + '<div class="panel-body"><ul>'
+				panelHTML = panelHTML + '<div class="panel-body"><ul>';
 				for ( var j = 0; j < playlists[i].length; j++) {
 					//Create songs in that drop down
 					var trackName = playlists[i][j]['TrackName'];
@@ -59,7 +60,7 @@ $('document').ready(function() {
 				}
 				panelHTML = panelHTML + '</ul></div></div>'
 			}
-			
+			console.log('completegetfive');
 			$('#spinlist-dropdown').append(panelHTML);
 		});
 

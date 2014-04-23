@@ -40,7 +40,7 @@ class SqlConnect
 	{
 		try
 		{
-			$xml = simplexml_load_file($this->CONFIG_FILE_LOC . '/config.xml');
+			/**$xml = simplexml_load_file($this->CONFIG_FILE_LOC . '/config.xml');
 			foreach($xml->children() as $key=>$value){
 				if($key=='database'){
 					$attr = $value->attributes();
@@ -49,7 +49,11 @@ class SqlConnect
 					$this->password = $attr['password'];
 					$this->database = $attr['schema'];
 				}
-			}
+			}**/
+			$this->connUrl = 'mysql.cs.iastate.edu';
+			$this->username = 'u30919';
+			$this->database = 'db30919';
+			$this->password = 'pkMDpK6Rh';
 				
 				
 				
@@ -206,7 +210,7 @@ class SqlConnect
 		}
 		catch (Exception $e)
 		{
-			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
+			//Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
 			return false;
 		}
 	}

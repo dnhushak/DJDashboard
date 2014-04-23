@@ -14,6 +14,7 @@ class PlaylistManager
 	private static $spInsertPlaylist = "InsertPlaylist";
 	private static $spRetrieveUserPlaylistIDs = "RetrieveUserPlaylistIDs";
 	private static $spGetPlaylistTracks = "GetPlaylistTracks";
+	private static $spGetTopFivePlaylists = "Get5RecentPlaylists";
 
 	public function __construct() {
 		//print "In BaseClass constructor\n";
@@ -119,7 +120,22 @@ class PlaylistManager
 		}
 	}
 	
-
+	public function RetrieveProfilePlaylists($UserID){
+		$conn = new SqlConnect();
+		$playlistArr = array();
+		$results = $conn->callStoredProc(PlaylistManager::$spGetTopFivePlaylists, array($UserID));
+		while($rowInfo = mysqli_fetch_assoc($results)){
+			$id = utf8_encode($rowInfo['idplaylist']);
+			$playlistArr[] = $id;
+		}
+		
+		$finalArr = array();
+		for($i = 0; $i < count($playlistArr); $i++){
+			$conn->freeResults();
+			$finalArr[$i] = $this->RetrievePlaylistByID($playlistArr[$i]);
+		}
+		return $finalArr;
+	}
 }	
 	
 ?>

@@ -25,7 +25,7 @@ class SqlConnect
 	public function __construct()
 	{
 		// Fatal error handler for PHP
-		register_shutdown_function("Publisher::fatalHandler");
+		//ister_shutdown_function("Publisher::fatalHandler");
 		$this->initialize();
 	}
 
@@ -41,26 +41,24 @@ class SqlConnect
 		try
 		{
 			/**$xml = simplexml_load_file($this->CONFIG_FILE_LOC . '/config.xml');
-			foreach($xml->children() as $key=>$value){
-				if($key=='database'){
-					$attr = $value->attributes();
-					$this->connUrl = $attr['connectionString'];
-					$this->username = $attr['username'];
-					$this->password = $attr['password'];
-					$this->database = $attr['schema'];
-				}
+			 foreach($xml->children() as $key=>$value){
+			if($key=='database'){
+			$attr = $value->attributes();
+			$this->connUrl = $attr['connectionString'];
+			$this->username = $attr['username'];
+			$this->password = $attr['password'];
+			$this->database = $attr['schema'];
+			}
 			}**/
 			$this->connUrl = 'mysql.cs.iastate.edu';
 			$this->username = 'u30919';
 			$this->database = 'db30919';
 			$this->password = 'pkMDpK6Rh';
-				
-				
-				
+
+
+
 			$this->connection = new mysqli($this->connUrl, $this->username, $this->password, $this->database);
-				
-				
-				
+
 			if(mysqli_connect_errno())
 			{
 				throw new Exception("Failure to connect");
@@ -70,10 +68,10 @@ class SqlConnect
 		{
 			//Zero is the default user, used for very low errors
 
-			
+				
 			//Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			SqlConnect::$lastException = $e;
-
+			var_dump($this);
 			return false;
 		}
 	}
@@ -142,8 +140,6 @@ class SqlConnect
 			{
 				$results = $this->connection->query("Call ".$procedureName."();");
 			}
-				
-				
 
 			return $results;
 		}

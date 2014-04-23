@@ -13,13 +13,12 @@ class Publisher {
 	
 	// publish an exception to the db
 	public static function publishException($stacktrace, $message, $userID){
-		if (session_status() == PHP_SESSION_NONE) {
+		if (($userID == null)||(session_status() == PHP_SESSION_NONE)) {
 			$userID = 0;
 		}
-		
 		// User's IP address
-		$usersip = $_SERVER ['REMOTE_ADDR'];
-		
+		//$usersip = $_SERVER ['REMOTE_ADDR'];
+		$usersip = '';
 		$conn = new SqlConnect();
 		$results = $conn->callStoredProc(Publisher::$spLogException, array (
 				$userID,

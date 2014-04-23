@@ -5,6 +5,13 @@ include_once ('../publisher.php');
 // Fatal error handler for PHP
 register_shutdown_function("Publisher::fatalHandler");
 
+<<<<<<< .mine
+include('../library/UserManager.php');
+include_once('../publisher.php');
+
+	//Fatal error handler for PHP
+register_shutdown_function( "Publisher::fatalHandler" );
+
 try {
 	$name = $_GET ['TypeName'];
 	$libView = ($_GET ['LibraryView'] == 'true' ? 1 : 0);
@@ -18,9 +25,12 @@ try {
 	$permEdit = ($_GET ['PermissionEdit'] == 'true' ? 1 : 0);
 	$userTypeEdit = ($_GET ['UserTypeEdit'] == 'true' ? 1 : 0);
 	$onAirSignon = ($_GET ['OnAirSignOn'] == 'true' ? 1 : 0);
+	$reviewMusic = ($_GET['ReviewMusic'] == 'true' ? 1 : 0);
 	
 	$manager = new UserManager();
-	$id = $manager->AddUserType($name, $libView, $libEdit, $PSAView, $PSAEdit, $grantView, $grantEdit, $manageUsers, $plEdit, $permEdit, $userTypeEdit, $onAirSignon);
+	$id = $manager->AddUserType($name, $libView, $libEdit, $PSAView, $PSAEdit,
+	 						$grantView, $grantEdit, $manageUsers,
+	 						$permEdit, $userTypeEdit, $onAirSignon, $reviewMusic);
 	echo json_encode($id);
 }
 catch (Exception $e) {

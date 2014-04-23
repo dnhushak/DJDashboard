@@ -144,7 +144,6 @@ class UserManager {
 				$_SESSION['pgrantview'] = $row['GrantView'];
 				$_SESSION['pgrantedit'] = $row['GrantEdit'];
 				$_SESSION['pmanageusers'] = $row['ManageUsers'];
-				$_SESSION['pplaylistedit'] = $row['PlaylistEdit'];
 				$_SESSION['ppermissionedit'] = $row['EditPermissions'];
 				$_SESSION['peditusertype'] = $row['EditUserType'];
 				$_SESSION['ponairsignon'] = $row['OnAirSignOn'];
@@ -243,10 +242,10 @@ class UserManager {
 			$pgrantview = $rowInfo['pgrantview'];
 			$pgrantedit = $rowInfo['pgrantedit'];
 			$pmanageusers = $rowInfo['pmanageusers'];
-			$pplaylistedit = $rowInfo['pplaylistedit'];
 			$ppermissionedit = $rowInfo['ppermissionedit'];
 			$peditusertype = $rowInfo['peditusertype'];
 			$onairsignon = $rowInfo['onairsignon'];
+			$musicreview = $rowInfo['reviewmusic'];
 			$tempArray = array("UserTypeID" => $userTypeID,
 						  "UserTypeName" => $typeName, 
 						  "PLibraryView" => $plibraryview,
@@ -256,10 +255,10 @@ class UserManager {
 						  "PGrantView" => $pgrantview,
 						  "PGrantEdit" => $pgrantedit,
 						  "PManageUsers" => $pmanageusers,
-						  "PPlaylistEdit" => $pplaylistedit,
 						  "PPermissionEdit" => $ppermissionedit,
 						  "PEditUserType" => $peditusertype,
-						  "OnAirSignOn" => $onairsignon);
+						  "OnAirSignOn" => $onairsignon,
+						  "ReviewMusic" => $musicreview);
 			$typeArr[] = $tempArray;
 		}
 		return $typeArr;
@@ -317,8 +316,8 @@ class UserManager {
 		}
 	}
 	public function AddUserType($typeName, $libView, $libEdit, $PSAView,
-				$PSAedit, $grantView, $grantEdit, $manageUsers, $plEdit,
-				$permEdit, $userTypeEdit, $onAirSignon){
+				$PSAedit, $grantView, $grantEdit, $manageUsers,
+				$permEdit, $userTypeEdit, $onAirSignon, $reviewMusic){
 		try {
 			$conn = new sqlConnect();
 			$arr = array(
@@ -330,10 +329,10 @@ class UserManager {
 				$grantView, 
 				$grantEdit, 
 				$manageUsers, 
-				$plEdit,
 				$permEdit, 
 				$userTypeEdit, 
-				$onAirSignon
+				$onAirSignon,
+				$reviewMusic
 			);
 			$results = $conn->callStoredProc($this->spAddUserType, $arr);
 			return mysqli_fetch_assoc($results);
@@ -343,8 +342,8 @@ class UserManager {
 		}
 	}
 	public function UpdateUserType($userID, $libView, $libEdit, $PSAView,
-				$PSAedit, $grantView, $grantEdit, $manageUsers, $plEdit,
-				$permEdit, $userTypeEdit, $onAirSignon){
+				$PSAedit, $grantView, $grantEdit, $manageUsers,
+				$permEdit, $userTypeEdit, $onAirSignon, $reviewMusic){
 		try {
 			$conn = new sqlConnect();
 			$arr = array(
@@ -359,7 +358,8 @@ class UserManager {
 				$plEdit,
 				$permEdit, 
 				$userTypeEdit, 
-				$onAirSignon
+				$onAirSignon,
+				$reviewMusic
 			);
 			$results = $conn->callStoredProc($this->spUpdateUserType, $arr);
 			return $results;

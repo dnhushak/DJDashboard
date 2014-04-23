@@ -18,16 +18,16 @@ try
 	$grantView = ($_GET['GrantView'] == 'true' ? 1 : 0);
 	$grantEdit = ($_GET['GrantEdit'] == 'true' ? 1 : 0);
 	$manageUsers = ($_GET['ManageUsers'] == 'true' ? 1 : 0);
-	$plEdit = ($_GET['PlaylistEdit'] == 'true' ? 1 : 0);
 	$permEdit = ($_GET['PermissionEdit'] == 'true' ? 1 : 0);
 	$userTypeEdit = ($_GET['UserTypeEdit'] == 'true' ? 1 : 0);
 	$onAirSignon = ($_GET['OnAirSignOn'] == 'true' ? 1 : 0);
+	$reviewMusic = ($_GET['ReviewMusic'] == 'true' ? 1 : 0);
 	
 	
 	$manager = new UserManager();
 	$id = $manager->UpdateUserType($typeID, $libView, $libEdit, $PSAView, $PSAEdit,
 	 						$grantView, $grantEdit, $manageUsers, $plEdit,
-	 						$permEdit, $userTypeEdit, $onAirSignon);
+	 						$permEdit, $userTypeEdit, $onAirSignon, $reviewMusic);
 	echo json_encode($id);
 }
 catch (Exception $e)

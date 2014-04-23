@@ -54,10 +54,10 @@ $('document').ready(function() {
 					var artistName = playlists[i][j]['Artist']['ArtistName'];
 					panelHTML = panelHTML + '<li><a href="#">' + trackName + ' - ' + artistName + '</a></li>';
 				}
-				panelHTML = panelHTML + '</ul>'
+				panelHTML = panelHTML + '</ul></div></div>'
 			}
 			
-
+			$('#panel-group').append(panelHTML);
 		});
 
 		/***********************************************************************

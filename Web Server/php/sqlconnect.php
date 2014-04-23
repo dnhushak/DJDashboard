@@ -7,6 +7,7 @@
 */
 
 include_once('publisher.php');
+include_once('constants.php');
 include_once('scripts/stringFunctions.php');
 
 class SqlConnect
@@ -50,10 +51,16 @@ class SqlConnect
 			$this->database = $attr['schema'];
 			}
 			}**/
+			/**
 			$this->connUrl = 'mysql.cs.iastate.edu';
 			$this->username = 'u30919';
 			$this->database = 'db30919';
-			$this->password = 'pkMDpK6Rh';
+			$this->password = 'pkMDpK6Rh';**/
+			
+			$this->connUrl = SQL_URL;
+			$this->username = SQL_USERNAME;
+			$this->database = SQL_SCHEMA;
+			$this->password = SQL_PASSWORD;
 
 
 

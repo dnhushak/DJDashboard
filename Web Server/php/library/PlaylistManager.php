@@ -123,16 +123,19 @@ class PlaylistManager
 	public function RetrieveProfilePlaylists($UserID){
 		$conn = new SqlConnect();
 		$playlistArr = array();
+		$playlistNameArr = array();
 		$results = $conn->callStoredProc(PlaylistManager::$spGetTopFivePlaylists, array($UserID));
 		while($rowInfo = mysqli_fetch_assoc($results)){
 			$id = utf8_encode($rowInfo['idplaylist']);
 			$playlistArr[] = $id;
+			$playlistNameArr = utf8_encode($rowInfo['name']);
 		}
 		
 		$finalArr = array();
 		for($i = 0; $i < count($playlistArr); $i++){
 			$conn->freeResults();
 			$finalArr[$i] = $this->RetrievePlaylistByID($playlistArr[$i]);
+			$finalArr[$i]['PlaylistName'] = $playlistNameArr[$i];
 		}
 		return $finalArr;
 	}

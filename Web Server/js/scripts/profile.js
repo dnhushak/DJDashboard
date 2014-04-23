@@ -47,8 +47,9 @@ $('document').ready(function() {
 			for ( var i = 0; i < playlists.length; i++) {
 				//Create playlist drop down
 				var playlistName = playlists[i]['PlaylistName'];
+				var playlistID = playlists[i]['PlaylistID'];'
 				console.log(playlistName);
-				panelHTML = panelHTML + '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#playlistOne">Playlist 1</a></h4></div><div id="playlistOne" class="panel-collapse collapse"></div></div>';
+				panelHTML = panelHTML + '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#' + playlistID + 'e">' + playlistName + '</a></h4></div><div id="' + playlistID + '" class="panel-collapse collapse"></div></div>';
 				panelHTML = panelHTML + '<div class="panel-body"><ul>'
 				for ( var j = 0; j < playlists[i].length; j++) {
 					//Create songs in that drop down

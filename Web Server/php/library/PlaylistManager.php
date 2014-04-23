@@ -136,6 +136,7 @@ class PlaylistManager
 			$conn->freeResults();
 			$finalArr[$i] = $this->RetrievePlaylistByID($playlistArr[$i]);
 			$finalArr[$i]['PlaylistName'] = $playlistNameArr[$i];
+			$finalArr[$i]['PlaylistID'] = $playlistArr[$i];
 		}
 		return $finalArr;
 	}

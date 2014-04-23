@@ -1,8 +1,9 @@
 var arr;
 var activeID;
+var getActive;
 
 $('document').ready(function() {
-
+	getActive = 0; //0 means show active ones.  1 means do not
 	var getGrants = function() {
 		$.ajax({
 			type : "GET",
@@ -17,7 +18,7 @@ $('document').ready(function() {
 				return;
 			}
 			$('.grants').html('');
-
+			
 			for (var i = 0; i < grants.length; i++) {
 
 				var grantID = grants[i]['GrantID'];
@@ -25,7 +26,7 @@ $('document').ready(function() {
 				var playCount = grants[i]['PlayCount'];
 				var startDate = grants[i]['StartDate'];
 				var isActive = grants[i]['Active'];
-
+				if((isActive == 1)||(getActive == 0)){
 				var grantHTML = '';
 				if (isActive == "0") {
 					grantHTML += '<tr class="' + grantID
@@ -43,11 +44,23 @@ $('document').ready(function() {
 				grantHTML += '</td>';
 				$('.grants').append(grantHTML);
 			}
-
+			}
 			arr = grants;
 
 		});
 	}
+	
+	$(document).on('click', '#showActiveButton', function(){
+		
+		if(getActive ==0){
+			getActive = 1;
+		}
+		else{
+			getActive = 0;
+		}
+		console.log('ShowActive clicked ' + getActive);
+		getGrants();
+	});
 	
 	$(document).on('click', '#editButton', function(){
         editButton($(this).val());

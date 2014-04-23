@@ -128,7 +128,7 @@ class PlaylistManager
 		while($rowInfo = mysqli_fetch_assoc($results)){
 			$id = utf8_encode($rowInfo['idplaylist']);
 			$playlistArr[] = $id;
-			$playlistNameArr = utf8_encode($rowInfo['PlaylistName']);
+			$playlistNameArr[] = utf8_encode($rowInfo['PlaylistName']);
 		}
 		
 		$finalArr = array();

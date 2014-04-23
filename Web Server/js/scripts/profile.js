@@ -49,16 +49,15 @@ $('document').ready(function() {
 				//Create playlist drop down
 				var playlistName = playlists[i]['PlaylistName'];
 				var playlistID = playlists[i]['PlaylistID'];
-				console.log(playlists);
-				console.log('Playlist Name: ' + playlistName);
-				console.log('Playlist ID: ' + playlistID);
 				panelHTML = panelHTML + '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#playlist' + playlistID + '">' + playlistName + '</a></h4></div><div id="playlist' + playlistID + '" class="panel-collapse collapse"></div></div>';
 				panelHTML = panelHTML + '<div class="panel-body"><ul>';
 				for ( var j = 0; j < playlists[i].length; j++) {
 					//Create songs in that drop down
+					console.log(playlists[i][j]);
 					var trackName = playlists[i][j]['TrackName'];
 					var artistName = playlists[i][j]['Artist']['ArtistName'];
-					panelHTML = panelHTML + '<li><a href="#">' + trackName + ' - ' + artistName + '</a></li>';
+					var songHTML = '<li><a href="#">' + trackName + ' - ' + artistName + '</a></li>';
+					panelHTML = panelHTML + songHTML;
 				}
 				panelHTML = panelHTML + '</ul></div></div>'
 			}

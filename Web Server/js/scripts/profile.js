@@ -57,7 +57,7 @@ $('document').ready(function() {
 				panelHTML = panelHTML + '</ul></div></div>'
 			}
 			
-			$('#panel-group').append(panelHTML);
+			$('#spinlist-dropdown').append(panelHTML);
 		});
 
 		/***********************************************************************

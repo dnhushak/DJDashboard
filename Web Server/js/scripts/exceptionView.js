@@ -90,16 +90,22 @@ $('document').ready(function(){
         });
     }
 
-    $(document).on('click', '#viewButton', function(){
+    $(document).on('click', '#viewButton', function(evt){
         viewButton($(this).val());
+        evt.stopPropagation();
+        evt.preventDefault();
     });
     
-    $(document).on('click', '#ErrorButton', function(){
+    $(document).on('click', '#ErrorButton', function(evt){
     	getErrors();
+        evt.stopPropagation();
+        evt.preventDefault();
     });
     
-    $(document).on('click', '#ExceptionButton', function(){
+    $(document).on('click', '#ExceptionButton', function(evt){
     	getExceptions();
+        evt.stopPropagation();
+        evt.preventDefault();
     })
     
     function viewButton(clicked_id)
@@ -115,8 +121,10 @@ $('document').ready(function(){
         $('.modal-body').append('<h4>Message</h4><p>' + exceptions[clicked_id]['Message'] + '</p>');
         $('.modal-body').append('<h4>StackTrace</h4><p>' + exceptions[clicked_id]['StackTrace'] + '</p>');
     }
-    $('.viewSpecificException').on('click', function(){
+    $('.viewSpecificException').on('click', function(evt){
         console.log('clicked');
+        evt.stopPropagation();
+        evt.preventDefault();
     });
     
     getExceptions();

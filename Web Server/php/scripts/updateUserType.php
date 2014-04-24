@@ -26,7 +26,7 @@ try
 	
 	$manager = new UserManager();
 	$id = $manager->UpdateUserType($typeID, $libView, $libEdit, $PSAView, $PSAEdit,
-	 						$grantView, $grantEdit, $manageUsers, $plEdit,
+	 						$grantView, $grantEdit, $manageUsers,
 	 						$permEdit, $userTypeEdit, $onAirSignon, $reviewMusic);
 	echo json_encode($id);
 }

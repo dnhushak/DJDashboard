@@ -30,7 +30,7 @@ class UserManager {
 	 */
 	private function initialize(){
 		// Register failure procedure
-		register_shutdown_function("Publisher::fatalHandler");
+		// register_shutdown_function("Publisher::fatalHandler");
 		
 		$this->spOnAirLogin = "OnAirLogin";
 		$this->spOnAirLogout = "OnAirLogout";
@@ -355,7 +355,6 @@ class UserManager {
 				$grantView, 
 				$grantEdit, 
 				$manageUsers, 
-				$plEdit,
 				$permEdit, 
 				$userTypeEdit, 
 				$onAirSignon,

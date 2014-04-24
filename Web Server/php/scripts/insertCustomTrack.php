@@ -32,6 +32,8 @@ try
 	$track->Artist->setID($ArtistID);
 	$track->Album = new Album();
 	$track->Album->setID($AlbumID);
+	$track->setFCC($FCC);
+	$track->setRecommended($Recommended);
 	
 	$editor = new LibraryEditor();
 	

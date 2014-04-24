@@ -28,15 +28,19 @@ $(document).ready(function(){
 		swfPath : "../js/",
 		supplied : "mp3" 
 	});
-	$(document).on('dblclick', '.tracks .item', function(){
+	$(document).on('dblclick', '.tracks .item', function(evt){
 		var songID = parseInt($(this).attr('class').match(/\d+/));
 		var artist = $('.artist ' + '.' + songID).text();
 		var album = $('.album ' + '.' + songID).text();
 		var track = $('.track ' + '.' + songID).text();
 		getSubsonicID(songID, track, artist);
+        evt.stopPropagation();
+        evt.preventDefault();
 	});
-	$('.jp-stop').on('click', function(){
+	$('.jp-stop').on('click', function(evt){
 		$("#jquery_jplayer_1").jPlayer("clearMedia");
 		$("#song-title").html('');
+        evt.stopPropagation();
+        evt.preventDefault();
 	});
 });

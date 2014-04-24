@@ -17,7 +17,7 @@ $(document).ready(function() {
     var lastTrack = '';
     var firstLastTrack = '';
     var keepScrolling = true;
-    var filters = { recommended: 0, genre: 'All' };
+    var filters = { recommended: 0, genre: '0' };
     var isFiltered = false;
     var isSearching = false;
     var filteredData;
@@ -452,19 +452,25 @@ $(document).ready(function() {
             isSearching = false
         }
 	});
-	$(document).on('click', '.select-column', function(){
+	$(document).on('click', '.select-column', function(evt){
 		$('.active-column').removeClass('active-column');
 		$(this).addClass('active-column');
+        evt.stopPropagation();
+        evt.preventDefault();
 	});
-	$(document).on('click', '.selection .item', function(){
+	$(document).on('click', '.selection .item', function(evt){
 		$(this).siblings('.active-item').removeClass('active-item');
 		$(this).addClass('active-item');
+        evt.stopPropagation();
+        evt.preventDefault();
 	});
-	$(document).on('click', '.tracks .item', function(){
+	$(document).on('click', '.tracks .item', function(evt){
 		$('.tracks .active-item').removeClass('active-item');
 		$(formatClass($(this).attr('class'))).addClass('active-item');
+        evt.stopPropagation();
+        evt.preventDefault();
 	});
-    $(document).on('click', '#artists .item', function(){
+    $(document).on('click', '#artists .item', function(evt){
         if($(this).attr('id') == 'all'){
             clearTrackList();
             if(isFiltered){
@@ -487,8 +493,10 @@ $(document).ready(function() {
             getTracksByArtist($(this).attr('id'));
             keepScrolling = false;
         }
+        evt.stopPropagation();
+        evt.preventDefault();
     })
-    $(document).on('click', '#albums .item', function(){
+    $(document).on('click', '#albums .item', function(evt){
         if($(this).attr('id') == 'all'){
             if($('#artists .active-item').attr('id') == 'all'){
                 if(isFiltered){
@@ -510,8 +518,10 @@ $(document).ready(function() {
             keepScrolling = false;
             getTracksByAlbum($(this).attr('id'));
         }
+        evt.stopPropagation();
+        evt.preventDefault();
     })
-    $("#filters").on('click', function(){
+    $("#filters").on('click', function(evt){
         if(!filtersExpanded){
             $('.filter-view').show();
             mainViewWidth -= expansionOffset;
@@ -527,8 +537,10 @@ $(document).ready(function() {
             $('.filter-view').css('height', '0px');
             filtersExpanded = false;
         }
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $("#current-playlist").on('click', function(){
+    $("#current-playlist").on('click', function(evt){
         if(!playlistExpanded){
             $('.playlist-view').show();
             mainViewWidth -= expansionOffset;
@@ -544,6 +556,8 @@ $(document).ready(function() {
             $('.playlist-view').css('height', '0px');
             playlistExpanded = false;
         }
+        evt.stopPropagation();
+        evt.preventDefault();
     });
     $(".track-view").scroll(function(){
         if(keepScrolling && $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight - 5){
@@ -558,9 +572,10 @@ $(document).ready(function() {
             loadTrackChunk(lastTrack);
         }
     });
-    $("#filter-form").on('click', function(){
+    $("#filter-form").on('click', function(evt){
         var updated = false;
         var filterGenre = $('input[name=genreFilters]:checked', '#filter-form').val();
+        console.log(filterGenre);
         if(filters['genre'] != filterGenre){
             filters['genre'] = filterGenre;
             updated = true;
@@ -576,7 +591,7 @@ $(document).ready(function() {
                 updated = true;
             }
         }
-        if(filters['genre'] == 'All' && filters['recommended'] == 0){
+        if(filters['genre'] == '0' && filters['recommended'] == 0){
             isFiltered = false;
         }else{
             isFiltered = true;
@@ -587,23 +602,30 @@ $(document).ready(function() {
                 updateWithFilter();
             }else{
                 //No filtering being applied
+                clearTrackList();
                 initialize();
             }
             $(".track-view").scrollTop(0);
         }
     });
-    $(document).on('click', '.add-playlist', function(){
+    $(document).on('click', '.add-playlist', function(evt){
         var songID = $(this).parent().attr('class').match(/\d+/);
         var name = $(this).parent().text();
         $('.playlist').append('<li class="playlist-song ' + songID + '"><img class="pl-button delete-playlist" src="../resources/delete.png">' + name + '</li>');
+        evt.stopPropagation();
+        evt.preventDefault();
     })
-    $(document).on('click', '.delete-playlist', function(){
+    $(document).on('click', '.delete-playlist', function(evt){
         $(this).parent().remove();
+        evt.stopPropagation();
+        evt.preventDefault();
     })
-    $('.catagory').on('click',function(){
+    $('.catagory').on('click',function(evt){
         $('#search-catagory').html($(this).text() + '<span class="caret"></span>');
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $('#save-playlist').on('click', function(){
+    $('#save-playlist').on('click', function(evt){
         var plName = $('#playlist-name').val();
         if($('#playlist-name').val() == ''){
             plName = "Playlist";
@@ -613,19 +635,24 @@ $(document).ready(function() {
             idArray[i] = $(this).attr('class').match(/\d+/);
         });
         savePlaylist(idArray.join(','), plName);
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(document).on('click', '#load-playlist', function(){
+    $(document).on('click', '#load-playlist', function(evt){
         var playlistID = $(this).val();
         var playlistName = $(this).parent().find('.playlist-name').text();
         $('#playlist-name').val(playlistName);
         loadPlaylist(playlistID);
     })
-    $('#load-playlist-view').on('click', function(){
+    $('#load-playlist-view').on('click', function(evt){
         getAllPlaylists();
+        evt.preventDefault();
     });
-    $(document).on('click', '.list-group-item', function(){
+    $(document).on('click', '.list-group-item', function(evt){
         $('.list-group-item.active').removeClass('active');
         $(this).addClass('active');
+        evt.stopPropagation();
+        evt.preventDefault();
     });
     //ON PAGE LOAD
     fillGenres();

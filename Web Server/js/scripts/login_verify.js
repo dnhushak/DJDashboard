@@ -2,7 +2,7 @@ $(document).ready(function(){
 	$('#login-error').hide();
 
 	
-	$("#login").on('click', function(){
+	$("#login").on('click', function(evt){
 		if($('#user-name').val() == ''){
     		$('#login-error').html("User name is required");
     		$('#login-error').show();
@@ -31,6 +31,8 @@ $(document).ready(function(){
 	        	}
 	        	window.location.replace("./djdashboard.php");
 		});
+        evt.stopPropagation();
+        evt.preventDefault();
 	})
 	$(document).keypress(function(e) {
 	    if(e.which == 13) {

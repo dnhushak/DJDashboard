@@ -164,7 +164,7 @@ $(document).ready(function(){
 		})
 	};
 
-	$('#save-user-type').on('click', function(){
+	$('#save-user-type').on('click', function(evt){
 		var name = $('#user-type-input').val();
 		var pOnAirSignOn = $('#new-on-air-sign-on').prop( "checked" );
 		var pViewLibrary = $('#new-view-library').prop( "checked" );
@@ -185,10 +185,11 @@ $(document).ready(function(){
 				pGrantView, pGrantEdit, pManageUsers, pPermissionEdit,
 				pEditUserType, pOnAirSignOn, pReviewMusic);
 		}
-
+		evt.stopPropagation();
+        evt.preventDefault();
 	})
 	
-	$(document).on('click', '.update-user-type', function(){
+	$(document).on('click', '.update-user-type', function(evt){
 		var name = $(this).parent().parent().find('.type-name').text();
 		var id = $(this).val();
 		var pOnAirSignOn = $(this).parent().parent().find('.on-air-sign-on').prop( "checked" );
@@ -202,10 +203,11 @@ $(document).ready(function(){
 		var pPermissionEdit = $(this).parent().parent().find('.edit-permissions').prop( "checked" );
 		var pEditUserType = $(this).parent().parent().find('.edit-user-types').prop( "checked" );
 		var pReviewMusic = $(this).parent().parent().find('.review-music').prop( "checked" );
-
-		UpdateUserType(id, pViewLibrary, pPSAView, pPSAManage,
+		UpdateUserType(id, pViewLibrary, pEditLibrary, pPSAView, pPSAManage,
 		 		pGrantView, pGrantEdit, pManageUsers, pPermissionEdit,
 		 		pEditUserType, pOnAirSignOn, name, pReviewMusic);
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
 	$('.close').on('click', function(evt){
 		$('.succesful-save').hide();

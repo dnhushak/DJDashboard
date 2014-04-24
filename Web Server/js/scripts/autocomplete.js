@@ -18,11 +18,12 @@ $(document).ready(function(){
 		$("#primary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
 		$("#secondary-genres-allowed").append('<option value="' + i + '">' + genres[i] + '</option>')
 	}
-	$(".custom-song-button").on('click', function(){
+	$(".custom-song-button").on('click', function(evt){
 		$('.custom-title').html("Add Custom Song");
         $('#onair').html('Add Song');
+		evt.preventDefault();
 	});
-	$(".close-custom-song").on('click', function(){
+	$(".close-custom-song").on('click', function(evt){
 
 		$('#input-track').val("");
 		$('#input-artist').val("");
@@ -35,9 +36,10 @@ $(document).ready(function(){
 		oldSongID = -1;
 		onairIndex = -1;
 		$(".song-input-error").hide();
+		evt.preventDefault();
 	});
 
-	$(".save-track").on('click', function(){
+	$(".save-track").on('click', function(evt){
 		if($('#input-track').val() != "" && $('#input-artist').val() != "" && $('#input-album').val() != ""){
 			if($(this).attr('id') === 'onair'){
 				onairView = true;
@@ -48,6 +50,8 @@ $(document).ready(function(){
 		}else{
 			$(".song-input-error").show();
 		}
+		evt.stopPropagation();
+		evt.preventDefault();
 	})
 
 	var tracks = new Bloodhound({
@@ -189,6 +193,7 @@ customTrack = function(){
     			'PrimaryGenreID' : pGenreID,
     			'SecondaryGenreID' : sGenreID}
     }).done(function(addedID){
+    	console.log(addedID);
     	songID = parseInt(addedID);
     	if(onairView){
     		var songName = $('#input-track').val();

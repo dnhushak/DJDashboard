@@ -55,13 +55,17 @@ $('document').ready(function() {
 		});
 	}
 	
-	$(document).on('click', '#editButton', function(){
+	$(document).on('click', '#editButton', function(evt){
     	console.log('cliked');
         editButton($(this).val());
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-	$(document).on('click', '#saveButton', function(){
+	$(document).on('click', '#saveButton', function(evt){
 		savePSA(); //Save this one
 		getPSAs(); //Reload page
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
 
 	function editButton(id) {
@@ -83,6 +87,7 @@ $('document').ready(function() {
 			arr[id]['Message'] = psas['Message'];
 			arr[id]['Name'] = psas['Name'];
 			arr[id]['Sponsor'] = psas['Sponsor'];
+			arr[id]['MaxPlayCount'] = psas['MaxPlayCount'];
 			loaddata(id)
 		});
 		//ajax complete, load the data
@@ -150,8 +155,10 @@ $('document').ready(function() {
 	
 	}
 	
-	$('.viewSpecificException').on('click', function() {
+	$('.viewSpecificException').on('click', function(evt) {
 		console.log('clicked');
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
 
 	//INITIAL LOAD

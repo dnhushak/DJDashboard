@@ -51,7 +51,7 @@ class SqlConnect
 			$this->database = $attr['schema'];
 			}
 			}**/
-			/**
+     		/**
 			$this->connUrl = 'mysql.cs.iastate.edu';
 			$this->username = 'u30919';
 			$this->database = 'db30919';
@@ -116,6 +116,12 @@ class SqlConnect
 					{
 						$cmd = $cmd."null,";
 					}
+					else if($args[$i] === true){
+						$cmd = $cmd."1,";
+					}
+					else if($args[$i] === false){
+						$cmd = $cmd."0,";
+					}
 					else
 					{
 						$cmd = $cmd.$args[$i].",";
@@ -130,6 +136,12 @@ class SqlConnect
 				else if($args[$i] === null)
 				{
 					$cmd = $cmd."null);";
+				}
+				else if($args[$i] === true){
+					$cmd = $cmd."1,";
+				}
+				else if($args[$i] === false){
+					$cmd = $cmd."0,";
 				}
 				else
 				{

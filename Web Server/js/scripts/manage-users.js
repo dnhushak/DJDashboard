@@ -112,13 +112,13 @@ $(document).ready(function(){
 				}else{
                		userHTML += '<td><button type="button" class="btn btn-danger btn-sm activate-user"  value="' + users[i]["UserID"] + '">Reactivate</button></td>';
 				}
-                userHTML += '</td>';
+                userHTML += '</tr>';
                 $('.users').append(userHTML);
 			}
 		});
 	}
 
-	$('#save-user').on('click', function(){
+	$('#save-user').on('click', function(evt){
 		console.log('saving users');
 		var userName = $("#user-input").val();
 		var email = $("#email-input").val();
@@ -154,9 +154,11 @@ $(document).ready(function(){
 				}
 			});
 		}
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
 
-	$(".inactive-btn").on("click", function(){
+	$(".inactive-btn").on("click", function(evt){
 		if(showInactive){
 			showInactive = false;
 			$(this).text("View Inactive Users");
@@ -165,8 +167,10 @@ $(document).ready(function(){
 			$(this).text("Hide Inactive Users");
 		}
 		LoadUsers();
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
-	$(document).on('click', ".update-user-btn", function(){
+	$(document).on('click', ".update-user-btn", function(evt){
 		var lastName = $(this).parent().parent().find('.lastname').text();
 		var email = $(this).parent().parent().find('.email').text();
 		var firstName = $(this).parent().parent().find('.firstname').text();
@@ -178,8 +182,10 @@ $(document).ready(function(){
 		$('#email-update').val(email);
 		$('#type-update').val(userTypeID);
 		$('#save-update-user').val(userID);
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
-	$('#save-update-user').on('click', function(){
+	$('#save-update-user').on('click', function(evt){
 		var lastName = $('#last-name-update').val();
 		var firstName = $('#first-name-update').val();
 		var email = $('#email-update').val();
@@ -191,14 +197,20 @@ $(document).ready(function(){
 		}else{
 			UpdateUser(userID, firstName, lastName, email, type);
 		}
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
-	$(document).on('click', '.delete-user' ,function(){
+	$(document).on('click', '.delete-user' ,function(evt){
 		var userID = $(this).val();
 		DeleteUser(userID);
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
-	$(document).on('click', '.activate-user' ,function(){
+	$(document).on('click', '.activate-user' ,function(evt){
 		var userID = $(this).val();
 		ReactivateUser(userID);
+		evt.stopPropagation();
+        evt.preventDefault();
 	});
 
 

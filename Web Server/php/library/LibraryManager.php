@@ -28,6 +28,8 @@ class LibraryManager {
 	private $spGetRecentlyPlayed;
 	private $spGetMostPopular;
 	private $spGetSubsonicID;
+	private $spGetPlaysByTimeSpanAndUserID;
+	private $spGetAlbumPlaysByTimeSpanAndUserID;
 
 	public function __construct() {
 		$this->initialize();
@@ -62,6 +64,8 @@ class LibraryManager {
 		$this->spGetRecentlyPlayed = "GetLast25Played";
 		$this->spGetMostPopular = "GetMost25PopularTracks";
 		$this->spGetSubsonicID = "GetTrackSubsonicID";
+		$this->spGetPlaysByTimeSpanAndUserID = "GetPlaysByTimeSpanAndUserID";
+		$this->spGetAlbumPlaysByTimeSpanAndUserID = "GetAlbumPlaysByTimeSpanAndUserID";
 	}
 
 	/**
@@ -537,6 +541,48 @@ class LibraryManager {
 			return false;
 		} catch (string $str) {
 			Publisher :: publishException("Custom Exception", $str, 0);
+			return false;
+		}
+	}
+	public function getPlaysByTimeSpanAndUserID($startDate, $endDate, $userID){
+
+		try{
+			$conn = new sqlconnect();
+			$results = $conn->callStoredProc($this->spGetPlaysByTimeSpanAndUserID, array($startDate, $endDate, $userID));
+			$arr = array();
+			while ($rowInfo = mysqli_fetch_assoc($results)) {
+				$innerArr = array();
+				
+				$innerArr['TrackName'] = utf8_encode($rowInfo['TrackName']);
+				$innerArr['PlayCount'] = utf8_encode($rowInfo['TimeframePlayCount']);
+				
+				$arr[] = $innerArr;
+			}
+			return $arr;
+		}
+		catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $this->userID);
+			return false;
+		}
+	}
+	public function getAlbumPlaysByTimeSpanAndUserID($startDate, $endDate, $userID){
+
+		try{
+			$conn = new sqlconnect();
+			$results = $conn->callStoredProc($this->spGetAlbumPlaysByTimeSpanAndUserID, array($startDate, $endDate, $userID));
+			$arr = array();
+			while ($rowInfo = mysqli_fetch_assoc($results)) {
+				$innerArr = array();
+				
+				$innerArr['AlbumName'] = utf8_encode($rowInfo['AlbumName']);
+				$innerArr['PlayCount'] = utf8_encode($rowInfo['TimeframePlayCount']);
+				
+				$arr[] = $innerArr;
+			}
+			return $arr;
+		}
+		catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $this->userID);
 			return false;
 		}
 	}

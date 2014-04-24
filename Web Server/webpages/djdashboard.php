@@ -86,6 +86,7 @@
 						$htmlStr .= '<li><a class="cursor" id="manage-user-types">Manage User Types</a></li>';
 					}
 					if(isset($_SESSION['plibrarymanage'])&&($_SESSION['plibrarymanage'] == "1")){
+						$htmlStr .= '<li><a class="cursor" id="analytics">Analytics</a></li>';
 						$htmlStr .= '<li><a class="cursor" id="CMJ-library">CMJ Library</a></li>';
 					}
 					$htmlStr .= '</ul></li>';

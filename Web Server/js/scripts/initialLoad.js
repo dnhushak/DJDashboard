@@ -58,7 +58,7 @@ $(document).ready(function() {
     
     $('.on-air-display').hide();
     
-    $('#off-air-button').on('click', function(){
+    $('#off-air-button').on('click', function(evt){
     	$.ajax({
             url: '../php/scripts/endOnAirSession.php',
             type: 'GET'
@@ -75,6 +75,8 @@ $(document).ready(function() {
             $("#content").html(html);
             $("#content").css("height", "initial");
         });
+        evt.stopPropagation();
+        evt.preventDefault();
     })
     
     $.ajax({

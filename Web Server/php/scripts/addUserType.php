@@ -1,13 +1,6 @@
 <?php
-include ('../library/UserManager.php');
+include_once ('../library/UserManager.php');
 include_once ('../publisher.php');
-
-// Fatal error handler for PHP
-register_shutdown_function("Publisher::fatalHandler");
-
-<<<<<<< .mine
-include('../library/UserManager.php');
-include_once('../publisher.php');
 
 	//Fatal error handler for PHP
 register_shutdown_function( "Publisher::fatalHandler" );
@@ -21,7 +14,6 @@ try {
 	$grantView = ($_GET ['GrantView'] == 'true' ? 1 : 0);
 	$grantEdit = ($_GET ['GrantEdit'] == 'true' ? 1 : 0);
 	$manageUsers = ($_GET ['ManageUsers'] == 'true' ? 1 : 0);
-	$plEdit = ($_GET ['PlaylistEdit'] == 'true' ? 1 : 0);
 	$permEdit = ($_GET ['PermissionEdit'] == 'true' ? 1 : 0);
 	$userTypeEdit = ($_GET ['UserTypeEdit'] == 'true' ? 1 : 0);
 	$onAirSignon = ($_GET ['OnAirSignOn'] == 'true' ? 1 : 0);

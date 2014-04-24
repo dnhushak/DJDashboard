@@ -52,7 +52,7 @@ $('document').ready(function(){
                 grantHTML += grants[i]['GrantName'] + '</a></h4></div>';
                 grantHTML += '<div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">';
                 grantHTML += grants[i]['Message'];
-                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary custom-song-button btn-sm" data-toggle="modal" data-target="#custom-song-modal">Mark Read</button></div></div></div>'
+                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary btn-sm" id="psa-mark-played">Mark Read</button></div></div></div>'
                 $('.grants').append(grantHTML);
             }
             readType = "GRANT";
@@ -71,7 +71,6 @@ $('document').ready(function(){
                 console.log(data);
                 return;
             }
-            console.log(grants);
             $('.grants').html('');
             for(var i = 0; i < grants.length; i++){
                 var grantHTML = '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title">'
@@ -79,7 +78,7 @@ $('document').ready(function(){
                 grantHTML += grants[i]['Name'] + '</a></h4></div>';
                 grantHTML += '<div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">';
                 grantHTML += grants[i]['Message'];
-                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary custom-song-button btn-sm" id="psa-mark-played" value="'+grants[i]['ID']+'">Mark Read</button></div></div></div>'
+                grantHTML += '<button style="float: right;" type="button" class="btn btn-primary btn-sm" id="psa-mark-played" value="'+grants[i]['ID']+'">Mark Read</button></div></div></div>'
                 $('.grants').append(grantHTML);
             }
             readType = "PSA";
@@ -252,25 +251,31 @@ $('document').ready(function(){
         });
     }
 
-    $('.load-playlist-button').on('click', function(){
+    $('.load-playlist-button').on('click', function(evt){
         getAllPlaylists();
+        evt.preventDefault();
     });
-    $(document).on('click', '#load-playlist', function(){
+    $(document).on('click', '#load-playlist', function(evt){
         var playlistID = $(this).val();
         var playlistName = $(this).parent().find('.playlist-name').text();
         $('#playlist-name').val(playlistName);
         loadPlaylist(playlistID);
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(document).on('click', '#psa-mark-played', function(){
+    $(document).on('click', '#psa-mark-played', function(evt){
     	var itemID = parseInt($(this).val());
     	if(readType == "PSA"){
     		psaRead(itemID);
+            getPSAs();
     	}
     	if(readType == "GRANT"){
     		console.log('Grant read not implemented');
     	}
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(document).on('click', '#mark-played', function(){
+    $(document).on('click', '#mark-played', function(evt){
         var songID = $(this).parent().parent().attr('class');
         var songIndex = parseInt($(this).val());
         $(this).parent().parent().addClass('success');
@@ -281,25 +286,33 @@ $('document').ready(function(){
         $(this).attr("data-toggle", "modal");
         $(this).attr("data-target", "#custom-song-modal");
         markPlayedTrack(songID, songIndex);
+        evt.stopPropagation();
+        evt.preventDefault();
     });
 
-    $(document).on('click', '#update-played', function(){
+    $(document).on('click', '#update-played', function(evt){
         var trackID = $(this).parent().parent().attr('class').match(/\d+/);
         var songIndex = $(this).val();
         testOnAirUpdate(trackID, songIndex);
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $('#onair').on('click', function(){
+    $('#onair').on('click', function(evt){
         setTimeout(function(){getRecentlyPlayed();}, 500);
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(".go-onair").on('click', function(){
+    $(".go-onair").on('click', function(evt){
         isOnAir = true;
         $(".on-air-display").show();
         startOnAirSession();
         loadPage();
         $(".onair-warning").hide();
         $(".main-view").show();
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(".go-away").on('click', function(){
+    $(".go-away").on('click', function(evt){
         changeActive('home');
         $.ajax({
             url : 'home.html',
@@ -310,27 +323,37 @@ $('document').ready(function(){
             $("#content").html(html);
             $("#content").css("height", "initial");
         });
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(".grant-tab").on('click', function(){
+    $(".grant-tab").on('click', function(evt){
         $(".grant-psa-nav .active").removeClass("active");
         $(this).addClass('active');
         getGrants();
+        evt.stopPropagation();
+        evt.preventDefault();
     });
    
-    $(".psa-tab").on('click', function(){
+    $(".psa-tab").on('click', function(evt){
         $(".grant-psa-nav .active").removeClass("active");
         $(this).addClass('active');
         getPSAs();
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(".recent").on('click', function(){
+    $(".recent").on('click', function(evt){
         $(".plays-nav .active").removeClass("active");
         $(this).addClass('active');
         getRecentlyPlayed();
+        evt.stopPropagation();
+        evt.preventDefault();
     });
-    $(".popular").on('click', function(){
+    $(".popular").on('click', function(evt){
         $(".plays-nav .active").removeClass("active");
         $(this).addClass('active');
         getMostPopular();
+        evt.stopPropagation();
+        evt.preventDefault();
     });
 	
 

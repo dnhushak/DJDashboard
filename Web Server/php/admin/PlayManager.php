@@ -15,6 +15,7 @@
  {
  	private $spGetEnumeratedTypes;
  	private $spGetPlays;
+ 	private $spGetPlaysByTimeSpanAndUserID;
  	
  	private $conn;
  	private $userID;
@@ -42,6 +43,7 @@
 	private function initialize() {
 		$this->spGetEnumeratedTypes = "GetPlayableTypes";
 		$this->spGetPlays = "GetRecentPlays";
+		$this->spGetPlaysByTimeSpanAndUserID = "GetPlaysByTimeSpanAndUserID";
 		$this->conn = new sqlconnect();
 		$results = $this->conn->callStoredProc($this->spGetEnumeratedTypes, null);
 		
@@ -102,6 +104,27 @@
 			return false;
 		}
 		
+	}
+	public function getPlaysByTimeSpanAndUserID($startDate, $endDate, $userID){
+		try{
+		$results = $this->conn->callStoredProcWithDate($this->spGetPlays, array($startDate, $endDate, $userID));
+		$arr = array();
+		while ($rowInfo = mysqli_fetch_assoc($results)) {
+			$innerArr = array();
+			
+			$innerArr['PlayID'] = utf8_encode($rowInfo['PlayID']);
+			$innerArr['TrackName'] = utf8_encode($rowInfo['TrackName']);
+			$innerArr['PlayCount'] = utf8_encode($rowInfo['TimeframePlayCount']);
+			
+			$arr[] = $innerArr;
+		}
+		$this->conn->freeResults();
+		return $arr;
+		}
+		catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), $this->userID);
+			return false;
+		}
 	}
  }
  

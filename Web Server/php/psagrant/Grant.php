@@ -85,6 +85,17 @@
 		
 		return $g;
 	}
+	
+	public function getAddGrantArgs($userID){
+		$arr = array();
+		$arr[] = $this->name;
+		$arr[] = $this->message;
+		$arr[] = $this->endDate;
+		$arr[] = $this->maxPlayCount;
+		$arr[] = $this->playCount;
+		$arr[] = $userID;
+		return $arr;
+	}
  	
  	public function setMaxPlayCount($mpc)
  	{

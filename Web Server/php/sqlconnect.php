@@ -159,6 +159,7 @@ class SqlConnect
 			{
 				$results = $this->connection->query("Call ".$procedureName."();");
 			}
+			
 
 			return $results;
 		}

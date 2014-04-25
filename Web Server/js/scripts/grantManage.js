@@ -67,7 +67,7 @@ $('document').ready(function() {
     });
 	$(document).on('click', '#saveButton', function(){
 		savePSA(); //Save this one
-		getPSAs(); //Reload page
+		getGrants(); //Reload page
 	});
 	$(document).on('click', '#addButton', function(){
 		addPSA();
@@ -116,8 +116,8 @@ $('document').ready(function() {
 
 	function savePSA(){
 		arr[activeID]['Message'] = document.getElementById('input-message').value;
-		arr[activeID]['Sponsor'] = document.getElementById('input-sponsor').value;
 		arr[activeID]['Name'] = document.getElementById('input-name').value;
+		arr[activeID]['EndDate'] = document.getElementById('input-end-date').value;
 		var playStr = document.getElementById('input-plays').value;
 		var slashIndex = playStr.indexOf('/');
 		arr[activeID]['PlayCount'] = playStr.substring(0, slashIndex - 1);
@@ -126,15 +126,14 @@ $('document').ready(function() {
 		$.ajax({
 			type : "GET",
 			data : {
-				'psaid' : arr[activeID]['PSAID'],
+				'GrantID' : (arr[activeID]['GrantID'] == null ? 0 : arr[activeID]['GrantID']),
 				'Message' : arr[activeID]['Message'],
 				'Name' : arr[activeID]['Name'],
-				'Sponsor' : arr[activeID]['Sponsor'],
 				'PlayCount' : arr[activeID]['PlayCount'],
 				'MaxPlayCount' : arr[activeID]['MaxPlayCount'],
-				'EndDate' : '2014-06-06',
+				'EndDate' : arr[activeID]['EndDate'],
 			},
-			url : "../php/scripts/updatePSA.php"
+			url : "../php/scripts/addUpdateGrant.php"
 		}).done(function(data) {
 			var profile;
 			try {
@@ -155,7 +154,7 @@ $('document').ready(function() {
 		$('.modal-header').append(
 				'<h3>Grant ID ' + arr[clicked_id]['GrantID'] + '</h3>');
 		// $('.input-message').append(arr[clicked_id]['Message']);
-		
+		document.getElementById('input-end-date').value = arr[clicked_id]['EndDate'];
 		document.getElementById('input-name').value = arr[clicked_id]['GrantName'];
 		document.getElementById('input-message').value = arr[clicked_id]['Message'];
 		$('.modified-username').append('<h5>' +arr[clicked_id]['UserName'] + '</h5><br>');

@@ -19,6 +19,7 @@ class GrantManager {
 	private $spGetEligibleGrants;
 	private $spGetAllGrantInfo;
 	private $spGetGrantBasicInfo;
+	private $spAddGrant;
 
 	public function __construct() {
 		$this->initialize();
@@ -28,8 +29,22 @@ class GrantManager {
 		$this->spGetEligibleGrants = "GetEligibleGrants";
 		$this->spGetAllGrantInfo = "GetAllGrantInfo";
 		$this->spGetGrantBasicInfo = "GetGrantBasicInfo";
+		$this->spAddGrant = "AddGrant";
 	}
 
+	public function addGrant($grant, $userID){
+		try{
+			$conn = new sqlConnect();
+			$results = $conn->callStoredProc($this->spAddGrant, $grant->getAddGrantArgs($userID));
+			$rowInfo = mysqli_fetch_assoc($results);
+			$id = $rowInfo['ID'];
+			return $id;
+		}catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
+	}
+	
 	/**
 	 * Retrieves $numberOfGrant (int) number of grants back to the the calling program.  This will return an array of Grant objects.
 	 */

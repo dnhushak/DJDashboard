@@ -5,6 +5,6 @@
 // Just, don't.
 // Don't touch these.
 // Go away.
-const hashAlgo = "SHA256";
-const saltSize = 32;
+const HASHALGO = "SHA256";
+const SALTSIZE = 32;
 ?>

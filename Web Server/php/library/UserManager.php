@@ -60,8 +60,8 @@ class UserManager {
 	}
 
 	public function addUser($user, $pass, $type, $first, $last, $email){
-		$salt = authUtil::makeSalt(saltSize);
-		$hash = authUtil::makePassHash(hashAlgo, $salt, $user, $pass);
+		$salt = authUtil::makeSalt(SALTSIZE);
+		$hash = authUtil::makePassHash(HASHALGO, $salt, $user, $pass);
 		$proc = "AddUser";
 		$conn = new SqlConnect();
 		$arr = array (
@@ -113,7 +113,7 @@ class UserManager {
 		}
 		
 		// Verify supplied username hash and salt
-		$success = authUtil::verifyPass(hashAlgo, $hash, $salt, $user, $pass);
+		$success = authUtil::verifyPass(HASHALGO, $hash, $salt, $user, $pass);
 		
 		// Successful login, start a new session with all info
 		if ($success) {

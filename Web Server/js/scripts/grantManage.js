@@ -69,6 +69,9 @@ $('document').ready(function() {
 		savePSA(); //Save this one
 		getPSAs(); //Reload page
 	});
+	$(document).on('click', '#addButton', function(){
+		addPSA();
+	});
 
 	function editButton(id) {
 		$.ajax({

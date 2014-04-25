@@ -147,6 +147,7 @@ class UserManager {
 				$_SESSION['ppermissionedit'] = $row['EditPermissions'];
 				$_SESSION['peditusertype'] = $row['EditUserType'];
 				$_SESSION['ponairsignon'] = $row['OnAirSignOn'];
+				$_SESSION['isfirstlogin'] = $row['IsFirstLogin'];
 			}			
 			exit();
 			

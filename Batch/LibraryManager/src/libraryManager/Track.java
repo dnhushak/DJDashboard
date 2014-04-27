@@ -235,6 +235,27 @@ public class Track
 		Track other = (Track) obj;
 		return other.ID == this.ID;
 	}
+	
+	public void sanitize()
+	{
+		if(name == null) { name = "Unknown Name"; }
+		if(artist == null) { artist = "Unknown Artist"; }
+		if(album == null) { album = "Unknown Album"; }
+		 
+		if(name.toUpperCase().contains(EXPLICIT_TAG))
+	    {
+			setFCC(true);
+			stripTag(EXPLICIT_TAG);
+	    }
+	    if(name.toUpperCase().contains(RECO_TAG))
+	    {
+	    	setRecommended(true);
+	    	stripTag(RECO_TAG);
+	    }
+	    name = sanitizeString(name);
+	    artist = sanitizeString(artist);
+	    album = sanitizeString(album);
+	}
 		
 	/**
 	* Removes given tag from the track name
@@ -286,7 +307,7 @@ public class Track
 		return -1;
 	}
 	 
-	private String sanatizeString(String str)
+	private String sanitizeString(String str)
 	{
 		str = removeAccent(str);
 		str = singleSpacedAndCapitalize(str);

@@ -3,21 +3,20 @@ package libraryManager;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 /**
- * 
- * @author travis
  * From http://trav.is/thoughts/2010/03/30/parsing-itunes-library-using-sax-parser-java/
  * Modified to fit existing libraryManager package
- *
+ * 
+ * Parses through an iTumes xml file with a SAX parser to pull
+ * track information and created a library of tracks.
  */
 public class ITunesParser extends DefaultHandler 
 {
@@ -87,6 +86,12 @@ public class ITunesParser extends DefaultHandler
         {
             if ("key".equals(previousTag) && "dict".equalsIgnoreCase(qName)) 
             {
+				if(myTracks.size() != 0)
+				{
+            		int subsonicId = subsonicLibrary.getSubsonicTrackID(tempTrack.getName());
+            		tempTrack.setSubsonicID(subsonicId);
+					tempTrack.sanitize();
+				}
                 tempTrack = new Track();
                 myTracks.add(tempTrack);
             }
@@ -119,10 +124,7 @@ public class ITunesParser extends DefaultHandler
         {
             if (previousTagVal.equalsIgnoreCase("Name") && qName.equals("string"))
             {
-                String name = tempVal.trim();
-				int subsonicID = subsonicLibrary.getSubsonicTrackID(name);
-				tempTrack.setSubsonicID(subsonicID);
-                tempTrack.setName(name);
+                tempTrack.setName(tempVal.trim(););
             }
             else if (previousTagVal.equalsIgnoreCase("Artist") && qName.equals("string"))
             {

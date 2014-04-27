@@ -3,6 +3,7 @@ package Parser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import libraryManager.ITunesParser;
 import libraryManager.Library;
 
 /**
@@ -17,7 +18,7 @@ public class ParserProgram
 {
 	public static void main(String[] args) 
 	{
-		String path = args.length == 1 ? args[0] : "C:\\iTunes Library.xml";		
+		String path = args.length == 1 ? args[0] : ITunesParser.LIBRARY_FILE_PATH;		
 		File src = new File(path);
 		File directory = new File(src.getParent() + "DupLibrary");
 		File dest = new File(directory.getAbsolutePath() + "\\" + src.getName());

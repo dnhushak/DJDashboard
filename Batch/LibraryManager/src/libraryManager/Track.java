@@ -353,14 +353,19 @@ public class Track
 	 
 	private String removeArticle(String str)
 	{
-		int space = str.indexOf(" ");
-		if(space != -1)
+		String[] strings = str.split("\\s+|\\t+");
+		if(strings.length > 1 && isArticle(strings[0]) && !strings[0].equalsIgnoreCase(strings[1]))
 		{
-			String firstWord = str.substring(0, space);
-			if(isArticle(firstWord))
+			StringBuilder sb = new StringBuilder();
+			for(int i = 1; i < strings.length; i++)
 			{
-				return str.substring(Math.min(space + 1, str.length() - 1));
+				sb.append(strings[i]);
+				if(i != strings.length - 1)
+				{
+					sb.append(" ");
+				}
 			}
+			return sb.toString();
 		}
 		return str;
 	}

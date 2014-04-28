@@ -89,11 +89,10 @@ public class ITunesParser extends DefaultHandler
             {
 				if(tempTrack != null)
 				{
-            		int subsonicId = subsonicLibrary.getSubsonicTrackID(tempTrack.getName());
-            		tempTrack.setSubsonicID(subsonicId);
+            		tempTrack.setSubsonicID(subsonicLibrary.getSubsonicTrackID(tempTrack.getName()));
 					tempTrack.sanitize();
 					Map<String, Map<Integer, Track>> albums = tracks.get(tempTrack.getArtist());
-					if(albums == null)
+					if(tracks.get(tempTrack.getArtist()) == null)
 					{
 						tracks.put(tempTrack.getArtist(), new HashMap<String, Map<Integer, Track>>());
 					}
@@ -114,7 +113,7 @@ public class ITunesParser extends DefaultHandler
 						}
 					}
 				}
-            }
+                tempTrack = new Track();
         } 
         else 
         {

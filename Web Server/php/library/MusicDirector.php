@@ -14,8 +14,7 @@ class MusicDirector {
 	// set album reviewer by id
 	// Add Album to rotation
 	// Remove album from rotation (but not from the library!)
-	// 
-	
+	//
 	private $spAddDistributor;
 	private $spAddRotation;
 	private $spGetAllDistributors;
@@ -26,19 +25,19 @@ class MusicDirector {
 	private $spAssignReviewer;
 	private $spReviewAlbum;
 	private $conn;
-	
-	public function __construct() {
+
+	public function __construct(){
 		$this->initialize();
 	}
 
 	/**
 	 * Build constant procedure names
 	 */
-	private function initialize() {
+	private function initialize(){
 		// Register failure procedure
 		register_shutdown_function("Publisher::fatalHandler");
 		$conn = new sqlConnect();
-
+		
 		$this->spAddDistributor = "AddDistributor";
 		$this->spAddRotation = "AddRotation";
 		$this->spGetAllDistributors = "GetAllDistributors";
@@ -51,20 +50,35 @@ class MusicDirector {
 	}
 
 	public function addDistributor($distributorName, $phone, $email, $contactName, $location, $affiliated, $website, $downloadSite, $weight){
-		$args = array();
-		$args[] = $phone;
-		$args[] = $email;
-		$args[] = $contactName;
-		$args[] = $location;
-		$args[] = $affiliated;
-		$args[] = $website;
-		$args[] = $downloadSite;
-		$args[] = $weight;
-		$results = $this->conn->callStoredProc($this->spAddDistributor, $args);
+		try {
+			$args = array ();
+			$args [] = $phone;
+			$args [] = $email;
+			$args [] = $contactName;
+			$args [] = $location;
+			$args [] = $affiliated;
+			$args [] = $website;
+			$args [] = $downloadSite;
+			$args [] = $weight;
+			$results = $this->conn->callStoredProc($this->spAddDistributor, $args);
+		}
+		catch (Exception $e) {
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
 	}
-	
+
 	public function addRotation($distributorID, $albumID, $comments){
-		
+	}
+
+	public function getAllDistributors(){
+		try{
+			$results = $this->conn->callStoredProd($this->spGetAllDistributors, NULL);
+		}
+		catch (Exception $e) {
+			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			return false;
+		}
 	}
 }
 ?>

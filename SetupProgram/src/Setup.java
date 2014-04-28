@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -19,12 +20,18 @@ public class Setup {
 		if(keyboard.nextLine().equalsIgnoreCase("Y")){
 			data.buildXML("config.xml");
 		}
+		
+		System.out.println("\n\nCreate constant php file? (Y/N)");
+		if(keyboard.nextLine().equalsIgnoreCase("Y")){
+			data.buildPHPConstants("constants.php");
+
+			System.out.println("Created the file constants.php");
+		}
 		System.out.println("\n\nDeploy to Database (DANGEROUS - Will delete any existing Schema!)");
 		if(keyboard.nextLine().equalsIgnoreCase("Y")){
 			try {
 				data.deploy("master.sql");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				System.out.println("Error Opening or saving files!");
 				e.printStackTrace();
 			}

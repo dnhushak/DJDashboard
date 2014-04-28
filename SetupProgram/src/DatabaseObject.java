@@ -114,6 +114,33 @@ public class DatabaseObject {
 			e.printStackTrace();
 		}
 	}
+	
+	public void buildPHPConstants(String path){
+		StringBuilder sb = new StringBuilder();
+		sb.append("<?php\n");
+		sb.append("const SQL_URL = '" + this.connectionString + "';\n");
+		sb.append("const SQL_USERNAME = '" + this.username + "';\n");
+		sb.append("const SQL_SCHEMA = '" + this.schema + "';\n");
+		sb.append("const SQL_PASSWORD = '" + this.password + "';\n");
+		sb.append("?>");
+		
+		
+		File out = new File(path);
+		// Create things as needed
+		System.out
+				.println("----------------------------PHP Output----------------------------");
+		System.out.println();
+		System.out.println(sb.toString());
+		System.out.println();
+		System.out
+				.println("------------------------------------------------------------------");
+		try (FileWriter fw = new FileWriter(out)) {
+			fw.write(sb.toString());
+		} catch (Exception e) {
+			// TODO something more sophisticated
+			e.printStackTrace();
+		}
+	}
 
 	public void deploy(String path) throws IOException {
 		// First create master script

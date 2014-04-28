@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -52,7 +52,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -95,7 +95,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -146,7 +146,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -195,7 +195,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -243,7 +243,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -286,7 +286,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -336,7 +336,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -382,7 +382,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -425,7 +425,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -474,7 +474,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -521,7 +521,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -569,7 +569,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -618,7 +618,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -670,7 +670,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -736,7 +736,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -764,7 +764,7 @@ USE `kure`;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AddDistributor`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `AddDistributor`(
 	aDistributorName varchar(255),
 	aPhone varchar(20),
 	aEmail varchar (1000),
@@ -834,7 +834,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AddGrant`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `AddGrant`(
 	aGrantName varchar(45),
 	aGrantMessage varchar(2048),
 	aEndDate datetime,
@@ -889,7 +889,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AddPSA`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `AddPSA`(
 	aPSAID bigint,
 	aName varchar(45),
 	aMessage varchar(2048),
@@ -934,7 +934,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AddRotation`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `AddRotation`(
 	aPhysicalReceived BIT(1),
 	aDigitalReceived BIT(1),
 	aPhysicalReceivedDate DATETIME,
@@ -1041,7 +1041,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `addTrack`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `addTrack`(
 	CalledName varchar(250),
 	CalledArtist varchar(250),
 	CalledAlbum varchar(250),
@@ -1162,7 +1162,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AddUser`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `AddUser`(
 	aUserName varchar(45),
 	aPasswordHash varchar(1024),
 	aSalt varchar(32),
@@ -1204,7 +1204,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AddUserType`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `AddUserType`(
 	aUserTypeName varchar(255),
 	aLibraryView bit,
 	aLibraryManage bit,
@@ -1260,7 +1260,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `AssignReveiwer`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `AssignReveiwer`(
 	aRotationID INT(11),
 	aReviewerID INT(11))
 BEGIN
@@ -1286,7 +1286,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `DeletePlaytrack`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `DeletePlaytrack`(
 	aPlayID bigint,
 	aUserID int
 )
@@ -1316,7 +1316,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `DeleteUser`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `DeleteUser`(
 	aUserID bigint
 )
 BEGIN
@@ -1339,7 +1339,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `EndUserSession`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `EndUserSession`(
 	aSessionID bigint
 )
 BEGIN
@@ -1361,7 +1361,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumList`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumList`()
 BEGIN
 	SELECT alb.idalbum as 'ID', alb.Name as 'Album Name', pGenre.Name as 'PrimaryGenre', sGenre.Name as 'SecondaryGenre'
 	FROM album alb
@@ -1383,7 +1383,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumPlaysByID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumPlaysByID`(
 	aAlbumID bigint
 )
 BEGIN
@@ -1416,7 +1416,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumsAutoComplete`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumsAutoComplete`(
 	aAlbumName varchar(20)
 )
 BEGIN
@@ -1451,7 +1451,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumsByGenreAndReco`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumsByGenreAndReco`(
 	aGenreID int,
 	aReco int
 )
@@ -1489,7 +1489,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumsFromArtistID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumsFromArtistID`(
 	aArtistID bigint
 )
 BEGIN
@@ -1515,7 +1515,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumsFromArtistName`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumsFromArtistName`(
 	aArtistName varchar(45)
 )
 BEGIN
@@ -1545,7 +1545,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumsFromDistributorID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumsFromDistributorID`(
 	aDistributorID bigint
 )
 BEGIN
@@ -1599,7 +1599,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAlbumsWhereTrackLike`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAlbumsWhereTrackLike`(
 	aTrackName varchar(20)
 )
 BEGIN
@@ -1625,7 +1625,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllDistributors`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllDistributors`()
 BEGIN
 	SELECT d.iddistributor as 'iddistributor',
 		d.name as 'distributorname',
@@ -1655,7 +1655,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllGenre`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllGenre`()
 BEGIN
 	SELECT idGenre as 'idGenre', Name as 'Name' FROM genre;
 END ;;
@@ -1674,7 +1674,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllGrantInfo`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllGrantInfo`(
 	aGrantID int
 )
 BEGIN
@@ -1705,7 +1705,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllPSAInfo`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllPSAInfo`(
 	aPSAID int
 )
 BEGIN
@@ -1732,7 +1732,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllPSAs`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllPSAs`()
 BEGIN
 SELECT p.idpsa as 'PSAID', p.name as 'Name',
 	p.createdate as 'CreateDate', p.playcount as 'PlayCount',
@@ -1759,7 +1759,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllTrackData`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllTrackData`(
 	TrackID bigint
 )
 BEGIN
@@ -1798,7 +1798,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllTracksByGenreAndReco`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllTracksByGenreAndReco`(
 	aGenreID int,
 	aReco int
 )
@@ -1831,7 +1831,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllUsers`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllUsers`()
 BEGIN
 	SELECT 
 		u.iduser as 'iduser',
@@ -1868,7 +1868,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetAllUserTypes`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetAllUserTypes`()
 BEGIN
 	SELECT
 			idusertype as 'idusertype',
@@ -1903,7 +1903,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetArtistList`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetArtistList`()
 BEGIN
 	SELECT idArtist as 'ID', Name as 'Artist'
 	FROM kure.artist;
@@ -1923,7 +1923,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetArtistListAlphabetical`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetArtistListAlphabetical`()
 BEGIN
 SELECT idArtist as 'ID', Name as 'Artist'
 	FROM kure.artist
@@ -1944,7 +1944,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetArtistsAutoComplete`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetArtistsAutoComplete`(
 	aArtistName varchar(20)
 )
 BEGIN
@@ -1979,7 +1979,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetArtistsByGenreAndReco`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetArtistsByGenreAndReco`(
 	aGenreID int,
 	aReco int
 )
@@ -2016,7 +2016,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetArtistsWhereTrackLike`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetArtistsWhereTrackLike`(
 	aTrackName varchar(20)
 )
 BEGIN
@@ -2042,7 +2042,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetCountPlaysGivenTimeframe`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetCountPlaysGivenTimeframe`(
 	aStartDate datetime
 )
 BEGIN
@@ -2076,7 +2076,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetCurrentOnAirUser`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetCurrentOnAirUser`()
 BEGIN
 	SELECT u.username as 'UserName', u.iduser as 'UserID', u.firstname as 'FirstName', u.lastname as 'LastName'
 	FROM onairsession oas
@@ -2098,7 +2098,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetDistributorByID`(aDistributorid INT(11))
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetDistributorByID`(aDistributorid INT(11))
 BEGIN
 	SELECT d.iddistributor as 'iddistributor',
 		d.name as 'distributorname',
@@ -2128,7 +2128,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetDJs`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetDJs`()
 BEGIN
 
 select u.iduser, u.FirstName, u.LastName, up.nickname, u.username, up.iduserprofile, ut.idusertype, u.email as 'email', 
@@ -2157,7 +2157,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetEligibleGrants`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetEligibleGrants`()
 BEGIN
 	SELECT idgrant as 'GrantID', playcount as 'PlayCount', 
 		startdate as 'StartDate', enddate as 'EndDate',
@@ -2181,7 +2181,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetEligiblePSAs`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetEligiblePSAs`()
 BEGIN
 
 	SELECT idpsa as 'PSAID', playcount as 'PlayCount', 
@@ -2206,7 +2206,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetErrors`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetErrors`()
 BEGIN
 	SELECT l.iderrorlog, u.iduser as 'UserID', l.message as 'Message', l.stacktrace as 'StackTrace', 
 		l.logdate as 'CreateDate', u.username as 'UserName', u.firstName as 'FirstName',
@@ -2230,7 +2230,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetExceptions`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetExceptions`()
 BEGIN
 	#Created by Robert Clabough
 	#3/3/2014
@@ -2259,7 +2259,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetExceptionsByUserID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetExceptionsByUserID`(
 	aUserID int
 )
 BEGIN
@@ -2288,7 +2288,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetGrantBasicInfo`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetGrantBasicInfo`()
 BEGIN
 
 	SELECT
@@ -2317,7 +2317,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetLast25Played`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetLast25Played`()
 BEGIN
 	SELECT trk.idtrack as 'TrackID', trk.Name as 'TrackName', art.Name as 'ArtistName', alb.Name as 'AlbumName', play.playdate as 'PlayDate'
 	FROM playtrack play
@@ -2342,7 +2342,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetMost25PopularTracks`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetMost25PopularTracks`(
 	aStartTime datetime
 )
 BEGIN
@@ -2370,7 +2370,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetPlayableTypes`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetPlayableTypes`()
 BEGIN
 	SELECT idplayabletypes as 'TypeID', name as 'TypeName'
 	FROM playabletypes;
@@ -2390,7 +2390,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetPlaylistTracks`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetPlaylistTracks`(
 	aPlaylistID int
 )
 BEGIN
@@ -2435,7 +2435,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetPlaysByTimeSpan`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetPlaysByTimeSpan`(
 	aStartTime datetime,
 	aEndTime datetime
 )
@@ -2467,7 +2467,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetPlaysByUserID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetPlaysByUserID`(
 	aUserID bigint
 )
 BEGIN
@@ -2500,7 +2500,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetRecentPlays`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetRecentPlays`()
 BEGIN
 	SET @TrackType = (SELECT idplayabletypes from playabletypes where name='Track');
 	SET @GrantType = (SELECT idplayabletypes from playabletypes where name = 'Grant');
@@ -2538,7 +2538,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetRecommendedArtistAlbum`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetRecommendedArtistAlbum`()
 BEGIN
 	SELECT idArtist, idAlbum, Name, CreateDate, FCC, Recommended, PlayCount, idPrimaryGenre, idSecondaryGenre
 	FROM track
@@ -2560,7 +2560,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetReviewers`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetReviewers`()
 BEGIN
 	SELECT 
 		u.iduser, 
@@ -2593,7 +2593,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetRotation`()
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetRotation`()
 BEGIN
 	SELECT 
 		rot.idrotation,
@@ -2648,7 +2648,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTrackChunks`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTrackChunks`(
 	aStartIndex bigint,
 	aNumberToReturn bigint
 )
@@ -2679,7 +2679,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTrackChunksAlphabetical`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTrackChunksAlphabetical`(
 	aLastWord varchar(255)
 )
 BEGIN
@@ -2712,7 +2712,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTrackPlaysByID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTrackPlaysByID`(
 	aTrackID bigint
 )
 BEGIN
@@ -2738,7 +2738,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTracksByAlbumID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTracksByAlbumID`(
 	aAlbumID bigint
 )
 BEGIN
@@ -2765,7 +2765,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTracksByAlbumName`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTracksByAlbumName`(
 	aAlbumName varchar(255)
 )
 BEGIN
@@ -2793,7 +2793,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTracksByArtistID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTracksByArtistID`(
 	aArtistID int
 )
 BEGIN
@@ -2822,7 +2822,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTracksByArtistName`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTracksByArtistName`(
 	aArtistName varchar(255)
 )
 BEGIN
@@ -2851,7 +2851,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTracksLike`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTracksLike`(
 	aTrackName varchar(20)
 )
 BEGIN
@@ -2887,7 +2887,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetTrackSubsonicID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetTrackSubsonicID`(
 	TrackID bigint
 )
 BEGIN
@@ -2917,7 +2917,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetUserFromName`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetUserFromName`(
 	aUserName varchar(45)
 )
 BEGIN
@@ -2942,7 +2942,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `GetUserProfile`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `GetUserProfile`(
 	aUserID int
 )
 BEGIN
@@ -2970,7 +2970,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `InsertCustomAlbum`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `InsertCustomAlbum`(
 	aArtistID int,
 	aAlbumName varchar(255),
 	aPriority bit,
@@ -3004,7 +3004,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `InsertCustomArtist`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `InsertCustomArtist`(
 	aArtistName varchar(255)
 )
 BEGIN
@@ -3032,7 +3032,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `InsertCustomTrack`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `InsertCustomTrack`(
 	aTrackName varchar(40),
 	aAlbumID int,
 	aArtistID int,
@@ -3082,7 +3082,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `InsertPlaylist`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `InsertPlaylist`(
 	aUserID int,
 	aPlaylistName varchar(45),
 	aTracks varchar(2048)
@@ -3115,7 +3115,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `LogError`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `LogError`(
 	aUserID int,
 	aMessage varchar(1024),
 	aStackTrace varchar(1024), 
@@ -3140,7 +3140,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `LogException`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `LogException`(
 	aUserID int,
 	aMessage varchar(2048),
 	aStackTrace varchar(2048),
@@ -3177,7 +3177,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `OnAirLogin`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `OnAirLogin`(
 	aUserID int
 )
 BEGIN
@@ -3216,7 +3216,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `OnAirLogout`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `OnAirLogout`(
 	aUserID int,
 	aOnAirSessionID int
 )
@@ -3252,7 +3252,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `PlayGrantByID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `PlayGrantByID`(
 	aGrantID bigint,
 	aUserID int,
 	aOnAirSessionID bigint
@@ -3288,7 +3288,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `PlayPSAByID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `PlayPSAByID`(
 	aPSAID bigint,
 	aUserID	int,
 	aOnAirSession bigint
@@ -3314,7 +3314,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `PlayTrackByID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `PlayTrackByID`(
 	aTrackID bigint,
 	aUserID bigint,
 	aOnAirSessionID bigint
@@ -3354,7 +3354,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `ReactivateUser`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `ReactivateUser`(
 	aUserID bigint
 )
 BEGIN
@@ -3377,7 +3377,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `RetrieveUserPlaylistIDs`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `RetrieveUserPlaylistIDs`(
 	aUserID int
 )
 BEGIN
@@ -3401,7 +3401,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `ReviewAlbum`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `ReviewAlbum`(
 	aUserID INT(11),
 	aKarmaReviewer INT(11),
 	aRotationID INT(11),
@@ -3444,7 +3444,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `UpdatePlayByID`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `UpdatePlayByID`(
 	aPlayID bigint,
 	aTrackID bigint,
 	aUserID int
@@ -3473,7 +3473,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `UpdateTrackData`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `UpdateTrackData`(
 	aTrackID bigint,
 	aEndDate datetime,
 	aReleaseDate datetime,
@@ -3512,7 +3512,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `UpdateUser`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `UpdateUser`(
 	aUserID bigint,
 	aFirstName varchar(255),
 	aLastName varchar(255),
@@ -3539,7 +3539,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `UpdateUserType`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `UpdateUserType`(
 	aUserTypeID bigint,
 	aLibraryView bit,
 	aLibraryManage bit,
@@ -3588,7 +3588,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`u30919`@`%` PROCEDURE `UserLogin`(
+CREATE DEFINER=`testUser`@`%` PROCEDURE `UserLogin`(
 	aUserID int
 )
 BEGIN
@@ -3644,7 +3644,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -3705,7 +3705,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -3760,7 +3760,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -3808,7 +3808,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 
@@ -3854,7 +3854,7 @@ CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: skynet.from-ia.com    Database: kure
+-- Host: mysql.skynet.from-ia.com    Database: kure
 -- ------------------------------------------------------
 -- Server version	5.1.73
 

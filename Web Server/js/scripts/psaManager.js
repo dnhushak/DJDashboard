@@ -54,7 +54,9 @@ $('document').ready(function() {
 
 		});
 	}
-	
+	$(document).on('click', '#addButton', function(){
+		addPSA();
+	});
 	$(document).on('click', '#editButton', function(evt){
     	console.log('cliked');
         editButton($(this).val());

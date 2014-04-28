@@ -7,7 +7,7 @@
 			<button type="button" class="btn btn-primary custom-song-button"
 				onClick="getExceptions()">Toggle Active</button>
 			<button type="button" class="btn btn-primary custom-song-button"
-				onClick="addPSA()">Add</button>
+				id='addButton'>Add</button>
 		</div>
 		<table class="table table-hover exception-table">
 			<thead>
@@ -42,7 +42,7 @@
 						type="text" class="form-control" id="input-sponsor"
 						placeholder="Sponsor of Message">
 				</div>
-				<h4>Message</h4>
+				<h4>Message</h4><small><i>All formatting will be lost.</i></small>
 				<div class="form-group">
 					<label class="sr-only" for="input-album">Message</label>
 					<textarea id="input-message" style="width:550px;height:150px;"></textarea>

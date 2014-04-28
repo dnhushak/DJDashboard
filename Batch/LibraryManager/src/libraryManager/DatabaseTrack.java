@@ -22,9 +22,9 @@ public class DatabaseTrack
 		this.Recommened = Recommened;
 		this.ITLID = ITLID;
 		this.Path = Path;
-		this.idPrimaryGenre = idPrimaryGenre;
-		this.idSecondaryGenre = idSecondaryGenre;
-		this.idsubsonic = idsubsonic;
+		this.idPrimaryGenre = idPrimaryGenre == null ? 0 : idPrimaryGenre;
+		this.idSecondaryGenre = idSecondaryGenre == null ? 0 : idSecondaryGenre;
+		this.idsubsonic = idsubsonic == null ? 0 : idsubsonic;
 	}
 	
 	public int get_idalbum()
@@ -34,7 +34,7 @@ public class DatabaseTrack
 	
 	public int get_idartist()
 	{
-		return idalbum;
+		return idartist;
 	}
 	
 	public String get_name()

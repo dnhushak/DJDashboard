@@ -238,6 +238,11 @@ public class SubsonicLibrary
 		return tracks;
 	}
 	
+	public void clear()
+	{
+		tracks.clear();
+	}
+	
 	public int getSubsonicTrackID(String name)
 	{
 		for(int i = 0; i < tracks.size(); i++)

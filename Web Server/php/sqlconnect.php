@@ -195,6 +195,67 @@ class SqlConnect {
 			$this->connection->next_result();
 		}
 	}
+
+	public function callStoredProcJSON($procedureName, $args){
+		// Format the procedure pased on the name and arguments
+		$cmd = formatProcedureCall($procedureName, $args);
+		// Store the last command
+		$this->lastCommand = $cmd;
+		// Call the command
+		$results = $this->connection->query($cmd);
+		// Get all rows and store it in an array
+		while ($r = mysql_fetch_assoc($results)) {
+			$rows ['rows'] = $r;
+		}
+		// JSON Encode the array
+		return json_encode($rows, JSON_NUMERIC_CHECK);
+	}
+
+	private function formatProcedureCall($procedureName, $args){
+		// Format the procedure
+		$cmd = "Call " . $procedureName . "(";
+		if ($args != null) 		// Each arg in order
+		{
+			$length = count($args);
+			// Append first arguments, do not append the last one (no final comma)
+			for($i = 0; $i < $length - 1; $i++) {
+				if (is_string($args [$i])) {
+					$cmd = $cmd . "'" . $args [$i] . "'" . ",";
+				}
+				else if ($args [$i] === null) {
+					$cmd = $cmd . "null,";
+				}
+				else if ($args [$i] === true) {
+					$cmd = $cmd . "1,";
+				}
+				else if ($args [$i] === false) {
+					$cmd = $cmd . "0,";
+				}
+				else {
+					$cmd = $cmd . $args [$i] . ",";
+				}
+			}
+			// Append final argument (with no final comma)
+			if (is_string($args [$length - 1])) {
+				// $args[$i] = mysqli_real_escape_string($args[$i]);
+				$cmd = $cmd . "'" . $args [$i] . "');";
+			}
+			else if ($args [$i] === null) {
+				$cmd = $cmd . "null);";
+			}
+			else if ($args [$i] === true) {
+				$cmd = $cmd . "1,";
+			}
+			else if ($args [$i] === false) {
+				$cmd = $cmd . "0,";
+			}
+			else {
+				$cmd = $cmd . $args [$i];
+			}
+		}
+		$cmd = $cmd . ");";
+		return $cmd;
+	}
 }
 
 ?>

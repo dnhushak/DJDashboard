@@ -5,6 +5,7 @@ include_once 'Album.php';
 include_once 'Track.php';
 include_once 'Genre.php';
 include_once '../publisher.php';
+include_once 'Distributor.php';
 
 class MusicDirector {
 	// Get albums by distributor
@@ -73,7 +74,24 @@ class MusicDirector {
 
 	public function getAllDistributors(){
 		try{
-			$results = $this->conn->callStoredProd($this->spGetAllDistributors, NULL);
+			$results = $this->conn->callStoredProc($this->spGetAllDistributors, NULL);
+			$distributors = array();
+			while ($rowInfo = mysqli_fetch_assoc($results)) {
+				$tempDistributor = new Distributor();
+				$tempDistributor->setID(utf8_encode($rowInfo['iddistributor']));
+				$tempDistributor->setName(utf8_encode($rowInfo['name']));
+				$tempDistributor->setPhone(utf8_encode($rowInfo['phone']));
+				$tempDistributor->setEmail(utf8_encode($rowInfo['email']));
+				$tempDistributor->setContactName(utf8_encode($rowInfo['contactName']));
+				$tempDistributor->setLocation(utf8_encode($rowInfo['location']));
+				$tempDistributor->setAffiliated(utf8_encode($rowInfo['affiliated']));
+				$tempDistributor->setWebsite(utf8_encode($rowInfo['website']));
+				$tempDistributor->setDigitalDownload(utf8_encode($rowInfo['digitalDownload']));
+				$tempDistributor->setWeight(utf8_encode($rowInfo['weight']));
+			
+				$distributors[] = $tempDistributor;
+			}
+			return $distributors;
 		}
 		catch (Exception $e) {
 			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);

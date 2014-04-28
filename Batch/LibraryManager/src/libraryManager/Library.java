@@ -38,9 +38,9 @@ public class Library
 		try
 		{
 			conn = new DatabaseConnection();
-			addArtistsToDatabase(conn);
-			addAlbumsToDatabase(conn);
-			addTracksToDatabase(conn);
+			sendArtistsToDatabase(conn);
+			sendAlbumsToDatabase(conn);
+			sendTracksToDatabase(conn);
 			return true;
 		}
 		catch(Exception e)
@@ -51,7 +51,7 @@ public class Library
 		}
 	}
 		
-	private void addArtistsToDatabase(DatabaseConnection conn) throws SQLException
+	private void sendArtistsToDatabase(DatabaseConnection conn) throws SQLException
 	{
 		List<String> artists = new ArrayList<String>();
 		Map<String, Integer> databaseArtists = getNameIDMap(conn, "GetArtistList", "Artist", "ID");
@@ -64,7 +64,6 @@ public class Library
 			String utf8Artist = new String(artist.getBytes(), Charset.forName("UTF-8"));
 			if(databaseArtists.get(utf8Artist) == null && databaseArtists.get(artist) == null) { artists.add(artist); }
 		}
-			
 		insertIntoArtistTable(conn, artists);
 	}
 	
@@ -85,7 +84,7 @@ public class Library
 		statement.close();
 	}
 	
-	public void addAlbumsToDatabase(DatabaseConnection conn) throws SQLException
+	public void sendAlbumsToDatabase(DatabaseConnection conn) throws SQLException
 	{
 		List<Pair<Integer, String>> albums = new ArrayList<Pair<Integer, String>>();
 		Map<String, Integer> databaseArtists = getNameIDMap(conn, "GetArtistList", "Artist", "ID");	
@@ -97,19 +96,22 @@ public class Library
 			Map.Entry<String, Map<String, Map<Integer, Track>>> artistAlbumPair = artistIter.next();
 			String artist = artistAlbumPair.getKey();
 			String utf8Artist = new String(artist.getBytes(), Charset.forName("UTF-8"));
-			
 			Integer artistID = databaseArtists.get(utf8Artist) == null ? databaseArtists.get(artist) : databaseArtists.get(utf8Artist);
-			Iterator<Map.Entry<String, Map<Integer, Track>>> albumIter = artistAlbumPair.getValue().entrySet().iterator();
-			while(albumIter.hasNext())
-			{
-				Map.Entry<String, Map<Integer, Track>> albumSongPair = albumIter.next();
-				String album = albumSongPair.getKey();
-				String utf8Album = new String(album.getBytes(), Charset.forName("UTF-8"));
-				if(!foundAlbumInDatabase(databaseAlbums.get(artistID), utf8Album, album)) { albums.add(new Pair<Integer, String>(artistID, album)); }
-			}	
+			buildAlbumList(artistAlbumPair.getValue(), databaseAlbums, albums, artistID);
 		}
-			
 		insertIntoAlbumTable(conn, albums);
+	}
+	
+	public void buildAlbumList(Map<String, Map<Integer, Track>> albumMap, Map<Integer, List<String>> databaseAlbums, List<Pair<Integer, String>> albums, int artistID)
+	{
+		Iterator<Map.Entry<String, Map<Integer, Track>>> albumIter = albumMap.entrySet().iterator();
+		while(albumIter.hasNext())
+		{
+			Map.Entry<String, Map<Integer, Track>> albumSongPair = albumIter.next();
+			String album = albumSongPair.getKey();
+			String utf8Album = new String(album.getBytes(), Charset.forName("UTF-8"));
+			if(!foundAlbumInDatabase(databaseAlbums.get(artistID), utf8Album, album)) { albums.add(new Pair<Integer, String>(artistID, album)); }
+		}
 	}
 	
 	private boolean foundAlbumInDatabase(List<String> databaseAlbums, String utf8Target, String target)
@@ -142,7 +144,7 @@ public class Library
 		statement.close();
 	}
 	
-	private void addTracksToDatabase(DatabaseConnection conn) throws SQLException
+	private void sendTracksToDatabase(DatabaseConnection conn) throws SQLException
 	{
 		List<DatabaseTrack> insertTracks = new ArrayList<DatabaseTrack>();
 		List<DatabaseTrack> updateTracks = new ArrayList<DatabaseTrack>();
@@ -157,51 +159,58 @@ public class Library
 			Map.Entry<String, Map<String, Map<Integer, Track>>> artistAlbumPair = artistIter.next();
 			String artist = artistAlbumPair.getKey();
 			String utf8Artist = new String(artist.getBytes(), Charset.forName("UTF-8"));
-			
 			Integer artistID = databaseArtists.get(utf8Artist) == null ? databaseArtists.get(artist) : databaseArtists.get(utf8Artist);
-			Iterator<Map.Entry<String, Map<Integer, Track>>> albumIter = artistAlbumPair.getValue().entrySet().iterator();
-			while(albumIter.hasNext())
-			{
-				Map.Entry<String, Map<Integer, Track>> albumSongPair = albumIter.next();
-				String album = albumSongPair.getKey();
-				String utf8Album = new String(album.getBytes(), Charset.forName("UTF-8"));
-				
-				Integer albumID = getAlbumID(databaseAlbums.get(artistID), utf8Album, album);
-				Iterator<Map.Entry<Integer, Track>> trackIter = albumSongPair.getValue().entrySet().iterator();
-				while(trackIter.hasNext())
-				{
-					Map.Entry<Integer, Track> idTrackPair = trackIter.next();
-					int trackID = idTrackPair.getKey();
-					Track libraryTrack = idTrackPair.getValue();
-					Integer pGenre = getGenre(databaseGenres, libraryTrack.getPrimaryGenre());
-					Integer sGenre = getGenre(databaseGenres, libraryTrack.getSecondaryGenre());
-					DatabaseTrack newTrack = new DatabaseTrack(
-							albumID,
-							artistID,
-							libraryTrack.getName(),
-							libraryTrack.getFCC(),
-							libraryTrack.getRecommended(),
-							libraryTrack.getITunesID(),
-							libraryTrack.getPath(),
-							pGenre,
-							sGenre,
-							libraryTrack.getSubsonicID());
-					
-					DatabaseTrack databaseTrack = databaseTracks.get(trackID);
-					if(databaseTrack == null)
-					{
-						insertTracks.add(newTrack);
-					}
-					else if(!newTrack.equals(databaseTrack))
-					{
-						updateTracks.add(newTrack);
-					}
-				}
-			}
-		}
-			
+			buildTrackListByAlbum(artistAlbumPair.getValue(), databaseAlbums, databaseGenres, databaseTracks, insertTracks, updateTracks, artistID);
+		}	
 		insertIntoTrackTable(conn, insertTracks);
 		updateTrackTable(conn, updateTracks);
+	}
+	
+	private void buildTrackListByAlbum(Map<String, Map<Integer, Track>> albumMap, Map<Integer, List<Pair<Integer,String>>> databaseAlbums, Map<String, Integer> databaseGenres, 
+			Map<Integer, DatabaseTrack> databaseTracks, List<DatabaseTrack> insertTracks, List<DatabaseTrack> updateTracks, int artistID)
+	{
+		Iterator<Map.Entry<String, Map<Integer, Track>>> albumIter = albumMap.entrySet().iterator();
+		while(albumIter.hasNext())
+		{
+			Map.Entry<String, Map<Integer, Track>> albumSongPair = albumIter.next();
+			String album = albumSongPair.getKey();
+			String utf8Album = new String(album.getBytes(), Charset.forName("UTF-8"));
+			
+			Integer albumID = getAlbumID(databaseAlbums.get(artistID), utf8Album, album);
+			buildTrackLists(albumSongPair.getValue(), databaseGenres, databaseTracks, insertTracks, updateTracks, albumID, artistID);
+		}
+	}
+	
+	private void buildTrackLists(Map<Integer, Track> trackMap, Map<String, Integer> databaseGenres, Map<Integer, DatabaseTrack> databaseTracks, 
+			List<DatabaseTrack> insertTracks, List<DatabaseTrack> updateTracks, int albumID, int artistID)
+	{
+		Iterator<Map.Entry<Integer, Track>> trackIter = trackMap.entrySet().iterator();
+		while(trackIter.hasNext())
+		{
+			Map.Entry<Integer, Track> idTrackPair = trackIter.next();
+			int trackID = idTrackPair.getKey();
+			Track libraryTrack = idTrackPair.getValue();
+			DatabaseTrack newTrack = new DatabaseTrack(
+					albumID,
+					artistID,
+					libraryTrack.getName(),
+					libraryTrack.getFCC(),
+					libraryTrack.getRecommended(),
+					libraryTrack.getITunesID(),
+					libraryTrack.getPath(),
+					getGenre(databaseGenres, libraryTrack.getPrimaryGenre()),
+					getGenre(databaseGenres, libraryTrack.getSecondaryGenre()),
+					libraryTrack.getSubsonicID());
+			DatabaseTrack databaseTrack = databaseTracks.get(trackID);
+			if(databaseTrack == null)
+			{
+				insertTracks.add(newTrack);
+			}
+			else if(!newTrack.equals(databaseTrack))
+			{
+				updateTracks.add(newTrack);
+			}
+		}
 	}
 	
 	private Integer getGenre(Map<String, Integer> genres, String genre)

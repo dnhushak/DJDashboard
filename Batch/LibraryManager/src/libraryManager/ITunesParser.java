@@ -22,13 +22,13 @@ public class ITunesParser extends DefaultHandler
 {
 
     private static String LIBRARY_FILE_PATH = "/tmp/iTunes Music Library.xml"; //"C:\\iTunes Music Library.xml";
-    private List<Track> myTracks;
 	private SubsonicLibrary subsonicLibrary;
     private String tempVal;
     private Track tempTrack;
     private boolean foundTracks = false;
     private String previousTag;
     private String previousTagVal;
+	private Map<String, Map<String, Map<Integer, Track>>> tracks;
 
     public ITunesParser() 
 	{
@@ -44,17 +44,18 @@ public class ITunesParser extends DefaultHandler
     public void run() 
 	{
         parseDocument();
+		subsonicLibrary.clear();
     }
     
     /**
      * Retrieves the list of tracks
      * @return TrackList
      */
-    public List<Track> getTracks()
+    public Map<String, Map<String, Map<Integer, Track>>> getTracks()
     {
-    	return myTracks;
+    	return tracks;
     }
-
+    
     private void parseDocument() 
 	{
         SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -86,14 +87,33 @@ public class ITunesParser extends DefaultHandler
         {
             if ("key".equals(previousTag) && "dict".equalsIgnoreCase(qName)) 
             {
-				if(myTracks.size() != 0)
+				if(tempTrack != null)
 				{
             		int subsonicId = subsonicLibrary.getSubsonicTrackID(tempTrack.getName());
             		tempTrack.setSubsonicID(subsonicId);
 					tempTrack.sanitize();
+					Map<String, Map<Integer, Track>> albums = tracks.get(tempTrack.getArtist());
+					if(albums == null)
+					{
+						tracks.put(tempTrack.getArtist(), new HashMap<String, Map<Integer, Track>>());
+					}
+					else
+					{
+						Map<Integer, Track> songs = albums.get(tempTrack.getAlbum());
+						if(songs == null)
+						{
+							albums.put(tempTrack.getAlbum(), new HashMap<Integer, Track>());
+						}
+						else
+						{
+							Track song = songs.get(tempTrack.getITunesID());
+							if(song == null)
+							{
+								songs.put(tempTrack.getITunesID(), tempTrack);
+							}
+						}
+					}
 				}
-                tempTrack = new Track();
-                myTracks.add(tempTrack);
             }
         } 
         else 

@@ -189,7 +189,6 @@ class PSAManager
 		$id = 0;
 		while ($rowInfo = mysqli_fetch_assoc($results)) {
 			$id = utf8_encode($rowInfo['ID']);
-
 		}
 		return $id;
 	}

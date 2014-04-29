@@ -14,7 +14,6 @@ $(document).ready(function(){
 				console.log(e);
 				return;
 			}
-			console.log(sess);
 			if(sess['ppermissionedit'] == 0){
 				$('#type-update').parent().hide();
 			}
@@ -119,12 +118,12 @@ $(document).ready(function(){
 	}
 
 	$('#save-user').on('click', function(evt){
-		console.log('saving users');
 		var userName = $("#user-input").val();
 		var email = $("#email-input").val();
 		var firstName = $("#first-name-input").val();
 		var lastName = $("#last-name-input").val();
 		var typeID = $("#type-input").val();
+		var pass = $("#password-input").val();
 		if(userName == "" || email == "" || firstName == "" || lastName == ""){
 			$('.input-error').text('Please complete all fields.')
 			$('.input-error').show();
@@ -135,7 +134,8 @@ $(document).ready(function(){
 						'email' : email,
 						'first': firstName,
 						'last': lastName,
-						'type': typeID},
+						'type': typeID,
+						'pass': pass},
 				type : 'POST',
 			}).done(function(data) {
 				try{

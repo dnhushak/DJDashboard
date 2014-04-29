@@ -68,8 +68,11 @@
 				if (session_status() == PHP_SESSION_NONE) {
 				    session_start();
 				}
-				if(isset($_SESSION['ppsamanage']) || isset($_SESSION['pgrantedit']) || isset($_SESSION['pmanageusers'])
-						|| isset($_SESSION['ppermissionedit']) || isset($_SESSION['peditusertype']) || isset($_SESSION['plibrarymanage'])){
+				if((isset($_SESSION['ppsamanage']) && ($_SESSION['ppsamanage'] == "1"))
+					 || (isset($_SESSION['pgrantedit'])&&($_SESSION['pgrantedit'] == "1")) 
+					 || (isset($_SESSION['pmanageusers'])&&($_SESSION['pmanageusers'] == "1"))
+					 || (isset($_SESSION['peditusertype'])&&($_SESSION['peditusertype'] == "1"))
+					 || (isset($_SESSION['plibrarymanage'])&&($_SESSION['plibrarymanage'] == "1"))){
 
 					$htmlStr = '<li id="admin" class="cursor dropdown"><a id="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
 			    	if(isset($_SESSION['ppsamanage'])&&($_SESSION['ppsamanage'] == "1")){
@@ -87,7 +90,6 @@
 					}
 					if(isset($_SESSION['plibrarymanage'])&&($_SESSION['plibrarymanage'] == "1")){
 						$htmlStr .= '<li><a class="cursor" id="analytics">Analytics</a></li>';
-						$htmlStr .= '<li><a class="cursor" id="CMJ-library">CMJ Library</a></li>';
 					}
 					$htmlStr .= '</ul></li>';
 					echo $htmlStr;

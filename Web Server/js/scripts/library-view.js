@@ -57,7 +57,6 @@ $(document).ready(function() {
                 var artistID = parseInt(tracks[i]['ArtistID']);
                 var album = albums[albumID]['Name'];
                 var artist = artists[artistID]['Name'];
-                
                 var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))];
                 var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))];
                 var songName = tracks[i]['Name'];
@@ -575,7 +574,6 @@ $(document).ready(function() {
     $("#filter-form").on('click', function(evt){
         var updated = false;
         var filterGenre = $('input[name=genreFilters]:checked', '#filter-form').val();
-        console.log(filterGenre);
         if(filters['genre'] != filterGenre){
             filters['genre'] = filterGenre;
             updated = true;

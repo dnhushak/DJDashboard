@@ -1,47 +1,121 @@
 package libraryManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
+import utility.JsonReader;
+
 public class SubsonicLibrary 
 {
-	private List<SubsonicTrack> tracks;
+	public static String CSV = "subsonic_library.csv";
+	private List<String[]> tracks;
 	
-	public SubsonicLibrary()
+	public SubsonicLibrary() 
 	{
-		try
+		this(CSV, true);
+	}
+	
+	public SubsonicLibrary(String csvFile, boolean buildLibrary)
+	{
+		CSV = csvFile;
+		try 
 		{
-			tracks = new ArrayList<SubsonicTrack>();
-			initializeLibrary();
-		}
-		catch(Exception e)
+			if(buildLibrary || !libraryExists() || needsToBeBuilt())buildLibrary();
+			buildTrackList();
+		} 
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch(JSONException e) 
 		{
 			e.printStackTrace();
 		}
 	}
-
-	public static int subsonicID(Track track)
+	
+	private boolean libraryExists()
 	{
-		int id = -1;
-		try
+		File file = new File(CSV);
+		return file.exists() && file.isFile();
+	}
+	
+	private boolean needsToBeBuilt()
+	{
+		try 
 		{
-			String artist = track.getArtist() == null ? "Unknown Artist" : track.getArtist().trim();
-			int artistID = findArtist(artist);
-		
-			String album = track.getAlbum() == null ? "Unknown Album" : track.getAlbum().trim();
-			int albumID = findAlbumID(artistID, album);
-		
-			id = findTrackID(albumID, track.getName().trim());
+			CSVReader reader = new CSVReader(new FileReader(CSV));
+			int count = 0;
+			while(reader.readNext() != null)
+			{
+				count++;
+				if(count > 1)
+				{
+					reader.close();
+					return false;
+				}
+			}
+			reader.close();
 		}
-		catch(Exception e)
+		catch(FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
-		return id;
+		return true;
+	}
+	
+	private void buildTrackList() throws IOException
+	{
+		CSVReader reader = null;
+		try 
+		{
+			reader = new CSVReader(new FileReader(CSV));
+			tracks = reader.readAll();
+		} 
+		catch(FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(reader != null) reader.close();
+		}
+	}
+
+	public int subsonicID(Track track)
+	{
+		if(track == null) return -1;
+		String artist = ((ITunesTrack) track).getArtist() == null ? "Unknown Artist" : ((ITunesTrack) track).getArtist().trim();
+		String album = ((ITunesTrack) track).getAlbum() == null ? "Unknown Album" : ((ITunesTrack) track).getAlbum().trim();
+		String name = ((ITunesTrack) track).getName() == null ? "Unknown Name" : ((ITunesTrack) track).getName().trim();
+		
+		int trackID = -1;
+		for(String[] entry: tracks)
+		{
+			if(entry.length == 4)
+			{
+				if((entry[0].equalsIgnoreCase(artist) && entry[1].equalsIgnoreCase(album) && entry[2].equalsIgnoreCase(name)) ||
+						(entry[0].equalsIgnoreCase(artist) && entry[2].equalsIgnoreCase(name)))
+				{
+					return Integer.parseInt(entry[3]);
+				}
+			}	
+		}
+		return trackID;
 	}
 	
 	public static int findArtist(String artist)
@@ -72,7 +146,7 @@ public class SubsonicLibrary
 	
 	public static int findAlbumID(int artistID, String album)
 	{
-		if(artistID == -1) { return -1; }
+		if(artistID == -1) return -1;
 		try 
 		{
 			JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getArtist.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + artistID);
@@ -109,7 +183,7 @@ public class SubsonicLibrary
 	
 	public static int findTrackID(int albumID, String name)
 	{
-		if(albumID == -1) { return -1; }
+		if(albumID == -1) return -1;
 		try 
 		{
 			JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getAlbum.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + albumID);
@@ -144,8 +218,23 @@ public class SubsonicLibrary
 		return -1;
 	}
 	
-	private void initializeLibrary() throws IOException, JSONException 
+	public static void addTrackToCSV(String artist, String album, String name, int trackID)
 	{
+		try 
+		{
+			CSVWriter writer = new CSVWriter(new FileWriter(CSV, true));
+			writer.writeNext(new String[] { artist, album, name, Integer.toString(trackID) });
+			writer.close();
+		} 
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private void buildLibrary() throws IOException, JSONException 
+	{
+		CSVWriter writer = new CSVWriter(new FileWriter(CSV));
 		List<SubsonicArtist> artists = new ArrayList<SubsonicArtist>();
 		JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getArtists.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json");
 		JSONArray artistArr = json.getJSONObject("subsonic-response").getJSONObject("artists").getJSONArray("index");
@@ -158,10 +247,11 @@ public class SubsonicLibrary
 		    	artists.add(new SubsonicArtist(artist.getInt("id"), artist.getString("name"), artist.getInt("albumCount")));
 		    }
 		}
-		readAlbums(artists);
+		readAlbums(artists, writer);
+		writer.close();
 	}
 	
-	private void readAlbums(List<SubsonicArtist> artists) throws IOException, JSONException 
+	private void readAlbums(List<SubsonicArtist> artists, CSVWriter writer) throws IOException, JSONException 
 	{
 		List<SubsonicAlbum> albums = new ArrayList<SubsonicAlbum>();
 		SubsonicArtist artist;
@@ -176,7 +266,7 @@ public class SubsonicLibrary
 			if(artist.getAlbumCount() < 2)
 			{
 				album = json.getJSONObject("subsonic-response").getJSONObject("artist").getJSONObject("album");
-				albums.add(new SubsonicAlbum(album.getInt("id"), album.getInt("songCount"), artistID, album.getString("name"), artistName));
+				albums.add(new SubsonicAlbum(album.getInt("id"), album.getInt("songCount"), album.getString("name"), artistName));
 			}
 			else
 			{
@@ -184,30 +274,28 @@ public class SubsonicLibrary
 				for(int j = 0; j < albumArr.length(); j++)
 				{
 					album = albumArr.getJSONObject(j);
-					albums.add(new SubsonicAlbum(album.getInt("id"), album.getInt("songCount"), artistID, album.getString("name"), artistName));
+					albums.add(new SubsonicAlbum(album.getInt("id"), album.getInt("songCount"), album.getString("name"), artistName));
 				}
 			}
 		}	 
-		readTracks(albums);
+		readTracks(albums, writer);
 	}
 	
-	private void readTracks(List<SubsonicAlbum> albums) throws IOException, JSONException 
+	private void readTracks(List<SubsonicAlbum> albums, CSVWriter writer) throws IOException, JSONException 
 	{
 		SubsonicAlbum album;
 		for(int i = 0; i < albums.size(); i++)
 		{
 			album = albums.get(i);
-			int albumID = album.getID();
-			JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getAlbum.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + albumID);
+			JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getAlbum.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + album.getID());
 				
 			JSONObject track;
-			int artistID = album.getArtistID();
 			String albumName = album.getName();
 			String artist = album.getArtist();
 			if(album.getSongCount() < 2)
 			{
 				track = json.getJSONObject("subsonic-response").getJSONObject("album").getJSONObject("song");
-				tracks.add(new SubsonicTrack(albumID, albumName, track.getInt("id"), track.getString("title"), artistID, track.getString("path"), artist));
+				writer.writeNext(new String[] { artist, albumName, track.getString("title"), track.getString("id") });
 			}
 			else
 			{
@@ -215,37 +303,9 @@ public class SubsonicLibrary
 				for(int j = 0; j < trackArr.length(); j++)
 				{
 					track = trackArr.getJSONObject(j);
-					tracks.add(new SubsonicTrack(albumID, albumName, track.getInt("id"), track.getString("title"), artistID, track.getString("path"), artist));
+					writer.writeNext(new String[] { artist, albumName, track.getString("title"), track.getString("id") });
 				}
 			}
 		}
-	}
-	
-	public List<SubsonicTrack> getTracks()
-	{
-		return tracks;
-	}
-	
-	public void clear()
-	{
-		tracks.clear();
-	}
-	
-	public int getSubsonicTrackID(String artist, String album, String name)
-	{
-		artist = artist == null ? "Unknown Artist" : artist;
-		album = album == null ? "Unknown Album" : album;
-		name = name == null ? "Unknown Name" : name;
-		for(int i = 0; i < tracks.size(); i++)
-		{
-			SubsonicTrack track = tracks.get(i);
-			if(artist.equalsIgnoreCase(track.getArtist().trim()) &&
-					album.equalsIgnoreCase(track.getAlbum().trim()) &&
-					name.equalsIgnoreCase(track.getName().trim()))
-			{
-				return track.getID();
-			}
-		}
-		return -1;
 	}
 }

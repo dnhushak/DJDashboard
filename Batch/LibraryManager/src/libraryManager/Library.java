@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import sqlConnect.DatabaseConnection;
+import utility.Pair;
 
 public class Library 
 {
@@ -23,9 +24,9 @@ public class Library
 	 * Takes the path to an iTunes data file and deserializes it into the library
 	 * @param iTunesLibPath URI pathname to itunes data file
 	 */
-	public void createFromITunesDB(String iTunesLibPath)
+	public void createFromITunesDB(String iTunesLibPath, String subsonicCSV, boolean buildSubsonicCSV)
 	{
-		ITunesParser parser = new ITunesParser();
+		ITunesParser parser = new ITunesParser(subsonicCSV, buildSubsonicCSV);
 		ITunesParser.setFilePath(iTunesLibPath);
 		parser.run();
 		library = parser.getTracks();
@@ -55,7 +56,7 @@ public class Library
 		List<String> artists = new ArrayList<String>();
 		Map<String, Integer> databaseArtists = getNameIDMap(conn, "GetArtistList", "Artist", "ID");
 		
-		Iterator<Map.Entry<String,Map<String,Map<Integer,Track>>>> iter = library.entrySet().iterator();
+		Iterator<Map.Entry<String,Map<String,Map<Integer, Track>>>> iter = library.entrySet().iterator();
 		while(iter.hasNext())
 		{
 			Map.Entry<String, Map<String, Map<Integer, Track>>> artistAlbumPair = iter.next();
@@ -89,7 +90,7 @@ public class Library
 		Map<String, Integer> databaseArtists = getNameIDMap(conn, "GetArtistList", "Artist", "ID");	
 		Map<Integer, List<String>> databaseAlbums = getIDNameListMap(conn, "GetAlbumList", "Artist ID", "Album Name");
 	
-		Iterator<Map.Entry<String,Map<String,Map<Integer,Track>>>> artistIter = library.entrySet().iterator();
+		Iterator<Map.Entry<String,Map<String,Map<Integer, Track>>>> artistIter = library.entrySet().iterator();
 		while(artistIter.hasNext())
 		{
 			Map.Entry<String, Map<String, Map<Integer, Track>>> artistAlbumPair = artistIter.next();
@@ -145,14 +146,14 @@ public class Library
 	
 	private void sendTracksToDatabase(DatabaseConnection conn) throws SQLException
 	{
-		List<DatabaseTrack> insertTracks = new ArrayList<DatabaseTrack>();
-		List<DatabaseTrack> updateTracks = new ArrayList<DatabaseTrack>();
+		List<Track> insertTracks = new ArrayList<Track>();
+		List<Track> updateTracks = new ArrayList<Track>();
 		Map<String, Integer> databaseArtists = getNameIDMap(conn, "GetArtistList", "Artist", "ID");	
 		Map<Integer, List<Pair<Integer,String>>> databaseAlbums = getIDPairListMap(conn, "GetAlbumList", "Artist ID", "ID", "Album Name");	
 		Map<String, Integer> databaseGenres = getNameIDMap(conn, "GetAllGenre", "Name", "idGenre");			
-		Map<Integer, DatabaseTrack> databaseTracks = getDatabaseTracks(conn);
+		Map<Integer, Track> databaseTracks = getDatabaseTracks(conn);
 		
-		Iterator<Map.Entry<String,Map<String,Map<Integer,Track>>>> artistIter = library.entrySet().iterator();
+		Iterator<Map.Entry<String,Map<String,Map<Integer, Track>>>> artistIter = library.entrySet().iterator();
 		while(artistIter.hasNext())
 		{
 			Map.Entry<String, Map<String, Map<Integer, Track>>> artistAlbumPair = artistIter.next();
@@ -166,7 +167,7 @@ public class Library
 	}
 	
 	private void buildTrackListByAlbum(Map<String, Map<Integer, Track>> albumMap, Map<Integer, List<Pair<Integer,String>>> databaseAlbums, Map<String, Integer> databaseGenres, 
-			Map<Integer, DatabaseTrack> databaseTracks, List<DatabaseTrack> insertTracks, List<DatabaseTrack> updateTracks, int artistID)
+			Map<Integer, Track> databaseTracks, List<Track> insertTracks, List<Track> updateTracks, int artistID)
 	{
 		Iterator<Map.Entry<String, Map<Integer, Track>>> albumIter = albumMap.entrySet().iterator();
 		while(albumIter.hasNext())
@@ -180,27 +181,27 @@ public class Library
 		}
 	}
 	
-	private void buildTrackLists(Map<Integer, Track> trackMap, Map<String, Integer> databaseGenres, Map<Integer, DatabaseTrack> databaseTracks, 
-			List<DatabaseTrack> insertTracks, List<DatabaseTrack> updateTracks, int albumID, int artistID)
+	private void buildTrackLists(Map<Integer, Track> trackMap, Map<String, Integer> databaseGenres, Map<Integer, Track> databaseTracks, 
+			List<Track> insertTracks, List<Track> updateTracks, int albumID, int artistID)
 	{
 		Iterator<Map.Entry<Integer, Track>> trackIter = trackMap.entrySet().iterator();
 		while(trackIter.hasNext())
 		{
 			Map.Entry<Integer, Track> idTrackPair = trackIter.next();
 			int trackID = idTrackPair.getKey();
-			Track libraryTrack = idTrackPair.getValue();
+			ITunesTrack libraryTrack = (ITunesTrack) idTrackPair.getValue();
 			DatabaseTrack newTrack = new DatabaseTrack(
 					albumID,
 					artistID,
 					libraryTrack.getName(),
 					libraryTrack.getFCC(),
 					libraryTrack.getRecommended(),
-					libraryTrack.getITunesID(),
+					libraryTrack.getID(),
 					libraryTrack.getPath(),
 					getGenre(databaseGenres, libraryTrack.getPrimaryGenre()),
 					getGenre(databaseGenres, libraryTrack.getSecondaryGenre()),
 					libraryTrack.getSubsonicID());
-			DatabaseTrack databaseTrack = databaseTracks.get(trackID);
+			DatabaseTrack databaseTrack = (DatabaseTrack) databaseTracks.get(trackID);
 			if(databaseTrack == null)
 			{
 				insertTracks.add(newTrack);
@@ -220,13 +221,13 @@ public class Library
 		return ret;
 	}
 	
-	private Map<Integer, DatabaseTrack> getDatabaseTracks(DatabaseConnection conn) throws SQLException
+	private Map<Integer, Track> getDatabaseTracks(DatabaseConnection conn) throws SQLException
 	{
 		ResultSet rs = conn.getConnection().prepareStatement(SELECT_TRACK).executeQuery();
-		Map<Integer, DatabaseTrack> ret = new HashMap<Integer, DatabaseTrack>();
+		Map<Integer, Track> ret = new HashMap<Integer, Track>();
 		while(rs.next())
 		{
-			DatabaseTrack track = new DatabaseTrack(
+			Track track = new DatabaseTrack(
 					rs.getInt("idalbum"), 
 					rs.getInt("idartist"),
 					rs.getString("Name"),
@@ -255,19 +256,19 @@ public class Library
 		return null;
 	}
 	
-	private void insertIntoTrackTable(DatabaseConnection conn, List<DatabaseTrack> tracks) throws SQLException
+	private void insertIntoTrackTable(DatabaseConnection conn, List<Track> tracks) throws SQLException
 	{
 		PreparedStatement statement = conn.getConnection().prepareStatement(INSERT_TRACK);
 		for(int i = 0; i < tracks.size(); i++)
 		{
-			DatabaseTrack track = tracks.get(i);
+			DatabaseTrack track = (DatabaseTrack) tracks.get(i);
 			statement.setInt(1, track.get_idalbum());
 			statement.setInt(2, track.get_idartist());
-			statement.setString(3, track.get_name());
+			statement.setString(3, track.getName());
 			statement.setBoolean(4, track.get_FCC());
 			statement.setBoolean(5, track.get_Recommended());
-			statement.setInt(6, track.get_ITLID());
-			statement.setString(7, track.get_Path());
+			statement.setInt(6, track.getID());
+			statement.setString(7, track.getPath());
 			
 			Integer pGenre = track.get_idPrimaryGenre();
 			Integer sGenre = track.get_idSecondaryGenre();
@@ -285,18 +286,18 @@ public class Library
 		statement.close();
 	}
 	
-	private void updateTrackTable(DatabaseConnection conn, List<DatabaseTrack> tracks) throws SQLException
+	private void updateTrackTable(DatabaseConnection conn, List<Track> tracks) throws SQLException
 	{
 		PreparedStatement statement = conn.getConnection().prepareStatement(UPDATE_TRACK);
 		for(int i = 0; i < tracks.size(); i++)
 		{
-			DatabaseTrack track = tracks.get(i);
+			DatabaseTrack track = (DatabaseTrack) tracks.get(i);
 			statement.setInt(1, track.get_idalbum());
 			statement.setInt(2, track.get_idartist());
-			statement.setString(3, track.get_name());
+			statement.setString(3, track.getName());
 			statement.setBoolean(4, track.get_FCC());
 			statement.setBoolean(5, track.get_Recommended());
-			statement.setString(6, track.get_Path());
+			statement.setString(6, track.getPath());
 				
 			Integer pGenre = track.get_idPrimaryGenre();
 			Integer sGenre = track.get_idSecondaryGenre();
@@ -305,7 +306,7 @@ public class Library
 			if(sGenre != null) { statement.setInt(8, sGenre); } else { statement.setNull(8, Types.INTEGER); }
 			if(subsonic != null && subsonic != -1) { statement.setInt(9, subsonic); } else { statement.setNull(9, Types.INTEGER); }
 			
-			statement.setInt(10, track.get_ITLID());
+			statement.setInt(10, track.getID());
 			statement.addBatch();
 			if((i + 1) % 1000 == 0)
 			{

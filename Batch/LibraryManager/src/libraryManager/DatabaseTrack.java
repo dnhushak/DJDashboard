@@ -1,14 +1,11 @@
 package libraryManager;
 
-public class DatabaseTrack 
+public class DatabaseTrack extends Track
 {
 	private int idalbum;
 	private int idartist;
-	private String name;
 	private boolean FCC;
 	private boolean Recommened;
-	private int ITLID;
-	private String Path;
 	private Integer idPrimaryGenre;
 	private Integer idSecondaryGenre;
 	private Integer idsubsonic;
@@ -24,16 +21,14 @@ public class DatabaseTrack
 			Integer idSecondaryGenre, 
 			Integer idsubsonic)
 	{
+		super(name, Path, ITLID);
 		this.idalbum = idalbum;
 		this.idartist = idartist;
-		this.name = name;
 		this.FCC = FCC;
 		this.Recommened = Recommened;
-		this.ITLID = ITLID;
-		this.Path = Path;
 		this.idPrimaryGenre = idPrimaryGenre == null ? 0 : idPrimaryGenre;
 		this.idSecondaryGenre = idSecondaryGenre == null ? 0 : idSecondaryGenre;
-		this.idsubsonic = idsubsonic == null ? 0 : idsubsonic;
+		this.idsubsonic = idsubsonic == null || idsubsonic == -1 ? 0 : idsubsonic;
 	}
 	
 	public int get_idalbum()
@@ -46,11 +41,6 @@ public class DatabaseTrack
 		return idartist;
 	}
 	
-	public String get_name()
-	{
-		return name;
-	}
-	
 	public boolean get_FCC()
 	{
 		return FCC;
@@ -59,16 +49,6 @@ public class DatabaseTrack
 	public boolean get_Recommended()
 	{
 		return Recommened;
-	}
-	
-	public int get_ITLID()
-	{
-		return ITLID;
-	}
-	
-	public String get_Path()
-	{
-		return Path;
 	}
 	
 	public Integer get_idPrimaryGenre()
@@ -98,8 +78,8 @@ public class DatabaseTrack
 					this.name.equals(other.name) &&
 					this.FCC == other.FCC &&
 					this.Recommened == other.Recommened &&
-					this.ITLID == other.ITLID &&
-					this.Path.equals(other.Path);
+					this.id == other.id &&
+					this.path.equals(other.path);
 		
 		result = this.idPrimaryGenre == null ? this.idPrimaryGenre == other.idPrimaryGenre && result : this.idPrimaryGenre.equals(other.idPrimaryGenre) && result;
 		result = this.idSecondaryGenre == null ? this.idSecondaryGenre == other.idSecondaryGenre && result : this.idSecondaryGenre.equals(other.idSecondaryGenre) && result;

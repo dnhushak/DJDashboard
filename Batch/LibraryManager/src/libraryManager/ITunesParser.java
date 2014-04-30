@@ -3,9 +3,11 @@ package libraryManager;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,18 +23,19 @@ import java.util.Scanner;
 public class ITunesParser extends DefaultHandler 
 {
     public static String LIBRARY_FILE_PATH = "C:\\iTunes Library.xml";
-    private SubsonicLibrary subsonicLibrary;
     private String tempVal;
     private Track tempTrack;
     private boolean foundTracks = false;
     private String previousTag;
     private String previousTagVal;
+    private SubsonicLibrary subsonicLibrary;
     private Map<String, Map<String, Map<Integer, Track>>> tracks;
+    int count = 0;
 
-    public ITunesParser() 
+    public ITunesParser(String subsonicCSV, boolean buildSubsonicCSV) 
     {
         tracks = new HashMap<String, Map<String, Map<Integer, Track>>>();
-        subsonicLibrary = new SubsonicLibrary();
+        subsonicLibrary = new SubsonicLibrary(subsonicCSV, buildSubsonicCSV);
     }
     
     public static void setFilePath(String filePath)
@@ -43,7 +46,6 @@ public class ITunesParser extends DefaultHandler
     public void run() 
     {
         parseDocument();
-        subsonicLibrary.clear();
     }
     
     /**
@@ -87,11 +89,14 @@ public class ITunesParser extends DefaultHandler
             {
             	if(tempTrack != null)
 				{
-            		tempTrack.setSubsonicID(subsonicLibrary.getSubsonicTrackID(tempTrack.getArtist(), tempTrack.getAlbum(), tempTrack.getName()));
-					tempTrack.sanitize();
+            		((ITunesTrack) tempTrack).setSubsonicID(subsonicLibrary.subsonicID(tempTrack));
+            		((ITunesTrack) tempTrack).sanitize();
 					addTrack();
+					count++;
+					System.out.println("Track: " + count);
+					
 				}
-                tempTrack = new Track();
+                tempTrack = new ITunesTrack();
             }
         } 
         else 
@@ -130,47 +135,27 @@ public class ITunesParser extends DefaultHandler
             }
             else if (previousTagVal.equalsIgnoreCase("Artist") && qName.equals("string"))
             {
-            	tempTrack.setArtist(tempVal.trim());
+            	((ITunesTrack) tempTrack).setArtist(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Album") && qName.equals("string"))
             {
-            	tempTrack.setAlbum(tempVal.trim());
-            }
-            else if (previousTagVal.equalsIgnoreCase("Play Count") && qName.equals("integer"))
-            {
-            	Integer value = Integer.parseInt(tempVal);
-            	tempTrack.setPlayCount(value.intValue());
+            	((ITunesTrack) tempTrack).setAlbum(tempVal.trim());
             }
             else if (previousTagVal.equalsIgnoreCase("Location") && qName.equals("string"))
             {
             	tempTrack.setPath(tempVal.trim());
             }
-            else if (previousTagVal.equalsIgnoreCase("Track Number") && qName.equals("integer"))
-            {
-            	Integer value = Integer.parseInt(tempVal);
-            	tempTrack.setTrackNumber(value);
-            }
-            else if (previousTagVal.equalsIgnoreCase("Sample Rate") && qName.equals("integer"))
-            {
-            	Integer value = Integer.parseInt(tempVal);
-            	tempTrack.setSampleRate(value);
-            }
             else if (previousTagVal.equalsIgnoreCase("Track ID") && qName.equals("integer"))
             {
             	Integer value = Integer.parseInt(tempVal);
-            	tempTrack.setITL(value);
-            }
-            else if (previousTagVal.equalsIgnoreCase("Total Time") && qName.equals("integer"))
-            {
-            	Integer value = Integer.parseInt(tempVal);
-            	tempTrack.setTotalTime(value);
+            	tempTrack.setID(value);
             }
             else if (previousTagVal.equalsIgnoreCase("Grouping") && qName.equals("string"))
             {
             	Scanner scan = new Scanner(tempVal);
             	scan.useDelimiter(",");
-            	tempTrack.setPrimaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
-            	tempTrack.setSecondaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
+            	((ITunesTrack) tempTrack).setPrimaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
+            	((ITunesTrack) tempTrack).setSecondaryGenre(scan.hasNext() ? scan.next().toLowerCase().trim() : null);
             	scan.close();
             }
            
@@ -187,7 +172,7 @@ public class ITunesParser extends DefaultHandler
     
     private void addTrack()
     {
-    	if(tracks.get(tempTrack.getArtist()) == null)
+    	if(tracks.get(((ITunesTrack) tempTrack).getArtist()) == null)
 		{
 			addNewArtist();
 		}
@@ -199,31 +184,31 @@ public class ITunesParser extends DefaultHandler
     
     private void addAlbum()
     {
-    	Map<Integer, Track> songs = tracks.get(tempTrack.getArtist()).get(tempTrack.getAlbum());
+    	Map<Integer, Track> songs = tracks.get(((ITunesTrack) tempTrack).getArtist()).get(((ITunesTrack) tempTrack).getAlbum());
 		if(songs == null)
 		{
 			addNewAlbum(songs);
 		}
 		else
 		{
-			songs.put(tempTrack.getITunesID(), tempTrack);
+			songs.put(tempTrack.getID(), tempTrack);
 		}
     }
     
     private void addNewArtist()
     {
-    	tracks.put(tempTrack.getArtist(), new HashMap<String, Map<Integer, Track>>());
-    	Map<String, Map<Integer, Track>> albums = tracks.get(tempTrack.getArtist());
-    	albums.put(tempTrack.getAlbum(), new HashMap<Integer, Track>());
-		Map<Integer, Track> songs = albums.get(tempTrack.getAlbum());
-		songs.put(tempTrack.getITunesID(), tempTrack);
+    	tracks.put(((ITunesTrack) tempTrack).getArtist(), new HashMap<String, Map<Integer, Track>>());
+    	Map<String, Map<Integer, Track>> albums = tracks.get(((ITunesTrack) tempTrack).getArtist());
+    	albums.put(((ITunesTrack) tempTrack).getAlbum(), new HashMap<Integer, Track>());
+		Map<Integer, Track> songs = albums.get(((ITunesTrack) tempTrack).getAlbum());
+		songs.put(tempTrack.getID(), tempTrack);
     }
     
     private void addNewAlbum(Map<Integer, Track> songs)
     {
-    	Map<String, Map<Integer, Track>> albums = tracks.get(tempTrack.getArtist());
-    	albums.put(tempTrack.getAlbum(), new HashMap<Integer, Track>());
-    	songs = albums.get(tempTrack.getAlbum());
-		songs.put(tempTrack.getITunesID(), tempTrack);
+    	Map<String, Map<Integer, Track>> albums = tracks.get(((ITunesTrack) tempTrack).getArtist());
+    	albums.put(((ITunesTrack) tempTrack).getAlbum(), new HashMap<Integer, Track>());
+    	songs = albums.get(((ITunesTrack) tempTrack).getAlbum());
+		songs.put(tempTrack.getID(), tempTrack);
     }
 }

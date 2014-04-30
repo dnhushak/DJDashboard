@@ -2,18 +2,27 @@ package libraryManager;
 
 public class DatabaseTrack 
 {
-	int idalbum;
-	int idartist;
-	String name;
-	boolean FCC;
-	boolean Recommened;
-	int ITLID;
-	String Path;
-	Integer idPrimaryGenre;
-	Integer idSecondaryGenre;
-	Integer idsubsonic;
+	private int idalbum;
+	private int idartist;
+	private String name;
+	private boolean FCC;
+	private boolean Recommened;
+	private int ITLID;
+	private String Path;
+	private Integer idPrimaryGenre;
+	private Integer idSecondaryGenre;
+	private Integer idsubsonic;
 	
-	DatabaseTrack(int idalbum, int idartist, String name, boolean FCC, boolean Recommened, int ITLID, String Path, Integer idPrimaryGenre, Integer idSecondaryGenre, Integer idsubsonic)
+	DatabaseTrack(int idalbum, 
+			int idartist, 
+			String name, 
+			boolean FCC, 
+			boolean Recommened, 
+			int ITLID, 
+			String Path, 
+			Integer idPrimaryGenre, 
+			Integer idSecondaryGenre, 
+			Integer idsubsonic)
 	{
 		this.idalbum = idalbum;
 		this.idartist = idartist;

@@ -1,8 +1,10 @@
 package libraryManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SubsonicLibrary 
@@ -11,7 +13,15 @@ public class SubsonicLibrary
 	
 	public SubsonicLibrary()
 	{
-		initializeLibrary();
+		try
+		{
+			tracks = new ArrayList<SubsonicTrack>();
+			initializeLibrary();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public static int subsonicID(Track track)
@@ -134,102 +144,80 @@ public class SubsonicLibrary
 		return -1;
 	}
 	
-	private void initializeLibrary()
+	private void initializeLibrary() throws IOException, JSONException 
 	{
 		List<SubsonicArtist> artists = new ArrayList<SubsonicArtist>();
-		try 
+		JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getArtists.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json");
+		JSONArray artistArr = json.getJSONObject("subsonic-response").getJSONObject("artists").getJSONArray("index");
+		for(int i = 0; i < artistArr.length(); i++)
 		{
-		    JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getArtists.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json");
-		    JSONArray artistArr = json.getJSONObject("subsonic-response").getJSONObject("artists").getJSONArray("index");
-		    for(int i = 0; i < artistArr.length(); i++)
+			JSONArray artistsByLetter = artistArr.getJSONObject(i).getJSONArray("artist");
+		    for(int j = 0; j < artistsByLetter.length(); j++)
 		    {
-		    	JSONArray artistsByLetter = artistArr.getJSONObject(i).getJSONArray("artist");
-		    	for(int j = 0; j < artistsByLetter.length(); j++)
-		    	{
-		    		JSONObject artist = artistsByLetter.getJSONObject(j);
-		    		artists.add(new SubsonicArtist(artist.getInt("id"), artist.getString("name"), artist.getInt("albumCount")));
-		    	}
+		    	JSONObject artist = artistsByLetter.getJSONObject(j);
+		    	artists.add(new SubsonicArtist(artist.getInt("id"), artist.getString("name"), artist.getInt("albumCount")));
 		    }
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
 		}
 		readAlbums(artists);
 	}
 	
-	private void readAlbums(List<SubsonicArtist> artists)
+	private void readAlbums(List<SubsonicArtist> artists) throws IOException, JSONException 
 	{
 		List<SubsonicAlbum> albums = new ArrayList<SubsonicAlbum>();
-		try 
+		SubsonicArtist artist;
+		for(int i = 0; i < artists.size(); i++)
 		{
-			SubsonicArtist artist;
-			for(int i = 0; i < artists.size(); i++)
-			{
-				artist = artists.get(i);
-				int artistID = artist.getID();
-				JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getArtist.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + artistID);
+			artist = artists.get(i);
+			int artistID = artist.getID();
+			JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getArtist.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + artistID);
 				
-				JSONObject album;
-				String artistName = artist.getName();
-				if(artist.getAlbumCount() < 2)
+			JSONObject album;
+			String artistName = artist.getName();
+			if(artist.getAlbumCount() < 2)
+			{
+				album = json.getJSONObject("subsonic-response").getJSONObject("artist").getJSONObject("album");
+				albums.add(new SubsonicAlbum(album.getInt("id"), album.getInt("songCount"), artistID, album.getString("name"), artistName));
+			}
+			else
+			{
+				JSONArray albumArr = json.getJSONObject("subsonic-response").getJSONObject("artist").getJSONArray("album");
+				for(int j = 0; j < albumArr.length(); j++)
 				{
-					album = json.getJSONObject("subsonic-response").getJSONObject("artist").getJSONObject("album");
+					album = albumArr.getJSONObject(j);
 					albums.add(new SubsonicAlbum(album.getInt("id"), album.getInt("songCount"), artistID, album.getString("name"), artistName));
-				}
-				else
-				{
-					JSONArray albumArr = json.getJSONObject("subsonic-response").getJSONObject("artist").getJSONArray("album");
-					for(int j = 0; j < albumArr.length(); j++)
-					{
-						album = albumArr.getJSONObject(j);
-						albums.add(new SubsonicAlbum(album.getInt("id"), album.getInt("songCount"), artistID, album.getString("name"), artistName));
-					}
 				}
 			}
 		}	 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
 		readTracks(albums);
 	}
 	
-	private void readTracks(List<SubsonicAlbum> albums)
+	private void readTracks(List<SubsonicAlbum> albums) throws IOException, JSONException 
 	{
-		tracks = new ArrayList<SubsonicTrack>();
-		try 
+		SubsonicAlbum album;
+		for(int i = 0; i < albums.size(); i++)
 		{
-			SubsonicAlbum album;
-			for(int i = 0; i < albums.size(); i++)
-			{
-				album = albums.get(i);
-				int albumID = album.getID();
-				JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getAlbum.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + albumID);
+			album = albums.get(i);
+			int albumID = album.getID();
+			JSONObject json = JsonReader.readJsonFromUrl("http://kure-automation.stuorg.iastate.edu/rest/getAlbum.view?u=kuredj&p=kuredj&v=1.8.0&c=myapp&f=json&id=" + albumID);
 				
-				JSONObject track;
-				int artistID = album.getArtistID();
-				String albumName = album.getName();
-				String artist = album.getArtist();
-				if(album.getSongCount() < 2)
+			JSONObject track;
+			int artistID = album.getArtistID();
+			String albumName = album.getName();
+			String artist = album.getArtist();
+			if(album.getSongCount() < 2)
+			{
+				track = json.getJSONObject("subsonic-response").getJSONObject("album").getJSONObject("song");
+				tracks.add(new SubsonicTrack(albumID, albumName, track.getInt("id"), track.getString("title"), artistID, track.getString("path"), artist));
+			}
+			else
+			{
+				JSONArray trackArr = json.getJSONObject("subsonic-response").getJSONObject("album").getJSONArray("song");
+				for(int j = 0; j < trackArr.length(); j++)
 				{
-					track = json.getJSONObject("subsonic-response").getJSONObject("album").getJSONObject("song");
+					track = trackArr.getJSONObject(j);
 					tracks.add(new SubsonicTrack(albumID, albumName, track.getInt("id"), track.getString("title"), artistID, track.getString("path"), artist));
 				}
-				else
-				{
-					JSONArray trackArr = json.getJSONObject("subsonic-response").getJSONObject("album").getJSONArray("song");
-					for(int j = 0; j < trackArr.length(); j++)
-					{
-						track = trackArr.getJSONObject(j);
-						tracks.add(new SubsonicTrack(albumID, albumName, track.getInt("id"), track.getString("title"), artistID, track.getString("path"), artist));
-					}
-				}
 			}
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
 		}
 	}
 	
@@ -243,12 +231,17 @@ public class SubsonicLibrary
 		tracks.clear();
 	}
 	
-	public int getSubsonicTrackID(String name)
+	public int getSubsonicTrackID(String artist, String album, String name)
 	{
+		artist = artist == null ? "Unknown Artist" : artist;
+		album = album == null ? "Unknown Album" : album;
+		name = name == null ? "Unknown Name" : name;
 		for(int i = 0; i < tracks.size(); i++)
 		{
 			SubsonicTrack track = tracks.get(i);
-			if(name.equalsIgnoreCase(track.getName().trim()))
+			if(artist.equalsIgnoreCase(track.getArtist().trim()) &&
+					album.equalsIgnoreCase(track.getAlbum().trim()) &&
+					name.equalsIgnoreCase(track.getName().trim()))
 			{
 				return track.getID();
 			}

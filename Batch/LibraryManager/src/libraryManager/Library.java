@@ -25,7 +25,6 @@ public class Library
 	 */
 	public void createFromITunesDB(String iTunesLibPath)
 	{
-		//Parse XML to TrackList
 		ITunesParser parser = new ITunesParser();
 		ITunesParser.setFilePath(iTunesLibPath);
 		parser.run();

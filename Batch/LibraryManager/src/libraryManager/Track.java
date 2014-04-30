@@ -204,13 +204,13 @@ public class Track
 		 
 		 if(name.toUpperCase().contains(EXPLICIT_TAG))
 	     {
-			 setFCC(true);
-			 stripTag(EXPLICIT_TAG);
+			 FCC = true;
+			 stripTagFromTrackName(EXPLICIT_TAG);
 	     }
 	     if(name.toUpperCase().contains(RECO_TAG))
 	     {
-	    	 setRecommended(true);
-	    	 stripTag(RECO_TAG);
+	    	 recommended = true;
+	    	 stripTagFromTrackName(RECO_TAG);
 	     }
 	     name = sanitizeString(name);
 	     artist = sanitizeString(artist);
@@ -224,7 +224,7 @@ public class Track
 	  * @param tag
 	  * the tag to be removed
 	  */
-	 private void stripTag(String tag)
+	 private void stripTagFromTrackName(String tag)
 	 {
 		 String temp = name;
 		 String word = null;
@@ -345,3 +345,4 @@ public class Track
 		 return false;
 	 }
 }
+

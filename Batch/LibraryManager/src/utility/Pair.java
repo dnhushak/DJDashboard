@@ -1,4 +1,4 @@
-package libraryManager;
+package utility;
 /**
  * 
  * @author Alex Cole
@@ -48,6 +48,13 @@ public class Pair<E extends Comparable<? super E>, T extends Comparable<? super 
 		return second;
 	}
 	
+	/**
+	 * Checks to see if pair is equal to this pair
+	 * @param obj
+	 * object for comparison
+	 * @return
+	 * returns true if first objects are equal and second objects are equal
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -58,6 +65,11 @@ public class Pair<E extends Comparable<? super E>, T extends Comparable<? super 
 		 return this.getFirst().equals(other.getFirst()) && this.getSecond().equals(other.getSecond());
 	}
 	
+	/**
+	 * creates hash code for the pair based on first and second
+	 * @return
+	 * hash code for the pair
+	 */
 	@Override
 	public int hashCode() 
 	{

@@ -30,7 +30,6 @@ public class ITunesParser extends DefaultHandler
     private String previousTagVal;
     private SubsonicLibrary subsonicLibrary;
     private Map<String, Map<String, Map<Integer, Track>>> tracks;
-    int count = 0;
 
     public ITunesParser(String subsonicCSV, boolean buildSubsonicCSV) 
     {
@@ -46,6 +45,7 @@ public class ITunesParser extends DefaultHandler
     public void run() 
     {
         parseDocument();
+        subsonicLibrary.clear();
     }
     
     /**
@@ -92,9 +92,6 @@ public class ITunesParser extends DefaultHandler
             		((ITunesTrack) tempTrack).setSubsonicID(subsonicLibrary.subsonicID(tempTrack));
             		((ITunesTrack) tempTrack).sanitize();
 					addTrack();
-					count++;
-					System.out.println("Track: " + count);
-					
 				}
                 tempTrack = new ITunesTrack();
             }

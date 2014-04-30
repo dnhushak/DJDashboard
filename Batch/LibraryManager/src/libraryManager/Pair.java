@@ -48,6 +48,22 @@ public class Pair<E extends Comparable<? super E>, T extends Comparable<? super 
 		return second;
 	}
 	
+	@Override
+	public boolean equals(Object obj)
+	{
+		 if(obj == null) { return false; }
+		 if(!(obj instanceof Pair)) { return false; }
+		 
+		 Pair<?, ?> other = (Pair<?, ?>) obj;
+		 return this.getFirst().equals(other.getFirst()) && this.getSecond().equals(other.getSecond());
+	}
+	
+	@Override
+	public int hashCode() 
+	{
+		return (first == null ? 0 : first.hashCode()) ^ (second == null ? 0 : second.hashCode());
+	}
+	
 	/**
 	 * Compares two pairs to see if they are the same or different by looking at the
 	 * first object type first and the second object type is the first is the same

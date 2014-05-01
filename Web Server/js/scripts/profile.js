@@ -19,15 +19,29 @@ $('document').ready(function() {
 			var djNickName = profile['NickName'];
 			var djMotto = profile['Motto'];
 			var djBio = profile['Bio'];
+			var djID = profile['UserID'];
 			
-			if(djNickName != ""){
-				$('djTitle').append(djNickName + " <small> " + djMotto + "</small>");
-			}
+			
 			
 			if(djBio != ""){
 				$('#bio').append(djBio);
 			}
-
+			
+			if(djID != ""){
+				console.log('../resources/' + djID + '.jpg');
+				$('#djTitle').append('<img id="djThumbnail" class="img-thumbnail" src="../resources/' + djID + '.jpg" width="70" height="70">')
+			}
+			else
+			{
+				
+				$('#djTitle').append('<img id="djThumbnail" class="img-thumbnail" src="../resources/kittyAvatar.jpg" width="70" height="70">')
+				
+			}
+			if(djNickName != ""){
+				$('#djTitle').append(djNickName + " <small> " + djMotto + "</small>");
+			}
+			
+			
 		});
 	}
 
@@ -51,7 +65,6 @@ $('document').ready(function() {
 				var playlistID = playlists[i]['PlaylistID'];
 				panelHTML = panelHTML + '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" href="#playlist' + playlistID + '">' + playlistName + '</a></h4></div><div id="playlist' + playlistID + '" class="panel-collapse collapse">';
 				panelHTML = panelHTML + '<div class="panel-body"><ul>';
-				console.log(playlists[i]);
 				for ( var j = 0; j < playlists[i]['Tracks'].length; j++) {
 					//Create songs in that drop down
 					console.log(playlists[i][j]);
@@ -62,7 +75,6 @@ $('document').ready(function() {
 				}
 				panelHTML = panelHTML + '</ul></div></div></div></div>'
 			}
-			console.log('completegetfive');
 			$('#spinlist-dropdown').append(panelHTML);
 		});
 

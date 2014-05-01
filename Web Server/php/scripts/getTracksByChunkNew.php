@@ -15,11 +15,7 @@
 	}else{
 		$chunkSize = 100;
 	}
-// 	echo "Last Track: ". $lastTrack . "<br/>";
-// 	echo "Chunk Size: ". $chunkSize . "<br/>";
 	
-
-// 	var_dump($browser->getTrackChunk(array($lastTrack)));
 	$json_string = json_encode($manager->getTrackChunks($lastTrack, $chunkSize), JSON_PRETTY_PRINT);
 
 	echo $json_string;

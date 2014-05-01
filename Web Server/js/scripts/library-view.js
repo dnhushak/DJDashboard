@@ -55,6 +55,8 @@ $(document).ready(function() {
             for(var i = 0; i < tracks.length && i < 100; i++){
                 var albumID = parseInt(tracks[i]['AlbumID']);
                 var artistID = parseInt(tracks[i]['ArtistID']);
+                console.log(albumID);
+                console.log(albums);
                 var album = albums[albumID]['Name'];
                 var artist = artists[artistID]['Name'];
                 var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))];

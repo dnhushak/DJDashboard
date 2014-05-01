@@ -11,12 +11,6 @@ try {
 	}
 
 	$manager = new LibraryManager();
-
-	if(!($manager->IsOnAir())){
-		echo json_encode(array("errorMessage" => "Another user has logged on and you have been kicked off",
-								"error" => "Validation Error"));
-		die();
-	}
 	
 	$PlayID = $_GET ['PlayID'];
 	$TrackID = $_GET ['TrackID'];

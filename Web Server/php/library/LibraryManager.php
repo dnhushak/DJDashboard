@@ -228,7 +228,7 @@ class LibraryManager {
 			$track->setEndDate($r['EndDate']);
 			$track->setPrimaryGenreID($r['PrimaryGenreID']);
 			$track->setSecondaryGenreID($r['SecondGenreID']);
-			$track->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
+			$track->setSubsonic(utf8_encode($r['idsubsonic']));
 			return $track;
 		} catch (Exception $e) {
 			Publisher :: publishException($e->getTraceAsString(), $e->getMessage(), 0);

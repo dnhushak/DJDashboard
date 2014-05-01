@@ -25,7 +25,6 @@ $('document').ready(function(){
                     $('.custom-title').html("Update Song");
                     $('#onair').html('Update');
                     getTrackDataForUpdate(trackID, songIndex);
-                    console.log("here");
                 }
             }catch(e){
                 return;
@@ -294,8 +293,6 @@ $('document').ready(function(){
         var trackID = $(this).parent().parent().attr('class').match(/\d+/);
         var songIndex = $(this).val();
         testOnAirUpdate(trackID, songIndex);
-        evt.stopPropagation();
-        evt.preventDefault();
     });
     $('#onair').on('click', function(evt){
         setTimeout(function(){getRecentlyPlayed();}, 500);

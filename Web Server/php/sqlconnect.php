@@ -198,16 +198,18 @@ class SqlConnect {
 
 	public function callStoredProcJSON($procedureName, $args){
 		// Format the procedure pased on the name and arguments
-		$cmd = formatProcedureCall($procedureName, $args);
+		$cmd = $this->formatProcedureCall($procedureName, $args);
 		// Store the last command
 		$this->lastCommand = $cmd;
 		// Call the command
 		$results = $this->connection->query($cmd);
 		// Get all rows and store it in an array
-		while ($r = mysql_fetch_assoc($results)) {
-			$rows ['rows'] = $r;
+		while ($row = mysqli_fetch_assoc($results)) {
+			$rows[] = $row;
 		}
+		//var_dump($rows);
 		// JSON Encode the array
+		var_dump (json_decode(json_encode($rows, JSON_FORCE_OBJECT)));
 		return json_encode($rows, JSON_NUMERIC_CHECK);
 	}
 
@@ -238,7 +240,7 @@ class SqlConnect {
 			// Append final argument (with no final comma)
 			if (is_string($args [$length - 1])) {
 				// $args[$i] = mysqli_real_escape_string($args[$i]);
-				$cmd = $cmd . "'" . $args [$i] . "');";
+				$cmd = $cmd . "'" . $args [$i] . "'";
 			}
 			else if ($args [$i] === null) {
 				$cmd = $cmd . "null);";

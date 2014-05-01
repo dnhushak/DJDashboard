@@ -9,7 +9,8 @@
 	}else{
 		$lastTrack = "";
 	}
-	
+
+// 	var_dump($browser->getTrackChunk(array($lastTrack)));
 	$json_string = json_encode($browser->getTrackChunk(array($lastTrack)), JSON_PRETTY_PRINT);
 
 	echo $json_string;

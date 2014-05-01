@@ -15,6 +15,7 @@ class LibraryManager {
 	private $GetTracksByAlbumID;
 	private $GetAlbums;
 	private $GetTrackChunksAlphabetical;
+	private $GetTrackChunks;
 	private $spGetTrackData;
 	private $GetAllGenres;
 	private $GetAllTracksByGenreAndReco;
@@ -51,6 +52,7 @@ class LibraryManager {
 		$this->GetTracksByArtistID = "GetTracksByArtistID";
 		$this->GetAlbums = "GetAlbumList";
 		$this->GetTrackChunksAlphabetical = "GetTrackChunksAlphabetical";
+		$this->GetTrackChunks = "GetTrackChunks";
 		$this->spGetTrackData = "GetAllTrackData";
 		$this->GetAllGenres = "GetAllGenre";
 		$this->GetAllTracksByGenreAndReco = "GetAllTracksByGenreAndReco";
@@ -203,6 +205,45 @@ class LibraryManager {
 			$trackList[] = $tempTrack;
 		}
 		return $trackList;
+	}
+	
+	public function GetTrackChunks($lastTrackNum = 0, $chunkSize = 100) {
+		$conn = new SqlConnect();
+		$args = array();
+		$args[] = $lastTrackNum;
+		$args[] = $chunkSize;
+		$results = $conn->callStoredProc($this->GetTrackChunks, $args);
+		$trackList = array ();
+		while ($rowInfo = mysqli_fetch_assoc($results)) {
+			$tempTrack = new Track();
+			$tempTrack->setAlbum($rowInfo['AlbumName']);
+			$tempTrack->setArtist($rowInfo['ArtistName']);
+			$tempTrack->setName($rowInfo['TrackName']);
+			$tempTrack->setFCC(($rowInfo['FCC']));
+			$tempTrack->setID($rowInfo['TrackID']);
+			$tempTrack->setRecommended($rowInfo['Recommended']);
+			$tempTrack->setAlbumID($rowInfo['AlbumID']);
+			$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
+			$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
+			$tempTrack->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
+			$trackList[] = $tempTrack;
+		}
+		$allTracks = array();
+		foreach ($trackList as $track) {
+			$trackRow = array(
+					"ID" => utf8_encode($track->getID()),
+					"Name" => utf8_encode($track->getName()),
+					"Artist" => utf8_encode($track->getArtist()),
+					"Album" => utf8_encode($track->getAlbum()),
+					"AlbumID" => utf8_encode($track->getAlbumID()),
+					"Recommended" => utf8_encode($track->getRecommended()),
+					"FCC" => utf8_encode($track->getFCC()),
+					"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
+					"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
+			$allTracks[] = $trackRow;
+		}
+// 		var_dump($allTracks);
+		return $allTracks;
 	}
 	// Returns an array of rows from the db of all the track data
 	public function GetAllTrackData($TrackID) {

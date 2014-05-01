@@ -75,6 +75,7 @@ $(document)
 												var artist = artists[artistID]['Name'];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             for(var i = 0; i < tracks.length && i < 100; i++){
                 var albumID = parseInt(tracks[i]['AlbumID']);
                 var artistID = parseInt(tracks[i]['ArtistID']);
@@ -116,6 +117,8 @@ $(document)
         lastFiltered = max;
     }
 =======
+=======
+>>>>>>> Track Chunking wraparound fix'd
 												var genre1 = genres[(parseInt(tracks[i]['PrimaryGenre']))];
 												var genre2 = genres[(parseInt(tracks[i]['SecondaryGenre']))];
 												var songName = tracks[i]['Name'];
@@ -164,6 +167,9 @@ $(document)
 						}
 						lastFiltered = max;
 					}
+<<<<<<< HEAD
+>>>>>>> Track Chunking wraparound fix'd
+=======
 >>>>>>> Track Chunking wraparound fix'd
 
 					loadTrackChunk = function(lastTrackNum) {
@@ -404,6 +410,7 @@ $(document)
 											} else {
 												clearTrackList();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             }catch(e){
 				PublishError(e);
@@ -772,6 +779,8 @@ $(document)
     $( "#sortable" ).sortable();
 })
 =======
+=======
+>>>>>>> Track Chunking wraparound fix'd
 												for (var i = 0; i < songs.length; i++) {
 													var songName = songs[i]['Name'];
 													var songID = songs[i]['ID'];
@@ -1318,4 +1327,7 @@ $(document)
 					$('#content').css('height', '120%');
 					$("#sortable").sortable();
 				})
+<<<<<<< HEAD
+>>>>>>> Track Chunking wraparound fix'd
+=======
 >>>>>>> Track Chunking wraparound fix'd

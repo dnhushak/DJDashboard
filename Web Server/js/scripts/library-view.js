@@ -17,8 +17,7 @@ $(document)
 					var initialTrackHTML = '';
 					var lastTrack = '';
 					var curTrackNum = 0;
-					var trackChunkSize = 50;
-					var firstLastTrack = '';
+					var trackChunkSize = 100;
 					var keepScrolling = true;
 					var filters = {
 						recommended : 0,
@@ -171,12 +170,6 @@ $(document)
 											keepScrolling = true;
 										})
 					}
-					setLastTrack = function(str) {
-						if (lastTrack == '') {
-							firstLastTrack = str;
-						}
-						lastTrack = str;
-					}
 
 					initialize = function() {
 						$('#albums .selection').html(albumsHTML)
@@ -193,7 +186,7 @@ $(document)
 						$('.track .tracks').html('');
 						$('.artist .tracks').html('');
 						$('.album .tracks').html('');
-						$('.primary-genre .tracks').html('');
+						$('.primary-genre .tracks').html('');£
 						$('.secondary-genre .tracks').html('');
 					}
 					getAlbumsByArtist = function(id) {

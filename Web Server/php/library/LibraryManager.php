@@ -213,21 +213,6 @@ class LibraryManager {
 		$args[] = $lastTrackNum;
 		$args[] = $chunkSize;
 		$results = $conn->callStoredProc($this->GetTrackChunks, $args);
-// 		$trackList = array ();
-// 		while ($rowInfo = mysqli_fetch_assoc($results)) {
-// 			$tempTrack = new Track();
-//  			$tempTrack->setAlbum($rowInfo['AlbumName']);
-//  			$tempTrack->setArtist($rowInfo['ArtistName']);
-//  			$tempTrack->setName($rowInfo['TrackName']);
-//  			$tempTrack->setFCC(($rowInfo['FCC']));
-//  			$tempTrack->setID($rowInfo['TrackID']);
-// 			$tempTrack->setRecommended($rowInfo['Recommended']);
-// 			$tempTrack->setAlbumID($rowInfo['AlbumID']);
-// 			$tempTrack->setPrimaryGenreID($rowInfo['idPrimaryGenre']);
-// 			$tempTrack->setSecondaryGenreID($rowInfo['idSecondaryGenre']);
-// 			$tempTrack->setSubsonic(utf8_encode($rowInfo['idsubsonic']));
-// 			$trackList[] = $tempTrack;
-// 		}
 		$allTracks = array();
 		while ($rowInfo = mysqli_fetch_assoc($results)) {
 			$trackRow = array(

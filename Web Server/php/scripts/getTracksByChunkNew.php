@@ -13,7 +13,7 @@
 	if(isset($_GET['ChunkSize'])){
 		$chunkSize = $_GET['ChunkSize'];
 	}else{
-		$chunkSize = 100;
+		$chunkSize = 150;
 	}
 	
 	$json_string = json_encode($manager->getTrackChunks($lastTrack, $chunkSize), JSON_PRETTY_PRINT);

@@ -1,6 +1,6 @@
 <?php
 
-	include('../library/libraryManager.php');
+	include('../library/LibraryManager.php');
 	$manager = new libraryManager();
 
 	$lastTrack;

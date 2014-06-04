@@ -13,7 +13,7 @@ import utility.Pair;
 
 public class Library 
 {
-	private Map<String, Map<String, Map<Integer, Track>>> library;
+	private Map<String, Map<String, Map<Integer, Track>>> library; //Artist -> Album -> iTunes Library ID -> ITunesTrack
 	
 	public Library()
 	{

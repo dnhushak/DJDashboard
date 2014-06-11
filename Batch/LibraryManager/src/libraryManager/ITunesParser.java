@@ -31,32 +31,33 @@ public class ITunesParser extends DefaultHandler
     private SubsonicLibrary subsonicLibrary;
     private Map<String, Map<String, Map<Integer, Track>>> tracks; //Artist -> Album -> iTunes Library ID -> ITunesTrack
 
-	/**
-	 * Initializes iTunes tracks and builds the subsonic library if
-	 * necessary.
-	 *
-	 * @param subsonicCSV		the file path to the subsonicCSV file
-	 * @param buildSubsonicCSV	should the subsonicCSV file be built or not
-	 */
+    /**
+     * Initializes iTunes tracks and builds the subsonic library if
+     * necessary.
+     *
+     * @param subsonicCSV		the file path to the subsonicCSV file
+     * @param buildSubsonicCSV	should the subsonicCSV file be built or not
+     */
     public ITunesParser(String subsonicCSV, boolean buildSubsonicCSV) 
     {
         tracks = new HashMap<String, Map<String, Map<Integer, Track>>>();
         subsonicLibrary = new SubsonicLibrary(subsonicCSV, buildSubsonicCSV);
     }
     
-	/**
-	 * set the file path for iTunes Library xml file
-	 * 
-	 * @param filePath the file path for the iTunes Library xml file
-	 */
+    /**
+     * set the file path for iTunes Library xml file
+     * 
+     * 
+     * @param filePath the file path for the iTunes Library xml file
+     */
     public static void setFilePath(String filePath)
     {
     	ITunesParser.LIBRARY_FILE_PATH = filePath;
     }
 
-	/**
-	 * Starts the parser.
-	 */
+    /**
+     * Starts the parser.
+     */
     public void run() 
     {
         parseDocument();
@@ -72,11 +73,11 @@ public class ITunesParser extends DefaultHandler
     	return tracks;
     }
 
-	/**
-	 * Gets the tracks from the iTunes Library xml file and
-	 * add the subsonic id to the track if it is in the subsonic
-	 * library
-	 */
+    /**
+     * Gets the tracks from the iTunes Library xml file and
+     * add the subsonic id to the track if it is in the subsonic
+     * library
+     */
     private void parseDocument() 
     {
         SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -188,9 +189,9 @@ public class ITunesParser extends DefaultHandler
         previousTag = qName;
     }
     
-	/**
-	 * Adds a new track to tracks.
-	 */
+    /**
+     * Adds a new track to tracks.
+     */
     private void addTrack()
     {
     	if(tracks.get(((ITunesTrack) tempTrack).getArtist()) == null)
@@ -203,10 +204,10 @@ public class ITunesParser extends DefaultHandler
 		}
     }
     
-	/**
-	 * Adds an album if it doesn't exist otherwise adds a track
-	 * to an existing album.
-	 */
+    /**
+     * Adds an album if it doesn't exist otherwise adds a track
+     * to an existing album.
+     */
     private void addAlbum()
     {
     	Map<Integer, Track> songs = tracks.get(((ITunesTrack) tempTrack).getArtist()).get(((ITunesTrack) tempTrack).getAlbum());
@@ -220,9 +221,9 @@ public class ITunesParser extends DefaultHandler
 		}
     }
     
-	/**
-	 * Adds a new Artist, then adds the album and track to that artist.
-	 */
+    /**
+     * Adds a new Artist, then adds the album and track to that artist.
+     */
     private void addNewArtist()
     {
     	tracks.put(((ITunesTrack) tempTrack).getArtist(), new HashMap<String, Map<Integer, Track>>());
@@ -232,11 +233,11 @@ public class ITunesParser extends DefaultHandler
 		songs.put(tempTrack.getID(), tempTrack);
     }
     
-	/**
-	 * Adds a new album to an existing Artist and then adds a track to that album.
-	 *
-	 * @param songs  a map of songs. ITLID -> ITunesTrack
-	 */
+    /**
+     * Adds a new album to an existing Artist and then adds a track to that album.
+     *
+     * @param songs  a map of songs. ITLID -> ITunesTrack
+     */
     private void addNewAlbum(Map<Integer, Track> songs)
     {
     	Map<String, Map<Integer, Track>> albums = tracks.get(((ITunesTrack) tempTrack).getArtist());

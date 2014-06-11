@@ -18,7 +18,7 @@ public class ITunesTrack extends Track
 
     	public ITunesTrack() {}
     
-	 public void setSubsonicID(int sID)
+	public void setSubsonicID(int sID)
     	{
     		subsonicID = sID;
 	}
@@ -28,7 +28,7 @@ public class ITunesTrack extends Track
     		recommended = value;
      	}	
         
-	 public void setFCC(boolean value)
+	public void setFCC(boolean value)
      	{
     		 FCC = value;
 	}

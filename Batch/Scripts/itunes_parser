@@ -1,5 +1,6 @@
 #!/bin/sh
 program_path="c:\Users\Alex\Desktop\KureITunesParser.jar"
 file_path="c:\iTunes Library.xml"
+build_subsonic_csv=false
 
-java -jar $program_path $file_path
+java -jar $program_path $file_path $build_subsonic_csv

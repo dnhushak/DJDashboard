@@ -5,9 +5,10 @@ $manager = new UserManager();
 
 $user = $_POST ['user'];
 
-if(isset($_POST['pass'])){
+if (isset($_POST ['pass'])) {
 	$pass = $_POST ['pass'];
-}else{
+}
+else {
 	$pass = $manager->generateRandomPassword();
 }
 

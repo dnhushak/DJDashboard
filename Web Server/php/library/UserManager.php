@@ -31,7 +31,7 @@ class UserManager {
 	 */
 	private function initialize(){
 		// Register failure procedure
-		// register_shutdown_function("Publisher::fatalHandler");
+		register_shutdown_function("Publisher::fatalHandler");
 		$this->spOnAirLogin = "OnAirLogin";
 		$this->spOnAirLogout = "OnAirLogout";
 		$this->spUserLogin = "UserLogin";
@@ -91,7 +91,7 @@ class UserManager {
 		// If username does not exist
 		if ($results === true || $results === false) {
 			echo json_encode(array (
-					"error" => "Username and password did not match." ));
+					"error" => "Username and password did not match." . $user ));
 			// adding in user error logging, we want to keep track of failed logins.
 			Publisher::publishUserError(0, $user . ' tried logging in; Username and password did not match', 'UserManager.php -> login');
 			session_unset();
@@ -406,13 +406,13 @@ class UserManager {
 			$success = authUtil::verifyPass(HASHALGO, $hash, $salt, $user, $currentPass);
 			if ($success) {
 				$newHash = authUtil::makePassHash(HASHALGO, $salt, $user, $newPass);
-				$args = array();
-				$args[] = $userid;
-				$args[] = $hash;
-				$args[] = $newHash;
+				$args = array ();
+				$args [] = $userid;
+				$args [] = $hash;
+				$args [] = $newHash;
 				$conn->callStoredProc($this->spChangePassword, $args);
 			}
-			else{
+			else {
 				echo json_encode(array (
 						"error" => "Username and password did not match." ));
 				// adding in user error logging, we want to keep track of failed logins.

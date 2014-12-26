@@ -1,6 +1,6 @@
 <?php
 
-header('Location: www/webpages/djdashboard.php');
+header('Location: www/webpages/index.php');
 
 
 

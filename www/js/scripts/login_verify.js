@@ -16,7 +16,7 @@ $(document).ready(function(){
     		return;
 		}
 		$.ajax({
-	            url: '../php/scripts/login.php',
+	            url: '../php/login.php',
 	            type: 'POST',
 	            data: {'user' : $('#user-name').val() , 'pass' : $('#password').val()},
 	        }).done(function(data){
@@ -27,13 +27,12 @@ $(document).ready(function(){
 	        		$('#password').val('');
 	        		return;
 	        	}catch(e){
-
-	        	}
+	        	}	    		
 	        	window.location.replace("./djdashboard.php");
 		});
         evt.stopPropagation();
         evt.preventDefault();
-	})
+	});
 	$(document).keypress(function(e) {
 	    if(e.which == 13) {
 	        $('#login').trigger('click');

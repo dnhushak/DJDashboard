@@ -1,0 +1,68 @@
+<script src="../js/scripts/readerManager.js"></script>
+<div class="main-view">
+	<div class="col-md-12">
+		<h2>Manage Readers</h2>
+		<hr>
+		<div>
+			<button type="button" class="btn btn-primary custom-song-button"
+				onClick="getExceptions()">Toggle Active</button>
+			<button type="button" class="btn btn-primary custom-song-button"
+				id='addButton'>Add</button>
+		</div>
+		<table class="table table-hover exception-table">
+			<thead>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Reads Remaining</th>
+				<th>Edit</th>
+			</thead>
+			
+			<!-- Readers class updated by the getReaders function in the js -->
+			<tbody class="readers">
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="modal fade" role="dialog" id="load-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body">
+				<h4>Name</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-track">Name</label> <input
+						type="text" class="form-control typeahead" id="input-title"
+						autocomplete="off" spellcheck="false" placeholder="Reader Name">
+				</div>
+				<h4>Sponsor</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-artist">Organization</label> <input
+						type="text" class="form-control" id="input-organization"
+						placeholder="Organization affiliated with Message">
+				</div>
+				<h4>Message</h4><small><i>All formatting will be lost.</i></small>
+				<div class="form-group">
+					<label class="sr-only" for="input-album">Message</label>
+					<textarea id="input-text" style="width:550px;height:150px;"></textarea>
+				</div>
+				<h4>Play Info</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-plays">Play Info</label> <input
+						type="text" class="form-control" id="input-plays"
+						placeholder="Plays / Max Plays">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default close-load-modal"
+					id="saveButton" data-dismiss="modal">Save</button>
+				<button type="button" class="btn btn-default close-load-modal"
+					data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

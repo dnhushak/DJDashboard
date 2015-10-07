@@ -2,6 +2,12 @@
 include_once ('publisher.php');
 include_once ('constants.php');
 
+/**
+ * The class to connect to the sql database
+ * References the constants in ```constants.php``` for connection information
+ * @author dnhushak
+ *
+ */
 class SqlConnect {
 	private $connection;
 	private $username;
@@ -17,7 +23,7 @@ class SqlConnect {
 	 */
 	public function __construct(){
 		// Fatal error handler for PHP
-		// ister_shutdown_function("Publisher::fatalHandler");
+		//ister_shutdown_function("Publisher::fatalHandler");
 		$this->initialize();
 	}
 
@@ -40,8 +46,7 @@ class SqlConnect {
 		}
 		catch (Exception $e) {
 			// Zero is the default user, used for very low errors
-			
-			// Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);
 			SqlConnect::$lastException = $e;
 			var_dump($this);
 			return false;
@@ -64,49 +69,8 @@ class SqlConnect {
 			return $results;
 		}
 		catch (Exception $e) {
-			// Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
+			Publisher::publishException($e->getTraceAsString(), $e->getMessage(), $_SESSION['userid']);
 			return false;
-		}
-	}
-
-	/**
-	 * Calls a stored procedure and grabs a single item out of the result set
-	 *
-	 * @param string $storedProcName
-	 *        	Name of the procedure to call
-	 * @param array $args
-	 *        	Arguments of procedure to call
-	 * @param string $fieldName
-	 *        	Field value to return
-	 * @return string Returns the value of the desired field
-	 */
-	public function executeScalar($storedProcName, $args, $fieldName){
-		// Call the procedure
-		$results = $this->callStoredProc($storedProcName, $args);
-		
-		if ($results == false) {
-			Publisher::publishException("ExecuteScalar", "Resultset is boolean [false]", $_SESSION ['userid']);
-		}
-		// Get the first row
-		$row = mysqli_fetch_assoc($results);
-		
-		// Get the field
-		$field = $row [$fieldName];
-		return $field;
-	}
-
-	/**
-	 * Returns the last command given
-	 * 
-	 * @return string The last command sent to the server
-	 */
-	public function getLastCommand(){
-		return $this->lastCommand;
-	}
-
-	public function freeResults(){
-		if (mysqli_more_results($this->connection)) {
-			$this->connection->next_result();
 		}
 	}
 
@@ -122,6 +86,9 @@ class SqlConnect {
 	public function callStoredProcArr($procedureName, $args){
 		// Call the procedure
 		$results = $this->callStoredProc($procedureName, $args);
+		if ($results === true || $results === false){
+			return $results;
+		}
 		// Get all rows and store it in an array
 		while ($row = mysqli_fetch_assoc($results)) {
 			$rows [] = $row;
@@ -136,13 +103,17 @@ class SqlConnect {
 	 *        	The name of the procedure to call
 	 * @param array $args
 	 *        	The arguments of the procedure
-	 * @return array All of the results from the stored procedure
+	 * @return array All of the results from the stored procedure in a JSON object
 	 */
 	public function callStoredProcJSON($procedureName, $args){
 		// Call the procedure, getting the array
-		$rows = $this->callStoredProcArr($procedureName, $args);
+		$results = $this->callStoredProcArr($procedureName, $args);
+
+		if ($results === true || $results === false){
+			return $results;
+		}
 		// JSON Encode the array
-		return json_encode($rows, JSON_NUMERIC_CHECK);
+		return json_encode($results, JSON_NUMERIC_CHECK);
 	}
 
 	/**
@@ -204,6 +175,47 @@ class SqlConnect {
 		// Close the argument parentheses
 		$cmd = $cmd . ");";
 		return $cmd;
+	}
+
+	/**
+	 * Calls a stored procedure and grabs a single item out of the result set
+	 *
+	 * @param string $storedProcName
+	 *        	Name of the procedure to call
+	 * @param array $args
+	 *        	Arguments of procedure to call
+	 * @param string $fieldName
+	 *        	Field value to return
+	 * @return string Returns the value of the desired field
+	 */
+	public function executeScalar($storedProcName, $args, $fieldName){
+		// Call the procedure
+		$results = $this->callStoredProc($storedProcName, $args);
+		
+		if ($results == false) {
+			Publisher::publishException("ExecuteScalar", "Resultset is boolean [false]", $_SESSION ['userid']);
+		}
+		// Get the first row
+		$row = mysqli_fetch_assoc($results);
+		
+		// Get the field
+		$field = $row [$fieldName];
+		return $field;
+	}
+
+	/**
+	 * Returns the last command given
+	 *
+	 * @return string The last command sent to the server
+	 */
+	public function getLastCommand(){
+		return $this->lastCommand;
+	}
+
+	public function freeResults(){
+		if (mysqli_more_results($this->connection)) {
+			$this->connection->next_result();
+		}
 	}
 }
 

@@ -5,7 +5,7 @@
 $('document').ready(
 		function() {
 			$.ajax({
-				url : '../php/scripts/getDJs.php',
+				url : '../phpold/scripts/getDJs.php',
 				type : 'GET',
 				success : function() {
 				}
@@ -44,7 +44,7 @@ $('document').ready(
 			var getRecentlyPlayed = function() {
 				$.ajax({
 					type : "GET",
-					url : "../php/scripts/getRecentlyPlayed.php"
+					url : "../phpold/scripts/getRecentlyPlayed.php"
 				}).done(
 						function(data) {
 							var tracks;

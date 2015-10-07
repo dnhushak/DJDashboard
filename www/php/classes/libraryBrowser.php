@@ -52,7 +52,7 @@ final class libraryBrowser {
 	// It's an array of arrays, with the sub-arrays being a two-item associative array including "ID" and "Name"
 	public function getAlbumsByArtist($ArtistID){
 		$albumArray = $this->manager->GetAlbumsByID($ArtistID);
-		$ret = array();
+		$ret = array ();
 		foreach ($albumArray as $album) {
 			$albumRow = array (
 					"ID" => utf8_encode($album->getID()),
@@ -64,124 +64,133 @@ final class libraryBrowser {
 
 	public function getArtists(){
 		$artistArray = $this->manager->GetAllArtists(true);
-		$allArtist = array();
+		$allArtist = array ();
 		foreach ($artistArray as $artist) {
 			$artistRow = array (
 					"ID" => utf8_encode($artist->getID()),
 					"Name" => utf8_encode($artist->getName()) );
-			$allArtist[] = $artistRow;
+			$allArtist [] = $artistRow;
 		}
 		return $allArtist;
 	}
+
 	public function getAlbums(){
 		$albumArray = $this->manager->GetAllAlbums(false);
-		$allAlbum = array();
+		$allAlbum = array ();
 		foreach ($albumArray as $album) {
 			$albumRow = array (
 					"ID" => utf8_encode($album->getID()),
 					"Name" => utf8_encode($album->getName()),
 					"PrimaryGenre" => utf8_encode($album->getPrimaryGenre()),
 					"SecondaryGenre" => utf8_encode($album->getSecondaryGenre()) );
-			$allAlbum[] = $albumRow;
+			$allAlbum [] = $albumRow;
 		}
 		return $allAlbum;
 	}
-	//Method to retrieve all possible data from the db on this exact track
-	public function getTrackData($TrackID)
-	{	
+	// Method to retrieve all possible data from the db on this exact track
+	public function getTrackData($TrackID){
 		$track = $this->manager->GetAllTrackData($TrackID);
-		$arr = array(
-			"TrackID"=> utf8_encode($track->getID()),
-			"TrackName"=> utf8_encode($track->getName()),
-			"AlbumID"=> utf8_encode($track->Album->getID()),
-			"AlbumName" => utf8_encode($track->Album->getName()),
-			"ArtistID" => utf8_encode($track->Artist->getID()),
-			"ArtistName" => utf8_encode($track->Artist->getName()),
-			"PlayCount" => utf8_encode($track->getPlayCount()),
-			"PrimaryGenreID" => utf8_encode($track->getPrimaryGenreID()),
-			"SecondaryGenreID" => utf8_encode($track->getSecondaryGenreID()),
-			"CreateDate" => utf8_encode($track->getCreateDate()),
-			"EndDate" => utf8_encode($track->getEndDate()),
-			"ReleaseDate" => utf8_encode($track->getReleaseDate()),
-		
-		);
+		$arr = array (
+				"TrackID" => utf8_encode($track->getID()),
+				"TrackName" => utf8_encode($track->getName()),
+				"AlbumID" => utf8_encode($track->Album->getID()),
+				"AlbumName" => utf8_encode($track->Album->getName()),
+				"ArtistID" => utf8_encode($track->Artist->getID()),
+				"ArtistName" => utf8_encode($track->Artist->getName()),
+				"PlayCount" => utf8_encode($track->getPlayCount()),
+				"PrimaryGenreID" => utf8_encode($track->getPrimaryGenreID()),
+				"SecondaryGenreID" => utf8_encode($track->getSecondaryGenreID()),
+				"CreateDate" => utf8_encode($track->getCreateDate()),
+				"EndDate" => utf8_encode($track->getEndDate()),
+				"ReleaseDate" => utf8_encode($track->getReleaseDate()) )
+
+		;
 		return $arr;
 	}
-	
+
 	public function getInitialInfo(){
-		return array("Artists" => $this->getArtists(),
-					 "Albums" => $this->getAlbums(),
-					 "Genres" => $this->getAllGenres());
+		return array (
+				"Artists" => $this->getArtists(),
+				"Albums" => $this->getAlbums(),
+				"Genres" => $this->getAllGenres() );
 	}
+
 	public function getTrackChunk($lastTrack = ""){
 		$trackArray = $this->manager->GetTrackChunksAlphabetical($lastTrack);
-		$allTracks = array();
+		$allTracks = array ();
 		foreach ($trackArray as $track) {
-			$trackRow = array(
-				"ID" => utf8_encode($track->getID()),
-				"Name" => utf8_encode($track->getName()),
-				"Artist" => utf8_encode($track->getArtist()),
-				"Album" => utf8_encode($track->getAlbum()),
-				"AlbumID" => utf8_encode($track->getAlbumID()),
-				"Recommended" => utf8_encode($track->getRecommended()),
-				"FCC" => utf8_encode($track->getFCC()),
-				"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
-				"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
-			$allTracks[] = $trackRow;
+			$trackRow = array (
+					"ID" => utf8_encode($track->getID()),
+					"Name" => utf8_encode($track->getName()),
+					"Artist" => utf8_encode($track->getArtist()),
+					"Album" => utf8_encode($track->getAlbum()),
+					"AlbumID" => utf8_encode($track->getAlbumID()),
+					"Recommended" => utf8_encode($track->getRecommended()),
+					"FCC" => utf8_encode($track->getFCC()),
+					"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
+					"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
+			$allTracks [] = $trackRow;
 		}
 		return $allTracks;
 	}
+
 	public function getAllGenres(){
 		$genreArray = $this->manager->GetAllGenres();
-		$allGenres = array();
+		$allGenres = array ();
 		foreach ($genreArray as $genre) {
-			$genreRow = array(
-				"ID" => utf8_encode($genre->getID()),
-				"Name" => utf8_encode($genre->getName()) );
-			$allGenres[] = $genreRow;
+			$genreRow = array (
+					"ID" => utf8_encode($genre->getID()),
+					"Name" => utf8_encode($genre->getName()) );
+			$allGenres [] = $genreRow;
 		}
 		return $allGenres;
 	}
+
 	public function getTracksByGenreAndReco($genreID, $reco){
 		$trackArray = $this->manager->getTracksByGenreAndReco($genreID, $reco);
-		$allTracks = array();
+		$allTracks = array ();
 		foreach ($trackArray as $track) {
-			$trackRow = array(
-				"ID" => utf8_encode($track->getID()),
-				"Name" => utf8_encode($track->getName()),
-				"ArtistID" => utf8_encode($track->getArtist()),
-				"AlbumID" => utf8_encode($track->getAlbumID()),
-				"Recommended" => utf8_encode($track->getRecommended()),
-				"FCC" => utf8_encode($track->getFCC()),
-				"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
-				"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
-			$allTracks[] = $trackRow;
+			$trackRow = array (
+					"ID" => utf8_encode($track->getID()),
+					"Name" => utf8_encode($track->getName()),
+					"ArtistID" => utf8_encode($track->getArtist()),
+					"AlbumID" => utf8_encode($track->getAlbumID()),
+					"Recommended" => utf8_encode($track->getRecommended()),
+					"FCC" => utf8_encode($track->getFCC()),
+					"PrimaryGenre" => utf8_encode($track->getPrimaryGenreID()),
+					"SecondaryGenre" => utf8_encode($track->getSecondaryGenreID()) );
+			$allTracks [] = $trackRow;
 		}
 		return $allTracks;
 	}
+
 	public function getArtistsByGenreAndReco($genreID, $reco){
 		$artistArray = $this->manager->getArtistsByGenreAndReco($genreID, $reco);
-		$allArtists = array();
+		$allArtists = array ();
 		foreach ($artistArray as $id) {
-			$artistRow = array("ArtistID" => utf8_encode($id));
-			$allArtists[] = $artistRow;
+			$artistRow = array (
+					"ArtistID" => utf8_encode($id) );
+			$allArtists [] = $artistRow;
 		}
 		return $allArtists;
 	}
 
 	public function getAlbumsByGenreAndReco($genreID, $reco){
 		$albumArray = $this->manager->getAlbumsByGenreAndReco($genreID, $reco);
-		$allAlbums = array();
+		$allAlbums = array ();
 		foreach ($albumArray as $id) {
-			$albumRow = array("AlbumID" => utf8_encode($id));
-			$allAlbums[] = $albumRow;
+			$albumRow = array (
+					"AlbumID" => utf8_encode($id) );
+			$allAlbums [] = $albumRow;
 		}
 		return $allAlbums;
 	}
+
 	public function getFilterInfo($genreID, $reco){
-		return array("Tracks" => $this->getTracksByGenreAndReco($genreID, $reco),
-					 "Artists" => $this->getArtistsByGenreAndReco($genreID, $reco),
-					 "Albums" => $this->getAlbumsByGenreAndReco($genreID, $reco));
+		return array (
+				"Tracks" => $this->getTracksByGenreAndReco($genreID, $reco),
+				"Artists" => $this->getArtistsByGenreAndReco($genreID, $reco),
+				"Albums" => $this->getAlbumsByGenreAndReco($genreID, $reco) );
 	}
 }
 ?>

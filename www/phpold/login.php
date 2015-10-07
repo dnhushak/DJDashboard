@@ -10,9 +10,10 @@ $conn = new SqlConnect();
 
 $results;
 // Get all information by username
-$results = $conn->callStoredProcArr($this->spGetUserFromName, array (
+$results = $conn->callStoredProcArr("GetUserFromName", array (
 		$user ));
 
+var_dump($results);
 // If username does not exist
 if ($results === true || $results === false) {
 	echo json_encode(array (

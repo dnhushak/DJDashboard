@@ -20,6 +20,7 @@
 			<li><a id="manageUsers" style="cursor: pointer">Manage Users</a></li>
 			<li><a id="manageLibrary" style="cursor: pointer">Manage Library</a></li>
 			<li><a id="manageGrants" style="cursor: pointer">Manage Grants</a></li>
+			<li><a id="manageReaders" style="cursor: pointer">Manage Readers</a></li>
 			
 		</ul>
 		<div id="content"> 

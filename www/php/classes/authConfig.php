@@ -5,6 +5,7 @@
 // Just, don't.
 // Don't touch these.
 // Go away.
+// MonkeyBump
 const HASHALGO = "SHA256";
 const SALTSIZE = 32;
 ?>

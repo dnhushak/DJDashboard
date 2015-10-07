@@ -83,16 +83,17 @@ session_start();
 							class="form-control" type="text" name="user">
 					</div>
 					<div class="form-group">
-						<labelfor"password">Password</label>
-						<input id="password" class="form-control" type="password"name="pass" />
+						<labelfor"password">Password</label> <input id="password"
+							class="form-control" type="password" name="pass" />
+					
 					</div>
 				</form>
 				<button id="login" class="btn btn-default">Submit</button>
 			</div>
 		</div>
 		<div id="footer">
-			<a>Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.
-				KURE is Funded by the Government of the Student Body.</a>
+			Copyright &copy; 2014 88.5 KURE Ames Alternative. All Rights Reserved.
+				KURE is Funded by the Government of the Student Body.
 		</div>
 	</div>
 </body>

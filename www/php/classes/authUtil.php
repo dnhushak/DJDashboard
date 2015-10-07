@@ -1,7 +1,7 @@
 <?php
 
-	/**
-	 * Consists of a variety useful static functions
+/**
+	 * Consists of a variety useful static functions for username/password combination authorization
 	 */
 class authUtil {
 
@@ -54,6 +54,10 @@ class authUtil {
 	}
 
 	/**
+	 * Verifies whether or not a provided username and password match the salt
+	 * and password hash stored in the database.
+	 * Uses the salt from the db, plus the user provided password and username to recreate the hash,
+	 * then uses a bit-for-bit xor to compare the generated and stored hashes.
 	 *
 	 * @return true if the hash password matches with the hash for the username and password
 	 *        

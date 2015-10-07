@@ -31,8 +31,7 @@
 		session_start();
 	}
 	if (!isset($_SESSION ['user'])) {
-		echo("session variable user not set!");
-		//header("Location: index.php");
+		header("Location: index.php");
 		exit();
 	}
 	?>
@@ -65,7 +64,7 @@
 			if (session_status() == PHP_SESSION_NONE) {
 				session_start();
 			}
-			if (isset($_SESSION ['ponairsignon']) && ($_SESSION ['ponairsignon'] == "1")) {
+			if (isset($_SESSION ['pOnAirSignOn']) && ($_SESSION ['pOnAirSignOn'] == "1")) {
 				echo '<li class="cursor"><a id="on-air">On-Air</a></li>';
 				echo '<li class="cursor"><a id="profile">Profile</a></li>';
 			}
@@ -74,25 +73,26 @@
 			if (session_status() == PHP_SESSION_NONE) {
 				session_start();
 			}
-			if ((isset($_SESSION ['ppsamanage']) && ($_SESSION ['ppsamanage'] == "1")) || (isset($_SESSION ['pgrantedit']) && ($_SESSION ['pgrantedit'] == "1")) || (isset($_SESSION ['pmanageusers']) && ($_SESSION ['pmanageusers'] == "1")) || (isset($_SESSION ['peditusertype']) && ($_SESSION ['peditusertype'] == "1")) || (isset($_SESSION ['plibrarymanage']) && ($_SESSION ['plibrarymanage'] == "1"))) {
+			if ((isset($_SESSION ['pPsaManage']) && ($_SESSION ['pPsaManage'] == "1")) || (isset($_SESSION ['pGrantEdit']) && ($_SESSION ['pGrantEdit'] == "1")) || (isset($_SESSION ['pManageUsers']) && ($_SESSION ['pManageUsers'] == "1")) || (isset($_SESSION ['pPermissionEdit']) && ($_SESSION ['pPermissionEdit'] == "1")) || (isset($_SESSION ['plibrarymanage']) && ($_SESSION ['plibrarymanage'] == "1"))) {
 				
 				$htmlStr = '<li id="admin" class="cursor dropdown"><a id="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
-				if (isset($_SESSION ['ppsamanage']) && ($_SESSION ['ppsamanage'] == "1")) {
+				if (isset($_SESSION ['pPsaManage']) && ($_SESSION ['pPsaManage'] == "1")) {
 					$htmlStr .= '<li><a class="cursor" id="manage-psa">Manage PSAs</a></li>';
 				}
-				if (isset($_SESSION ['pgrantedit']) && ($_SESSION ['pgrantedit'] == "1")) {
+				if (isset($_SESSION ['pGrantEdit']) && ($_SESSION ['pGrantEdit'] == "1")) {
 					$htmlStr .= '<li><a class="cursor" id="manage-grant">Manage Grants</a></li>';
 				}
-				if (isset($_SESSION ['pmanageusers']) && ($_SESSION ['pmanageusers'] == "1")) {
+				if (isset($_SESSION ['pManageUsers']) && ($_SESSION ['pManageUsers'] == "1")) {
 					$htmlStr .= '<li><a id="manage-user">Manage Users</a></li>';
 					$htmlStr .= '<li><a class="cursor" id="view-exceptions">View Exceptions</a></li>';
 				}
-				if (isset($_SESSION ['peditusertype']) && ($_SESSION ['peditusertype'] == "1")) {
+				if (isset($_SESSION ['pPermissionEdit']) && ($_SESSION ['pPermissionEdit'] == "1")) {
 					$htmlStr .= '<li><a class="cursor" id="manage-user-types">Manage User Types</a></li>';
 				}
-				if (isset($_SESSION ['plibrarymanage']) && ($_SESSION ['plibrarymanage'] == "1")) {
+				if (isset($_SESSION ['pLibraryManage']) && ($_SESSION ['pLibraryManage'] == "1")) {
 					$htmlStr .= '<li><a class="cursor" id="analytics">Analytics</a></li>';
 				}
+				$htmlStr .='<li><a class="cursor" id="manage-readers">Manage Readers</a></li>';
 				$htmlStr .= '</ul></li>';
 				echo $htmlStr;
 			}
@@ -100,15 +100,17 @@
 		</ul>
 		<div id="content"></div>
 		<div id="footer">
-			<a>Copyright © 2014 KURE 88.5 Ames Alternative. All Rights Reserved.
-				KURE is Funded by the Government of the Student Body.</a> <a
-				style="float: right;" href="index.php">Logout</a>
+			Copyright &copy; 2014 88.5 KURE Ames Alternative. All Rights Reserved.
+				KURE is Funded by the Government of the Student Body. <a
+				style="float: right" href="index.php"><button id="logout"
+					class="btn btn-default" style="position: relative; top: -8px">Logout</button></a>
 			<?php
 			if (session_status() == PHP_SESSION_NONE) {
 				session_start();
 			}
-			if (isset($_SESSION ['ppermissionedit']) && ($_SESSION ['ppermissionedit'] == "1")) {
-				$htmlStr .= '<a style="float: right;" href="debug.php">Debug</a>';
+			if (isset($_SESSION ['pPermissionEdit']) && ($_SESSION ['pPermissionEdit'] == "1")) {
+				$htmlStr = '<a style="float:right; margin-right:10px" href="debug.php"><button id="debug" class="btn btn-default" style="position:relative; top:-8px ">Debug</button></a>';
+				echo $htmlStr;
 			}
 			?>
 		</div>

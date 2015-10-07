@@ -11,15 +11,17 @@ $conn = new SqlConnect();
 
 $results;
 // Get all information by username
-$results = $conn->callStoredProc("GetUserFromName", $user);
-var_dump($results);
+$results = $conn->callStoredProcArr("GetUserFromName", $user);
+
+// Grab first (and hopefully only) row of user info
+$userinfo = $results [0];
 
 // If username does not exist
 if ($results === true || $results === false) {
 	echo json_encode(array (
-			"error" => "Username and password did not match." . $user ));
+			"error" => "Username and password did not match." ));
 	// adding in user error logging, we want to keep track of failed logins.
-	Publisher::publishUserError(0, $user . ' tried logging in; Username and password did not match', 'UserManager.php -> login');
+	Publisher::publishUserError(0, $user . ' tried logging in; Username did not exist', 'UserManager.php -> login');
 	session_unset();
 	exit();
 }
@@ -29,7 +31,6 @@ else {
 	$user = $userinfo ['username'];
 	$hash = $userinfo ['passwordhash'];
 	$salt = $userinfo ['salt'];
-	echo $user . $hash . $salt;
 }
 
 // Verify supplied username hash and salt
@@ -37,7 +38,6 @@ $success = authUtil::verifyPass(HASHALGO, $hash, $salt, $user, $pass);
 
 // Successful login, start a new session with all info
 if ($success) {
-	echo "success<br><br>";
 	if (session_status() == PHP_SESSION_NONE) {
 		session_start();
 	}
@@ -48,27 +48,30 @@ if ($success) {
 	$_SESSION ['lastname'] = $userinfo ['lastname'];
 	// Modified stored proc to only take in userID, since this is being done already in php.
 	$conn->freeResults();
-	$results = $conn->callStoredProc($this->spUserLogin, array (
-			$_SESSION ['userid'] ));
+	$results = $conn->callStoredProcArr("UserLogin", $_SESSION ['userid']);
+	
 	if ($results === true || $results === false) {
 		Publisher::publishException('UserManager : ' . mysqli_connect_errno($conn), 'Session did not start correctly', $_SESSION ['userid']);
+		exit();
 	}
 	else {
-		$row = mysqli_fetch_assoc($results);
-		$_SESSION ['sessionid'] = $row ['ID'];
-		$_SESSION ['UserType'] = $row ['UserTypeName'];
-		$_SESSION ['pLibraryView'] = $row ['LibraryView'];
-		$_SESSION ['pLibraryManage'] = $row ['LibraryManage'];
-		$_SESSION ['pPsaView'] = $row ['PSAView'];
-		$_SESSION ['pPsaManage'] = $row ['PSAEdit'];
-		$_SESSION ['pGrantBiew'] = $row ['GrantView'];
-		$_SESSION ['pGrantEdit'] = $row ['GrantEdit'];
-		$_SESSION ['pManageUsers'] = $row ['ManageUsers'];
-		$_SESSION ['pPermissionEdit'] = $row ['EditPermissions'];
-		$_SESSION ['pUserTypeEdit'] = $row ['EditUserType'];
-		$_SESSION ['pOnAirSignOn'] = $row ['OnAirSignOn'];
-		$_SESSION ['isFirstLogin'] = $row ['IsFirstLogin'];
-		$_SESSION ['pEditSchedule'] = $row ['EditSchedule'];
+		// Grab first row of results
+		$results = $results [0];
+		$_SESSION ['sessionid'] = $results ['ID'];
+		$_SESSION ['UserType'] = $results ['UserTypeName'];
+		$_SESSION ['pLibraryView'] = $results ['LibraryView'];
+		$_SESSION ['pLibraryManage'] = $results ['LibraryManage'];
+		$_SESSION ['pPsaView'] = $results ['PSAView'];
+		$_SESSION ['pPsaManage'] = $results ['PSAEdit'];
+		$_SESSION ['pGrantView'] = $results ['GrantView'];
+		$_SESSION ['pGrantEdit'] = $results ['GrantEdit'];
+		$_SESSION ['pManageUsers'] = $results ['ManageUsers'];
+		$_SESSION ['pPermissionEdit'] = $results ['EditPermissions'];
+		$_SESSION ['pUserTypeEdit'] = $results ['EditUserType'];
+		$_SESSION ['pOnAirSignOn'] = $results ['OnAirSignOn'];
+		$_SESSION ['isFirstLogin'] = $results ['IsFirstLogin'];
+		$_SESSION ['pEditSchedule'] = $results ['EditSchedule'];
+		var_dump($_SESSION);
 	}
 	exit();
 }

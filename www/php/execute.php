@@ -13,28 +13,27 @@ register_shutdown_function("Publisher::fatalHandler");
 
 try {
 	$conn = new SqlConnect();
-	echo "<br><br><br>";
+// 	echo "<br><br><br>";
+	$args = array ();
 	foreach ($_POST as $param_name => $param_val) {
+		if ($param_name != "command") {
+			$args [] = $param_val;
+		}
 		$$param_name = $param_val;
-		echo "Param: $param_name; Value: $param_val<br />\n";
+// 		echo "Param: $param_name; Value: $param_val<br />\n";
 	}
-	echo "<br><br><br>";
+// 	echo "<br><br><br>";
 	foreach ($_GET as $param_name => $param_val) {
+		if ($param_name != "command") {
+			$args [] = $param_val;
+		}
 		$$param_name = $param_val;
-		echo "Param: $param_name; Value: $param_val<br />\n";
+// 		echo "Param: $param_name; Value: $param_val<br />\n";
 	}
-	echo "<br><br><br>";
-	$commandArr = array ();
-	$commandArr [getTrackData] = "GetAllTrackData";
+// 	echo "<br><br><br>";
 	
-	$command = $_GET ['command'];
-	
-	$TrackID = $_GET ['TrackID'];
-	
-	echo $commandArr [$command];
-	$results = $conn->callStoredProcArr($commandArr [$command], $TrackID);
-	
-	echo json_encode($results);
+	$results = $conn->callStoredProcJSON($command, $args);
+	echo $results;
 }
 catch (Exception $e) {
 	Publisher::publishException($e->getTraceAsString(), $e->getMessage(), 0);

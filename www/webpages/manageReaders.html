@@ -1,13 +1,22 @@
 <script src="../js/scripts/readerManager.js"></script>
+
+
 <div class="main-view">
 	<div class="col-md-12">
 		<h2>Manage Readers</h2>
 		<hr>
-		<div>
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown">
+				Select Reader Type: <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu readerTypes">
+				<!-- empty, but filled by readerManager.js -->
+			</ul>
 			<button type="button" class="btn btn-primary custom-song-button"
 				onClick="getExceptions()">Toggle Active</button>
 			<button type="button" class="btn btn-primary custom-song-button"
-				id='addButton'>Add</button>
+				id='addButton'>Add New</button>
 		</div>
 		<table class="table table-hover exception-table">
 			<thead>
@@ -15,14 +24,19 @@
 				<th>Type</th>
 				<th>Reads Remaining</th>
 				<th>Edit</th>
+				<th>View</th>
 			</thead>
-			
-			<!-- Readers class updated by the getReaders function in the js -->
+
+			<!-- Readers class updated by the getReaders function in js -->
 			<tbody class="readers">
+				<!-- Readers go here -->
 			</tbody>
 		</table>
 	</div>
 </div>
+
+
+<!-- modal - Popup dialogue to add or update a reader -->
 <div class="modal fade" role="dialog" id="load-modal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -30,27 +44,41 @@
 				<h4 class="modal-title"></h4>
 			</div>
 			<div class="modal-body">
-				<h4>Name</h4>
+				<h4>Reader Title</h4>
 				<div class="form-group">
 					<label class="sr-only" for="input-track">Name</label> <input
 						type="text" class="form-control typeahead" id="input-title"
 						autocomplete="off" spellcheck="false" placeholder="Reader Name">
 				</div>
-				<h4>Sponsor</h4>
+				<!-- Need to add auto-fill here -->
+				<h4>Affiliated Organization</h4>
 				<div class="form-group">
 					<label class="sr-only" for="input-artist">Organization</label> <input
-						type="text" class="form-control" id="input-organization"
+						type="text" class="form-control typeahead" id="input-organization"
 						placeholder="Organization affiliated with Message">
 				</div>
-				<h4>Message</h4><small><i>All formatting will be lost.</i></small>
+				<h4>Message</h4>
+				<small><i>All formatting will be lost.</i></small>
 				<div class="form-group">
 					<label class="sr-only" for="input-album">Message</label>
-					<textarea id="input-text" style="width:550px;height:150px;"></textarea>
+					<textarea id="input-text" style="width: 550px; height: 150px;"></textarea>
 				</div>
-				<h4>Play Info</h4>
+				<h4>Remaining Reads</h4>
 				<div class="form-group">
-					<label class="sr-only" for="input-plays">Play Info</label> <input
+					<label class="sr-only" for="input-plays">Remaining Reads</label> <input
 						type="text" class="form-control" id="input-plays"
+						placeholder="Plays / Max Plays">
+				</div>
+				<h4>Start Date</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-plays">Start Date</label> <input
+						type="date" class="form-control" id="input-plays"
+						placeholder="Plays / Max Plays">
+				</div>
+				<h4>Kill Date</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-plays">Kill Date</label> <input
+						type="date" class="form-control" id="input-plays"
 						placeholder="Plays / Max Plays">
 				</div>
 			</div>
@@ -58,7 +86,7 @@
 				<button type="button" class="btn btn-default close-load-modal"
 					id="saveButton" data-dismiss="modal">Save</button>
 				<button type="button" class="btn btn-default close-load-modal"
-					data-dismiss="modal">Close</button>
+					data-dismiss="modal">Cancel</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->

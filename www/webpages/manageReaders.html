@@ -23,6 +23,7 @@
 				<th>Name</th>
 				<th>Type</th>
 				<th>Reads Remaining</th>
+				<th>Kill Date</th>
 				<th>Edit</th>
 				<th>View</th>
 			</thead>
@@ -48,46 +49,46 @@
 			<div class="modal-body">
 				<h4>Reader Title</h4>
 				<div class="form-group">
-					<label class="sr-only" for="input-track">Name</label> <input
-						type="text" class="form-control typeahead" id="input-title"
+					<input type="text" class="form-control typeahead" id="input-title"
 						autocomplete="off" spellcheck="false" placeholder="Reader Name">
 				</div>
 				<h4>Reader Type</h4>
 				<div class="form-group">
-					<label class="sr-only" for="input-plays">Reader Type</label> <select
-						class="form-control" id="input-plays">
+					<select class="form-control" id="input-type">
 						<!-- Options get autofilled by js  -->
 					</select>
 				</div>
 				<!-- Need to add auto-fill here -->
 				<h4>Affiliated Organization</h4>
 				<div class="form-group">
-					<label class="sr-only" for="input-artist">Organization</label> <input
-						type="text" class="form-control typeahead" id="input-organization"
+					<input type="text" class="form-control typeahead"
+						id="input-organization"
 						placeholder="Organization affiliated with Message">
 				</div>
 				<h4>Message</h4>
 				<small><i>All formatting will be lost.</i></small>
 				<div class="form-group">
-					<label class="sr-only" for="input-album">Message</label>
 					<textarea id="input-text" style="width: 550px; height: 150px;"></textarea>
 				</div>
 				<h4>Remaining Reads</h4>
 				<div class="form-group">
-					<label class="sr-only" for="input-plays">Remaining Reads</label> <input
-						type="text" class="form-control" id="input-plays"
+					<input type="text" class="form-control" id="input-remaining-reads"
 						placeholder="Leave blank if reader is based on date or runs indefinitely">
 				</div>
 				<h4>Start Date</h4>
 				<div class="form-group">
-					<label class="sr-only" for="input-plays">Start Date</label> <input
-						type="date" class="form-control" id="input-plays"
+					<input type="date" class="form-control" id="input-start"
 						placeholder="Plays / Max Plays">
 
 					<h4>Kill Date</h4>
-					<label class="sr-only" for="input-plays">Kill Date</label> <input
-						type="date" class="form-control" id="input-plays"
+					<input type="date" class="form-control" id="input-end"
 						placeholder="Plays / Max Plays">
+				</div>
+
+				<h4>Active</h4>
+				<div class="form-group">
+					<input type="checkbox" class="form-control" id="input-active"
+						placeholder="Leave blank if reader is based on date or runs indefinitely">
 				</div>
 			</div>
 
@@ -104,7 +105,7 @@
 </div>
 <!-- /.modal -->
 
-<!-- modal - Popup dialogue to add or update a reader -->
+<!-- modal - Popup dialogue to view a reader's text -->
 <div class="modal fade" role="dialog" id="view-text">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -114,8 +115,7 @@
 
 			<!-- Fields to add or update a reader -->
 			<div class="modal-body">
-				<div class="reader-text">
-				</div>
+				<div class="reader-text"></div>
 
 
 				<div class="modal-footer">

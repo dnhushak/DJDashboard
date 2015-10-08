@@ -3,6 +3,8 @@ var readerTypeArr = {};
 var activeID;
 
 $('document').ready(function() {
+	
+	// Begins by getting all of the readers
 	var getReaderTypes = function(){
 		$.ajax({
 			type : "POST",
@@ -11,8 +13,10 @@ $('document').ready(function() {
 			},
 			url : "../php/execute.php"
 		})
+		
 		.done(function(data){
 			try{
+				// Parses the returned JSON object into a js array
 				readerTypes = JSON.parse(data);
 			}
 			catch(e){
@@ -26,7 +30,6 @@ $('document').ready(function() {
 				var id = readerTypes[i]['id'];
 				readerTypeArr[id] = {};
 				readerTypeArr[id] = readerTypes[i];
-				// Assemble the HTML Table of all of the readers based on type
 				
 				// Add each reader type to the dropdown menu
 				var psaHTML = '<li><a href=#>' + readerTypeArr[id]['name'] + '<\a><\li>';
@@ -37,7 +40,6 @@ $('document').ready(function() {
 	
 	
 	var getReaders = function() {
-		
 		// Call getAllReaders proc to get the list of every reader
 		$.ajax({
 			type : "POST",
@@ -56,9 +58,10 @@ $('document').ready(function() {
 				return;
 			}
 			
-			
+			// Empties out the readers div
 			$('.readers').html('');
 
+			// todo: put in pagination buttons for > 25-30 readers
 			// For each reader grabbed, parse out 
 			for (var i = 0; i < readers.length; i++) {
 
@@ -66,6 +69,7 @@ $('document').ready(function() {
 				var title = readers[i]['readerTitle'];
 				var readsRemaining = readers[i]['readsRemaining'];
 				var organization = readers[i]['organization'];
+				var killDate = readers[i]['endDate'];
 				var isActive = readers[i]['isActive'];
 
 				// Dump the reader readerArrays into the global readerArray, associated by id
@@ -94,6 +98,9 @@ $('document').ready(function() {
 				// Number of reads remaining
 				psaHTML += '<td>' + readsRemaining + '</td>';
 				
+				// End date of reader
+				psaHTML += '<td>' + killDate + '</td>';
+				
 				// Edit button. The value="" is what is passed on to the edit function, which is the id of the reader.
 				psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="editReaderButton" value="'+ id +'" onClick="editReaderButton(this.id)" value="'
 						+ id + '">Edit</button></td>';
@@ -109,7 +116,7 @@ $('document').ready(function() {
 		});
 	};
 	$(document).on('click', '#addButton', function(){
-		addPSA();
+		loaddata(0);
 	});
 	$(document).on('click', '#editReaderButton', function(evt){
         editReaderButton($(this).val());
@@ -124,8 +131,7 @@ $('document').ready(function() {
     });
 	
 	$(document).on('click', '#saveButton', function(evt){
-		savePSA(); //Save this one
-		getreaders(); //Reload page
+		addReader(activeID); //Save this one
 		evt.stopPropagation();
         evt.preventDefault();
 	});
@@ -149,54 +155,43 @@ $('document').ready(function() {
 	/**
 	 * Needs fix
 	 */
-	function addPSA(){
-		activeID = readerArr.length;
-		readerArr[activeID] = new readerArray();
-		readerArr[activeID]['id'] = "0"; //Database will check for 0
-		readerArr[activeID]['title'] = "";
-		readerArr[activeID]['CreateDate'] = "";
-		readerArr[activeID]['readsRemaining'] = "";
-		readerArr[activeID]['MaxreadsRemaining'] = "";
-		readerArr[activeID]['organization'] = "";
-		readerArr[activeID]['readerText'] = "";
-		readerArr[activeID]['IsActive'] = "0";
-		loaddata(activeID);
-	};
-
-	/**
-	 * Needs fix
-	 */
-	function addReader(){
-		readerArr[activeID]['readerText'] = document.getElementById('input-text').value;
-		readerArr[activeID]['organization'] = document.getElementById('input-organization').value;
-		readerArr[activeID]['title'] = document.getElementById('input-title').value;
-		var playStr = document.getElementById('input-plays').value;
-		var slashIndex = playStr.indexOf('/');
-		readerArr[activeID]['readsRemaining'] = playStr.substring(0, slashIndex - 1);
-		readerArr[activeID]['MaxreadsRemaining']  = playStr.substring(slashIndex + 1, playStr.length);
-		console.log(readerArr[activeID]);
+	function addReader(id){
+		readerArr[id] = {};
+		readerArr[id]['readerText'] = document.getElementById('input-text').value;
+		readerArr[id]['organization'] = document.getElementById('input-organization').value;
+		readerArr[id]['readerTitle'] = document.getElementById('input-title').value;
+		readerArr[id]['readsRemaining'] = document.getElementById('input-remaining-reads').value;
+		readerArr[id]['startDate'] = document.getElementById('input-start').value;
+		readerArr[id]['endDate'] = document.getElementById('input-end').value;
+		readerArr[id]['isActive'] = document.getElementById('input-active').value;
 		$.ajax({
 			type : "POST",
 			data : {
-				'id' : readerArr[activeID]['id'],
-				'readerText' : readerArr[activeID]['readerText'],
-				'title' : readerArr[activeID]['title'],
-				'organization' : readerArr[activeID]['organization'],
-				'readsRemaining' : readerArr[activeID]['readsRemaining'],
-				'MaxreadsRemaining' : readerArr[activeID]['MaxreadsRemaining'],
-				'EndDate' : '2014-06-06',
+				'command' : 'UpdateReader',
+				'id' : readerArr[id]['id'],
+				// FIX!
+				'idtype' : 1,
+				// FIX!
+				'idorganization' : 1,
+				'readerTitle' : readerArr[id]['readerTitle'],
+				'readerText' : readerArr[id]['readerText'],
+				'startDate' : readerArr[id]['startDate'],
+				'endDate' : readerArr[id]['endDate'],
+				'isActive' : readerArr[id]['isActive'],
+				'readsRemaining' : readerArr[id]['readsRemaining'],
+				'priority' : 1
 			},
-			url : "../php/scripts/updatePSA.php"
+			url : "../php/execute.php"
 		}).done(function(data) {
-			var profile;
 			try {
 				readers = JSON.parse(data);
 			} catch (e) {
 				console.log(data);
 				return;
 			}
-			console.log(readers);
+//			console.log(readers);
 		});
+//		this.getreaders(); //Reload page
 	};
 
 	function loaddata(clicked_id) {
@@ -210,7 +205,8 @@ $('document').ready(function() {
 		document.getElementById('input-title').value = readerArr[clicked_id]['readerTitle'];
 		document.getElementById('input-text').value = readerArr[clicked_id]['readerText'];
 		document.getElementById('input-organization').value = readerArr[clicked_id]['organization'];
-		document.getElementById('input-plays').value = readerArr[clicked_id]['readsRemaining'];
+		document.getElementById('input-remaining-reads').value = readerArr[clicked_id]['readsRemaining'];
+		document.getElementById('input-active').value = readerArr[clicked_id]['isActive'];
 	};
 	
 	$('.viewSpecificException').on('click', function(evt) {

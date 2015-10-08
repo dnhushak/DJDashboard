@@ -19,7 +19,6 @@ $('document').ready(function() {
 				console.log(data);
 				return;
 			}
-			console.log(readerTypes[0]['description']);
 	
 			$('.readerTypes').html('');
 			for (var i = 0; i< readerTypes.length; i++){
@@ -96,8 +95,13 @@ $('document').ready(function() {
 				psaHTML += '<td>' + readsRemaining + '</td>';
 				
 				// Edit button. The value="" is what is passed on to the edit function, which is the id of the reader.
-				psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="editButton" value="'+ id +'" onClick="editButton(this.id)" value="'
-						+ readers.length + '">Edit</button></td>';
+				psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="editReaderButton" value="'+ id +'" onClick="editReaderButton(this.id)" value="'
+						+ id + '">Edit</button></td>';
+				
+				// View button - to see what the text of the reader is
+				psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="viewReaderButton" value="'+ id +'" onClick="viewReaderButton(this.id)" value="'
+				+ id + '">View</button></td>';
+				
 				psaHTML += '</td>';
 				$('.readers').append(psaHTML);
 
@@ -107,22 +111,40 @@ $('document').ready(function() {
 	$(document).on('click', '#addButton', function(){
 		addPSA();
 	});
-	$(document).on('click', '#editButton', function(evt){
-        editButton($(this).val());
+	$(document).on('click', '#editReaderButton', function(evt){
+        editReaderButton($(this).val());
         evt.stopPropagation();
         evt.preventDefault();
     });
+	
+	$(document).on('click', '#viewReaderButton', function(evt){
+        viewButton($(this).val());
+        evt.stopPropagation();
+        evt.preventDefault();
+    });
+	
 	$(document).on('click', '#saveButton', function(evt){
 		savePSA(); //Save this one
 		getreaders(); //Reload page
 		evt.stopPropagation();
         evt.preventDefault();
 	});
+	
+	function viewButton(id) {
+		activeID = id;
+		$('.view-header').html('');
+		$('.view-body').html('');
+		$('#view-text').modal('show');
+		$('.view-header').append(
+				'<h3>' + readerArr[id]['readerTitle'] + ' contents:</h3>');
+		$('.reader-text').html('');
+		$('.reader-text').append(readerArr[id]['readerText']);
+	};
 
-	function editButton(id) {
+	function editReaderButton(id) {
 		// Load the data into the editor window and display it
 		loaddata(id);
-	}
+	};
 
 	/**
 	 * Needs fix
@@ -139,7 +161,7 @@ $('document').ready(function() {
 		readerArr[activeID]['readerText'] = "";
 		readerArr[activeID]['IsActive'] = "0";
 		loaddata(activeID);
-	}
+	};
 
 	/**
 	 * Needs fix
@@ -175,22 +197,21 @@ $('document').ready(function() {
 			}
 			console.log(readers);
 		});
-	}
+	};
 
 	function loaddata(clicked_id) {
 		activeID = clicked_id;
-		$('.modal-header').html('');
+		$('.add-update-header').html('');
 		// $('.modal-body').html('');
-		$('#load-modal').modal('show');
-		$('.modal-header').append(
+		$('#add-update').modal('show');
+		$('.add-update-header').append(
 				'<h3>Add or Update Reader' + readerArr[clicked_id]['id'] + '</h3>');
 		// $('.input-readerText').append(readerArr[clicked_id]['readerText']);
 		document.getElementById('input-title').value = readerArr[clicked_id]['readerTitle'];
 		document.getElementById('input-text').value = readerArr[clicked_id]['readerText'];
 		document.getElementById('input-organization').value = readerArr[clicked_id]['organization'];
-		document.getElementById('input-plays').value = readerArr[clicked_id]['readsRemaining'] + " / " + readerArr[clicked_id]['MaxreadsRemaining'];
-	
-	}
+		document.getElementById('input-plays').value = readerArr[clicked_id]['readsRemaining'];
+	};
 	
 	$('.viewSpecificException').on('click', function(evt) {
 		console.log('clicked');

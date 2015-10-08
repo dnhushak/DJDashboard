@@ -130,7 +130,7 @@ $(document).ready(function() {
 		});
 	})
 	$("#manage-readers").on('click', function() {
-		makeAdminActive();
+		changeActive('manage-readers');
 		$.ajax({
 			url : 'manageReaders.html',
 			type : 'POST',

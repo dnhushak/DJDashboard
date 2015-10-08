@@ -37,13 +37,13 @@
 
 
 <!-- modal - Popup dialogue to add or update a reader -->
-<div class="modal fade" role="dialog" id="load-modal">
+<div class="modal fade" role="dialog" id="add-update">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title"></h4>
+			<div class="modal-header add-update-header">
+				<h4 class="modal-title add-update-title"></h4>
 			</div>
-			
+
 			<!-- Fields to add or update a reader -->
 			<div class="modal-body">
 				<h4>Reader Title</h4>
@@ -57,7 +57,7 @@
 					<label class="sr-only" for="input-plays">Reader Type</label> <select
 						class="form-control" id="input-plays">
 						<!-- Options get autofilled by js  -->
-						</select>
+					</select>
 				</div>
 				<!-- Need to add auto-fill here -->
 				<h4>Affiliated Organization</h4>
@@ -83,19 +83,45 @@
 					<label class="sr-only" for="input-plays">Start Date</label> <input
 						type="date" class="form-control" id="input-plays"
 						placeholder="Plays / Max Plays">
-				
-				<h4>Kill Date</h4>
+
+					<h4>Kill Date</h4>
 					<label class="sr-only" for="input-plays">Kill Date</label> <input
 						type="date" class="form-control" id="input-plays"
 						placeholder="Plays / Max Plays">
 				</div>
 			</div>
-			
+
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default close-load-modal"
 					id="saveButton" data-dismiss="modal">Save</button>
 				<button type="button" class="btn btn-default close-load-modal"
 					data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- modal - Popup dialogue to add or update a reader -->
+<div class="modal fade" role="dialog" id="view-text">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header view-header">
+				<h4 class="modal-title view-title"></h4>
+			</div>
+
+			<!-- Fields to add or update a reader -->
+			<div class="modal-body">
+				<div class="reader-text">
+				</div>
+
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default close-load-modal"
+						data-dismiss="modal">Done</button>
+				</div>
 			</div>
 		</div>
 		<!-- /.modal-content -->

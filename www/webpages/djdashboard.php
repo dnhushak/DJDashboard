@@ -52,6 +52,7 @@
 		</div>
 		<ul class="nav nav-tabs nav-justified">
 			<li class="cursor active"><a id="home" style="cursor: pointer">Home</a></li>
+			<li class="cursor"><a id="manage-readers">Manage Readers</a></li>
 			<?php
 			if (session_status() == PHP_SESSION_NONE) {
 				session_start();
@@ -68,8 +69,7 @@
 				echo '<li class="cursor"><a id="on-air">On-Air</a></li>';
 				echo '<li class="cursor"><a id="profile">Profile</a></li>';
 			}
-			?>
-			<?php
+			
 			if (session_status() == PHP_SESSION_NONE) {
 				session_start();
 			}
@@ -89,7 +89,6 @@
 				if (isset($_SESSION ['pLibraryManage']) && ($_SESSION ['pLibraryManage'] == "1")) {
 					$htmlStr .= '<li><a class="cursor" id="analytics">Analytics</a></li>';
 				}
-				$htmlStr .= '<li><a class="cursor" id="manage-readers">Manage Readers</a></li>';
 				$htmlStr .= '</ul></li>';
 				echo $htmlStr;
 			}

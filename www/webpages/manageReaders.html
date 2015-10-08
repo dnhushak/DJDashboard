@@ -43,12 +43,21 @@
 			<div class="modal-header">
 				<h4 class="modal-title"></h4>
 			</div>
+			
+			<!-- Fields to add or update a reader -->
 			<div class="modal-body">
 				<h4>Reader Title</h4>
 				<div class="form-group">
 					<label class="sr-only" for="input-track">Name</label> <input
 						type="text" class="form-control typeahead" id="input-title"
 						autocomplete="off" spellcheck="false" placeholder="Reader Name">
+				</div>
+				<h4>Reader Type</h4>
+				<div class="form-group">
+					<label class="sr-only" for="input-plays">Reader Type</label> <select
+						class="form-control" id="input-plays">
+						<!-- Options get autofilled by js  -->
+						</select>
 				</div>
 				<!-- Need to add auto-fill here -->
 				<h4>Affiliated Organization</h4>
@@ -67,21 +76,21 @@
 				<div class="form-group">
 					<label class="sr-only" for="input-plays">Remaining Reads</label> <input
 						type="text" class="form-control" id="input-plays"
-						placeholder="Plays / Max Plays">
+						placeholder="Leave blank if reader is based on date or runs indefinitely">
 				</div>
 				<h4>Start Date</h4>
 				<div class="form-group">
 					<label class="sr-only" for="input-plays">Start Date</label> <input
 						type="date" class="form-control" id="input-plays"
 						placeholder="Plays / Max Plays">
-				</div>
+				
 				<h4>Kill Date</h4>
-				<div class="form-group">
 					<label class="sr-only" for="input-plays">Kill Date</label> <input
 						type="date" class="form-control" id="input-plays"
 						placeholder="Plays / Max Plays">
 				</div>
 			</div>
+			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default close-load-modal"
 					id="saveButton" data-dismiss="modal">Save</button>

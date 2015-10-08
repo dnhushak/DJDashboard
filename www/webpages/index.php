@@ -92,8 +92,9 @@ session_start();
 			</div>
 		</div>
 		<div id="footer">
-			Copyright &copy; 2014 88.5 KURE Ames Alternative. All Rights Reserved.
-				KURE is Funded by the Government of the Student Body.
+			Copyright &copy; 2014 88.5 KURE Ames Alternative. All Rights
+			Reserved. KURE is Funded by <a target="_BLANK"
+				href="http://www.stugov.iastate.edu">Student Government</a>.
 		</div>
 	</div>
 </body>

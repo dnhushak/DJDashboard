@@ -89,18 +89,20 @@
 				if (isset($_SESSION ['pLibraryManage']) && ($_SESSION ['pLibraryManage'] == "1")) {
 					$htmlStr .= '<li><a class="cursor" id="analytics">Analytics</a></li>';
 				}
-				$htmlStr .='<li><a class="cursor" id="manage-readers">Manage Readers</a></li>';
+				$htmlStr .= '<li><a class="cursor" id="manage-readers">Manage Readers</a></li>';
 				$htmlStr .= '</ul></li>';
 				echo $htmlStr;
 			}
 			?>
 		</ul>
 		<div id="content"></div>
+
 		<div id="footer">
-			Copyright &copy; 2014 88.5 KURE Ames Alternative. All Rights Reserved.
-				KURE is Funded by the Government of the Student Body. <a
-				style="float: right" href="index.php"><button id="logout"
-					class="btn btn-default" style="position: relative; top: -8px">Logout</button></a>
+			Copyright &copy; 2014 88.5 KURE Ames Alternative. All Rights
+			Reserved. KURE is Funded by <a target="_BLANK" href="http://www.stugov.iastate.edu">Student
+				Government</a>. <a style="float: right" href="index.php"><button
+					id="logout" class="btn btn-default"
+					style="position: relative; top: -8px">Logout</button></a>
 			<?php
 			if (session_status() == PHP_SESSION_NONE) {
 				session_start();

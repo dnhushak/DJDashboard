@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.13, for osx10.6 (i386)
 --
--- Host: mysql.skynet.from-ia.com    Database: kure
+-- Host: 127.0.0.1    Database: kure
 -- ------------------------------------------------------
--- Server version 5.1.73
+-- Server version	5.6.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -19,7 +19,7 @@ USE `kure`;
 
 --
 -- Table structure for table `album`
-
+--
 
 DROP TABLE IF EXISTS `album`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -35,37 +35,8 @@ CREATE TABLE `album` (
   KEY `IDALBUMARTIST_idx` (`idartist`),
   KEY `IDPRIMARYGENREGENRE_idx` (`idprimarygenre`),
   KEY `IDSECONDARYGENRE_idx` (`idsecondarygenre`)
-) ENGINE=InnoDB AUTO_INCREMENT=3206 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:16
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `artist`
@@ -80,35 +51,6 @@ CREATE TABLE `artist` (
   PRIMARY KEY (`idartist`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2189 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:17
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `distributor`
@@ -131,35 +73,6 @@ CREATE TABLE `distributor` (
   PRIMARY KEY (`iddistributor`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:17
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `errorlog`
@@ -178,37 +91,8 @@ CREATE TABLE `errorlog` (
   `browserinfo` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`iderrorlog`),
   KEY `IDERRORLOGUSER_idx` (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:18
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `exceptionlog`
@@ -226,37 +110,8 @@ CREATE TABLE `exceptionlog` (
   `ipaddress` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idexceptionlog`),
   KEY `IDEXCEPTIONUSER_idx` (`iduser`)
-) ENGINE=MyISAM AUTO_INCREMENT=251027 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=251153 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:14
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `genre`
@@ -269,37 +124,8 @@ CREATE TABLE `genre` (
   `idgenre` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idgenre`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:14
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `grant`
@@ -319,37 +145,8 @@ CREATE TABLE `grant` (
   `modifieduser` int(11) DEFAULT NULL,
   PRIMARY KEY (`idgrant`),
   KEY `IDGRANTUSER_idx` (`modifieduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:18
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `onairsession`
@@ -367,35 +164,6 @@ CREATE TABLE `onairsession` (
   KEY `IDONAIRUSER_idx` (`iduser`)
 ) ENGINE=MyISAM AUTO_INCREMENT=179 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:17
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `playabletypes`
@@ -410,35 +178,6 @@ CREATE TABLE `playabletypes` (
   PRIMARY KEY (`idplayabletypes`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:15
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `playgrant`
@@ -459,35 +198,6 @@ CREATE TABLE `playgrant` (
   KEY `IDPLAYGRANTGRANT_idx` (`idgrant`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:17
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `playlist`
@@ -506,83 +216,6 @@ CREATE TABLE `playlist` (
   KEY `IDPLAYLISTUSER_idx` (`iduser`)
 ) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:17
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `playpsa`
---
-
-DROP TABLE IF EXISTS `playpsa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `playpsa` (
-  `idplaypsa` bigint(20) NOT NULL AUTO_INCREMENT,
-  `idpsa` bigint(20) DEFAULT NULL,
-  `iduser` int(11) DEFAULT NULL,
-  `idonairsession` bigint(20) DEFAULT NULL,
-  `playdate` datetime DEFAULT NULL,
-  PRIMARY KEY (`idplaypsa`),
-  KEY `IDPLAYPSAUSER_idx` (`iduser`),
-  KEY `IDPLAYPSAPSA_idx` (`idpsa`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:15
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `playtrack`
@@ -603,87 +236,129 @@ CREATE TABLE `playtrack` (
   KEY `IDPLAYTRACKONAIRSESSION_idx` (`idonairsession`)
 ) ENGINE=MyISAM AUTO_INCREMENT=283 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:14
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `psa`
+-- Table structure for table `readerBehavior`
 --
 
-DROP TABLE IF EXISTS `psa`;
+DROP TABLE IF EXISTS `readerBehavior`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `psa` (
-  `idpsa` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `readerBehavior` (
+  `idbehavior` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
-  `message` varchar(2048) DEFAULT NULL,
-  `createdate` datetime DEFAULT NULL,
-  `enddate` datetime DEFAULT NULL,
-  `playcount` int(11) DEFAULT NULL,
-  `maxplaycount` int(11) DEFAULT NULL,
-  `iduser` int(11) DEFAULT NULL,
-  `sponsor` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idpsa`),
-  KEY `PSAUSERID_idx` (`iduser`),
-  CONSTRAINT `PSAUSERID` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `description` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`idbehavior`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:14
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
+-- Table structure for table `readerOrganization`
+--
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+DROP TABLE IF EXISTS `readerOrganization`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `readerOrganization` (
+  `idorganization` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `description` varchar(300) DEFAULT NULL,
+  `contact info` varchar(300) DEFAULT NULL,
+  `notes` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`idorganization`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `readerReaders`
+--
+
+DROP TABLE IF EXISTS `readerReaders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `readerReaders` (
+  `idreaders` int(11) NOT NULL AUTO_INCREMENT,
+  `idtype` int(11) DEFAULT NULL,
+  `idorganization` int(11) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `text` varchar(1000) DEFAULT NULL,
+  `startDate` date DEFAULT NULL,
+  `endDate` date DEFAULT NULL,
+  `createDate` date DEFAULT NULL,
+  `editDate` date DEFAULT NULL,
+  `isActive` int(11) DEFAULT '1',
+  `readsRemaining` int(11) DEFAULT '0',
+  `priority` int(11) DEFAULT '1' COMMENT '1 <= priority <=5\nDetermines how often a reader shows up within its own reader type. 5 shows up twice as often as 3, which shows up twice as often as 1',
+  `lastRead` datetime DEFAULT NULL COMMENT 'Last time this reader was read',
+  PRIMARY KEY (`idreaders`),
+  KEY `idreader.type_idx` (`idtype`),
+  KEY `idreader.organization_idx` (`idorganization`),
+  CONSTRAINT `idOrganization` FOREIGN KEY (`idorganization`) REFERENCES `readerOrganization` (`idorganization`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idType` FOREIGN KEY (`idtype`) REFERENCES `readerType` (`idtype`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `readerSchedule`
+--
+
+DROP TABLE IF EXISTS `readerSchedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `readerSchedule` (
+  `idschedule` int(11) NOT NULL AUTO_INCREMENT,
+  `time` int(11) DEFAULT NULL,
+  `idreader` int(11) DEFAULT NULL,
+  `idtype` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idschedule`),
+  KEY `reader_idx` (`idreader`),
+  KEY `type_idx` (`idtype`),
+  CONSTRAINT `reader` FOREIGN KEY (`idreader`) REFERENCES `readerReaders` (`idreaders`) ON DELETE CASCADE,
+  CONSTRAINT `type` FOREIGN KEY (`idtype`) REFERENCES `readerType` (`idtype`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `readerType`
+--
+
+DROP TABLE IF EXISTS `readerType`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `readerType` (
+  `idtype` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `description` varchar(300) DEFAULT NULL,
+  `idbehavior` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idtype`),
+  KEY `idbehavior_idx` (`idbehavior`),
+  CONSTRAINT `idbehavior` FOREIGN KEY (`idbehavior`) REFERENCES `readerBehavior` (`idbehavior`) ON DELETE SET NULL ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary table structure for view `readers`
+--
+
+DROP TABLE IF EXISTS `readers`;
+/*!50001 DROP VIEW IF EXISTS `readers`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `readers` (
+  `id` tinyint NOT NULL,
+  `idType` tinyint NOT NULL,
+  `idOrganization` tinyint NOT NULL,
+  `readerTitle` tinyint NOT NULL,
+  `readerText` tinyint NOT NULL,
+  `readerType` tinyint NOT NULL,
+  `startDate` tinyint NOT NULL,
+  `endDate` tinyint NOT NULL,
+  `isActive` tinyint NOT NULL,
+  `readsRemaining` tinyint NOT NULL,
+  `priority` tinyint NOT NULL,
+  `organization` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `rotation`
@@ -719,37 +394,146 @@ CREATE TABLE `rotation` (
   PRIMARY KEY (`idrotation`),
   KEY `IDDISTRIBUTER_idx` (`iddistributor`),
   KEY `IDALBUMCMJ_idx` (`idalbum`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:16
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
+-- Table structure for table `show`
+--
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+DROP TABLE IF EXISTS `show`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `show` (
+  `idshow` int(11) NOT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `showname` varchar(45) DEFAULT NULL,
+  `showdescription` varchar(800) DEFAULT NULL,
+  `idshowcategory` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idshow`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `track`
+--
+
+DROP TABLE IF EXISTS `track`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `track` (
+  `idtrack` bigint(20) NOT NULL AUTO_INCREMENT,
+  `idalbum` bigint(20) DEFAULT NULL,
+  `idartist` bigint(20) DEFAULT NULL,
+  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `CreateDate` datetime DEFAULT NULL,
+  `EndDate` datetime DEFAULT NULL,
+  `ReleaseDate` date DEFAULT NULL,
+  `FCC` bit(1) DEFAULT NULL,
+  `Recommended` bit(1) DEFAULT NULL,
+  `ITLID` bigint(20) DEFAULT NULL,
+  `Path` varchar(1023) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PlayCount` int(11) DEFAULT NULL,
+  `idPrimaryGenre` int(11) DEFAULT '0',
+  `idSecondaryGenre` int(11) DEFAULT '0',
+  `modified` bit(1) DEFAULT b'0' COMMENT 'Set to 1 if this row has been manually modified.  If it has been, it cannot be overridden by a batch import',
+  `idsubsonic` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`idtrack`),
+  KEY `IDTRACKALBUM_idx` (`idalbum`),
+  KEY `IDTRACKARTIST_idx` (`idartist`),
+  KEY `IDTRACKGENREPRIM_idx` (`idPrimaryGenre`),
+  KEY `IDTRACKGENRESEC_idx` (`idSecondaryGenre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `iduser` int(11) NOT NULL AUTO_INCREMENT,
+  `idusertype` int(11) DEFAULT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `salt` varchar(32) DEFAULT NULL,
+  `passwordhash` varchar(255) DEFAULT NULL,
+  `startdate` datetime DEFAULT NULL,
+  `enddate` datetime DEFAULT NULL,
+  `idlastlogon` bigint(20) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `email` varchar(500) DEFAULT NULL,
+  `hidden` bit(1) DEFAULT b'0',
+  PRIMARY KEY (`iduser`),
+  KEY `IDUSERUSERTYPE_idx` (`idusertype`),
+  KEY `IDUSERLASTLOGON_idx` (`idlastlogon`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `userprofile`
+--
+
+DROP TABLE IF EXISTS `userprofile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userprofile` (
+  `iduserprofile` int(11) NOT NULL AUTO_INCREMENT,
+  `iduser` int(11) DEFAULT NULL,
+  `nickname` varchar(45) DEFAULT NULL,
+  `bio` varchar(2000) DEFAULT NULL,
+  `motto` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`iduserprofile`),
+  KEY `IDPROFILEUSER_idx` (`iduser`),
+  CONSTRAINT `IDPROFILEUSER` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `usersession`
+--
+
+DROP TABLE IF EXISTS `usersession`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usersession` (
+  `idusersession` bigint(20) NOT NULL AUTO_INCREMENT,
+  `iduser` int(11) DEFAULT NULL,
+  `logon` datetime DEFAULT NULL,
+  `logoff` datetime DEFAULT NULL,
+  PRIMARY KEY (`idusersession`),
+  KEY `IDUSERSESSION_idx` (`iduser`)
+) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `usertype`
+--
+
+DROP TABLE IF EXISTS `usertype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usertype` (
+  `idusertype` int(11) NOT NULL AUTO_INCREMENT,
+  `typename` varchar(45) DEFAULT NULL,
+  `LibraryView` bit(1) DEFAULT b'0',
+  `LibraryManage` bit(1) DEFAULT b'0',
+  `PSAView` bit(1) DEFAULT b'0',
+  `PSAEdit` bit(1) DEFAULT b'0',
+  `GrantView` bit(1) DEFAULT b'0',
+  `GrantEdit` bit(1) DEFAULT b'0',
+  `ManageUsers` bit(1) DEFAULT b'0',
+  `PlaylistEditor` bit(1) DEFAULT b'0',
+  `EditPermissions` bit(1) DEFAULT b'0',
+  `EditUserType` bit(1) DEFAULT b'0',
+  `OnAirSignOn` bit(1) DEFAULT b'0',
+  `ReviewMusic` bit(1) DEFAULT b'0',
+  `description` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`idusertype`)
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping routines for database 'kure'
@@ -764,7 +548,7 @@ USE `kure`;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `AddDistributor`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddDistributor`(
   aDistributorName varchar(255),
   aPhone varchar(20),
   aEmail varchar (1000),
@@ -824,106 +608,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `AddGrant` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `AddGrant`(
-  aGrantName varchar(45),
-  aGrantMessage varchar(2048),
-  aEndDate datetime,
-  aMaxPlayCount int
-)
-BEGIN
--- --------------------------------
--- AddGrant
--- Created by Robert Clabough 2/13/2014
---
--- Adds a grant to the 'grant' table for auto population in playlists
---
--- PARAMETERS
---   aGrantName - Name of the grant 'Pizza Shack'
---   aGrantMessage - What the dj should say on the air, or mention about ( free form )
---   aEndDate - Date this grant should be taken out of rotation
--- --------------------------------
-
-
-
-  #First check to see if the grant name is in the table
-  SET @GrantID = (SELECT g.idgrant FROM kure.grant g
-    WHERE g.name = aGrantName);
-  IF(@GrantID IS NOT NULL) THEN
-    #Check if it is enddated
-    SET @prevEndDate = (SELECT g.enddate FROM kure.grant g
-      WHERE g.idgrant = @GrantID);
-    IF(@prevEndDate IS NOT NULL) THEN
-      UPDATE kure.grant
-        SET enddate = null;
-    ELSE  
-      UPDATE kure.grant
-        SET enddate = null, message = aGrantMessage, name = aGrantName WHERE idgrant = @GrantID;
-    END IF;
-  ELSE
-    INSERT INTO kure.grant(name, message, startdate, enddate, playcount, maxplaycount)
-      VALUES(aGrantName, aGrantMessage, current_timestamp, aEndDate, 0, aMaxPlayCount);
-  END IF;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `AddPSA` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `AddPSA`(
-  aPSAID bigint,
-  aName varchar(45),
-  aMessage varchar(2048),
-  aEndDate datetime,
-
-  aSponsor varchar(45),
-  aPlayCount int,
-  aMaxPlayCount int,
-  aUserID int
-)
-BEGIN
-  IF(aPSAID = 0) THEN
-  BEGIN
-    INSERT INTO psa(name, message, createdate, enddate, playcount, iduser, sponsor, maxplaycount)
-    VALUES(aName, aMessage, current_timestamp(), aEndDate, 0, aUserID, aSponsor, aMaxPlayCount);
-
-  #Return the new ID
-  SELECT @@IDENTITY as 'ID';
-  END;
-  else
-  BEGIN
-    UPDATE psa
-    SET name = aName, message = aMessage, enddate = aEndDate, sponsor = aSponsor, playcount = aPlayCount,
-      maxplaycount = aMaxPlayCount, iduser = aUserID
-    WHERE idpsa = aPSAID;
-  END;
-  SELECT aPSAID as 'ID';
-  END IF;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `AddRotation` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -934,7 +618,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `AddRotation`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRotation`(
   aPhysicalReceived BIT(1),
   aDigitalReceived BIT(1),
   aPhysicalReceivedDate DATETIME,
@@ -1041,7 +725,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `addTrack`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addTrack`(
   CalledName varchar(250),
   CalledArtist varchar(250),
   CalledAlbum varchar(250),
@@ -1162,7 +846,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `AddUser`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddUser`(
   aUserName varchar(45),
   aPasswordHash varchar(1024),
   aSalt varchar(32),
@@ -1204,7 +888,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `AddUserType`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddUserType`(
   aUserTypeName varchar(255),
   aLibraryView bit,
   aLibraryManage bit,
@@ -1260,7 +944,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `AssignReveiwer`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AssignReveiwer`(
   aRotationID INT(11),
   aReviewerID INT(11))
 BEGIN
@@ -1286,7 +970,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `DeletePlaytrack`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DeletePlaytrack`(
   aPlayID bigint,
   aUserID int
 )
@@ -1316,7 +1000,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `DeleteUser`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DeleteUser`(
   aUserID bigint
 )
 BEGIN
@@ -1339,7 +1023,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `EndUserSession`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EndUserSession`(
   aSessionID bigint
 )
 BEGIN
@@ -1361,7 +1045,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumList`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumList`()
 BEGIN
   SELECT alb.idalbum as 'ID', alb.Name as 'Album Name', pGenre.Name as 'PrimaryGenre', sGenre.Name as 'SecondaryGenre'
   FROM album alb
@@ -1383,7 +1067,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumPlaysByID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumPlaysByID`(
   aAlbumID bigint
 )
 BEGIN
@@ -1416,7 +1100,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumsAutoComplete`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumsAutoComplete`(
   aAlbumName varchar(20)
 )
 BEGIN
@@ -1451,7 +1135,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumsByGenreAndReco`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumsByGenreAndReco`(
   aGenreID int,
   aReco int
 )
@@ -1489,7 +1173,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumsFromArtistID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumsFromArtistID`(
   aArtistID bigint
 )
 BEGIN
@@ -1515,7 +1199,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumsFromArtistName`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumsFromArtistName`(
   aArtistName varchar(45)
 )
 BEGIN
@@ -1545,7 +1229,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumsFromDistributorID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumsFromDistributorID`(
   aDistributorID bigint
 )
 BEGIN
@@ -1599,7 +1283,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAlbumsWhereTrackLike`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAlbumsWhereTrackLike`(
   aTrackName varchar(20)
 )
 BEGIN
@@ -1625,7 +1309,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllDistributors`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllDistributors`()
 BEGIN
   SELECT d.iddistributor as 'iddistributor',
     d.name as 'distributorname',
@@ -1655,7 +1339,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllGenre`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllGenre`()
 BEGIN
   SELECT idGenre as 'idGenre', Name as 'Name' FROM genre;
 END ;;
@@ -1674,7 +1358,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllGrantInfo`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllGrantInfo`(
   aGrantID int
 )
 BEGIN
@@ -1695,7 +1379,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetAllPSAInfo` */;
+/*!50003 DROP PROCEDURE IF EXISTS `GetAllReaders` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1703,26 +1387,35 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllPSAInfo`(
-  aPSAID int
-)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllReaders`()
 BEGIN
-  SELECT idpsa as 'PSAID', name as 'Name',
-    message as 'Message', createdate as 'CreateDate',
-    enddate as 'EndDate', playcount as 'PlayCount',
-    maxplaycount as 'MaxPlayCount', iduser as 'UserID',
-    sponsor as 'Sponsor'
-  FROM psa
-  WHERE idpsa = aPSAID;
+
+
+SELECT `readers`.`id`,
+    `readers`.`idType`,
+    `readers`.`idOrganization`,
+    `readers`.`readerTitle`,
+    `readers`.`readerText`,
+    `readers`.`readerType`,
+    `readers`.`startDate`,
+    `readers`.`endDate`,
+    `readers`.`isActive`,
+    `readers`.`readsRemaining`,
+    `readers`.`priority`,
+    `readers`.`organization`
+FROM `kure`.`readers`
+
+ORDER BY readerTitle;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetAllPSAs` */;
+/*!50003 DROP PROCEDURE IF EXISTS `GetAllReadersByType` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -1730,19 +1423,54 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllPSAs`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllReadersByType`( aType INT)
 BEGIN
-SELECT p.idpsa as 'PSAID', p.name as 'Name',
-  p.createdate as 'CreateDate', p.playcount as 'PlayCount',
-  p.sponsor as 'Sponsor', u.username as 'UserName', u.iduser as 'UserID',
-  u.lastname as 'LastName', 
-  (((p.maxplaycount IS NULL)OR(p.playcount < p.maxplaycount))AND((p.enddate IS NULL) OR (p.enddate >= current_timestamp()))) as 'Active'
-  FROM psa p
-  LEFT OUTER JOIN user u ON p.iduser = u.iduser
-  ORDER BY PlayCount DESC;
-  
+
+
+SELECT `readers`.`id`,
+    `readers`.`idType`,
+    `readers`.`idOrganization`,
+    `readers`.`readerTitle`,
+    `readers`.`readerText`,
+    `readers`.`readerType`,
+    `readers`.`startDate`,
+    `readers`.`endDate`,
+    `readers`.`isActive`,
+    `readers`.`readsRemaining`,
+    `readers`.`priority`,
+    `readers`.`organization`
+FROM `kure`.`readers`
+WHERE idType = aType
+ORDER BY readerTitle;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetAllReaderTypes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllReaderTypes`()
+BEGIN
+
+SELECT `readerType`.`idtype`,
+    `readerType`.`name`,
+    `readerType`.`description`,
+    `readerType`.`idbehavior`
+FROM `kure`.`readerType`;
+
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1759,7 +1487,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllTrackData`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllTrackData`(
   TrackID bigint
 )
 BEGIN
@@ -1798,7 +1526,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllTracksByGenreAndReco`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllTracksByGenreAndReco`(
   aGenreID int,
   aReco int
 )
@@ -1831,7 +1559,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllUsers`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllUsers`()
 BEGIN
   SELECT 
     u.iduser as 'iduser',
@@ -1868,7 +1596,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetAllUserTypes`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetAllUserTypes`()
 BEGIN
   SELECT
       idusertype as 'idusertype',
@@ -1903,7 +1631,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetArtistList`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetArtistList`()
 BEGIN
   SELECT idArtist as 'ID', Name as 'Artist'
   FROM kure.artist;
@@ -1923,7 +1651,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetArtistListAlphabetical`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetArtistListAlphabetical`()
 BEGIN
 SELECT idArtist as 'ID', Name as 'Artist'
   FROM kure.artist
@@ -1944,7 +1672,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetArtistsAutoComplete`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetArtistsAutoComplete`(
   aArtistName varchar(20)
 )
 BEGIN
@@ -1979,7 +1707,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetArtistsByGenreAndReco`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetArtistsByGenreAndReco`(
   aGenreID int,
   aReco int
 )
@@ -2016,7 +1744,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetArtistsWhereTrackLike`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetArtistsWhereTrackLike`(
   aTrackName varchar(20)
 )
 BEGIN
@@ -2042,7 +1770,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetCountPlaysGivenTimeframe`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetCountPlaysGivenTimeframe`(
   aStartDate datetime
 )
 BEGIN
@@ -2076,7 +1804,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetCurrentOnAirUser`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetCurrentOnAirUser`()
 BEGIN
   SELECT u.username as 'UserName', u.iduser as 'UserID', u.firstname as 'FirstName', u.lastname as 'LastName'
   FROM onairsession oas
@@ -2098,7 +1826,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetDistributorByID`(aDistributorid INT(11))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetDistributorByID`(aDistributorid INT(11))
 BEGIN
   SELECT d.iddistributor as 'iddistributor',
     d.name as 'distributorname',
@@ -2128,7 +1856,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetDJs`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetDJs`()
 BEGIN
 
 select u.iduser, u.FirstName, u.LastName, up.nickname, u.username, up.iduserprofile, ut.idusertype, u.email as 'email', 
@@ -2147,55 +1875,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetEligibleGrants` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `GetEligibleGrants`()
-BEGIN
-  SELECT idgrant as 'GrantID', playcount as 'PlayCount', 
-    startdate as 'StartDate', enddate as 'EndDate',
-    maxplaycount as 'MaxPlayCount',
-    TIMESTAMPDIFF(SECOND, current_timestamp(), g.enddate) as 'TimeLeft'
-  FROM kure.grant g
-  WHERE ((enddate IS NULL) OR (enddate >= current_timestamp()));
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetEligiblePSAs` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `GetEligiblePSAs`()
-BEGIN
-
-  SELECT idpsa as 'PSAID', playcount as 'PlayCount', 
-    createdate as 'StartDate', enddate as 'EndDate',
-    maxplaycount as 'MaxPlayCount',
-    TIMESTAMPDIFF(SECOND, current_timestamp(), p.enddate) as 'TimeLeft'
-  FROM psa p
-  WHERE (((p.maxplaycount IS NULL)OR(p.playcount < p.maxplaycount))AND((p.enddate IS NULL) OR (p.enddate >= current_timestamp())));
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `GetErrors` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -2206,7 +1885,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetErrors`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetErrors`()
 BEGIN
   SELECT l.iderrorlog, u.iduser as 'UserID', l.message as 'Message', l.stacktrace as 'StackTrace', 
     l.logdate as 'CreateDate', u.username as 'UserName', u.firstName as 'FirstName',
@@ -2230,7 +1909,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetExceptions`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetExceptions`()
 BEGIN
   #Created by Robert Clabough
   #3/3/2014
@@ -2259,7 +1938,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetExceptionsByUserID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetExceptionsByUserID`(
   aUserID int
 )
 BEGIN
@@ -2278,35 +1957,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `GetGrantBasicInfo` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `GetGrantBasicInfo`()
-BEGIN
-
-  SELECT
-    idgrant as 'GrantID',
-    name as 'GrantName',
-    startdate as 'CreateDate',
-    playcount as 'PlayCount',
-    (((maxplaycount IS NULL)OR(playcount < maxplaycount))AND((enddate IS NULL)OR(current_timestamp() < enddate))) as 'Active'
-  FROM
-    kure.grant g
-    ;
-
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `GetLast25Played` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -2317,7 +1967,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetLast25Played`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetLast25Played`()
 BEGIN
   SELECT trk.idtrack as 'TrackID', trk.Name as 'TrackName', art.Name as 'ArtistName', alb.Name as 'AlbumName', play.playdate as 'PlayDate'
   FROM playtrack play
@@ -2342,7 +1992,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetMost25PopularTracks`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetMost25PopularTracks`(
   aStartTime datetime
 )
 BEGIN
@@ -2370,7 +2020,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetPlayableTypes`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetPlayableTypes`()
 BEGIN
   SELECT idplayabletypes as 'TypeID', name as 'TypeName'
   FROM playabletypes;
@@ -2390,7 +2040,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetPlaylistTracks`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetPlaylistTracks`(
   aPlaylistID int
 )
 BEGIN
@@ -2435,7 +2085,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetPlaysByTimeSpan`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetPlaysByTimeSpan`(
   aStartTime datetime,
   aEndTime datetime
 )
@@ -2467,7 +2117,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetPlaysByUserID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetPlaysByUserID`(
   aUserID bigint
 )
 BEGIN
@@ -2490,6 +2140,41 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `GetReaderById` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetReaderById`(aID INT)
+BEGIN
+
+
+SELECT `readers`.`id`,
+    `readers`.`idType`,
+    `readers`.`idOrganization`,
+    `readers`.`readerTitle`,
+    `readers`.`readerText`,
+    `readers`.`readerType`,
+    `readers`.`startDate`,
+    `readers`.`endDate`,
+    `readers`.`isActive`,
+    `readers`.`readsRemaining`,
+    `readers`.`priority`,
+    `readers`.`organization`
+FROM `kure`.`readers`
+WHERE id = aID;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `GetRecentPlays` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -2500,7 +2185,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetRecentPlays`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetRecentPlays`()
 BEGIN
   SET @TrackType = (SELECT idplayabletypes from playabletypes where name='Track');
   SET @GrantType = (SELECT idplayabletypes from playabletypes where name = 'Grant');
@@ -2538,7 +2223,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetRecommendedArtistAlbum`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetRecommendedArtistAlbum`()
 BEGIN
   SELECT idArtist, idAlbum, Name, CreateDate, FCC, Recommended, PlayCount, idPrimaryGenre, idSecondaryGenre
   FROM track
@@ -2560,7 +2245,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetReviewers`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetReviewers`()
 BEGIN
   SELECT 
     u.iduser, 
@@ -2593,7 +2278,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetRotation`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetRotation`()
 BEGIN
   SELECT 
     rot.idrotation,
@@ -2648,7 +2333,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTrackChunks`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTrackChunks`(
   aStartIndex bigint,
   aNumberToReturn bigint
 )
@@ -2679,7 +2364,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTrackChunksAlphabetical`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTrackChunksAlphabetical`(
   aLastWord varchar(255)
 )
 BEGIN
@@ -2712,7 +2397,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTrackPlaysByID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTrackPlaysByID`(
   aTrackID bigint
 )
 BEGIN
@@ -2738,7 +2423,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTracksByAlbumID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTracksByAlbumID`(
   aAlbumID bigint
 )
 BEGIN
@@ -2765,7 +2450,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTracksByAlbumName`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTracksByAlbumName`(
   aAlbumName varchar(255)
 )
 BEGIN
@@ -2793,7 +2478,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTracksByArtistID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTracksByArtistID`(
   aArtistID int
 )
 BEGIN
@@ -2822,7 +2507,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTracksByArtistName`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTracksByArtistName`(
   aArtistName varchar(255)
 )
 BEGIN
@@ -2851,7 +2536,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTracksLike`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTracksLike`(
   aTrackName varchar(20)
 )
 BEGIN
@@ -2887,7 +2572,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetTrackSubsonicID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetTrackSubsonicID`(
   TrackID bigint
 )
 BEGIN
@@ -2917,7 +2602,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetUserFromName`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetUserFromName`(
   aUserName varchar(45)
 )
 BEGIN
@@ -2942,7 +2627,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `GetUserProfile`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetUserProfile`(
   aUserID int
 )
 BEGIN
@@ -2970,7 +2655,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `InsertCustomAlbum`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertCustomAlbum`(
   aArtistID int,
   aAlbumName varchar(255),
   aPriority bit,
@@ -3004,7 +2689,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `InsertCustomArtist`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertCustomArtist`(
   aArtistName varchar(255)
 )
 BEGIN
@@ -3032,7 +2717,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `InsertCustomTrack`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertCustomTrack`(
   aTrackName varchar(40),
   aAlbumID int,
   aArtistID int,
@@ -3082,7 +2767,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `InsertPlaylist`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertPlaylist`(
   aUserID int,
   aPlaylistName varchar(45),
   aTracks varchar(2048)
@@ -3115,7 +2800,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `LogError`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LogError`(
   aUserID int,
   aMessage varchar(1024),
   aStackTrace varchar(1024), 
@@ -3140,7 +2825,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `LogException`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LogException`(
   aUserID int,
   aMessage varchar(2048),
   aStackTrace varchar(2048),
@@ -3177,7 +2862,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `OnAirLogin`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `OnAirLogin`(
   aUserID int
 )
 BEGIN
@@ -3216,7 +2901,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `OnAirLogout`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `OnAirLogout`(
   aUserID int,
   aOnAirSessionID int
 )
@@ -3242,68 +2927,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `PlayGrantByID` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `PlayGrantByID`(
-  aGrantID bigint,
-  aUserID int,
-  aOnAirSessionID bigint
-)
-BEGIN
-  #Plays a grant given grant ID, user ID, and on air session
-
-  #Insert into the playgrant table.
-  INSERT INTO playgrant(idgrant, iduser, idonairsession, playdate)
-    VALUES(aGrantID, aUserID, aOnAirSessionID, current_timestamp());
-
-  #Create a variable that is the last inserted ID (in playgrant)
-  SET @PlayID = @@IDENTITY;
-
-  #Update the play in the grant table
-  UPDATE kure.grant SET playcount = playcount + 1 WHERE idgrant = aGrantID;
-
-  #Return the new playID
-  SELECT @PlayID as 'PlayID';
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `PlayPSAByID` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `PlayPSAByID`(
-  aPSAID bigint,
-  aUserID int,
-  aOnAirSession bigint
-)
-BEGIN
-  INSERT INTO playpsa(idpsa, iduser, idonairsession, playdate)
-    VALUES(aPSAID, aUserID, aOnAirSession, current_timestamp());
-  UPDATE psa SET playcount = playcount + 1 WHERE idpsa = aPSAID;
-  SELECT @@IDENTITY as 'PlayPSAID';
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `PlayTrackByID` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -3314,7 +2937,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `PlayTrackByID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PlayTrackByID`(
   aTrackID bigint,
   aUserID bigint,
   aOnAirSessionID bigint
@@ -3354,7 +2977,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `ReactivateUser`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ReactivateUser`(
   aUserID bigint
 )
 BEGIN
@@ -3377,7 +3000,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `RetrieveUserPlaylistIDs`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RetrieveUserPlaylistIDs`(
   aUserID int
 )
 BEGIN
@@ -3401,7 +3024,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `ReviewAlbum`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ReviewAlbum`(
   aUserID INT(11),
   aKarmaReviewer INT(11),
   aRotationID INT(11),
@@ -3444,7 +3067,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `UpdatePlayByID`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdatePlayByID`(
   aPlayID bigint,
   aTrackID bigint,
   aUserID int
@@ -3473,7 +3096,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `UpdateTrackData`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateTrackData`(
   aTrackID bigint,
   aEndDate datetime,
   aReleaseDate datetime,
@@ -3512,7 +3135,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `UpdateUser`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateUser`(
   aUserID bigint,
   aFirstName varchar(255),
   aLastName varchar(255),
@@ -3539,7 +3162,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `UpdateUserType`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateUserType`(
   aUserTypeID bigint,
   aLibraryView bit,
   aLibraryManage bit,
@@ -3588,7 +3211,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `UserLogin`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UserLogin`(
   aUserID int
 )
 BEGIN
@@ -3629,6 +3252,25 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `readers`
+--
+
+/*!50001 DROP TABLE IF EXISTS `readers`*/;
+/*!50001 DROP VIEW IF EXISTS `readers`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `readers` AS select `rdr`.`idreaders` AS `id`,`rdr`.`idtype` AS `idType`,`rdr`.`idorganization` AS `idOrganization`,`rdr`.`title` AS `readerTitle`,`rdr`.`text` AS `readerText`,`typ`.`name` AS `readerType`,`rdr`.`startDate` AS `startDate`,`rdr`.`endDate` AS `endDate`,`rdr`.`isActive` AS `isActive`,`rdr`.`readsRemaining` AS `readsRemaining`,`rdr`.`priority` AS `priority`,`org`.`name` AS `organization` from ((`readerreaders` `rdr` left join `readertype` `typ` on((`rdr`.`idtype` = `typ`.`idtype`))) left join `readerorganization` `org` on((`rdr`.`idorganization` = `org`.`idorganization`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -3639,270 +3281,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-21 21:11:19
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `track`
---
-
-DROP TABLE IF EXISTS `track`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `track` (
-  `idtrack` bigint(20) NOT NULL AUTO_INCREMENT,
-  `idalbum` bigint(20) DEFAULT NULL,
-  `idartist` bigint(20) DEFAULT NULL,
-  `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `CreateDate` datetime DEFAULT NULL,
-  `EndDate` datetime DEFAULT NULL,
-  `ReleaseDate` date DEFAULT NULL,
-  `FCC` bit(1) DEFAULT NULL,
-  `Recommended` bit(1) DEFAULT NULL,
-  `ITLID` bigint(20) DEFAULT NULL,
-  `Path` varchar(1023) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `PlayCount` int(11) DEFAULT NULL,
-  `idPrimaryGenre` int(11) DEFAULT '0',
-  `idSecondaryGenre` int(11) DEFAULT '0',
-  `modified` bit(1) DEFAULT b'0' COMMENT 'Set to 1 if this row has been manually modified.  If it has been, it cannot be overridden by a batch import',
-  `idsubsonic` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`idtrack`),
-  KEY `IDTRACKALBUM_idx` (`idalbum`),
-  KEY `IDTRACKARTIST_idx` (`idartist`),
-  KEY `IDTRACKGENREPRIM_idx` (`idPrimaryGenre`),
-  KEY `IDTRACKGENRESEC_idx` (`idSecondaryGenre`)
-) ENGINE=InnoDB AUTO_INCREMENT=19440 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:14
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `iduser` int(11) NOT NULL AUTO_INCREMENT,
-  `idusertype` int(11) DEFAULT NULL,
-  `username` varchar(45) DEFAULT NULL,
-  `salt` varchar(32) DEFAULT NULL,
-  `passwordhash` varchar(255) DEFAULT NULL,
-  `startdate` datetime DEFAULT NULL,
-  `enddate` datetime DEFAULT NULL,
-  `idlastlogon` bigint(20) DEFAULT NULL,
-  `firstname` varchar(255) DEFAULT NULL,
-  `lastname` varchar(255) DEFAULT NULL,
-  `email` varchar(500) DEFAULT NULL,
-  `hidden` bit(1) DEFAULT b'0',
-  PRIMARY KEY (`iduser`),
-  KEY `IDUSERUSERTYPE_idx` (`idusertype`),
-  KEY `IDUSERLASTLOGON_idx` (`idlastlogon`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:15
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `userprofile`
---
-
-DROP TABLE IF EXISTS `userprofile`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userprofile` (
-  `iduserprofile` int(11) NOT NULL AUTO_INCREMENT,
-  `iduser` int(11) DEFAULT NULL,
-  `nickname` varchar(45) DEFAULT NULL,
-  `bio` varchar(2000) DEFAULT NULL,
-  `motto` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`iduserprofile`),
-  KEY `IDPROFILEUSER_idx` (`iduser`),
-  CONSTRAINT `IDPROFILEUSER` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:16
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `usersession`
---
-
-DROP TABLE IF EXISTS `usersession`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usersession` (
-  `idusersession` bigint(20) NOT NULL AUTO_INCREMENT,
-  `iduser` int(11) DEFAULT NULL,
-  `logon` datetime DEFAULT NULL,
-  `logoff` datetime DEFAULT NULL,
-  PRIMARY KEY (`idusersession`),
-  KEY `IDUSERSESSION_idx` (`iduser`)
-) ENGINE=MyISAM AUTO_INCREMENT=213 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:15
-CREATE DATABASE  IF NOT EXISTS `kure` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `kure`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
---
--- Host: mysql.skynet.from-ia.com    Database: kure
--- ------------------------------------------------------
--- Server version 5.1.73
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `usertype`
---
-
-DROP TABLE IF EXISTS `usertype`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usertype` (
-  `idusertype` int(11) NOT NULL AUTO_INCREMENT,
-  `typename` varchar(45) DEFAULT NULL,
-  `LibraryView` bit(1) DEFAULT b'0',
-  `LibraryManage` bit(1) DEFAULT b'0',
-  `PSAView` bit(1) DEFAULT b'0',
-  `PSAEdit` bit(1) DEFAULT b'0',
-  `GrantView` bit(1) DEFAULT b'0',
-  `GrantEdit` bit(1) DEFAULT b'0',
-  `ManageUsers` bit(1) DEFAULT b'0',
-  `PlaylistEditor` bit(1) DEFAULT b'0',
-  `EditPermissions` bit(1) DEFAULT b'0',
-  `EditUserType` bit(1) DEFAULT b'0',
-  `OnAirSignOn` bit(1) DEFAULT b'0',
-  `ReviewMusic` bit(1) DEFAULT b'0',
-  `description` varchar(1000) DEFAULT NULL,
-  PRIMARY KEY (`idusertype`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2014-04-21 21:11:18
+-- Dump completed on 2015-10-07 22:55:37

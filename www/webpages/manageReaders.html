@@ -11,12 +11,14 @@
 				Select Reader Type: <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu readerTypes">
+				<li><a href=#>All</a></li>
+				<li role="separator" class="divider"></li>
 				<!-- empty, but filled by readerManager.js -->
 			</ul>
-			<button type="button" class="btn btn-primary custom-song-button"
-				onClick="getExceptions()">Toggle Active</button>
-			<button type="button" class="btn btn-primary custom-song-button"
-				id='addButton'>Add New</button>
+			<button type="button" class="btn btn-primary view-inactive"
+				onClick="viewHideInactive()">View Inactive</button>
+			<button type="button" class="btn btn-primary"
+				onClick="addReaderButton()" id="addReaderButton">Add New</button>
 		</div>
 		<table class="table table-hover exception-table">
 			<thead>
@@ -33,6 +35,10 @@
 				<!-- Readers go here -->
 			</tbody>
 		</table>
+		<!-- <hr>
+		
+		<h2>Manage Reader Types</h2> -->
+
 	</div>
 </div>
 
@@ -43,61 +49,73 @@
 		<div class="modal-content">
 			<div class="modal-header add-update-header">
 				<h4 class="modal-title add-update-title"></h4>
+
 			</div>
 
 			<!-- Fields to add or update a reader -->
 			<div class="modal-body">
-				<h4>Reader Title</h4>
+
 				<div class="form-group">
-					<input type="text" class="form-control typeahead" id="input-title"
-						autocomplete="off" spellcheck="false" placeholder="Reader Name">
+					<label for="input-title">Reader Title</label> <input type="text"
+						class="form-control typeahead" id="input-title" autocomplete="off"
+						spellcheck="false" placeholder="Reader Name">
 				</div>
-				<h4>Reader Type</h4>
+
 				<div class="form-group">
-					<select class="form-control" id="input-type">
-						<!-- Options get autofilled by js  -->
+					<label for="input-type">Reader Type</label> <select
+						class="form-control reader-select" id="input-type">
+						<!-- Need to add auto-fill here -->
 					</select>
 				</div>
-				<!-- Need to add auto-fill here -->
-				<h4>Affiliated Organization</h4>
+
 				<div class="form-group">
-					<input type="text" class="form-control typeahead"
-						id="input-organization"
+					<label for="input-organization">Affiliated Organization</label> <input
+						type="text" class="form-control typeahead" id="input-organization"
 						placeholder="Organization affiliated with Message">
 				</div>
-				<h4>Message</h4>
-				<small><i>All formatting will be lost.</i></small>
 				<div class="form-group">
+					<label for="input-text">Message</label> <small><i>All
+							formatting will be lost.</i></small>
 					<textarea id="input-text" style="width: 550px; height: 150px;"></textarea>
 				</div>
-				<h4>Remaining Reads</h4>
-				<div class="form-group">
-					<input type="text" class="form-control" id="input-remaining-reads"
-						placeholder="Leave blank if reader is based on date or runs indefinitely">
-				</div>
-				<h4>Start Date</h4>
-				<div class="form-group">
-					<input type="date" class="form-control" id="input-start"
-						placeholder="Plays / Max Plays">
 
-					<h4>Kill Date</h4>
-					<input type="date" class="form-control" id="input-end"
-						placeholder="Plays / Max Plays">
-				</div>
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label for="input-remaining-reads" class="col-sm-4 control-label">Remaining
+							Reads</label>
 
-				<h4>Active</h4>
-				<div class="form-group">
-					<input type="checkbox" class="form-control" id="input-active"
-						placeholder="Leave blank if reader is based on date or runs indefinitely">
+						<div class="col-sm-7">
+							<input type="text" class="form-control"
+								id="input-remaining-reads"
+								placeholder="Leave blank if reader is based on date or runs indefinitely">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="input-start" class="col-sm-4 control-label">Start
+							Date</label>
+						<div class="col-sm-7">
+							<input type="date" class="form-control " id="input-start">
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="input-start" class="col-sm-4 control-label">Kill
+							Date</label>
+						<div class="col-sm-7">
+							<input type="date" class="form-control" id="input-end">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="input-active" class="col-sm-4 control-label">Active?</label>
+						<div class="col-sm-7">
+							<input type="checkbox" class="form-control" id="input-active">
+						</div>
+					</div>
 				</div>
 			</div>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default close-load-modal"
-					id="saveButton" data-dismiss="modal">Save</button>
-				<button type="button" class="btn btn-default close-load-modal"
-					data-dismiss="modal">Cancel</button>
-			</div>
+			<div class="modal-footer edit-footer"></div>
 		</div>
 		<!-- /.modal-content -->
 	</div>

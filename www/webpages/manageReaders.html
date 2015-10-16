@@ -4,6 +4,9 @@
 <div class="main-view">
 	<div class="col-md-12">
 		<h2>Manage Readers</h2>
+		Click on a column header to sort. Click again to sort in reverse.<br />
+		Click the edit button or double click a row to edit that reader. <br />Click
+		view to view the reader text quickly.
 		<hr>
 		<div class="dropdown">
 			<button class="btn btn-primary dropdown-toggle" type="button"
@@ -24,12 +27,17 @@
 		</div>
 		<table class="noselect table table-hover exception-table">
 			<thead>
-				<th onClick="sortReaderButton('readerTitle','header-title')" id="header-title">Title</th>
-				<th onClick="sortReaderButton('readerType','header-type')" id="header-type">Type</th>
-				<th onClick="sortReaderButton('readsRemaining','header-remaining')"
-					id="header-remaining">Reads Remaining</th>
-				<th onClick="sortReaderButton('endDate','header-end')" id="header-end">End
-					Date</th>
+				<th
+					onClick="sortReaderButton('readerTitle','.header-title','Title')"
+					class="header-title">Title <span
+					class="glyphicon glyphicon-triangle-bottom"></span></th>
+				<th onClick="sortReaderButton('readerType','.header-type','Type')"
+					class="header-type">Type</th>
+				<th
+					onClick="sortReaderButton('readsRemaining','.header-remaining','Reads Remaining')"
+					class="header-remaining">Reads Remaining</th>
+				<th onClick="sortReaderButton('endDate','.header-end','End Date')"
+					class="header-end">End Date</th>
 				<th>Edit</th>
 				<th>View</th>
 			</thead>

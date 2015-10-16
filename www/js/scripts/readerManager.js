@@ -13,6 +13,8 @@ var activeOnly = 1;
 // Placeholder variables to store sorting information
 var curSort = 'readerTitle';
 var curAsc = 1;
+var lastButton = '.header-title';
+var lastButtonText = 'Title';
 
 // Begins by getting all of the readers
 function getReaderTypes(){
@@ -99,7 +101,7 @@ function getReaderByID(id){
 	return readerArr.length;
 }
 
-function sortReaderButton(index, button){
+function sortReaderButton(index, button, buttonText){
 	if (index == curSort) {
 		if (curAsc == 0) {
 			curAsc = 1;
@@ -108,7 +110,23 @@ function sortReaderButton(index, button){
 		}
 	} else {
 		curAsc = 1;
+		$(lastButton).html('');
+		$(lastButton).append(lastButtonText);
 	}
+	$(button).html('');
+	if (curAsc == 1) {
+		$(button)
+		        .append(
+		                buttonText
+		                        + ' <span class="glyphicon glyphicon-triangle-bottom"></span>');
+	} else {
+		$(button)
+		        .append(
+		                buttonText
+		                        + ' <span class="glyphicon glyphicon-triangle-top"></span>');
+	}
+	lastButton = button;
+	lastButtonText = buttonText;
 	curSort = index;
 	sortReaderColumn(curSort, curAsc);
 	displayReaders();

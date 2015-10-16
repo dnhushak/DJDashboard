@@ -22,12 +22,16 @@
 			<!-- <button type="button" class="btn btn-primary"
 				onClick="clearReaders()" id="clearReaderButton">Clear</button> -->
 		</div>
-		<table class="table table-hover exception-table">
+		<table class="noselect table table-hover exception-table">
 			<thead>
-				<th>Name</th>
-				<th>Type</th>
-				<th>Reads Remaining</th>
-				<th>Kill Date</th>
+				<th onClick="sortReaderColumn('readerTitle',this.value)" value="0"
+					id="header-title">Title</th>
+				<th onClick="sortReaderColumn('readerType',this.value)" value="1"
+					id="header-type">Type</th>
+				<th onClick="sortReaderColumn('readsRemaining',this.value)" value="1"
+					id="header-type">Reads Remaining</th>
+				<th onClick="sortReaderColumn('endDate',this.value)" value="1"
+					id="header-type">Kill Date</th>
 				<th>Edit</th>
 				<th>View</th>
 			</thead>

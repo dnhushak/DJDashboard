@@ -10,6 +10,10 @@ var activeID;
 // Placeholder variable to show or not show hidden readers
 var activeOnly = 1;
 
+// Placeholder variables to store sorting information
+var curSort = 'readerTitle';
+var curAsc = 1;
+
 // Begins by getting all of the readers
 function getReaderTypes(){
 	$.ajax({
@@ -18,34 +22,42 @@ function getReaderTypes(){
 		    'command' : 'getAllReaderTypes'
 	    },
 	    url : "../php/execute.php"
-	}).done(
-	        function(data){
-		        try {
-			        // Parses the returned JSON object into a js array
-			        readerTypes = JSON.parse(data);
-		        } catch (e) {
-			        console.log(data);
-			        return;
-		        }
-		        
-		        $('.reader-select').html('');
-		        for (var i = 0; i < readerTypes.length; i++) {
-			        
-			        var id = readerTypes[i]['id'];
-			        readerTypeArr[id] = {};
-			        readerTypeArr[id] = readerTypes[i];
-			        
-			        // Add each reader type to the dropdown menu
-			        var psaHTML = '<li><a href=#>' + readerTypeArr[id]['name']
-			                + '<\a><\li>';
-			        
-			        var psaHTMLSelect = '<option value="'
-			                + readerTypeArr[id]['id'] + '">'
-			                + readerTypeArr[id]['name'] + '</option>';
-			        $('.readerTypes').append(psaHTML);
-			        $('.reader-select').append(psaHTMLSelect);
-		        }
-	        });
+	}).done(function(data){
+		try {
+			// Parses the returned JSON object into a js array
+			readerTypes = JSON.parse(data);
+		} catch (e) {
+			console.log(data);
+			return;
+		}
+		
+		// Runs through all of the reader types
+		for (var i = 0; i < readerTypes.length; i++) {
+			// Assigns the reader types to an array, indexable by the
+			// reader Type ID
+			var id = readerTypes[i]['id'];
+			readerTypeArr[id] = {};
+			readerTypeArr[id] = readerTypes[i];
+		}
+		displayReaderTypes();
+	});
+};
+
+// Begins by getting all of the readers
+function displayReaderTypes(){
+	
+	for (id in readerTypeArr) {
+		// Add each reader type to the dropdown menu in the main
+		// window
+		var psaHTML = '<li><a href=#>' + readerTypeArr[id]['name']
+		        + '<\a><\li>';
+		
+		// And the options in the modal window
+		var psaHTMLSelect = '<option value="' + readerTypeArr[id]['id'] + '">'
+		        + readerTypeArr[id]['name'] + '</option>';
+		$('.readerTypes').append(psaHTML);
+		$('.reader-select').append(psaHTMLSelect);
+	}
 };
 
 function getReaders(){
@@ -71,7 +83,9 @@ function getReaders(){
 	});
 };
 
-// Gets the index of the reader based on its id
+/**
+ * Gets the index of the reader based on its id
+ */
 function getReaderByID(id){
 	// Iterates through the reader array
 	for (var i = 0; i < readerArr.length; i++) {
@@ -84,6 +98,19 @@ function getReaderByID(id){
 	return readerArr.length;
 }
 
+function sortReaderColumn(index, asc){
+	console.log(asc);
+	curAsc = asc;
+	curSort = index;
+	console.log(curSort);
+	sortArrayByIndex(readerArr, curSort, curAsc);
+	displayReaders();
+}
+
+/**
+ * Displays all of the readers in the readerArr variable This is separated out
+ * from the getReaders to allow for sorting, reorganization, etc.
+ */
 function displayReaders(){
 	// Empties out the readers div
 	$('.readers').html('');
@@ -96,7 +123,7 @@ function displayReaders(){
 			// The starting HTML, blocking out user selection so
 			// double click doesn't look as awkward
 			var psaHTML = '<tr ondblclick="editReaderButton(' + readerArr[i].id
-			        + ')" class="noselect ' + readerArr[i].id;
+			        + ')"  ' + readerArr[i].id;
 			
 			// Dull the background if the item is inactive
 			if (readerArr[i]['isActive'] == "0") {
@@ -151,20 +178,26 @@ function viewReaderButton(id){
 	activeID = id;
 	// Acquire the index of the reader
 	var index = getReaderByID(id);
+	
+	// Clear out the header and bodies
 	$('.view-header').html('');
 	$('.view-body').html('');
-	$('#view-text').modal('show');
+	$('.reader-text').html('');
+	
+	// Fill the header with the title of the reader
 	$('.view-header').append(
 	        '<h3>' + readerArr[index]['readerTitle'] + ' contents:</h3>');
-	$('.reader-text').html('');
+	// Fill the text area with the reader's text, in big lettering
 	$('.reader-text').append(
 	        "<big>" + readerArr[index]['readerText'] + "</big>");
+	$('#view-text').modal('show');
 };
 
 function editReaderButton(id){
 	// Load the data into the editor window and display it
 	loaddata(id);
 };
+
 function clearReaders(){
 	// Empties out the readers div
 	$('.readers').html('');
@@ -176,7 +209,44 @@ function addReaderButton(){
 };
 
 /**
- * Needs fix
+ * Sorts a multidimensional array based on a given index
+ * 
+ * @param array
+ *            The multidimensional array to be sorted
+ * @param index
+ *            The array's index to sort by
+ * @param asc
+ *            1 for ascending sort, 2 for descending
+ */
+function sortArrayByIndex(array, index, asc){
+	array = array.sort(compare);
+	if (asc == 0) {
+		array.reverse();
+	}
+	
+	// Compare function for the array sort
+	function compare(a, b){
+		// If the indices are exactly the same, return 0
+		if (a[index] === b[index]) {
+			return 0;
+		} else {
+			// Check if string
+			if (typeof a[index] == "string") {
+				// If string, compare them lexographically by cheating and
+				// converting them to uppercase
+				return (a[index].toUpperCase() < b[index].toUpperCase() ? -1
+				        : 1);
+			} else {
+				// If not a string, compare them by simple comparison
+				return (a[index] < b[index]) ? -1 : 1;
+			}
+		}
+	}
+	
+}
+
+/**
+ * Needs organization id fix
  */
 function addReader(id){
 	var index = getReaderByID(id);
@@ -186,16 +256,21 @@ function addReader(id){
 	}
 	// Gather all of the information from the input form by inspecting its
 	// .values
-	readerArr[index]['id'] = id;
-	readerArr[index]['readerText'] = document.getElementById('input-text').value;
-	readerArr[index]['readerType'] = document.getElementById('input-type').value;
-	readerArr[index]['organization'] = document
+	readerArr[index].id = id;
+	readerArr[index].readerText = document.getElementById('input-text').value;
+	
+	// Get the typeID from the dropdown menu
+	readerArr[index].idType = document.getElementById('input-type').value;
+	// Translate that ID to the type name, and fill it into the JS array
+	readerArr[index].readerType = readerTypeArr[readerArr[index].idType].name;
+	
+	readerArr[index].idOrganization = document
 	        .getElementById('input-organization').value;
-	readerArr[index]['readerTitle'] = document.getElementById('input-title').value;
-	readerArr[index]['readsRemaining'] = document
+	readerArr[index].readerTitle = document.getElementById('input-title').value;
+	readerArr[index].readsRemaining = document
 	        .getElementById('input-remaining-reads').value;
-	readerArr[index]['startDate'] = document.getElementById('input-start').value;
-	readerArr[index]['endDate'] = document.getElementById('input-end').value;
+	readerArr[index].startDate = document.getElementById('input-start').value;
+	readerArr[index].endDate = document.getElementById('input-end').value;
 	
 	// Replace the checked true or false with 1 or 0
 	readerArr[index]['isActive'] = document.getElementById('input-active').checked ? 1
@@ -207,7 +282,7 @@ function addReader(id){
 	    data : {
 	        'command' : 'UpdateReader',
 	        'id' : readerArr[index]['id'],
-	        'idtype' : readerArr[index]['readerType'],
+	        'idtype' : readerArr[index]['idType'],
 	        // FIX!
 	        'idorganization' : 1,
 	        'readerTitle' : readerArr[index]['readerTitle'],
@@ -220,20 +295,22 @@ function addReader(id){
 	    },
 	    url : "../php/execute.php"
 	}).done(function(data){
-		getReaders(); // Reload page
+		// Reload page with local js info, doesn't need a new SQL call
+		sortReaderColumn(curSort, curAsc);
+		// displayReaders();
 	});
 };
 
 function loaddata(id){
 	activeID = id;
-	getReaderTypes();
+	// getReaderTypes();
 	var index = getReaderByID(id);
 	
 	// Empty out all of the fields
 	$('.add-update-header').html('');
 	$('.edit-footer').html('');
 	document.getElementById('input-title').value = "";
-	document.getElementById('input-type').value = 3;
+	document.getElementById('input-type').value = "";
 	document.getElementById('input-text').value = "";
 	document.getElementById('input-organization').value = "";
 	document.getElementById('input-remaining-reads').value = "";
@@ -250,8 +327,7 @@ function loaddata(id){
 		// Fill in all of the current information into the input fields
 		document.getElementById('input-title').value = readerArr[index]['readerTitle'];
 		document.getElementById('input-text').value = readerArr[index]['readerText'];
-		// document.getElementById('input-type').value =
-		// readerArr[index]['idType'];
+		document.getElementById('input-type').value = readerArr[index]['idType'];
 		document.getElementById('input-organization').value = readerArr[index]['organization'];
 		document.getElementById('input-remaining-reads').value = readerArr[index]['readsRemaining'];
 		document.getElementById('input-start').value = readerArr[index]['startDate'];
@@ -280,6 +356,7 @@ function loaddata(id){
 	}
 	// Show the dialogue
 	$('#add-update').modal('show');
+	
 };
 
 function viewHideInactive(){

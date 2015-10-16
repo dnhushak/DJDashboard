@@ -24,14 +24,12 @@
 		</div>
 		<table class="noselect table table-hover exception-table">
 			<thead>
-				<th onClick="sortReaderColumn('readerTitle',this.value)" value="0"
-					id="header-title">Title</th>
-				<th onClick="sortReaderColumn('readerType',this.value)" value="1"
-					id="header-type">Type</th>
-				<th onClick="sortReaderColumn('readsRemaining',this.value)" value="1"
-					id="header-type">Reads Remaining</th>
-				<th onClick="sortReaderColumn('endDate',this.value)" value="1"
-					id="header-type">Kill Date</th>
+				<th onClick="sortReaderButton('readerTitle','header-title')" id="header-title">Title</th>
+				<th onClick="sortReaderButton('readerType','header-type')" id="header-type">Type</th>
+				<th onClick="sortReaderButton('readsRemaining','header-remaining')"
+					id="header-remaining">Reads Remaining</th>
+				<th onClick="sortReaderButton('endDate','header-end')" id="header-end">End
+					Date</th>
 				<th>Edit</th>
 				<th>View</th>
 			</thead>

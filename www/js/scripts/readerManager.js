@@ -38,6 +38,7 @@ function getReaderTypes(){
 			var id = readerTypes[i]['id'];
 			readerTypeArr[id] = {};
 			readerTypeArr[id] = readerTypes[i];
+			readerTypeArr[id].view = 1;
 		}
 		displayReaderTypes();
 	});
@@ -98,13 +99,25 @@ function getReaderByID(id){
 	return readerArr.length;
 }
 
+function sortReaderButton(index, button){
+	if (index == curSort) {
+		if (curAsc == 0) {
+			curAsc = 1;
+		} else {
+			curAsc = 0;
+		}
+	} else {
+		curAsc = 1;
+	}
+	curSort = index;
+	sortReaderColumn(curSort, curAsc);
+	displayReaders();
+}
+
 function sortReaderColumn(index, asc){
-	console.log(asc);
 	curAsc = asc;
 	curSort = index;
-	console.log(curSort);
 	sortArrayByIndex(readerArr, curSort, curAsc);
-	displayReaders();
 }
 
 /**
@@ -248,7 +261,7 @@ function sortArrayByIndex(array, index, asc){
 /**
  * Needs organization id fix
  */
-function addReader(id){
+function saveReader(id){
 	var index = getReaderByID(id);
 	// If adding a reader (id=0), initialize the readerArr[] array
 	if (id == 0) {
@@ -267,8 +280,10 @@ function addReader(id){
 	readerArr[index].idOrganization = document
 	        .getElementById('input-organization').value;
 	readerArr[index].readerTitle = document.getElementById('input-title').value;
-	readerArr[index].readsRemaining = document
-	        .getElementById('input-remaining-reads').value;
+	readerArr[index].readsRemaining = Number(document
+	        .getElementById('input-remaining-reads').value);
+	console.log(readerArr[index].readsRemaining);
+	console.log(3);
 	readerArr[index].startDate = document.getElementById('input-start').value;
 	readerArr[index].endDate = document.getElementById('input-end').value;
 	
@@ -297,7 +312,7 @@ function addReader(id){
 	}).done(function(data){
 		// Reload page with local js info, doesn't need a new SQL call
 		sortReaderColumn(curSort, curAsc);
-		// displayReaders();
+		displayReaders();
 	});
 };
 
@@ -337,8 +352,8 @@ function loaddata(id){
 		// Generate a duplicate, save, and cancel button
 		$('.edit-footer')
 		        .append(
-		                '<button type="button" class="btn btn-success close-load-modal" id="duplicateButton" onClick="addReader(0)" data-dismiss="modal">Duplicate</button>'
-		                        + '<button type="button" class="btn btn-danger close-load-modal"id="saveButton" onClick="addReader(activeID)" data-dismiss="modal">Save</button>'
+		                '<button type="button" class="btn btn-success close-load-modal" id="duplicateButton" onClick="saveReader(0)" data-dismiss="modal">Duplicate</button>'
+		                        + '<button type="button" class="btn btn-danger close-load-modal"id="saveButton" onClick="saveReader(activeID)" data-dismiss="modal">Save</button>'
 		                        + ' <button type="button" class="btn btn-warning close-load-modal" data-dismiss="modal">Cancel</button>');
 		
 	} else {
@@ -348,7 +363,7 @@ function loaddata(id){
 		// Generate a save and cancel button
 		$('.edit-footer')
 		        .append(
-		                '<button type="button" class="btn btn-danger close-load-modal"id="saveButton" onClick="addReader(activeID)" data-dismiss="modal">Save</button>'
+		                '<button type="button" class="btn btn-danger close-load-modal"id="saveButton" onClick="saveReader(activeID)" data-dismiss="modal">Save</button>'
 		                        + ' <button type="button" class="btn btn-warning close-load-modal" data-dismiss="modal">Cancel</button>');
 		
 		// Set checked to 1 (default)

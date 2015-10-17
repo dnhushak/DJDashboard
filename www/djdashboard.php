@@ -19,6 +19,7 @@
 <script src="js/classes/Artist.js"></script>
 <script src="js/classes/Album.js"></script>
 <script src="js/classes/Track.js"></script>
+<script src="js/libraries/utilities.js"></script>
 <script src="js/libraries/typeahead.js"></script>
 <script src="js/libraries/handlebars.js"></script>
 <script src="js/scripts/exceptionView.js"></script>

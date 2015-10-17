@@ -8,23 +8,41 @@
 		Click the edit button or double click a row to edit that reader. <br />Click
 		view to view the reader text quickly.
 		<hr>
-		<div class="dropdown">
-			<button class="btn btn-primary dropdown-toggle" type="button"
-				data-toggle="dropdown">
-				Select Reader Type: <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu readerTypes">
-				<li><a href=#>All</a></li>
-				<li role="separator" class="divider"></li>
-				<!-- empty, but filled by readerManager.js -->
-			</ul>
-			<button type="button" class="btn btn-primary view-inactive"
-				onClick="viewHideInactive()">View Inactive</button>
+		<div aria-label="...">
 			<button type="button" class="btn btn-primary"
 				onClick="addReaderButton()" id="addReaderButton">Add New</button>
-			<!-- <button type="button" class="btn btn-primary"
-				onClick="clearReaders()" id="clearReaderButton">Clear</button> -->
+			<div class="btn-group" role="group" aria-label="...">
+				<div class="btn-group" role="group">
+					<button class="btn btn-primary dropdown-toggle" type="button"
+						data-toggle="dropdown">
+						Select Types <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu readerTypes">
+						<li><a href=#>All</a></li>
+						<li role="separator" class="divider"></li>
+						<!-- empty, but filled by readerManager.js -->
+					</ul>
+				</div>
+				<button type="button" class="btn btn-primary view-inactive"
+					onClick="viewHideInactive()">View Inactive</button>
+
+				<div class="btn-group" role="group">
+					<button class="btn btn-primary dropdown-toggle button-per-page"
+						type="button" data-toggle="dropdown">
+						5 Per Page <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu readers-per-page">
+						<li onClick="changePerPage(5)"><a href=#>5</a></li>
+						<li onClick="changePerPage(10)"><a href=#>10</a></li>
+						<li onClick="changePerPage(25)"><a href=#>25</a></li>
+						<li onClick="changePerPage(50)"><a href=#>50</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
+		<!-- <button type="button" class="btn btn-primary"
+				onClick="clearReaders()" id="clearReaderButton">Clear</button> -->
+
 		<table class="noselect table table-hover exception-table">
 			<thead>
 				<th

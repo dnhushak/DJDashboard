@@ -16,6 +16,17 @@ var curAsc = 1;
 var lastButton = '.header-title';
 var lastButtonText = 'Title';
 
+// Current page of readers
+var curPage = 1;
+// Number of readers to display per page
+var numPerPage = 5;
+
+/**
+ * Todo List:
+ * Reader type selections 
+ * Privileges
+ */
+
 // Begins by getting all of the readers
 function getReaderTypes(){
 	$.ajax({
@@ -52,14 +63,13 @@ function displayReaderTypes(){
 	for (id in readerTypeArr) {
 		// Add each reader type to the dropdown menu in the main
 		// window
-		var psaHTML = '<li><a href=#>' + readerTypeArr[id]['name']
-		        + '<\a><\li>';
+		var html = '<li><a href=#>' + readerTypeArr[id]['name'] + '<\a><\li>';
 		
 		// And the options in the modal window
-		var psaHTMLSelect = '<option value="' + readerTypeArr[id]['id'] + '">'
+		var htmlSelect = '<option value="' + readerTypeArr[id]['id'] + '">'
 		        + readerTypeArr[id]['name'] + '</option>';
-		$('.readerTypes').append(psaHTML);
-		$('.reader-select').append(psaHTMLSelect);
+		$('.readerTypes').append(html);
+		$('.reader-select').append(htmlSelect);
 	}
 };
 
@@ -82,7 +92,7 @@ function getReaders(){
 			console.log(data);
 			return;
 		}
-		displayReaders();
+		displayReaders(curPage);
 	});
 };
 
@@ -129,7 +139,7 @@ function sortReaderButton(index, button, buttonText){
 	lastButtonText = buttonText;
 	curSort = index;
 	sortReaderColumn(curSort, curAsc);
-	displayReaders();
+	displayReaders(curPage);
 }
 
 function sortReaderColumn(index, asc){
@@ -138,70 +148,121 @@ function sortReaderColumn(index, asc){
 	sortArrayByIndex(readerArr, curSort, curAsc);
 }
 
+function changePerPage(perPage){
+	
+	$('.button-per-page').html('');
+	$('.button-per-page').append(
+	        perPage + ' Per Page<span class="caret"></span>');
+	numPerPage = perPage;
+	displayReaders(1);
+}
+
 /**
  * Displays all of the readers in the readerArr variable This is separated out
  * from the getReaders to allow for sorting, reorganization, etc.
  */
-function displayReaders(){
+function displayReaders(page){
 	// Empties out the readers div
 	$('.readers').html('');
 	// Iterates through every reader
+	// Starts at the beginning of each page, based on what the number per page
+	// is and the current page
+	curPage = page;
+	var start = (numPerPage * (curPage - 1));
+	var end = ((numPerPage * curPage));
+	var j = 0;
 	for (var i = 0; i < readerArr.length; i++) {
+		// console.log(i);
 		if ((readerArr[i].isActive == "1") || (activeOnly == 0)) {
 			// Assemble the HTML Table of all of the readers
 			// based on type
-			
-			// The starting HTML, blocking out user selection so
-			// double click doesn't look as awkward
-			var psaHTML = '<tr ondblclick="editReaderButton(' + readerArr[i].id
-			        + ')"  ' + readerArr[i].id;
-			
-			// Dull the background if the item is inactive
-			if (readerArr[i]['isActive'] == "0") {
-				psaHTML += '" bgcolor="#AAA">';
-			} else {
-				psaHTML += '">';
+			if (j >= start && j < end) {
+				// The starting HTML
+				var html = '<tr ondblclick="editReaderButton('
+				        + readerArr[i].id + ')"  ';
+				
+				// Dull the background if the item is inactive
+				if (readerArr[i]['isActive'] == "0") {
+					html += '" bgcolor="#AAA">';
+				} else {
+					html += '">';
+				}
+				;
+				
+				// Reader Title
+				html += '<td>' + readerArr[i].readerTitle + ' </td>';
+				
+				// Reader Type
+				html += '<td>' + readerArr[i].readerType + '</td>';
+				
+				// Number of reads remaining
+				html += '<td>' + readerArr[i].readsRemaining + '</td>';
+				
+				// End date of reader
+				html += '<td>' + readerArr[i].endDate + '</td>';
+				
+				// Edit button. The value="" is what is passed
+				// on to
+				// the edit function, which is the id of the
+				// reader.
+				html += '<td><button type="button" class="btn btn-primary btn-sm" id="editReaderButton" value="'
+				        + readerArr[i].id
+				        + '" onClick="editReaderButton('
+				        + readerArr[i].id
+				        + ')" value="'
+				        + readerArr[i].id
+				        + '">Edit</button></td>';
+				
+				// View button - to see what the text of the
+				// reader
+				// is
+				html += '<td><button type="button" class="btn btn-primary btn-sm" id="viewReaderButton" value="'
+				        + readerArr[i].id
+				        + '" onClick="viewReaderButton('
+				        + readerArr[i].id
+				        + ')" value="'
+				        + readerArr[i].id
+				        + '">View</button></td>';
+				
+				html += '</td>';
+				$('.readers').append(html);
 			}
-			;
-			
-			// Reader Title
-			psaHTML += '<td>' + readerArr[i].readerTitle + ' </td>';
-			
-			// Reader Type
-			psaHTML += '<td>' + readerArr[i].readerType + '</td>';
-			
-			// Number of reads remaining
-			psaHTML += '<td>' + readerArr[i].readsRemaining + '</td>';
-			
-			// End date of reader
-			psaHTML += '<td>' + readerArr[i].endDate + '</td>';
-			
-			// Edit button. The value="" is what is passed
-			// on to
-			// the edit function, which is the id of the
-			// reader.
-			psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="editReaderButton" value="'
-			        + readerArr[i].id
-			        + '" onClick="editReaderButton('
-			        + readerArr[i].id
-			        + ')" value="'
-			        + readerArr[i].id
-			        + '">Edit</button></td>';
-			
-			// View button - to see what the text of the
-			// reader
-			// is
-			psaHTML += '<td><button type="button" class="btn btn-primary btn-sm" id="viewReaderButton" value="'
-			        + readerArr[i].id
-			        + '" onClick="viewReaderButton('
-			        + readerArr[i].id
-			        + ')" value="'
-			        + readerArr[i].id
-			        + '">View</button></td>';
-			
-			psaHTML += '</td>';
-			$('.readers').append(psaHTML);
+			j++;
 		}
+	}
+	
+	// If there are enough displayed to necessitate a page, display pagination
+	// buttons
+	if (j >= numPerPage) {
+		
+		// Add the table row and div
+		html = '<tr><td colspan="6"><div class="btn-group" role="group" aria-label="...">';
+		// Start the page counter at 0
+		var buttonPage = 0;
+		// Iterate through every set of pages
+		for (var k = 0; k < j; k += numPerPage) {
+			// Every page, up the page counter
+			buttonPage++;
+			// Display the button with the page embedded in the display readers
+			// function
+			html += '<button type="button" onClick="displayReaders('
+			        + buttonPage + ')" class="btn ';
+			
+			// Check if this button represents the current page
+			if (buttonPage == page) {
+				// If it does, make the button blue
+				html += 'btn-primary';
+			} else {
+				// If not, make it grey
+				html += 'btn-default';
+			}
+			// Finish out the button
+			html += '">' + buttonPage + '</button>';
+		}
+		// Finish out the div, table and row
+		html += '</td></tr></div>';
+		// Actually apply the html
+		$('.readers').append(html);
 	}
 }
 
@@ -330,7 +391,7 @@ function saveReader(id){
 	}).done(function(data){
 		// Reload page with local js info, doesn't need a new SQL call
 		sortReaderColumn(curSort, curAsc);
-		displayReaders();
+		displayReaders(curPage);
 	});
 };
 
@@ -401,7 +462,7 @@ function viewHideInactive(){
 		activeOnly = 1;
 		$('.view-inactive').append("View Inactive");
 	}
-	displayReaders();
+	displayReaders(curPage);
 }
 
 $('.viewSpecificException').on('click', function(evt){

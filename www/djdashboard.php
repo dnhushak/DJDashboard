@@ -3,10 +3,10 @@
 <head>
 <title>Kure 88.5 Ames Alternative</title>
 <link rel="stylesheet" type="text/css" media="all"
-	href="../css/bootstrap.min.css">
+	href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" media="all"
-	href="../css/main.css">
-<link type="text/css" href="../jplayerSkin/jplayer.css" rel="stylesheet"
+	href="css/main.css">
+<link type="text/css" href="jplayerSkin/jplayer.css" rel="stylesheet"
 	media="all" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -14,15 +14,15 @@
 	href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-<script src="../js/libraries/bootstrap.min.js"></script>
-<script src="../js/scripts/PageLoad.js"></script>
-<script src="../js/scripts/initialLoad.js"></script>
-<script src="../js/classes/Artist.js"></script>
-<script src="../js/classes/Album.js"></script>
-<script src="../js/classes/Track.js"></script>
-<script src="../js/libraries/typeahead.js"></script>
-<script src="../js/libraries/handlebars.js"></script>
-<script src="../js/scripts/exceptionView.js"></script>
+<script src="js/libraries/bootstrap.min.js"></script>
+<script src="js/scripts/PageLoad.js"></script>
+<script src="js/scripts/initialLoad.js"></script>
+<script src="js/classes/Artist.js"></script>
+<script src="js/classes/Album.js"></script>
+<script src="js/classes/Track.js"></script>
+<script src="js/libraries/typeahead.js"></script>
+<script src="js/libraries/handlebars.js"></script>
+<script src="js/scripts/exceptionView.js"></script>
 
 </head>
 <body>
@@ -48,7 +48,7 @@
 	</nav>
 	<div class="container">
 		<div class="header">
-			<img alt="Logo" src="../resources/logo.png">
+			<img alt="Logo" src="resources/logo.png">
 		</div>
 		<ul class="nav nav-tabs nav-justified">
 			<li class="cursor active"><a id="home" style="cursor: pointer">Home</a></li>

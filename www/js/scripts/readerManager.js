@@ -11,20 +11,18 @@ var activeID;
 var activeOnly = 1;
 
 // Placeholder variables to store sorting information
-var curSort = 'readerTitle';
+var curSortColumn = 'readerTitle';
 var curAsc = 1;
-var lastButton = '.header-title';
-var lastButtonText = 'Title';
+var lastSortButton = '.header-title';
+var lastSortButtonText = 'Title';
 
 // Current page of readers
-var curPage = 1;
+var curDisplayPage = 1;
 // Number of readers to display per page
 var numPerPage = 5;
 
 /**
- * Todo List:
- * Reader type selections 
- * Privileges
+ * Todo List: Reader type selections Privileges Organization autofill
  */
 
 // Begins by getting all of the readers
@@ -63,7 +61,10 @@ function displayReaderTypes(){
 	for (id in readerTypeArr) {
 		// Add each reader type to the dropdown menu in the main
 		// window
-		var html = '<li><a href=#>' + readerTypeArr[id]['name'] + '<\a><\li>';
+		var html = '<li><a><input type="checkbox" id="'
+		        + readerTypeArr['name'] + '"> '
+		        + readerTypeArr[id]['name']
+		        + '<\a><\li>';
 		
 		// And the options in the modal window
 		var htmlSelect = '<option value="' + readerTypeArr[id]['id'] + '">'
@@ -92,14 +93,14 @@ function getReaders(){
 			console.log(data);
 			return;
 		}
-		displayReaders(curPage);
+		displayReaders(curDisplayPage);
 	});
 };
 
 /**
  * Gets the index of the reader based on its id
  */
-function getReaderByID(id){
+function getReaderIndexByID(id){
 	// Iterates through the reader array
 	for (var i = 0; i < readerArr.length; i++) {
 		// If the id is correct, return the index
@@ -111,41 +112,10 @@ function getReaderByID(id){
 	return readerArr.length;
 }
 
-function sortReaderButton(index, button, buttonText){
-	if (index == curSort) {
-		if (curAsc == 0) {
-			curAsc = 1;
-		} else {
-			curAsc = 0;
-		}
-	} else {
-		curAsc = 1;
-		$(lastButton).html('');
-		$(lastButton).append(lastButtonText);
-	}
-	$(button).html('');
-	if (curAsc == 1) {
-		$(button)
-		        .append(
-		                buttonText
-		                        + ' <span class="glyphicon glyphicon-triangle-bottom"></span>');
-	} else {
-		$(button)
-		        .append(
-		                buttonText
-		                        + ' <span class="glyphicon glyphicon-triangle-top"></span>');
-	}
-	lastButton = button;
-	lastButtonText = buttonText;
-	curSort = index;
-	sortReaderColumn(curSort, curAsc);
-	displayReaders(curPage);
-}
-
-function sortReaderColumn(index, asc){
+function sortReadersByColumn(index, asc){
 	curAsc = asc;
-	curSort = index;
-	sortArrayByIndex(readerArr, curSort, curAsc);
+	curSortColumn = index;
+	sortArrayByIndex(readerArr, curSortColumn, curAsc);
 }
 
 function changePerPage(perPage){
@@ -167,9 +137,9 @@ function displayReaders(page){
 	// Iterates through every reader
 	// Starts at the beginning of each page, based on what the number per page
 	// is and the current page
-	curPage = page;
-	var start = (numPerPage * (curPage - 1));
-	var end = ((numPerPage * curPage));
+	curDisplayPage = page;
+	var start = (numPerPage * (curDisplayPage - 1));
+	var end = ((numPerPage * curDisplayPage));
 	var j = 0;
 	for (var i = 0; i < readerArr.length; i++) {
 		// console.log(i);
@@ -265,40 +235,10 @@ function displayReaders(page){
 		$('.readers').append(html);
 	}
 }
-
-function viewReaderButton(id){
-	activeID = id;
-	// Acquire the index of the reader
-	var index = getReaderByID(id);
-	
-	// Clear out the header and bodies
-	$('.view-header').html('');
-	$('.view-body').html('');
-	$('.reader-text').html('');
-	
-	// Fill the header with the title of the reader
-	$('.view-header').append(
-	        '<h3>' + readerArr[index]['readerTitle'] + ' contents:</h3>');
-	// Fill the text area with the reader's text, in big lettering
-	$('.reader-text').append(
-	        "<big>" + readerArr[index]['readerText'] + "</big>");
-	$('#view-text').modal('show');
-};
-
-function editReaderButton(id){
-	// Load the data into the editor window and display it
-	loaddata(id);
-};
-
 function clearReaders(){
 	// Empties out the readers div
 	$('.readers').html('');
 }
-
-function addReaderButton(){
-	// Open the editor window with empty data
-	loaddata(0);
-};
 
 /**
  * Sorts a multidimensional array based on a given index
@@ -341,7 +281,7 @@ function sortArrayByIndex(array, index, asc){
  * Needs organization id fix
  */
 function saveReader(id){
-	var index = getReaderByID(id);
+	var index = getReaderIndexByID(id);
 	// If adding a reader (id=0), initialize the readerArr[] array
 	if (id == 0) {
 		readerArr[index] = [];
@@ -390,19 +330,20 @@ function saveReader(id){
 	    url : "../php/execute.php"
 	}).done(function(data){
 		// Reload page with local js info, doesn't need a new SQL call
-		if(id == 0){
-			// If it's an addition or duplication, refetch to maintain id coherency
+		if (id == 0) {
+			// If it's an addition or duplication, refetch to maintain id
+			// coherency
 			getReaders();
 		}
-		sortReaderColumn(curSort, curAsc);
-		displayReaders(curPage);
+		sortReadersByColumn(curSortColumn, curAsc);
+		displayReaders(curDisplayPage);
 	});
 };
 
 function loaddata(id){
 	activeID = id;
 	// getReaderTypes();
-	var index = getReaderByID(id);
+	var index = getReaderIndexByID(id);
 	
 	// Empty out all of the fields
 	$('.add-update-header').html('');
@@ -457,16 +398,138 @@ function loaddata(id){
 	
 };
 
-function viewHideInactive(){
+/**
+ * UI Calls - button functions
+ */
+
+/**
+ * Called when the "View/Hide Inactive" button is pressed. Shows or hides
+ * inactive readers
+ */
+function inactiveButton(){
+	// Reset text of the button
 	$('.view-inactive').html('');
+	// If we are currently hiding inactive...
 	if (activeOnly == 1) {
+		// Then set the variable to activeOnly to 0, indicating show inactive
 		activeOnly = 0;
+		// Change the button text to "Hide Inactive"
 		$('.view-inactive').append("Hide Inactive");
 	} else {
+		// Otherwise switch activeOnly to 1
 		activeOnly = 1;
+		// Change the button text to "View Inactive"
 		$('.view-inactive').append("View Inactive");
 	}
-	displayReaders(curPage);
+	// Recall display readers, which shows or hides inactive based on the
+	// activeOnly variable
+	displayReaders(curDisplayPage);
+}
+
+/**
+ * Called when the "View Reader" button is pressed Displays a modal window
+ * showing the reader text
+ * 
+ * @param id
+ *            The id of the reader to view (not the index in the readerArr!)
+ */
+function viewReaderButton(id){
+	activeID = id;
+	// Acquire the index of the reader
+	var index = getReaderIndexByID(id);
+	
+	// Clear out the header and bodies
+	$('.view-header').html('');
+	$('.view-body').html('');
+	$('.reader-text').html('');
+	
+	// Fill the header with the title of the reader
+	$('.view-header').append(
+	        '<h3>' + readerArr[index]['readerTitle'] + ' contents:</h3>');
+	// Fill the text area with the reader's text, in big lettering
+	$('.reader-text').append(
+	        "<big>" + readerArr[index]['readerText'] + "</big>");
+	$('#view-text').modal('show');
+};
+
+/**
+ * Called when the edit button is pressed. Loads reader data from readerArr and
+ * fills it into the modal popup box
+ * 
+ * @param id
+ *            The id of the reader to edit (not the index in the readerArr!)
+ */
+function editReaderButton(id){
+	// Load the data into the editor window and display it
+	loaddata(id);
+};
+
+/**
+ * Called when the "Add New" button is pressed. Opens up the modal box with
+ * empty info
+ */
+function addReaderButton(){
+	// Open the editor window with empty data
+	loaddata(0);
+};
+
+/**
+ * Called when a column header is pressed, to allow for various sorting methods
+ * 
+ * @param index
+ *            The string of the readerArr index to sort by, i.e. 'readerTitle'
+ *            or 'readsRemaining'
+ * @param button
+ *            The class name of the button pressed, to allow for the up/down
+ *            glyphicons to be updated in the DOM
+ * @param buttonText
+ *            The text of the button pressed, to be able to refill the button
+ *            after sorting
+ */
+function sortReaderButton(index, button, buttonText){
+	// If we are already sorting by this index
+	if (index == curSortColumn) {
+		// Then change the ascending to descending
+		if (curAsc == 0) {
+			curAsc = 1;
+		} else {
+			curAsc = 0;
+		}
+	} else {
+		// Otherwise, set to ascending and remove the arrow glyphicon in the old
+		// button
+		curAsc = 1;
+		// Reset the last button text to nothing
+		$(lastSortButton).html('');
+		// Refill the button text with the text alone, no glyphicon
+		$(lastSortButton).append(lastSortButtonText);
+	}
+	// Reset the pressed buttons text
+	$(button).html('');
+	// Add the text
+	$(button).append(buttonText);
+	// Add the glyphicon
+	if (curAsc == 1) {
+		// If ascending, add an arrow pointing down
+		$(button).append(
+		        ' <span class="glyphicon glyphicon-triangle-bottom"></span>');
+	} else {
+		// If descending, add an arrow pointing up
+		$(button).append(
+		        ' <span class="glyphicon glyphicon-triangle-top"></span>');
+	}
+	// Store this current button's class and text in the last variables, so when
+	// the next button is pressed, this one can be reset
+	lastSortButton = button;
+	lastSortButtonText = buttonText;
+	
+	// Store the input index as the new current sort column
+	curSortColumn = index;
+	
+	// Call the actual sort function
+	sortReadersByColumn(curSortColumn, curAsc);
+	// Redisplay the readers, staying on the same page
+	displayReaders(curDisplayPage);
 }
 
 $('.viewSpecificException').on('click', function(evt){

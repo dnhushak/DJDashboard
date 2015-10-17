@@ -1,6 +1,6 @@
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <?php
-include ('../php/scripts/stringFunctions.php');
+include ('../stringFunctions.php');
 echo "Testing string normalization functions...<br/><br/>Periods are placed to show extra spaces<br/><br/>";
 $str [1] = "cApiTaliZAtIon tEST";
 $str [2] = "!@#%^&*()-=+[]{}\|/'\";:?.,><`~ Björk çäñ't \$éê án¥thîng, Even that one album called /\\/\\ /\\ \\/ /\\";
@@ -13,11 +13,5 @@ $str [8] = " Weird    Spaces 		Test     ";
 $str [9] = "DROP TABLE *";
 foreach ($str as $val) {
 	echo "." . $val . "." . "  ->  " . "." . normalizeAll($val) . "." . "<br/>";
-}
-
-$temp = array();
-$temp = normalizeStringArray($str);
-foreach ($temp as $val) {
- echo "." . $val . ".<br/>";
 }
 ?>

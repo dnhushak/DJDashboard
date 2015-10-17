@@ -13,7 +13,7 @@ $(document).ready(function() {
 	}
 
 	$.ajax({
-		url : 'home.html',
+		url : 'html/home.html',
 		type : 'POST',
 		success : function() {
 		}
@@ -25,7 +25,7 @@ $(document).ready(function() {
 	$("#home").on('click', function() {
 		changeActive('home');
 		$.ajax({
-			url : 'home.html',
+			url : 'html/home.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	$("#on-air").on('click', function() {
 		changeActive('on-air');
 		$.ajax({
-			url : 'onair.html',
+			url : 'html/onair.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -49,7 +49,7 @@ $(document).ready(function() {
 	$("#library").on('click', function() {
 		changeActive('library');
 		$.ajax({
-			url : 'library.html',
+			url : 'html/library.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -60,7 +60,7 @@ $(document).ready(function() {
 	$("#profile").on('click', function() {
 		changeActive('profile');
 		$.ajax({
-			url : 'profile.html',
+			url : 'html/profile.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -72,7 +72,7 @@ $(document).ready(function() {
 	$("#view-exceptions").on('click', function() {
 		makeAdminActive();
 		$.ajax({
-			url : 'errorViewer.html',
+			url : 'html/errorViewer.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -84,7 +84,7 @@ $(document).ready(function() {
 	$("#manage-user").on('click', function() {
 		makeAdminActive();
 		$.ajax({
-			url : 'manageUsers.html',
+			url : 'html/manageUsers.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -96,7 +96,7 @@ $(document).ready(function() {
 	$("#manage-user-types").on('click', function() {
 		makeAdminActive();
 		$.ajax({
-			url : 'manageUserTypes.html',
+			url : 'html/manageUserTypes.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -108,7 +108,7 @@ $(document).ready(function() {
 	$("#manage-readers").on('click', function() {
 		changeActive('manage-readers');
 		$.ajax({
-			url : 'manageReaders.html',
+			url : 'html/manageReaders.html',
 			type : 'POST',
 			success : function() {
 			}
@@ -120,7 +120,7 @@ $(document).ready(function() {
 	$("#analytics").on('click', function() {
 		makeAdminActive();
 		$.ajax({
-			url : 'analytics.html',
+			url : 'html/analytics.html',
 			type : 'POST',
 			success : function() {
 			}

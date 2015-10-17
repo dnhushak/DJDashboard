@@ -7,14 +7,14 @@ session_start();
 <head>
 <title>Kure 88.5 Ames Alternative</title>
 <link rel="stylesheet" type="text/css" media="all"
-	href="../css/bootstrap.min.css">
+	href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" media="all"
-	href="../css/main.css">
-<link type="text/css" href="../jplayerSkin/jplayer.css" rel="stylesheet"
+	href="css/main.css">
+<link type="text/css" href="jplayerSkin/jplayer.css" rel="stylesheet"
 	media="all" />
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="../js/libraries/bootstrap.min.js"></script>
-<script src="../js/scripts/login_verify.js"></script>
+<script src="js/libraries/bootstrap.min.js"></script>
+<script src="js/scripts/login_verify.js"></script>
 
 </head>
 <body>
@@ -24,8 +24,8 @@ session_start();
 	
 	// / All of this is to end sessions and on air sessions in the DB. All of it is based from session variables.
 	// / rclabou, 03/31/2014
-	include_once ('../php/publisher.php');
-	include_once ('../php/sqlconnect.php');
+	include_once ('php/publisher.php');
+	include_once ('php/sqlconnect.php');
 	if (session_status() == PHP_SESSION_NONE) {
 		session_start();
 	}
@@ -71,7 +71,7 @@ session_start();
 	?>
 	<div class="container">
 		<div class="header">
-			<img alt="Logo" src="../resources/logo.png">
+			<img alt="Logo" src="resources/logo.png">
 		</div>
 		<div id="content"
 			style="border-top-left-radius: 4px; border-top-right-radius: 4px; margin-top: 10px;">

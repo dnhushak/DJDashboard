@@ -76,9 +76,6 @@
 			if ((isset($_SESSION ['pPsaManage']) && ($_SESSION ['pPsaManage'] == "1")) || (isset($_SESSION ['pGrantEdit']) && ($_SESSION ['pGrantEdit'] == "1")) || (isset($_SESSION ['pManageUsers']) && ($_SESSION ['pManageUsers'] == "1")) || (isset($_SESSION ['pPermissionEdit']) && ($_SESSION ['pPermissionEdit'] == "1")) || (isset($_SESSION ['plibrarymanage']) && ($_SESSION ['plibrarymanage'] == "1"))) {
 				
 				$htmlStr = '<li id="admin" class="cursor dropdown"><a id="dropdown-toggle" data-toggle="dropdown" href="#">Admin<span class="caret"></span></a><ul class="dropdown-menu">';
-				if (isset($_SESSION ['pGrantEdit']) && ($_SESSION ['pGrantEdit'] == "1")) {
-					$htmlStr .= '<li><a class="cursor" id="manage-grant">Manage Grants</a></li>';
-				}
 				if (isset($_SESSION ['pManageUsers']) && ($_SESSION ['pManageUsers'] == "1")) {
 					$htmlStr .= '<li><a id="manage-user">Manage Users</a></li>';
 					$htmlStr .= '<li><a class="cursor" id="view-exceptions">View Exceptions</a></li>';

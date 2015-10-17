@@ -69,18 +69,6 @@ $(document).ready(function() {
 			$("#content").css("height", "initial");
 		});
 	});
-	$("#manage-psa").on('click', function() {
-		makeAdminActive();
-		$.ajax({
-			url : 'managePSAs.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-			$("#content").css("height", "initial");
-		});
-	})
 	$("#view-exceptions").on('click', function() {
 		makeAdminActive();
 		$.ajax({
@@ -109,18 +97,6 @@ $(document).ready(function() {
 		makeAdminActive();
 		$.ajax({
 			url : 'manageUserTypes.html',
-			type : 'POST',
-			success : function() {
-			}
-		}).done(function(html) {
-			$("#content").html(html);
-			$("#content").css("height", "initial");
-		});
-	})
-	$("#manage-grant").on('click', function() {
-		makeAdminActive();
-		$.ajax({
-			url : 'manageGrants.html',
 			type : 'POST',
 			success : function() {
 			}

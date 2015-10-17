@@ -9,6 +9,9 @@ var readerArr = {};
 // Array that all reader typers are held in
 var readerTypeArr = {};
 
+// Array holding all organizations
+var readerOrgArr = {};
+
 // The currently "Active" reader
 var activeID;
 
@@ -60,9 +63,38 @@ function getReaderTypes(){
 	});
 };
 
+//Begins by getting all of the readers
+function getReaderOrgs(){
+	$.ajax({
+	    type : "POST",
+	    data : {
+		    'command' : 'getAllReaderOrgs'
+	    },
+	    url : "../php/execute.php"
+	}).done(function(data){
+		try {
+			// Parses the returned JSON object into a js array
+			readerOrgs = JSON.parse(data);
+		} catch (e) {
+			console.log(data);
+			return;
+		}
+		
+		// Runs through all of the reader types
+		for (var i = 0; i < readerOrgs.length; i++) {
+			// Assigns the reader types to an array, indexable by the
+			// reader Type ID
+			var id = readerOrgs[i]['id'];
+			readerOrgArr[id] = {};
+			readerOrgArr[id] = readerTypes[i];
+			readerOrgArr[id].view = 1;
+		}
+	});
+};
+
+
 // Begins by getting all of the readers
 function displayReaderTypes(){
-	
 	for (id in readerTypeArr) {
 		// Add each reader type to the dropdown menu in the main
 		// window
@@ -514,4 +546,12 @@ $('document').ready(function(){
 	// INITIAL LOAD
 	getReaderTypes();
 	getReaders();
+	getReaderOrgs();
+	
+	
+	$('input.typeahead').typeahead({
+	      name: 'accounts',
+	      local: ['Audi', 'BMW', 'Bugatti', 'Ferrari', 'Ford', 'Lamborghini', 'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen']
+	    });
+	 
 });

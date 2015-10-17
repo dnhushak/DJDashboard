@@ -6,7 +6,11 @@
 		<h2>Manage Readers</h2>
 		Click on a column header to sort. Click again to sort in reverse.<br />
 		Click the edit button or double click a row to edit that reader. <br />Click
-		view to view the reader text quickly.
+		view to view the reader text quickly.<br />
+		<div class="bs-example">
+			<input type="text" class="typeahead tt-query" autocomplete="off"
+				spellcheck="false" placeholder="Testing autocomplete...">
+		</div>
 		<hr>
 		<div aria-label="...">
 			<button type="button" class="btn btn-primary"
@@ -87,7 +91,7 @@
 
 				<div class="form-group">
 					<label for="input-title">Reader Title</label> <input type="text"
-						class="form-control typeahead" id="input-title" autocomplete="off"
+						class="form-control" id="input-title" autocomplete="off"
 						spellcheck="false" placeholder="Reader Name">
 				</div>
 
@@ -100,9 +104,10 @@
 
 				<div class="form-group">
 					<label for="input-organization">Affiliated Organization</label> <input
-						type="text" class="form-control typeahead" id="input-organization"
+						type="text" class="form-control" id="input-organization"
 						placeholder="Organization affiliated with Message">
 				</div>
+
 				<div class="form-group">
 					<label for="input-text">Message</label> <small><i>All
 							formatting will be lost.</i></small>
@@ -130,7 +135,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="input-start" class="col-sm-4 control-label">Kill
+						<label for="input-start" class="col-sm-4 control-label">End
 							Date</label>
 						<div class="col-sm-7">
 							<input type="date" class="form-control" id="input-end">

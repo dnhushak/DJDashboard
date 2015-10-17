@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-	<database connectionString="mysql.cs.iastate.edu" port="3306" password="pkMDpK6Rh" schema="db30919"
-		username="u30919" />
-	<subsonic />
-</configuration>

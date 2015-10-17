@@ -390,6 +390,10 @@ function saveReader(id){
 	    url : "../php/execute.php"
 	}).done(function(data){
 		// Reload page with local js info, doesn't need a new SQL call
+		if(id == 0){
+			// If it's an addition or duplication, refetch to maintain id coherency
+			getReaders();
+		}
 		sortReaderColumn(curSort, curAsc);
 		displayReaders(curPage);
 	});

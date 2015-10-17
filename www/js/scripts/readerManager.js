@@ -2,7 +2,8 @@
  * ! Requires utilities.js !
  */
 
-// Array that all the reader info is temporarily held in, to prevent excessive db connections
+// Array that all the reader info is temporarily held in, to prevent excessive
+// db connections
 var readerArr = {};
 
 // Array that all reader typers are held in
@@ -65,10 +66,8 @@ function displayReaderTypes(){
 	for (id in readerTypeArr) {
 		// Add each reader type to the dropdown menu in the main
 		// window
-		var html = '<li><a><input type="checkbox" id="'
-		        + readerTypeArr['name'] + '"> '
-		        + readerTypeArr[id]['name']
-		        + '<\a><\li>';
+		var html = '<li><a><input type="checkbox" id="' + readerTypeArr['name']
+		        + '"> ' + readerTypeArr[id]['name'] + '<\a><\li>';
 		
 		// And the options in the modal window
 		var htmlSelect = '<option value="' + readerTypeArr[id]['id'] + '">'
@@ -120,15 +119,6 @@ function sortReadersByColumn(index, asc){
 	curAsc = asc;
 	curSortColumn = index;
 	sortArrayByIndex(readerArr, curSortColumn, curAsc);
-}
-
-function changePerPage(perPage){
-	
-	$('.button-per-page').html('');
-	$('.button-per-page').append(
-	        perPage + ' Per Page<span class="caret"></span>');
-	numPerPage = perPage;
-	displayReaders(1);
 }
 
 /**
@@ -368,6 +358,22 @@ function loaddata(id){
 /**
  * UI Calls - button functions
  */
+
+/**
+ * Called from the "per page" dropdown menu. Changes the # of readers per page,
+ * and reloads the page
+ */
+function changePerPageButton(perPage){
+	// Resets the button text
+	$('.button-per-page').html('');
+	// Changes the button text to say how many readers per page
+	$('.button-per-page').append(
+	        perPage + ' Per Page<span class="caret"></span>');
+	// Changes the number per page
+	numPerPage = perPage;
+	// Reloads readers
+	displayReaders(1);
+}
 
 /**
  * Called when the "View/Hide Inactive" button is pressed. Shows or hides

@@ -4,8 +4,7 @@
 <title>Kure 88.5 Ames Alternative</title>
 <link rel="stylesheet" type="text/css" media="all"
 	href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" media="all"
-	href="css/main.css">
+<link rel="stylesheet" type="text/css" media="all" href="css/main.css">
 <link type="text/css" href="jplayerSkin/jplayer.css" rel="stylesheet"
 	media="all" />
 <script
@@ -15,7 +14,7 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script src="js/libraries/bootstrap.min.js"></script>
-<script src="js/scripts/PageLoad.js"></script>
+<script src="js/scripts/loadContent.js"></script>
 <script src="js/scripts/initialLoad.js"></script>
 <script src="js/classes/Artist.js"></script>
 <script src="js/classes/Album.js"></script>
@@ -95,10 +94,10 @@
 
 		<div id="footer">
 			Copyright &copy; 2014 88.5 KURE Ames Alternative. All Rights
-			Reserved. KURE is Funded by <a target="_BLANK" href="http://www.stugov.iastate.edu">Student
-				Government</a>. <a style="float: right" href="index.php"><button
-					id="logout" class="btn btn-default"
-					style="position: relative; top: -8px">Logout</button></a>
+			Reserved. KURE is Funded by <a target="_BLANK"
+				href="http://www.stugov.iastate.edu">Student Government</a>. <a
+				style="float: right" href="index.php"><button id="logout"
+					class="btn btn-default" style="position: relative; top: -8px">Logout</button></a>
 			<?php
 			if (session_status() == PHP_SESSION_NONE) {
 				session_start();

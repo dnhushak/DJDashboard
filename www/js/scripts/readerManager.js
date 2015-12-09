@@ -63,7 +63,7 @@ function getReaderTypes(){
 	});
 };
 
-//Begins by getting all of the readers
+// Begins by getting all of the readers
 function getReaderOrgs(){
 	$.ajax({
 	    type : "POST",
@@ -91,7 +91,6 @@ function getReaderOrgs(){
 		}
 	});
 };
-
 
 // Begins by getting all of the readers
 function displayReaderTypes(){
@@ -329,7 +328,7 @@ function saveReader(id){
 	});
 };
 
-function loaddata(id){
+function loadData(id){
 	activeID = id;
 	// getReaderTypes();
 	var index = getReaderIndexByID(id);
@@ -338,7 +337,7 @@ function loaddata(id){
 	$('.add-update-header').html('');
 	$('.edit-footer').html('');
 	document.getElementById('input-title').value = "";
-	document.getElementById('input-type').value = "";
+	document.getElementById('input-type').value = 1;
 	document.getElementById('input-text').value = "";
 	document.getElementById('input-organization').value = "";
 	document.getElementById('input-remaining-reads').value = "";
@@ -365,8 +364,9 @@ function loaddata(id){
 		// Generate a duplicate, save, and cancel button
 		$('.edit-footer')
 		        .append(
-		                '<button type="button" class="btn btn-success close-load-modal" id="duplicateButton" onClick="saveReader(0)" data-dismiss="modal">Duplicate</button>'
-		                        + '<button type="button" class="btn btn-danger close-load-modal"id="saveButton" onClick="saveReader(activeID)" data-dismiss="modal">Save</button>'
+		                '<button type="button" class="btn btn-danger close-load-modal"id="deleteButton" onClick="deleteReaderButton(activeID)" data-dismiss="modal">Delete</button>'
+		                        + '<button type="button" class="btn btn-success close-load-modal" id="duplicateButton" onClick="saveReader(0)" data-dismiss="modal">Duplicate</button>'
+		                        + '<button type="button" class="btn btn-success close-load-modal"id="saveButton" onClick="saveReader(activeID)" data-dismiss="modal">Save</button>'
 		                        + ' <button type="button" class="btn btn-warning close-load-modal" data-dismiss="modal">Cancel</button>');
 		
 	} else {
@@ -428,7 +428,7 @@ function inactiveButton(){
 	}
 	// Recall display readers, which shows or hides inactive based on the
 	// activeOnly variable
-	displayReaders(curDisplayPage);
+	displayReaders(1);
 }
 
 /**
@@ -466,7 +466,28 @@ function viewReaderButton(id){
  */
 function editReaderButton(id){
 	// Load the data into the editor window and display it
-	loaddata(id);
+	loadData(id);
+};
+
+/**
+ * Called when the "Delete" button is pressed. Removes the reader from the
+ * database
+ */
+function deleteReaderButton(id){
+	$.ajax({
+	    type : "POST",
+	    data : {
+	        'command' : 'DeleteReaderByID',
+	        'id' : id
+	    },
+	    url : "../php/execute.php"
+	})
+	// After getting the data, parse out the JSON into the readerArr
+	.done(function(data){
+		getReaders();
+		sortReadersByColumn(curSortColumn, curAsc);
+		displayReaders(1);
+	});
 };
 
 /**
@@ -475,7 +496,7 @@ function editReaderButton(id){
  */
 function addReaderButton(){
 	// Open the editor window with empty data
-	loaddata(0);
+	loadData(0);
 };
 
 /**
@@ -547,11 +568,4 @@ $('document').ready(function(){
 	getReaderTypes();
 	getReaders();
 	getReaderOrgs();
-	
-	
-	$('input.typeahead').typeahead({
-	      name: 'accounts',
-	      local: ['Audi', 'BMW', 'Bugatti', 'Ferrari', 'Ford', 'Lamborghini', 'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen']
-	    });
-	 
 });

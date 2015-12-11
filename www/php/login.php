@@ -21,7 +21,7 @@ if ($results === true || $results === false) {
 	echo json_encode(array (
 			"error" => "Username and password did not match." ));
 	// adding in user error logging, we want to keep track of failed logins.
-	Publisher::publishUserError(0, $user . ' tried logging in; Username did not exist', 'UserManager.php -> login');
+	Publisher::publishUserError(0, $user . ' tried logging in; Username did not exist', 'login.php');
 	session_unset();
 	exit();
 }
@@ -80,6 +80,8 @@ if ($success) {
 else {
 	echo json_encode(array (
 			"error" => "Username and password did not match." ));
-	session_unset();
+	Publisher::publishUserError(0, $user . ' tried logging in; Incorrect password', 'login.php');
+	session_unset ();
+	exit();
 }
 ?>
